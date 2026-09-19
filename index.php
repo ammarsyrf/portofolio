@@ -1841,7 +1841,7 @@ if (!empty($profile['cv_file'])) {
               <span class="contact-card-copy">
                 <span class="contact-kicker">Email langsung</span>
                 <strong>Mulai percakapan profesional</strong>
-                <small><?= e($profile['email']) ?></small>
+                <small>Untuk kolaborasi, rekrutmen, dan diskusi proyek</small>
               </span>
               <span class="contact-card-arrow" aria-hidden="true">↗</span>
             </a>
@@ -1854,7 +1854,7 @@ if (!empty($profile['cv_file'])) {
               <span class="contact-card-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.6-4.1A8 8 0 1 1 20 11.5Z"/><path d="M8.5 8.4c.3-.7.6-.7.9-.7h.4c.3 0 .4.1.5.4l.7 1.6c.1.2.1.4 0 .6l-.4.5c-.1.1-.1.3 0 .4.5.9 1.2 1.6 2.1 2.1.1.1.3.1.4 0l.5-.5c.2-.1.4-.1.6 0l1.6.7c.3.1.4.3.4.5v.4c0 .3 0 .6-.7.9-.4.2-1.1.3-2.1-.2-1-.5-2.5-1.5-3.5-3.2-1-1.6-1.1-2.9-.8-3.5Z"/></svg>
               </span>
-              <span class="contact-card-copy"><span class="contact-kicker">Respons cepat</span><strong>Chat via WhatsApp</strong><small><?= e($profile['whatsapp']) ?></small></span>
+              <span class="contact-card-copy"><span class="contact-kicker">Respons cepat</span><strong>Chat via WhatsApp</strong><small>Balas cepat pada jam kerja</small></span>
               <span class="contact-card-arrow" aria-hidden="true">↗</span>
             </a>
           <?php endif; ?>
