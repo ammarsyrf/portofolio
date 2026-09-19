@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /porto/
+
+    # Shortcut /login -> admin/login.php
+    RewriteRule ^login/?$ admin/login.php [L,R=302]
+
+    # Clean URL routing ke folder pages/
+    RewriteRule ^achievements(\.php)?/?$ pages/achievements.php [L]
+    RewriteRule ^creations(\.php)?/?$ pages/creations.php [L]
+    RewriteRule ^guestbook(\.php)?/?$ pages/guestbook.php [L]
+    RewriteRule ^links(\.php)?/?$ pages/links.php [L]
+</IfModule>

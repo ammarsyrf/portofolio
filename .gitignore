@@ -1,0 +1,14 @@
+# Local configuration and credentials
+config.php
+.env
+.env.*
+!.env.example
+
+# Local render checks and temporary inspection clones
+scratch/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
