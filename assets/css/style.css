@@ -412,7 +412,7 @@ button, input, textarea, select {
     top: 0;
     bottom: 0;
     /* Sejajarkan rail dengan tepi konten utama, bukan tepi viewport. */
-    left: max(1.25rem, calc(50% - 42.5rem - 0.75rem));
+    left: max(1.25rem, calc(50% - 42.5rem - 10.5rem));
     display: flex;
     align-items: center;
     width: 68px;
