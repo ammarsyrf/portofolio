@@ -418,12 +418,14 @@ button, input, textarea, select {
     width: 68px;
     margin: 0;
     pointer-events: none;
+    transition: width var(--transition-base);
   }
 
   .site-header .site-container {
     width: 100%;
     padding: 0;
     pointer-events: auto;
+    transition: width var(--transition-base);
   }
 
   .nav-pill-bar {
@@ -435,6 +437,7 @@ button, input, textarea, select {
     border-radius: 24px;
     overflow-y: auto;
     scrollbar-width: none;
+    transition: width var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
   }
 
   .nav-pill-bar::-webkit-scrollbar {
@@ -449,11 +452,20 @@ button, input, textarea, select {
     padding-bottom: 0.55rem;
   }
 
-  .nav-brand-pill .brand-name,
-  .nav-label,
   .btn-hire-text,
   .kbd-shortcut {
     display: none;
+  }
+
+  .nav-brand-pill .brand-name,
+  .nav-label {
+    display: block;
+    width: 0;
+    max-width: 0;
+    overflow: hidden;
+    opacity: 0;
+    white-space: nowrap;
+    transition: max-width var(--transition-base), opacity var(--transition-fast);
   }
 
   .nav-menu,
@@ -476,6 +488,8 @@ button, input, textarea, select {
     padding: 0;
     border: 1px solid transparent;
     border-radius: 14px;
+    gap: 0.7rem;
+    overflow: hidden;
   }
 
   .nav-item-icon {
@@ -514,6 +528,47 @@ button, input, textarea, select {
 
   .btn-hire-plus {
     font-size: 1.15rem;
+  }
+
+  .site-header:hover,
+  .site-header:focus-within {
+    width: 220px;
+  }
+
+  .site-header:hover .site-container,
+  .site-header:focus-within .site-container,
+  .site-header:hover .nav-pill-bar,
+  .site-header:focus-within .nav-pill-bar {
+    width: 220px;
+  }
+
+  .site-header:hover .nav-pill-bar,
+  .site-header:focus-within .nav-pill-bar {
+    border-color: rgba(76, 141, 255, 0.34);
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.62), 0 0 28px rgba(76, 141, 255, 0.12);
+  }
+
+  .site-header:hover .nav-brand-pill,
+  .site-header:focus-within .nav-brand-pill {
+    justify-content: flex-start;
+    width: 100%;
+    padding-left: 0.3rem;
+  }
+
+  .site-header:hover .nav-pill,
+  .site-header:focus-within .nav-pill {
+    justify-content: flex-start;
+    width: 100%;
+    padding: 0 0.75rem;
+  }
+
+  .site-header:hover .nav-brand-pill .brand-name,
+  .site-header:focus-within .nav-brand-pill .brand-name,
+  .site-header:hover .nav-label,
+  .site-header:focus-within .nav-label {
+    width: auto;
+    max-width: 130px;
+    opacity: 1;
   }
 
   main.site-container,
