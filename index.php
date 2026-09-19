@@ -1760,6 +1760,7 @@ if (!empty($profile['cv_file'])) {
           <h2 class="section-title">Hasil Karya & Sistem Bisnis</h2>
         </div>
 
+        <p class="projects-mobile-swipe-hint" aria-hidden="true">Geser kartu untuk melihat proyek lainnya</p>
         <div class="projects-grid">
           <?php if (empty($projects)): ?>
             <p style="color: var(--color-text-dim);">Belum ada proyek yang dipublikasikan.</p>
