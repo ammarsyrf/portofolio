@@ -2540,6 +2540,19 @@ section[id] {
   margin-top: auto;
 }
 
+.deck-contact-private-note {
+  display: flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid rgba(122, 175, 255, 0.14);
+  border-radius: 9px;
+  background: rgba(76, 141, 255, 0.06);
+  color: var(--color-text-dim);
+  font-size: 0.67rem;
+  line-height: 1.35;
+}
+
 .deck-contact-pill-val {
   display: flex;
   flex-direction: column;

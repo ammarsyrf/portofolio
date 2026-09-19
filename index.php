@@ -1195,16 +1195,16 @@ if (!empty($profile['cv_file'])) {
                       <span class="deck-contact-icon">✉</span>
                       <div>
                         <span class="deck-eyebrow">Jalur formal</span>
-                        <h4>Email Langsung</h4>
+                        <h4>Email Profesional</h4>
                       </div>
                     </div>
                     <p class="deck-contact-lead">
-                      Terbuka untuk tawaran posisi Fullstack Developer, Data Analyst, atau proyek konsultasi sistem.
+                      Untuk kolaborasi, rekrutmen, atau konsultasi pengembangan sistem.
                     </p>
                     <div class="deck-contact-action-area">
-                      <div class="deck-contact-pill-val"><span>Email utama</span><strong><?= e($profile['email']) ?></strong></div>
+                      <span class="deck-contact-private-note">Alamat email tidak ditampilkan secara publik.</span>
                       <a href="mailto:<?= e($profile['email']) ?>" class="deck-contact-action-btn">
-                        <span>Kirim Email</span>
+                        <span>Kirim Email</span><span aria-hidden="true">↗</span>
                       </a>
                     </div>
                   </div>
