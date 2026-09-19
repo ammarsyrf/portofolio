@@ -351,7 +351,7 @@ if (!empty($profile['cv_file'])) {
                       ?>
                         <div class="bento-media-mini-card btn-detail-trigger" data-id="<?= (int)$mp['id'] ?>" role="button" tabindex="0" title="Buka detail <?= e($mp['title']) ?>">
                           <?php if (!empty($mpImg)): ?>
-                            <img src="<?= e($mpImg) ?>" alt="<?= e($mp['title']) ?>" loading="lazy" />
+                            <img src="<?= e($mpImg) ?>" alt="<?= e($mp['title']) ?>" loading="eager" fetchpriority="high" decoding="async" />
                           <?php else: ?>
                             <div class="media-thumb-placeholder"><?= strtoupper(substr($mp['title'], 0, 2)) ?></div>
                           <?php endif; ?>

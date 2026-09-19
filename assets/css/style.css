@@ -2728,8 +2728,10 @@ section[id] {
   }
 
   .bento-deck-panel[data-panel="0"] .bento-media-mini-card {
-    flex-basis: 82%;
-    height: auto;
+    /* Tiga karya tampil seimbang; item berikutnya tetap dapat digeser. */
+    flex: 0 0 calc((100% - 1.3rem) / 3);
+    /* Kunci tinggi thumbnail sejak paint pertama agar refresh tidak meloncat. */
+    height: 100%;
     min-height: 0;
   }
 }
