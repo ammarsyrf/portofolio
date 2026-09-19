@@ -29,16 +29,32 @@ if (isset($profile) && !empty($profile['photo']) && file_exists(UPLOAD_DIR_PHOTO
         <span class="brand-name">AS</span>
       </a>
 
-      <!-- Main Navigation Menu (Pills) -->
+      <!-- Main Navigation Menu -->
       <nav class="nav-menu" id="navMenu">
-        <a href="<?= $homePrefix ?>#hero" class="nav-pill <?= ($isHome) ? 'active' : '' ?>">Beranda</a>
-        <a href="<?= $homePrefix ?>#about" class="nav-pill">Tentang</a>
-        <a href="<?= $homePrefix ?>#skills" class="nav-pill">Keahlian</a>
-        <a href="<?= $homePrefix ?>#projects" class="nav-pill">Proyek</a>
-        <a href="<?= BASE_URL ?>/pages/achievements.php" class="nav-pill <?= ($currentPage === 'achievements.php') ? 'active' : '' ?>">Pencapaian</a>
-        <a href="<?= BASE_URL ?>/pages/creations.php" class="nav-pill <?= ($currentPage === 'creations.php') ? 'active' : '' ?>">Kreasi</a>
-        <a href="<?= BASE_URL ?>/pages/guestbook.php" class="nav-pill <?= ($currentPage === 'guestbook.php') ? 'active' : '' ?>">Buku Tamu</a>
-        <a href="<?= BASE_URL ?>/pages/links.php" class="nav-pill <?= ($currentPage === 'links.php') ? 'active' : '' ?>">Tautan</a>
+        <a href="<?= $homePrefix ?>#hero" class="nav-pill <?= ($isHome) ? 'active' : '' ?>" title="Beranda" aria-label="Beranda">
+          <svg class="nav-item-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21v-7h6v7"/></svg><span class="nav-label">Beranda</span>
+        </a>
+        <a href="<?= $homePrefix ?>#about" class="nav-pill" title="Tentang" aria-label="Tentang">
+          <svg class="nav-item-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c.8-4 3.5-6 8-6s7.2 2 8 6"/></svg><span class="nav-label">Tentang</span>
+        </a>
+        <a href="<?= $homePrefix ?>#skills" class="nav-pill" title="Keahlian" aria-label="Keahlian">
+          <svg class="nav-item-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9m8 10V5m8 14v-7"/></svg><span class="nav-label">Keahlian</span>
+        </a>
+        <a href="<?= $homePrefix ?>#projects" class="nav-pill" title="Proyek" aria-label="Proyek">
+          <svg class="nav-item-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/></svg><span class="nav-label">Proyek</span>
+        </a>
+        <a href="<?= BASE_URL ?>/pages/achievements.php" class="nav-pill <?= ($currentPage === 'achievements.php') ? 'active' : '' ?>" title="Pencapaian" aria-label="Pencapaian">
+          <svg class="nav-item-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 3 4 3 4-3v8a4 4 0 0 1-8 0z"/><path d="M8 18H5m14 0h-3"/></svg><span class="nav-label">Pencapaian</span>
+        </a>
+        <a href="<?= BASE_URL ?>/pages/creations.php" class="nav-pill <?= ($currentPage === 'creations.php') ? 'active' : '' ?>" title="Kreasi" aria-label="Kreasi">
+          <svg class="nav-item-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m10 9 5 3-5 3z"/></svg><span class="nav-label">Kreasi</span>
+        </a>
+        <a href="<?= BASE_URL ?>/pages/guestbook.php" class="nav-pill <?= ($currentPage === 'guestbook.php') ? 'active' : '' ?>" title="Buku Tamu" aria-label="Buku Tamu">
+          <svg class="nav-item-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v11H9l-4 4z"/><path d="M8 9h8m-8 3h5"/></svg><span class="nav-label">Buku Tamu</span>
+        </a>
+        <a href="<?= BASE_URL ?>/pages/links.php" class="nav-pill <?= ($currentPage === 'links.php') ? 'active' : '' ?>" title="Tautan" aria-label="Tautan">
+          <svg class="nav-item-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.1.1l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1"/><path d="M14 11a5 5 0 0 0-7.1-.1l-2 2A5 5 0 0 0 12 20l1.1-1.1"/></svg><span class="nav-label">Tautan</span>
+        </a>
       </nav>
 
       <!-- Right Action Items (Avatar, Search, Direct Mail, + Rekrut Saya) -->
