@@ -1374,6 +1374,7 @@ if (!empty($profile['cv_file'])) {
         </p>
       </div>
 
+      <p class="skills-mobile-swipe-hint" aria-hidden="true">Geser kartu untuk melihat domain lainnya</p>
       <div class="skills-category-grid">
         <!-- 1. Frontend Engineering -->
         <div class="skills-domain-card domain-frontend">
