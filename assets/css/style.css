@@ -4300,7 +4300,71 @@ section[id] {
 }
 
 /* --------------------------------------------------------------------------
-   21. Accessibility: Prefers Reduced Motion (DESIGN.md)
+   21. Page Motion & Image Skeletons
+   -------------------------------------------------------------------------- */
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes skeletonShimmer {
+  from {
+    transform: translateX(-110%);
+  }
+  to {
+    transform: translateX(110%);
+  }
+}
+
+.page-enter {
+  animation: pageEnter 0.58s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--page-enter-delay, 0ms);
+}
+
+.ambient-reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.52s cubic-bezier(0.16, 1, 0.3, 1) var(--ambient-delay, 0ms),
+    transform 0.52s cubic-bezier(0.16, 1, 0.3, 1) var(--ambient-delay, 0ms);
+}
+
+.ambient-reveal.is-ambient-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.media-is-loading {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(110deg, #121927 8%, #1e2a3e 18%, #121927 33%);
+}
+
+.media-is-loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 62%;
+  background: linear-gradient(90deg, transparent, rgba(122, 175, 255, 0.18), transparent);
+  animation: skeletonShimmer 1.15s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.media-is-loading img {
+  opacity: 0.35;
+  filter: blur(4px);
+  transition: opacity 0.28s ease, filter 0.28s ease;
+}
+
+/* --------------------------------------------------------------------------
+   22. Accessibility: Prefers Reduced Motion (DESIGN.md)
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -4316,6 +4380,15 @@ section[id] {
   }
 
   .palette-dialog, .modal-dialog {
+    transform: none !important;
+  }
+
+  .page-enter {
+    animation: none !important;
+  }
+
+  .ambient-reveal {
+    opacity: 1 !important;
     transform: none !important;
   }
 }

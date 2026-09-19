@@ -8,6 +8,63 @@ document.addEventListener('DOMContentLoaded', () => {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ------------------------------------------------------------------------
+  // 0. Page Motion & Media Skeletons
+  // ------------------------------------------------------------------------
+  // Semua halaman publik memakai file ini. Animasi dibuat ringan dan hanya
+  // berjalan sekali agar perpindahan halaman terasa hidup tanpa mengganggu isi.
+  const pageMotionTargets = [
+    document.querySelector('.site-header'),
+    document.querySelector('main'),
+    document.querySelector('.site-footer')
+  ].filter(Boolean);
+
+  pageMotionTargets.forEach((element, index) => {
+    element.classList.add('page-enter');
+    element.style.setProperty('--page-enter-delay', `${index * 70}ms`);
+  });
+
+  const ambientRevealTargets = document.querySelectorAll(
+    'main .section-header, main .glass-panel:not(.reveal-card), main .link-pill, main .guest-bubble'
+  );
+
+  if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+    ambientRevealTargets.forEach((element) => element.classList.add('is-ambient-revealed'));
+  } else {
+    const ambientObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        entry.target.classList.add('is-ambient-revealed');
+        observer.unobserve(entry.target);
+      });
+    }, {
+      threshold: 0.08,
+      rootMargin: '0px 0px -28px 0px'
+    });
+
+    ambientRevealTargets.forEach((element, index) => {
+      element.classList.add('ambient-reveal');
+      element.style.setProperty('--ambient-delay', `${Math.min((index % 4) * 55, 165)}ms`);
+      ambientObserver.observe(element);
+    });
+  }
+
+  // Skeleton hanya dipakai pada wadah gambar yang memang masih dimuat,
+  // sehingga tidak menutupi konten server-rendered atau menambah delay palsu.
+  document.querySelectorAll('img').forEach((image) => {
+    const mediaContainer = image.closest(
+      '.project-media-wrap, .achievement-media, .creation-media, .bento-player-thumb-wrap, .bento-media-card'
+    );
+
+    if (!mediaContainer || image.complete) return;
+
+    const clearSkeleton = () => mediaContainer.classList.remove('media-is-loading');
+    mediaContainer.classList.add('media-is-loading');
+    image.addEventListener('load', clearSkeleton, { once: true });
+    image.addEventListener('error', clearSkeleton, { once: true });
+  });
+
+  // ------------------------------------------------------------------------
   // 1. Mobile Navigation Toggle
   // ------------------------------------------------------------------------
   const navToggle = document.getElementById('mobileNavToggle');
