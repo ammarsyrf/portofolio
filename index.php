@@ -1059,65 +1059,48 @@ if (!empty($profile['cv_file'])) {
                      ============================================== -->
                 <div class="bento-deck-panel" id="deck-panel-2" role="tabpanel" data-panel="2">
                   
-                  <div class="bento-card bento-card-deck">
-                    <div class="bento-card-heading">
-                      <h4>Backend &amp; Cloud</h4>
+                  <div class="bento-card bento-card-deck deck-skill-card">
+                    <div>
+                      <span class="deck-eyebrow">Fondasi aplikasi</span>
+                      <h4 class="deck-skill-title">Backend &amp; Infrastruktur</h4>
+                      <p class="deck-skill-lead">Menyusun logika aplikasi dan data agar aman, terukur, serta mudah dikembangkan.</p>
                     </div>
-                    <p class="bento-about-text">
-                      Arsitektur modular Laravel &amp; PHP 8.x, Queue Workers, Webhook, Redis cache, dan deployment Docker/Linux.
-                    </p>
-                    <div class="bento-chip-tags" style="margin-top: auto;">
-                      <div class="chip-row">
-                        <span class="bento-chip">Laravel</span>
-                        <span class="bento-chip">PHP 8.x</span>
-                        <span class="bento-chip">MySQL ⭐</span>
-                      </div>
-                      <div class="chip-row">
-                        <span class="bento-chip">Redis</span>
-                        <span class="bento-chip">Docker</span>
-                        <span class="bento-chip">REST API</span>
-                      </div>
+                    <div class="deck-practice-list">
+                      <div class="deck-practice-item"><span>Data &amp; API</span><strong>PHP, Laravel, MySQL, REST API</strong></div>
+                      <div class="deck-practice-item"><span>Deployment</span><strong>Docker, Linux, Redis</strong></div>
+                    </div>
+                    <div class="bento-chip-tags">
+                      <span class="bento-chip">Laravel</span><span class="bento-chip">PHP 8.x</span><span class="bento-chip">MySQL</span><span class="bento-chip">Docker</span>
                     </div>
                   </div>
 
-                  <div class="bento-card bento-card-deck">
-                    <div class="bento-card-heading">
-                      <h4>Frontend &amp; Mobile</h4>
+                  <div class="bento-card bento-card-deck deck-skill-card">
+                    <div>
+                      <span class="deck-eyebrow">Pengalaman pengguna</span>
+                      <h4 class="deck-skill-title">Web Interface &amp; Mobile</h4>
+                      <p class="deck-skill-lead">Membuat pengalaman digital yang responsif, jelas, dan nyaman digunakan di berbagai perangkat.</p>
                     </div>
-                    <p class="bento-about-text">
-                      Antarmuka modern Next.js &amp; React, styling presisi Tailwind / shadcn, serta aplikasi mobile Flutter &amp; Dart.
-                    </p>
-                    <div class="bento-chip-tags" style="margin-top: auto;">
-                      <div class="chip-row">
-                        <span class="bento-chip">Next.js</span>
-                        <span class="bento-chip">React</span>
-                        <span class="bento-chip">Tailwind</span>
-                      </div>
-                      <div class="chip-row">
-                        <span class="bento-chip">TypeScript</span>
-                        <span class="bento-chip">Flutter</span>
-                        <span class="bento-chip">Figma</span>
-                      </div>
+                    <div class="deck-practice-list">
+                      <div class="deck-practice-item"><span>Web interface</span><strong>Next.js, React, Tailwind</strong></div>
+                      <div class="deck-practice-item"><span>Mobile &amp; prototipe</span><strong>Flutter, Dart, Figma</strong></div>
+                    </div>
+                    <div class="bento-chip-tags">
+                      <span class="bento-chip">Next.js</span><span class="bento-chip">React</span><span class="bento-chip">Tailwind</span><span class="bento-chip">Flutter</span>
                     </div>
                   </div>
 
-                  <div class="bento-card bento-card-deck">
-                    <div class="bento-card-heading">
-                      <h4>Data Mining &amp; QA</h4>
+                  <div class="bento-card bento-card-deck deck-skill-card">
+                    <div>
+                      <span class="deck-eyebrow">Insight &amp; kualitas</span>
+                      <h4 class="deck-skill-title">Data Mining &amp; Quality</h4>
+                      <p class="deck-skill-lead">Menggunakan data untuk membaca pola sekaligus menjaga kualitas kode sebelum sistem digunakan.</p>
                     </div>
-                    <p class="bento-about-text">
-                      Klasifikasi pohon keputusan C4.5, RapidMiner Studio, testing Pest &amp; PHPUnit, serta analisis statis Larastan.
-                    </p>
-                    <div class="bento-chip-tags" style="margin-top: auto;">
-                      <div class="chip-row">
-                        <span class="bento-chip">Algoritma C4.5</span>
-                        <span class="bento-chip">RapidMiner</span>
-                      </div>
-                      <div class="chip-row">
-                        <span class="bento-chip">Pest</span>
-                        <span class="bento-chip">Larastan</span>
-                        <span class="bento-chip">S1 SI</span>
-                      </div>
+                    <div class="deck-practice-list">
+                      <div class="deck-practice-item"><span>Analisis data</span><strong>Algoritma C4.5, RapidMiner</strong></div>
+                      <div class="deck-practice-item"><span>Quality check</span><strong>Pest, Larastan, pengujian alur</strong></div>
+                    </div>
+                    <div class="bento-chip-tags">
+                      <span class="bento-chip">Algoritma C4.5</span><span class="bento-chip">RapidMiner</span><span class="bento-chip">Pest</span><span class="bento-chip">Larastan</span>
                     </div>
                   </div>
 
@@ -1132,6 +1115,9 @@ if (!empty($profile['cv_file'])) {
                     $p1 = $projects[0] ?? null;
                     $p2 = $projects[1] ?? null;
                     $p3 = $projects[2] ?? null;
+                    $p1Img = ($p1 && !empty($p1['image']) && file_exists(UPLOAD_DIR_PROJECTS . '/' . basename($p1['image']))) ? upload_url('projects', $p1['image']) : '';
+                    $p2Img = ($p2 && !empty($p2['image']) && file_exists(UPLOAD_DIR_PROJECTS . '/' . basename($p2['image']))) ? upload_url('projects', $p2['image']) : '';
+                    $p3Img = ($p3 && !empty($p3['image']) && file_exists(UPLOAD_DIR_PROJECTS . '/' . basename($p3['image']))) ? upload_url('projects', $p3['image']) : '';
                   ?>
 
                   <!-- Project 1 -->
@@ -1140,10 +1126,14 @@ if (!empty($profile['cv_file'])) {
                       <h4><?= e($p1['title'] ?? 'Villa Zein Booking') ?></h4>
                       <span class="project-tag-pill"><?= e($p1['category'] ?? 'Web App') ?></span>
                     </div>
-                    <p class="bento-about-text">
+                    <div class="deck-project-preview">
+                      <?php if ($p1Img): ?><img src="<?= e($p1Img) ?>" alt="Preview <?= e($p1['title']) ?>" loading="lazy" /><?php else: ?><span>VZ</span><?php endif; ?>
+                    </div>
+                    <p class="deck-project-summary">
                       <?= e($p1['summary'] ?? 'Platform reservasi villa dengan manajemen ketersediaan kamar dan invoice.') ?>
                     </p>
-                    <div class="deck-project-footer" style="margin-top: auto;">
+                    <div class="deck-project-meta"><span>Kontribusi</span><strong><?= e($p1['my_role'] ?? 'Full-stack development') ?></strong></div>
+                    <div class="deck-project-footer">
                       <?php if ($p1): ?>
                         <button type="button" class="btn-bento-pill primary btn-detail-trigger" data-id="<?= (int)$p1['id'] ?>">Lihat Detail ➔</button>
                       <?php endif; ?>
@@ -1156,10 +1146,14 @@ if (!empty($profile['cv_file'])) {
                       <h4><?= e($p2['title'] ?? 'Sistem LMS Akademik') ?></h4>
                       <span class="project-tag-pill"><?= e($p2['category'] ?? 'Sistem Informasi') ?></span>
                     </div>
-                    <p class="bento-about-text">
+                    <div class="deck-project-preview">
+                      <?php if ($p2Img): ?><img src="<?= e($p2Img) ?>" alt="Preview <?= e($p2['title']) ?>" loading="lazy" /><?php else: ?><span>LMS</span><?php endif; ?>
+                    </div>
+                    <p class="deck-project-summary">
                       <?= e($p2['summary'] ?? 'Portal akademik terpadu untuk monitoring nilai, absensi, dan jadwal belajar.') ?>
                     </p>
-                    <div class="deck-project-footer" style="margin-top: auto;">
+                    <div class="deck-project-meta"><span>Kontribusi</span><strong><?= e($p2['my_role'] ?? 'Web application development') ?></strong></div>
+                    <div class="deck-project-footer">
                       <?php if ($p2): ?>
                         <button type="button" class="btn-bento-pill primary btn-detail-trigger" data-id="<?= (int)$p2['id'] ?>">Lihat Detail ➔</button>
                       <?php endif; ?>
@@ -1172,11 +1166,19 @@ if (!empty($profile['cv_file'])) {
                       <h4><?= e($p3['title'] ?? 'Big Cargo & C4.5') ?></h4>
                       <span class="project-tag-pill"><?= e($p3['category'] ?? 'Data Mining') ?></span>
                     </div>
-                    <p class="bento-about-text">
+                    <div class="deck-project-preview">
+                      <?php if ($p3Img): ?><img src="<?= e($p3Img) ?>" alt="Preview <?= e($p3['title']) ?>" loading="lazy" /><?php else: ?><span>BC</span><?php endif; ?>
+                    </div>
+                    <p class="deck-project-summary">
                       <?= e($p3['summary'] ?? 'Sistem klasifikasi ketepatan logistik kargo berbasis pohon keputusan Algoritma C4.5.') ?>
                     </p>
-                    <div class="deck-project-footer" style="margin-top: auto;">
-                      <a href="#projects" class="btn-bento-pill primary">Semua Proyek ➔</a>
+                    <div class="deck-project-meta"><span>Kontribusi</span><strong><?= e($p3['my_role'] ?? 'Web application development') ?></strong></div>
+                    <div class="deck-project-footer">
+                      <?php if ($p3): ?>
+                        <button type="button" class="btn-bento-pill primary btn-detail-trigger" data-id="<?= (int)$p3['id'] ?>">Lihat Detail</button>
+                      <?php else: ?>
+                        <a href="#projects" class="btn-bento-pill primary">Semua Proyek</a>
+                      <?php endif; ?>
                     </div>
                   </div>
 
@@ -1188,61 +1190,71 @@ if (!empty($profile['cv_file'])) {
                 <div class="bento-deck-panel" id="deck-panel-4" role="tabpanel" data-panel="4">
                   
                   <!-- Email -->
-                  <div class="bento-card bento-card-deck deck-contact-card">
-                    <div class="bento-card-heading">
-                      <h4>Email Langsung</h4>
+                  <div class="bento-card bento-card-deck deck-contact-card deck-contact-email-card">
+                    <div class="deck-contact-heading">
+                      <span class="deck-contact-icon">✉</span>
+                      <div>
+                        <span class="deck-eyebrow">Jalur formal</span>
+                        <h4>Email Langsung</h4>
+                      </div>
                     </div>
-                    <p class="bento-about-text">
+                    <p class="deck-contact-lead">
                       Terbuka untuk tawaran posisi Fullstack Developer, Data Analyst, atau proyek konsultasi sistem.
                     </p>
-                    <div style="margin-top: auto; display: flex; flex-direction: column; gap: 0.5rem;">
-                      <div class="deck-contact-pill-val"><?= e($profile['email']) ?></div>
+                    <div class="deck-contact-action-area">
+                      <div class="deck-contact-pill-val"><span>Email utama</span><strong><?= e($profile['email']) ?></strong></div>
                       <a href="mailto:<?= e($profile['email']) ?>" class="deck-contact-action-btn">
-                        <span>✉ Kirim Email</span>
+                        <span>Kirim Email</span>
                       </a>
                     </div>
                   </div>
 
                   <!-- WhatsApp -->
-                  <div class="bento-card bento-card-deck deck-contact-card">
-                    <div class="bento-card-heading">
-                      <h4>WhatsApp Chat</h4>
-                      <span class="skills-widget-dot">● Fast Response</span>
+                  <div class="bento-card bento-card-deck deck-contact-card deck-contact-whatsapp-card">
+                    <div class="deck-contact-heading">
+                      <span class="deck-contact-icon">◌</span>
+                      <div>
+                        <span class="deck-eyebrow">Diskusi cepat</span>
+                        <h4>WhatsApp Chat</h4>
+                      </div>
                     </div>
-                    <p class="bento-about-text">
+                    <p class="deck-contact-lead">
                       Hubungi langsung melalui pesan instan untuk diskusi cepat seputar kebutuhan pengembangan web Anda.
                     </p>
-                    <div style="margin-top: auto;">
+                    <div class="deck-contact-action-area">
                       <?php 
-                        $waNum = !empty($profile['whatsapp']) ? preg_replace('/[^0-9]/', '', $profile['whatsapp']) : '628123456789';
+                        $waNum = !empty($profile['whatsapp']) ? preg_replace('/[^0-9]/', '', $profile['whatsapp']) : '';
                       ?>
-                      <a href="https://wa.me/<?= e($waNum) ?>" target="_blank" rel="noopener noreferrer" class="deck-contact-action-btn" style="background: #10B981;">
-                        <span>💬 Chat via WhatsApp ➔</span>
-                      </a>
+                      <?php if ($waNum): ?>
+                        <a href="https://wa.me/<?= e($waNum) ?>" target="_blank" rel="noopener noreferrer" class="deck-contact-action-btn">
+                          <span>Chat via WhatsApp</span>
+                        </a>
+                      <?php else: ?>
+                        <span class="deck-contact-unavailable">Nomor WhatsApp akan segera diperbarui.</span>
+                      <?php endif; ?>
                     </div>
                   </div>
 
                   <!-- Jejaring Profesional -->
-                  <div class="bento-card bento-card-deck deck-contact-card">
-                    <div class="bento-card-heading">
-                      <h4>Tautan Sosial & Kode</h4>
+                  <div class="bento-card bento-card-deck deck-contact-card deck-contact-links-card">
+                    <div>
+                      <span class="deck-eyebrow">Terhubung online</span>
+                      <h4>Tautan Sosial &amp; Kode</h4>
                     </div>
+                    <p class="deck-contact-links-lead">Lihat karya, profil profesional, atau tinggalkan pesan.</p>
                     <div class="deck-social-links-list">
                       <?php if (!empty($profile['github'])): ?>
                         <a href="<?= e($profile['github']) ?>" target="_blank" rel="noopener noreferrer" class="deck-social-row">
-                          <span>🐙 GitHub Repository</span>
-                          <span>➔</span>
+                          <span>GitHub</span><small>Kode &amp; proyek</small>
                         </a>
                       <?php endif; ?>
                       <?php if (!empty($profile['linkedin'])): ?>
                         <a href="<?= e($profile['linkedin']) ?>" target="_blank" rel="noopener noreferrer" class="deck-social-row">
-                          <span>💼 LinkedIn Profile</span>
-                          <span>➔</span>
+                          <span>LinkedIn</span><small>Profil profesional</small>
                         </a>
                       <?php endif; ?>
                       <a href="<?= BASE_URL ?>/pages/guestbook.php" class="deck-social-row">
-                        <span>📖 Buku Tamu Publik</span>
-                        <span>➔</span>
+                        <span>Buku Tamu</span><small>Tinggalkan pesan</small>
                       </a>
                     </div>
                   </div>
@@ -1301,38 +1313,45 @@ if (!empty($profile['cv_file'])) {
       <div class="site-container">
         <div class="section-header">
           <div class="section-caption">Tentang Saya</div>
-          <h2 class="section-title">Dedikasi Rekayasa & Integritas Sistem</h2>
+          <h2 class="section-title">Membangun Sistem yang Andal dari Hulu ke Hilir</h2>
         </div>
 
         <div class="about-grid">
           <div class="about-text-panel glass-panel">
-            <p><?= nl2br(e($profile['about'])) ?></p>
+            <div class="about-panel-intro">
+              <span class="about-kicker">Full-Stack Web Developer</span>
+              <h3>Dari rancangan sistem hingga aplikasi siap digunakan.</h3>
+            </div>
             <p>
-              Pendekatan rekayasa saya berakar pada pemahaman komprehensif terhadap proses bisnis. Sebagai lulusan S1 Sistem Informasi, saya tidak hanya menulis sintaks kode, tetapi merancang relasi skema basis data yang optimal, alur otentikasi yang kokoh dari sisi keamanan, serta antarmuka yang intuitif dan berkinerja tinggi tanpa membebani aplikasi dengan dependensi yang tidak diperlukan.
+              Saya adalah seorang Full-Stack Web Developer yang berfokus pada pengembangan aplikasi web menggunakan PHP, Laravel, MySQL, React, dan Next.js. Saya terbiasa mengembangkan website dan sistem berbasis web mulai dari perancangan database, pembuatan REST API, implementasi fitur backend dan frontend, hingga proses deployment ke server.
             </p>
             <p>
-              Dengan pengalaman mengerjakan proyek dari nol hingga siap diimplementasikan di lingkungan produksi, saya terbiasa memecahkan tantangan sistem secara mandiri, berorientasi hasil, dan siap memikul tanggung jawab pada level mid-level developer.
+              Dalam pengembangan aplikasi, saya tidak hanya berfokus pada tampilan dan fungsi, tetapi juga memperhatikan struktur sistem, performa, keamanan, skalabilitas, dan kemudahan maintenance. Saya juga memiliki pengalaman dalam penggunaan Git, Linux, VPS, Nginx, Docker, Redis, queue, serta integrasi berbagai layanan dan API.
+            </p>
+            <p>
+              Saya memiliki ketertarikan besar pada pengembangan sistem yang efisien, otomatis, dan dapat menyelesaikan kebutuhan nyata pengguna. Saat ini saya terus memperdalam kemampuan di bidang full-stack development, system architecture, dan server infrastructure dengan tujuan berkembang sebagai Web Developer profesional dan dapat berkontribusi pada berbagai project secara remote maupun kolaboratif.
             </p>
           </div>
 
           <div class="about-stat-panel glass-panel">
             <div>
-              <h3 style="font-family: var(--font-display); font-size: var(--text-lg); font-weight: 700; color: var(--color-text); margin-bottom: 0.75rem;">
-                Prinsip Utama Rekayasa
-              </h3>
-              <p style="font-size: var(--text-sm); color: var(--color-text-dim); line-height: 1.65;">
-                Membangun piranti lunak yang ramping (lean), mengutamakan keamanan melalui PDO prepared statements dan validasi input yang ketat, serta menghadirkan antarmuka bersih yang responsif di segala jenis perangkat.
-              </p>
+              <span class="about-kicker">Fokus pengembangan</span>
+              <h3 class="about-side-title">Teknis, terstruktur, dan siap berkembang.</h3>
+              <div class="about-focus-list">
+                <div class="about-focus-item"><span>01</span><div><strong>Full-stack product</strong><small>PHP, Laravel, MySQL, React, dan Next.js.</small></div></div>
+                <div class="about-focus-item"><span>02</span><div><strong>System architecture</strong><small>Database, REST API, performa, keamanan, dan skalabilitas.</small></div></div>
+                <div class="about-focus-item"><span>03</span><div><strong>Server infrastructure</strong><small>Git, Linux, VPS, Nginx, Docker, Redis, dan queue.</small></div></div>
+              </div>
             </div>
 
             <div class="about-metrics-row">
               <div>
-                <div class="metric-number">7+</div>
-                <div class="metric-label">Platform Bisnis Nyata</div>
+                <div class="metric-number">End-to-End</div>
+                <div class="metric-label">Database hingga deployment</div>
               </div>
               <div>
-                <div class="metric-number">100%</div>
-                <div class="metric-label">End-to-End Delivery</div>
+                <div class="metric-number">Remote-ready</div>
+                <div class="metric-label">Kolaborasi proyek digital</div>
               </div>
             </div>
           </div>
@@ -1357,7 +1376,7 @@ if (!empty($profile['cv_file'])) {
 
       <div class="skills-category-grid">
         <!-- 1. Frontend Engineering -->
-        <div class="skills-domain-card">
+        <div class="skills-domain-card domain-frontend">
           <div class="skills-card-top">
             <div class="skills-icon-badge">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1421,7 +1440,7 @@ if (!empty($profile['cv_file'])) {
         </div>
 
         <!-- 2. Backend & Server Architecture -->
-        <div class="skills-domain-card">
+        <div class="skills-domain-card domain-backend">
           <div class="skills-card-top">
             <div class="skills-icon-badge">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1483,7 +1502,7 @@ if (!empty($profile['cv_file'])) {
         </div>
 
         <!-- 3. Database & Storage Engine -->
-        <div class="skills-domain-card">
+        <div class="skills-domain-card domain-database">
           <div class="skills-card-top">
             <div class="skills-icon-badge">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1543,7 +1562,7 @@ if (!empty($profile['cv_file'])) {
         </div>
 
         <!-- 4. DevOps, Cloud & Infrastructure -->
-        <div class="skills-domain-card">
+        <div class="skills-domain-card domain-devops">
           <div class="skills-card-top">
             <div class="skills-icon-badge">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1605,7 +1624,7 @@ if (!empty($profile['cv_file'])) {
         </div>
 
         <!-- 5. Testing, QA & Mobile Development -->
-        <div class="skills-domain-card">
+        <div class="skills-domain-card domain-quality">
           <div class="skills-card-top">
             <div class="skills-icon-badge">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1664,7 +1683,7 @@ if (!empty($profile['cv_file'])) {
         </div>
 
         <!-- 6. Data Mining & Analitik Sistem Informasi -->
-        <div class="skills-domain-card">
+        <div class="skills-domain-card domain-data">
           <div class="skills-card-top">
             <div class="skills-icon-badge">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
