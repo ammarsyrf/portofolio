@@ -4251,32 +4251,35 @@ section[id] {
   }
 }
 
-/* Keep the media scroller compact on phones after the desktop card sizing. */
+/* Mobile media carousel: artwork stays readable while the next card hints swipe. */
 @media (max-width: 767px) {
   .bento-media-cards-row {
-    flex-basis: 120px;
-    min-height: 120px;
+    flex-basis: 150px;
+    min-height: 150px;
+    gap: 0.75rem;
+    scroll-snap-type: x mandatory;
   }
 
   .bento-media-mini-card {
-    flex-basis: 96px;
-    height: 120px;
-    min-height: 120px;
-    border-radius: 14px;
+    flex-basis: 132px;
+    height: 150px;
+    min-height: 150px;
+    border-radius: 16px;
+    scroll-snap-align: start;
   }
 }
 
 @media (max-width: 420px) {
   .bento-media-cards-row {
-    flex-basis: 105px;
-    min-height: 105px;
+    flex-basis: 132px;
+    min-height: 132px;
   }
 
   .bento-media-mini-card {
-    flex-basis: 84px;
-    height: 105px;
-    min-height: 105px;
-    border-radius: 10px;
+    flex-basis: 118px;
+    height: 132px;
+    min-height: 132px;
+    border-radius: 14px;
   }
 }
 
