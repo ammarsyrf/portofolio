@@ -34,6 +34,11 @@ $currentPage = basename($_SERVER['PHP_SELF']);
       Profil, Foto & CV
     </a>
 
+    <a href="<?= BASE_URL ?>/admin/homepage.php" class="sidebar-link <?= ($currentPage === 'homepage.php') ? 'active' : '' ?>">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 11 9-8 9 8v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z"></path><path d="M9 22v-7h6v7"></path></svg>
+      Konten Halaman Utama
+    </a>
+
     <div class="nav-section-title">Konten Portofolio</div>
 
     <a href="<?= BASE_URL ?>/admin/projects.php" class="sidebar-link <?= ($currentPage === 'projects.php' || $currentPage === 'project_form.php') ? 'active' : '' ?>">

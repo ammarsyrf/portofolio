@@ -8,9 +8,11 @@
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/homepage_content.php';
 
 // Ambil data profil dari database
 $profile = get_profile($pdo);
+$homeContent = get_homepage_content($pdo);
 
 // Fallback profil jika database kosong
 if (!$profile) {
@@ -112,22 +114,22 @@ if (!empty($profile['cv_file'])) {
               <!-- Card 1: Stats & Info Widget -->
               <div class="bento-card bento-card-stats">
                 <div class="bento-stats-left">
-                  <span class="bento-label">Pendidikan</span>
-                  <div class="bento-big-stat">S1</div>
-                  <span class="bento-sub-stat">Sistem Informasi</span>
+                  <span class="bento-label"><?= e($homeContent['hero_education_label']) ?></span>
+                  <div class="bento-big-stat"><?= e($homeContent['hero_degree']) ?></div>
+                  <span class="bento-sub-stat"><?= e($homeContent['hero_field']) ?></span>
                 </div>
                 <div class="bento-stats-right">
                   <div class="bento-meta-pill">
-                    <span class="bento-pill-tag">Spesialisasi</span>
-                    <span class="bento-pill-val">Web & Analitik Data</span>
+                    <span class="bento-pill-tag"><?= e($homeContent['hero_specialty_label']) ?></span>
+                    <span class="bento-pill-val"><?= e($homeContent['hero_specialty_value']) ?></span>
                   </div>
                   <div class="bento-meta-pill">
-                    <span class="bento-pill-tag">Ketersediaan</span>
-                    <span class="bento-pill-val" style="color: #34D399;">● Siap Rekrutmen</span>
+                    <span class="bento-pill-tag"><?= e($homeContent['hero_availability_label']) ?></span>
+                    <span class="bento-pill-val" style="color: #34D399;"><?= e($homeContent['hero_availability_value']) ?></span>
                   </div>
                   <div class="bento-progress-row">
                     <div class="bento-progress-track" title="Tingkat Kesiapan Teknis">
-                      <div class="bento-progress-fill" style="width: 88%;"></div>
+                      <div class="bento-progress-fill" style="width: <?= e($homeContent['hero_readiness']) ?>%;"></div>
                     </div>
                     <a href="#about" class="bento-arrow-btn" title="Lihat Profil">➔</a>
                   </div>
@@ -191,10 +193,10 @@ if (!empty($profile['cv_file'])) {
               
               <!-- Large Styled Background Typo -->
               <div class="bento-hero-typography">
-                <span class="typo-line">let's</span>
-                <span class="typo-line accent">code +</span>
-                <span class="typo-line">systems</span>
-                <div class="typo-pill-badge">ammar syarif</div>
+                <span class="typo-line"><?= e($homeContent['hero_line_one']) ?></span>
+                <span class="typo-line accent"><?= e($homeContent['hero_line_two']) ?></span>
+                <span class="typo-line"><?= e($homeContent['hero_line_three']) ?></span>
+                <div class="typo-pill-badge"><?= e($homeContent['hero_badge']) ?></div>
               </div>
 
               <!-- Portrait Frame -->
@@ -216,7 +218,7 @@ if (!empty($profile['cv_file'])) {
 
               <!-- Vertical Right Badge (01. My Profile ♡) -->
               <div class="bento-vertical-badge">
-                <span>01. My Profile ♡</span>
+                <span><?= e($homeContent['hero_vertical_badge']) ?></span>
               </div>
 
               <!-- Floating Quick Action Buttons on right edge -->
@@ -299,31 +301,31 @@ if (!empty($profile['cv_file'])) {
                   <div class="bento-card bento-card-about">
                     <div class="bento-about-header">
                       <div class="bento-card-heading">
-                        <h4>About Me</h4>
+                        <h4><?= e($homeContent['about_widget_title']) ?></h4>
                       </div>
                       <span class="bento-mini-status-pill">
-                        <span class="pulse-dot-green"></span> S1 Sistem Informasi
+                        <span class="pulse-dot-green"></span> <?= e($homeContent['about_widget_status']) ?>
                       </span>
                     </div>
 
                     <div class="bento-about-body">
                       <p class="bento-about-text">
-                        Lulusan <strong>S1 Sistem Informasi</strong> dengan passion mendalam pada arsitektur web modern, rekayasa fullstack yang tangguh, serta pemodelan analitik data cerdas.
+                        <?= e($homeContent['about_widget_text_one']) ?>
                       </p>
                       <p class="bento-about-text">
-                        Berpengalaman merancang dan membangun sistem bisnis <em>end-to-end</em> dari nol: mulai dari perancangan database relasional, efisiensi server, hingga antarmuka siap pakai di tingkat produksi.
+                        <?= e($homeContent['about_widget_text_two']) ?>
                       </p>
                     </div>
 
                     <div class="bento-about-metrics-strip">
                       <div class="about-metric-unit">
-                        <span class="m-val">7+</span>
-                        <span class="m-lbl">Sistem Nyata</span>
+                        <span class="m-val"><?= e($homeContent['about_metric_one_value']) ?></span>
+                        <span class="m-lbl"><?= e($homeContent['about_metric_one_label']) ?></span>
                       </div>
                       <div class="about-metric-sep"></div>
                       <div class="about-metric-unit">
-                        <span class="m-val">100%</span>
-                        <span class="m-lbl">Bebas SQLi</span>
+                        <span class="m-val"><?= e($homeContent['about_metric_two_value']) ?></span>
+                        <span class="m-lbl"><?= e($homeContent['about_metric_two_label']) ?></span>
                       </div>
                       <div class="about-metric-sep"></div>
                       <div class="about-metric-unit">
@@ -1312,24 +1314,24 @@ if (!empty($profile['cv_file'])) {
     <section id="about" class="section-padding">
       <div class="site-container">
         <div class="section-header">
-          <div class="section-caption">Tentang Saya</div>
-          <h2 class="section-title">Membangun Sistem yang Andal dari Hulu ke Hilir</h2>
+          <div class="section-caption"><?= e($homeContent['about_caption']) ?></div>
+          <h2 class="section-title"><?= e($homeContent['about_title']) ?></h2>
         </div>
 
         <div class="about-grid">
           <div class="about-text-panel glass-panel">
             <div class="about-panel-intro">
-              <span class="about-kicker">Full-Stack Web Developer</span>
-              <h3>Dari rancangan sistem hingga aplikasi siap digunakan.</h3>
+              <span class="about-kicker"><?= e($homeContent['about_kicker']) ?></span>
+              <h3><?= e($homeContent['about_heading']) ?></h3>
             </div>
             <p>
-              Saya adalah seorang Full-Stack Web Developer yang berfokus pada pengembangan aplikasi web menggunakan PHP, Laravel, MySQL, React, dan Next.js. Saya terbiasa mengembangkan website dan sistem berbasis web mulai dari perancangan database, pembuatan REST API, implementasi fitur backend dan frontend, hingga proses deployment ke server.
+              <?= e($homeContent['about_paragraph_one']) ?>
             </p>
             <p>
-              Dalam pengembangan aplikasi, saya tidak hanya berfokus pada tampilan dan fungsi, tetapi juga memperhatikan struktur sistem, performa, keamanan, skalabilitas, dan kemudahan maintenance. Saya juga memiliki pengalaman dalam penggunaan Git, Linux, VPS, Nginx, Docker, Redis, queue, serta integrasi berbagai layanan dan API.
+              <?= e($homeContent['about_paragraph_two']) ?>
             </p>
             <p>
-              Saya memiliki ketertarikan besar pada pengembangan sistem yang efisien, otomatis, dan dapat menyelesaikan kebutuhan nyata pengguna. Saat ini saya terus memperdalam kemampuan di bidang full-stack development, system architecture, dan server infrastructure dengan tujuan berkembang sebagai Web Developer profesional dan dapat berkontribusi pada berbagai project secara remote maupun kolaboratif.
+              <?= e($homeContent['about_paragraph_three']) ?>
             </p>
           </div>
 
@@ -1367,10 +1369,10 @@ if (!empty($profile['cv_file'])) {
     <section id="skills" class="section-padding">
       <div class="site-container">
         <div class="section-header">
-          <div class="section-caption">Kompetensi & Toolkit</div>
-          <h2 class="section-title">Keahlian Teknis & Domain Kerja</h2>
+          <div class="section-caption"><?= e($homeContent['skills_caption']) ?></div>
+          <h2 class="section-title"><?= e($homeContent['skills_title']) ?></h2>
         <p class="section-lead" style="color: var(--color-text-dim); max-width: 680px; margin-top: 0.5rem; font-size: var(--text-sm); line-height: 1.6;">
-          Kombinasi rekayasa backend modular, performa antarmuka bersih tanpa bloatware, serta pemodelan analitik data berbasis riset sistem informasi yang telah teruji pada berbagai aplikasi produksi nyata.
+          <?= e($homeContent['skills_lead']) ?>
         </p>
       </div>
 
@@ -1828,8 +1830,8 @@ if (!empty($profile['cv_file'])) {
     <section id="contact" class="section-padding">
       <div class="site-container">
         <div class="section-header">
-          <div class="section-caption">Jalur Komunikasi</div>
-          <h2 class="section-title">Mari Membangun Solusi Bersama</h2>
+          <div class="section-caption"><?= e($homeContent['contact_caption']) ?></div>
+          <h2 class="section-title"><?= e($homeContent['contact_title']) ?></h2>
         </div>
 
         <div class="contact-bento-grid">
@@ -1840,8 +1842,8 @@ if (!empty($profile['cv_file'])) {
               </span>
               <span class="contact-card-copy">
                 <span class="contact-kicker">Email langsung</span>
-                <strong>Mulai percakapan profesional</strong>
-                <small>Untuk kolaborasi, rekrutmen, dan diskusi proyek</small>
+                <strong><?= e($homeContent['contact_email_title']) ?></strong>
+                <small><?= e($homeContent['contact_email_description']) ?></small>
               </span>
               <span class="contact-card-arrow" aria-hidden="true">↗</span>
             </a>
@@ -1854,7 +1856,7 @@ if (!empty($profile['cv_file'])) {
               <span class="contact-card-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.6-4.1A8 8 0 1 1 20 11.5Z"/><path d="M8.5 8.4c.3-.7.6-.7.9-.7h.4c.3 0 .4.1.5.4l.7 1.6c.1.2.1.4 0 .6l-.4.5c-.1.1-.1.3 0 .4.5.9 1.2 1.6 2.1 2.1.1.1.3.1.4 0l.5-.5c.2-.1.4-.1.6 0l1.6.7c.3.1.4.3.4.5v.4c0 .3 0 .6-.7.9-.4.2-1.1.3-2.1-.2-1-.5-2.5-1.5-3.5-3.2-1-1.6-1.1-2.9-.8-3.5Z"/></svg>
               </span>
-              <span class="contact-card-copy"><span class="contact-kicker">Respons cepat</span><strong>Chat via WhatsApp</strong><small>Balas cepat pada jam kerja</small></span>
+              <span class="contact-card-copy"><span class="contact-kicker">Respons cepat</span><strong><?= e($homeContent['contact_whatsapp_title']) ?></strong><small><?= e($homeContent['contact_whatsapp_description']) ?></small></span>
               <span class="contact-card-arrow" aria-hidden="true">↗</span>
             </a>
           <?php endif; ?>
@@ -1862,7 +1864,7 @@ if (!empty($profile['cv_file'])) {
           <?php if (!empty($profile['linkedin'])): ?>
             <a href="<?= e($profile['linkedin']) ?>" target="_blank" rel="noopener noreferrer" class="contact-bento-card contact-linkedin-card">
               <span class="contact-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9v9M6 6v.01M10 18v-5a4 4 0 0 1 8 0v5m-8-4v4"/></svg></span>
-              <span class="contact-card-copy"><span class="contact-kicker">Jaringan profesional</span><strong>Terhubung di LinkedIn</strong><small>Lihat profil dan pengalaman</small></span>
+              <span class="contact-card-copy"><span class="contact-kicker">Jaringan profesional</span><strong><?= e($homeContent['contact_linkedin_title']) ?></strong><small><?= e($homeContent['contact_linkedin_description']) ?></small></span>
               <span class="contact-card-arrow" aria-hidden="true">↗</span>
             </a>
           <?php endif; ?>
@@ -1870,7 +1872,7 @@ if (!empty($profile['cv_file'])) {
           <?php if (!empty($profile['github'])): ?>
             <a href="<?= e($profile['github']) ?>" target="_blank" rel="noopener noreferrer" class="contact-bento-card contact-github-card">
               <span class="contact-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 22v-3.9c0-1 .1-1.6-.5-2.2 2.4-.3 4.9-1.2 4.9-5.3 0-1.2-.4-2.1-1.1-2.9.1-.3.5-1.4-.1-2.9 0 0-.9-.3-3 1.1a10.2 10.2 0 0 0-5.4 0C7.7 4.6 6.8 4.9 6.8 4.9c-.6 1.5-.2 2.6-.1 2.9-.7.8-1.1 1.7-1.1 2.9 0 4.1 2.5 5 4.9 5.3-.6.6-.6 1.3-.6 2.2V22"/><path d="M9 19c-2 .6-3.5-.5-4-1.5"/></svg></span>
-              <span class="contact-card-copy"><span class="contact-kicker">Open source & kode</span><strong>Jelajahi GitHub</strong><small>Repository dan eksperimen</small></span>
+              <span class="contact-card-copy"><span class="contact-kicker">Open source & kode</span><strong><?= e($homeContent['contact_github_title']) ?></strong><small><?= e($homeContent['contact_github_description']) ?></small></span>
               <span class="contact-card-arrow" aria-hidden="true">↗</span>
             </a>
           <?php endif; ?>
@@ -1879,14 +1881,14 @@ if (!empty($profile['cv_file'])) {
             <form class="contact-message-card" id="contactQuickForm" data-recipient="<?= e($profile['email']) ?>">
               <div class="contact-form-heading">
                 <span class="contact-kicker">Atau kirim pesan singkat</span>
-                <strong>Ceritakan kebutuhan proyekmu</strong>
+                <strong><?= e($homeContent['contact_form_title']) ?></strong>
               </div>
               <div class="contact-form-row">
                 <label><span>Nama</span><input type="text" name="name" placeholder="Nama kamu" required></label>
                 <label><span>Email</span><input type="email" name="email" placeholder="email@kamu.com" required></label>
               </div>
               <label class="contact-message-field"><span>Pesan</span><textarea name="message" rows="3" placeholder="Halo Ammar, saya ingin berdiskusi tentang..." required></textarea></label>
-              <button type="submit" class="contact-send-btn">Kirim melalui Email <span aria-hidden="true">↗</span></button>
+              <button type="submit" class="contact-send-btn"><?= e($homeContent['contact_form_button']) ?> <span aria-hidden="true">↗</span></button>
             </form>
           <?php endif; ?>
         </div>
