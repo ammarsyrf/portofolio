@@ -409,7 +409,10 @@ button, input, textarea, select {
 @media (min-width: 1181px) {
   .site-header {
     position: fixed;
-    inset: 0 auto 0 1.25rem;
+    top: 0;
+    bottom: 0;
+    /* Sejajarkan rail dengan tepi konten utama, bukan tepi viewport. */
+    left: max(1.25rem, calc(50% - 42.5rem + 2.25rem));
     display: flex;
     align-items: center;
     width: 68px;
