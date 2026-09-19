@@ -3003,12 +3003,32 @@ section[id] {
 }
 
 .badge-dot {
-  display: inline-block;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--domain-accent) 70%, transparent);
-  transition: transform 0.2s ease, background 0.2s ease;
+  display: inline-grid;
+  width: 16px;
+  height: 16px;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--domain-accent) 36%, transparent);
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--domain-accent) 14%, transparent);
+  color: var(--domain-accent-bright);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.48rem;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.badge-dot::before {
+  content: '•';
+}
+
+.domain-frontend .badge-dot::before { content: '</>'; }
+.domain-backend .badge-dot::before { content: '{}'; }
+.domain-database .badge-dot::before { content: '▤'; font-size: 0.62rem; }
+.domain-devops .badge-dot::before { content: '>_'; }
+.domain-quality .badge-dot::before { content: '✓'; font-family: var(--font-display); font-size: 0.65rem; }
+.domain-data .badge-dot::before { content: '⌁'; font-family: var(--font-display); font-size: 0.75rem; }
 }
 
 .skill-badge:hover {
@@ -3020,8 +3040,9 @@ section[id] {
 }
 
 .skill-badge:hover .badge-dot {
-  background: var(--domain-accent-bright);
-  transform: scale(1.3);
+  background: color-mix(in srgb, var(--domain-accent) 28%, transparent);
+  border-color: var(--domain-accent-bright);
+  transform: scale(1.12);
 }
 
 .skills-highlights {
@@ -4010,6 +4031,185 @@ section[id] {
     height: 105px;
     min-height: 105px;
     border-radius: 10px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile Bento Layout: prevent horizontal clipping and preserve touch targets
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .site-header .site-container,
+  .bento-master-canvas .site-container,
+  .bento-frame,
+  .nav-pill-bar {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .nav-pill-bar {
+    gap: 0.35rem;
+  }
+
+  .nav-right-actions {
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  .nav-brand-pill {
+    min-width: 0;
+  }
+
+  .btn-hire {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .btn-hire-text {
+    display: none !important;
+  }
+
+  .bento-master-canvas {
+    padding-top: 3.25rem;
+    padding-bottom: 2rem;
+  }
+
+  .bento-frame {
+    gap: 1rem;
+    padding: 0.85rem;
+    border-radius: 22px;
+  }
+
+  .bento-top-tier,
+  .bento-left-col,
+  .bento-bottom-tier,
+  .bento-deck-stage,
+  .bento-deck-track,
+  .bento-deck-panel,
+  .bento-card,
+  .bento-stats-right,
+  .bento-player-info,
+  .bento-identity-actions {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .bento-card-stats {
+    grid-template-columns: 78px minmax(0, 1fr);
+  }
+
+  .bento-about-header,
+  .bento-player-header {
+    min-width: 0;
+  }
+
+  .bento-about-header {
+    flex-wrap: wrap;
+  }
+
+  .bento-mini-status-pill {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .bento-progress-row,
+  .bento-progress-track {
+    min-width: 0;
+  }
+
+  .bento-identity-desc,
+  .bento-about-text,
+  .bento-player-title,
+  .bento-player-subtitle {
+    overflow-wrap: anywhere;
+  }
+
+  .bento-identity-actions {
+    flex-wrap: wrap;
+  }
+
+  .bento-mini-dock {
+    width: 100%;
+    max-width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    margin: 0;
+    padding: 0.4rem 0.55rem;
+    scrollbar-width: none;
+  }
+
+  .bento-mini-dock::-webkit-scrollbar {
+    display: none;
+  }
+
+  .dock-item {
+    flex: 0 0 36px;
+  }
+
+  .bento-card-about,
+  .bento-card-media,
+  .bento-card-skills-widget {
+    height: auto;
+    min-height: 0;
+  }
+
+  .bento-card-media {
+    min-height: 245px;
+  }
+
+  .skills-icon-grid {
+    grid-template-columns: 1fr;
+    height: auto;
+    max-height: 236px;
+    overflow-y: auto;
+  }
+
+  .skills-domain-card,
+  .skills-category-card {
+    min-height: 0;
+  }
+
+  .skills-card-top {
+    gap: 0.65rem;
+  }
+
+  .skills-badge-tag {
+    max-width: calc(100% - 62px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 420px) {
+  .site-container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .bento-frame {
+    padding: 0.75rem;
+  }
+
+  .bento-card-stats {
+    grid-template-columns: 70px minmax(0, 1fr);
+    padding: 0.9rem;
+  }
+
+  .bento-card-player {
+    gap: 0.75rem;
+    padding: 0.9rem;
+  }
+
+  .bento-player-thumb-wrap {
+    width: 58px;
+    height: 58px;
+  }
+
+  .bento-player-badge {
+    display: none;
   }
 }
 
