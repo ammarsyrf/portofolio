@@ -1823,7 +1823,7 @@ if (!empty($profile['cv_file'])) {
     <hr class="section-divider" />
 
     <!-- ====================================================================
-         SECTION 5: CONTACT (Glass Card)
+         SECTION 5: CONTACT (Communication Bento)
          ==================================================================== -->
     <section id="contact" class="section-padding">
       <div class="site-container">
@@ -1832,45 +1832,63 @@ if (!empty($profile['cv_file'])) {
           <h2 class="section-title">Mari Membangun Solusi Bersama</h2>
         </div>
 
-        <div class="contact-glass-box glass-panel-glow">
-          <h3 style="font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; color: var(--color-text); margin-bottom: 0.75rem;">
-            Terbuka untuk diskusi proyek dan rekrutmen profesional.
-          </h3>
-          <p style="color: var(--color-text-dim); max-width: var(--max-text-width); line-height: 1.7;">
-            Silakan hubungi saya melalui jalur resmi di bawah ini untuk kolaborasi pengembangan platform web atau peninjauan kualifikasi kandidat.
-          </p>
+        <div class="contact-bento-grid">
+          <?php if (!empty($profile['email'])): ?>
+            <a href="mailto:<?= e($profile['email']) ?>" class="contact-bento-card contact-email-card">
+              <span class="contact-card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+              </span>
+              <span class="contact-card-copy">
+                <span class="contact-kicker">Email langsung</span>
+                <strong>Mulai percakapan profesional</strong>
+                <small><?= e($profile['email']) ?></small>
+              </span>
+              <span class="contact-card-arrow" aria-hidden="true">↗</span>
+            </a>
+          <?php endif; ?>
 
-          <div class="contact-channels-grid">
-            <?php if (!empty($profile['email'])): ?>
-              <a href="mailto:<?= e($profile['email']) ?>" class="contact-card-item">
-                <span class="contact-channel-label">Email Resmi</span>
-                <span class="contact-channel-val"><?= e($profile['email']) ?></span>
-              </a>
-            <?php endif; ?>
+          <?php if (!empty($profile['whatsapp'])):
+            $waClean = preg_replace('/[^0-9]/', '', $profile['whatsapp']);
+          ?>
+            <a href="https://wa.me/<?= e($waClean) ?>" target="_blank" rel="noopener noreferrer" class="contact-bento-card contact-whatsapp-card">
+              <span class="contact-card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.6-4.1A8 8 0 1 1 20 11.5Z"/><path d="M8.5 8.4c.3-.7.6-.7.9-.7h.4c.3 0 .4.1.5.4l.7 1.6c.1.2.1.4 0 .6l-.4.5c-.1.1-.1.3 0 .4.5.9 1.2 1.6 2.1 2.1.1.1.3.1.4 0l.5-.5c.2-.1.4-.1.6 0l1.6.7c.3.1.4.3.4.5v.4c0 .3 0 .6-.7.9-.4.2-1.1.3-2.1-.2-1-.5-2.5-1.5-3.5-3.2-1-1.6-1.1-2.9-.8-3.5Z"/></svg>
+              </span>
+              <span class="contact-card-copy"><span class="contact-kicker">Respons cepat</span><strong>Chat via WhatsApp</strong><small><?= e($profile['whatsapp']) ?></small></span>
+              <span class="contact-card-arrow" aria-hidden="true">↗</span>
+            </a>
+          <?php endif; ?>
 
-            <?php if (!empty($profile['whatsapp'])): 
-              $waClean = preg_replace('/[^0-9]/', '', $profile['whatsapp']);
-            ?>
-              <a href="https://wa.me/<?= e($waClean) ?>" target="_blank" rel="noopener noreferrer" class="contact-card-item">
-                <span class="contact-channel-label">WhatsApp Langsung</span>
-                <span class="contact-channel-val"><?= e($profile['whatsapp']) ?></span>
-              </a>
-            <?php endif; ?>
+          <?php if (!empty($profile['linkedin'])): ?>
+            <a href="<?= e($profile['linkedin']) ?>" target="_blank" rel="noopener noreferrer" class="contact-bento-card contact-linkedin-card">
+              <span class="contact-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9v9M6 6v.01M10 18v-5a4 4 0 0 1 8 0v5m-8-4v4"/></svg></span>
+              <span class="contact-card-copy"><span class="contact-kicker">Jaringan profesional</span><strong>Terhubung di LinkedIn</strong><small>Lihat profil dan pengalaman</small></span>
+              <span class="contact-card-arrow" aria-hidden="true">↗</span>
+            </a>
+          <?php endif; ?>
 
-            <?php if (!empty($profile['linkedin'])): ?>
-              <a href="<?= e($profile['linkedin']) ?>" target="_blank" rel="noopener noreferrer" class="contact-card-item">
-                <span class="contact-channel-label">Profil LinkedIn</span>
-                <span class="contact-channel-val">linkedin.com/in/ammar</span>
-              </a>
-            <?php endif; ?>
+          <?php if (!empty($profile['github'])): ?>
+            <a href="<?= e($profile['github']) ?>" target="_blank" rel="noopener noreferrer" class="contact-bento-card contact-github-card">
+              <span class="contact-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 22v-3.9c0-1 .1-1.6-.5-2.2 2.4-.3 4.9-1.2 4.9-5.3 0-1.2-.4-2.1-1.1-2.9.1-.3.5-1.4-.1-2.9 0 0-.9-.3-3 1.1a10.2 10.2 0 0 0-5.4 0C7.7 4.6 6.8 4.9 6.8 4.9c-.6 1.5-.2 2.6-.1 2.9-.7.8-1.1 1.7-1.1 2.9 0 4.1 2.5 5 4.9 5.3-.6.6-.6 1.3-.6 2.2V22"/><path d="M9 19c-2 .6-3.5-.5-4-1.5"/></svg></span>
+              <span class="contact-card-copy"><span class="contact-kicker">Open source & kode</span><strong>Jelajahi GitHub</strong><small>Repository dan eksperimen</small></span>
+              <span class="contact-card-arrow" aria-hidden="true">↗</span>
+            </a>
+          <?php endif; ?>
 
-            <?php if (!empty($profile['github'])): ?>
-              <a href="<?= e($profile['github']) ?>" target="_blank" rel="noopener noreferrer" class="contact-card-item">
-                <span class="contact-channel-label">Repositori GitHub</span>
-                <span class="contact-channel-val">github.com/ammar</span>
-              </a>
-            <?php endif; ?>
-          </div>
+          <?php if (!empty($profile['email'])): ?>
+            <form class="contact-message-card" id="contactQuickForm" data-recipient="<?= e($profile['email']) ?>">
+              <div class="contact-form-heading">
+                <span class="contact-kicker">Atau kirim pesan singkat</span>
+                <strong>Ceritakan kebutuhan proyekmu</strong>
+              </div>
+              <div class="contact-form-row">
+                <label><span>Nama</span><input type="text" name="name" placeholder="Nama kamu" required></label>
+                <label><span>Email</span><input type="email" name="email" placeholder="email@kamu.com" required></label>
+              </div>
+              <label class="contact-message-field"><span>Pesan</span><textarea name="message" rows="3" placeholder="Halo Ammar, saya ingin berdiskusi tentang..." required></textarea></label>
+              <button type="submit" class="contact-send-btn">Kirim melalui Email <span aria-hidden="true">↗</span></button>
+            </form>
+          <?php endif; ?>
         </div>
       </div>
     </section>

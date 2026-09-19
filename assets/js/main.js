@@ -458,4 +458,23 @@ document.addEventListener('DOMContentLoaded', () => {
       window.openCommandPalette();
     }
   });
+
+  // ------------------------------------------------------------------------
+  // 8. Contact Quick Composer (opens the visitor's email client)
+  // ------------------------------------------------------------------------
+  const contactQuickForm = document.getElementById('contactQuickForm');
+  contactQuickForm?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const formData = new FormData(contactQuickForm);
+    const recipient = contactQuickForm.dataset.recipient;
+    const name = (formData.get('name') || '').toString().trim();
+    const email = (formData.get('email') || '').toString().trim();
+    const message = (formData.get('message') || '').toString().trim();
+
+    if (!recipient || !name || !email || !message) return;
+
+    const subject = `Diskusi proyek dari ${name}`;
+    const body = `Halo Ammar,\n\n${message}\n\nSalam,\n${name}\n${email}`;
+    window.location.href = `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
 });
