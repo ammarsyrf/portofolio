@@ -2780,6 +2780,18 @@ section[id] {
 }
 
 /* On desktop, let the project artwork carry the media card's full height. */
+@media (min-width: 768px) and (max-width: 1179px) {
+  .bento-media-cards-row {
+    gap: 0.75rem;
+    scroll-snap-type: x mandatory;
+  }
+
+  .bento-media-mini-card {
+    flex: 0 0 calc((100% - 0.75rem) / 2);
+    scroll-snap-align: start;
+  }
+}
+
 @media (min-width: 1180px) {
   .bento-deck-panel[data-panel="0"] .bento-media-cards-row {
     flex: 1 1 auto;
@@ -2787,8 +2799,8 @@ section[id] {
   }
 
   .bento-deck-panel[data-panel="0"] .bento-media-mini-card {
-    /* Tiga karya tampil seimbang; item berikutnya tetap dapat digeser. */
-    flex: 0 0 calc((100% - 1.3rem) / 3);
+    /* Dua karya tampil lega; item berikutnya tetap dapat digeser. */
+    flex: 0 0 calc((100% - 0.75rem) / 2);
     /* Kunci tinggi thumbnail sejak paint pertama agar refresh tidak meloncat. */
     height: 100%;
     min-height: 0;
