@@ -4309,7 +4309,9 @@ section[id] {
 
   .skills-domain-card,
   .skills-category-card {
-    min-height: 0;
+    /* Semua slide memakai tinggi yang sama agar carousel tidak terlihat naik-turun. */
+    min-height: 650px;
+    height: 650px;
   }
 
   .skills-mobile-swipe-hint {
