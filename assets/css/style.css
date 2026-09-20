@@ -5319,3 +5319,559 @@ section[id] {
     transform: none !important;
   }
 }
+
+/* ==========================================================================
+   23. Creations: TikTok & Reels Creator Grid & Channel Header
+   ========================================================================== */
+
+/* Channel Profile Banner */
+.creations-channel-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(20, 28, 45, 0.75) 0%, rgba(10, 14, 24, 0.88) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;
+  padding: 2.25rem;
+  margin-bottom: 2.25rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+.creations-channel-card::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(0, 242, 234, 0.15) 0%, rgba(225, 48, 108, 0.1) 50%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(40px);
+}
+
+.creations-channel-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.creations-channel-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex: 1 1 420px;
+}
+
+.creations-avatar-ring {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  min-width: 88px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, #00f2ea 0%, #4c8dff 45%, #e1306c 100%);
+  box-shadow: 0 0 25px rgba(76, 141, 255, 0.35);
+}
+
+.creations-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #0a0e17;
+  display: block;
+}
+
+.creations-channel-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.creations-channel-pills {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.channel-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.22rem 0.65rem;
+  border-radius: 9999px;
+  background: rgba(76, 141, 255, 0.15);
+  border: 1px solid rgba(76, 141, 255, 0.3);
+  color: #93c5fd;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.channel-status-chip {
+  font-size: 0.72rem;
+  color: #34d399;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.channel-status-chip .dot-pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.creations-channel-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.35rem 0;
+  letter-spacing: -0.02em;
+}
+
+.creations-channel-tagline {
+  color: var(--color-text-dim);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  margin: 0;
+  max-width: 540px;
+}
+
+/* Channel Action Buttons */
+.creations-channel-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.creator-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.creator-btn-tiktok {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(20, 24, 34, 0.9) 100%);
+  border: 1px solid rgba(0, 242, 234, 0.4);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.creator-btn-tiktok:hover {
+  transform: translateY(-2px);
+  border-color: #00f2ea;
+  box-shadow: 0 6px 20px rgba(0, 242, 234, 0.25);
+  color: #ffffff;
+}
+
+.creator-btn-instagram {
+  background: linear-gradient(135deg, rgba(225, 48, 108, 0.15) 0%, rgba(131, 58, 180, 0.2) 100%);
+  border: 1px solid rgba(225, 48, 108, 0.4);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.creator-btn-instagram:hover {
+  transform: translateY(-2px);
+  border-color: #e1306c;
+  box-shadow: 0 6px 20px rgba(225, 48, 108, 0.25);
+  color: #ffffff;
+}
+
+/* Channel Stat Bar */
+.creations-channel-stats {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.channel-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.stat-icon-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  color: var(--color-text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Filter Tabs Bar */
+.creations-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-bottom: 2.25rem;
+  flex-wrap: wrap;
+}
+
+.filter-tab-btn {
+  background: rgba(18, 24, 38, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  padding: 0.55rem 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-dim);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-tab-btn:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(30, 41, 59, 0.8);
+}
+
+.filter-tab-btn.is-active {
+  background: rgba(76, 141, 255, 0.18);
+  border-color: rgba(76, 141, 255, 0.6);
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(76, 141, 255, 0.3);
+}
+
+.tab-badge {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.12rem 0.45rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.filter-tab-btn.is-active .tab-badge {
+  background: rgba(76, 141, 255, 0.35);
+  color: #ffffff;
+}
+
+/* 9:16 TikTok / Reels Video Grid */
+.creations-reel-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 1120px) {
+  .creations-reel-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .creations-reel-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 440px) {
+  .creations-reel-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Video Card (Aspect Ratio 9:15.5) */
+.creation-reel-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #0b0f19;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  aspect-ratio: 9 / 15.5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              box-shadow 0.32s ease, 
+              border-color 0.32s ease,
+              opacity 0.25s ease;
+}
+
+.creation-reel-card.is-hidden {
+  display: none !important;
+}
+
+.creation-reel-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(76, 141, 255, 0.45);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65), 0 0 25px rgba(76, 141, 255, 0.2);
+}
+
+/* Media Background / Thumbnail */
+.reel-media-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.reel-media-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+  display: block;
+}
+
+.creation-reel-card:hover .reel-media-img {
+  transform: scale(1.08);
+}
+
+/* Procedural Fallback Poster */
+.reel-placeholder-poster {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 25%, #182234 0%, #080c14 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.reel-placeholder-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+.reel-placeholder-watermark {
+  font-size: 3.5rem;
+  opacity: 0.3;
+  margin-bottom: 0.5rem;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.creation-reel-card:hover .reel-placeholder-watermark {
+  transform: scale(1.15);
+  opacity: 0.5;
+}
+
+.reel-placeholder-label {
+  font-size: 0.75rem;
+  color: var(--color-text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+/* Top Badge Bar */
+.reel-top-bar {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.reel-platform-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.3rem 0.7rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  letter-spacing: 0.02em;
+}
+
+.reel-badge-tiktok {
+  background: rgba(0, 0, 0, 0.72);
+  border: 1px solid rgba(0, 242, 234, 0.5);
+  color: #00f2ea;
+  box-shadow: 0 0 10px rgba(0, 242, 234, 0.2);
+}
+
+.reel-badge-instagram {
+  background: rgba(0, 0, 0, 0.72);
+  border: 1px solid rgba(225, 48, 108, 0.5);
+  color: #e1306c;
+  box-shadow: 0 0 10px rgba(225, 48, 108, 0.2);
+}
+
+.reel-arrow-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 0.85rem;
+  transition: all 0.25s ease;
+}
+
+.creation-reel-card:hover .reel-arrow-btn {
+  background: var(--color-accent);
+  border-color: var(--color-accent-bright);
+  transform: translate(2px, -2px);
+  box-shadow: 0 0 12px rgba(76, 141, 255, 0.5);
+}
+
+/* Center Play Button Overlay */
+.reel-play-btn {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(10, 14, 23, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background 0.25s ease,
+              border-color 0.25s ease,
+              box-shadow 0.25s ease;
+}
+
+.reel-play-btn svg {
+  width: 22px;
+  height: 22px;
+  margin-left: 3px;
+  fill: currentColor;
+  transition: transform 0.2s ease;
+}
+
+.creation-reel-card:hover .reel-play-btn {
+  transform: translate(-50%, -50%) scale(1.15);
+  background: rgba(76, 141, 255, 0.9);
+  border-color: #ffffff;
+  box-shadow: 0 0 28px rgba(76, 141, 255, 0.7);
+}
+
+.creation-reel-card:hover .reel-play-btn svg {
+  transform: scale(1.1);
+}
+
+/* Bottom Scrim & Info */
+.reel-scrim {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  padding: 3.5rem 1.25rem 1.25rem;
+  background: linear-gradient(to top, 
+    rgba(8, 12, 20, 0.98) 0%, 
+    rgba(8, 12, 20, 0.88) 55%, 
+    rgba(8, 12, 20, 0.45) 82%, 
+    transparent 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.reel-date-pill {
+  font-size: 0.72rem;
+  color: var(--color-accent-bright);
+  font-weight: 600;
+  margin-bottom: 0.45rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.reel-title {
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.45;
+  margin: 0 0 0.85rem 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.reel-cta-action {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--color-text-dim);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.creation-reel-card:hover .reel-cta-action {
+  color: var(--color-accent-bright);
+  transform: translateX(3px);
+}
+
