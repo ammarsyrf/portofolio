@@ -1,8 +1,7 @@
 <?php
 /**
  * Login Directory Entry Point
- * Mengalihkan akses dari /login/ langsung ke Portal Administrator (/admin/login)
+ * Menampilkan halaman Login Administrator (/admin/login.php) secara langsung
  */
-require_once __DIR__ . '/../config.php';
-header('Location: ' . BASE_URL . '/admin/login');
-exit;
+require_once __DIR__ . '/../admin/login.php';
+

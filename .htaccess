@@ -12,18 +12,18 @@ DirectoryIndex index.php
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Shortcut /login -> admin login with clean URL.
-    RewriteRule ^login/?$ admin/login [L,R=302]
+    # Shortcut /login -> langsung layani halaman login admin tanpa redirect loop
+    RewriteRule ^login/?$ admin/login.php [L]
     RewriteRule ^robots\.txt$ robots.php [L]
     RewriteRule ^sitemap\.xml$ sitemap.php [L]
 
     # Canonical public URLs: jangan tampilkan /pages atau ekstensi .php.
-    RewriteCond %{THE_REQUEST} \s/+index\.php[?\s] [NC]
-    RewriteRule ^index\.php$ ./ [R=301,L]
-    RewriteCond %{THE_REQUEST} \s/+pages/(achievements|creations|guestbook|links)\.php[?\s] [NC]
-    RewriteRule ^pages/(achievements|creations|guestbook|links)\.php$ $1 [R=301,L,NE]
-    RewriteCond %{THE_REQUEST} \s/+(achievements|creations|guestbook|links)\.php[?\s] [NC]
-    RewriteRule ^(achievements|creations|guestbook|links)\.php$ $1 [R=301,L,NE]
+    RewriteCond %{THE_REQUEST} \s+(.*/)index\.php[?\s] [NC]
+    RewriteRule ^index\.php$ %1 [R=301,L]
+    RewriteCond %{THE_REQUEST} \s+(.*/)pages/(achievements|creations|guestbook|links)\.php[?\s] [NC]
+    RewriteRule ^pages/(achievements|creations|guestbook|links)\.php$ %1$1 [R=301,L,NE]
+    RewriteCond %{THE_REQUEST} \s+(.*/)(achievements|creations|guestbook|links)\.php[?\s] [NC]
+    RewriteRule ^(achievements|creations|guestbook|links)\.php$ %1$1 [R=301,L,NE]
 
     # Canonical admin URLs: keep the PHP implementation internal. The request
     # prefix is retained so this works both in a subdirectory and a vhost root.
