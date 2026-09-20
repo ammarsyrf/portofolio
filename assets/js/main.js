@@ -7,6 +7,30 @@
 document.addEventListener('DOMContentLoaded', () => {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Navigasi section tetap dapat diakses lewat anchor, tetapi hash tidak
+  // dibiarkan menetap di address bar agar URL publik selalu bersih.
+  const cleanHash = () => history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+  const scrollToSection = (id) => {
+    const target = document.getElementById(id);
+    if (!target) return false;
+    target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+    cleanHash();
+    return true;
+  };
+
+  if (window.location.hash) {
+    const initialId = decodeURIComponent(window.location.hash.slice(1));
+    window.requestAnimationFrame(() => scrollToSection(initialId));
+  }
+
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('a[href*="#"]');
+    if (!link || link.target === '_blank') return;
+    const url = new URL(link.href, window.location.href);
+    if (!url.hash || url.origin !== window.location.origin || url.pathname !== window.location.pathname) return;
+    if (scrollToSection(decodeURIComponent(url.hash.slice(1)))) event.preventDefault();
+  });
+
   // ------------------------------------------------------------------------
   // 0. Page Motion & Media Skeletons
   // ------------------------------------------------------------------------
