@@ -92,7 +92,6 @@ $icons = [
     'email'     => ['name' => 'Surel / Email', 'emoji' => '✉️'],
     'linkedin'  => ['name' => 'LinkedIn', 'emoji' => '💼'],
     'github'    => ['name' => 'GitHub', 'emoji' => '🐙'],
-    'whatsapp'  => ['name' => 'WhatsApp', 'emoji' => '💬'],
     'instagram' => ['name' => 'Instagram', 'emoji' => '📸'],
     'tiktok'    => ['name' => 'TikTok', 'emoji' => '🎵'],
     'globe'     => ['name' => 'Website / Web App', 'emoji' => '🌐'],
@@ -127,7 +126,7 @@ require_once __DIR__ . '/includes/sidebar.php';
 
     <div class="form-group">
       <label class="form-label">Label Tautan *</label>
-      <input type="text" name="label" class="form-control" required value="<?= e($_POST['label'] ?? $link['label']) ?>" placeholder="Mis. Portofolio Desain Figma / Konsultasi WhatsApp">
+      <input type="text" name="label" class="form-control" required value="<?= e($_POST['label'] ?? $link['label']) ?>" placeholder="Mis. Portofolio Desain Figma / Blog Pribadi">
     </div>
 
     <div class="form-group">

@@ -78,16 +78,6 @@ if (!empty($profile['cv_file'])) {
           </a>
         <?php endif; ?>
 
-        <!-- WhatsApp Pill -->
-        <?php if (!empty($profile['whatsapp'])): 
-          $cleanWa = preg_replace('/[^0-9]/', '', $profile['whatsapp']);
-        ?>
-          <a href="https://wa.me/<?= e($cleanWa) ?>" target="_blank" rel="noopener noreferrer" class="link-pill">
-            <span>💬</span>
-            <span>WhatsApp Langsung</span>
-          </a>
-        <?php endif; ?>
-
         <!-- Email Pill -->
         <?php if (!empty($profile['email'])): ?>
           <a href="mailto:<?= e($profile['email']) ?>" class="link-pill">
@@ -112,6 +102,20 @@ if (!empty($profile['cv_file'])) {
           </a>
         <?php endif; ?>
 
+        <?php if (!empty($profile['instagram'])): ?>
+          <a href="<?= e($profile['instagram']) ?>" target="_blank" rel="noopener noreferrer" class="link-pill">
+            <span>📸</span>
+            <span>Instagram</span>
+          </a>
+        <?php endif; ?>
+
+        <?php if (!empty($profile['tiktok'])): ?>
+          <a href="<?= e($profile['tiktok']) ?>" target="_blank" rel="noopener noreferrer" class="link-pill">
+            <span>🎵</span>
+            <span>TikTok</span>
+          </a>
+        <?php endif; ?>
+
         <!-- Tautan Kustom Tambahan dari Database -->
         <?php 
         $iconEmojiMap = [
@@ -119,7 +123,6 @@ if (!empty($profile['cv_file'])) {
             'email'     => '✉️',
             'linkedin'  => '💼',
             'github'    => '🐙',
-            'whatsapp'  => '💬',
             'link'      => '🔗',
             'instagram' => '📸',
             'tiktok'    => '🎵',
@@ -128,7 +131,7 @@ if (!empty($profile['cv_file'])) {
         ];
         foreach ($customLinks as $cl): 
           // Hindari duplikasi jika label mirip dengan link statis utama
-          if (in_array(strtolower($cl['label']), ['unduh cv (pdf)', 'profil linkedin', 'repositori github', 'kirim email resmi', 'konsultasi whatsapp'])) {
+          if (in_array(strtolower($cl['label']), ['unduh cv (pdf)', 'profil linkedin', 'repositori github', 'kirim email resmi', 'instagram', 'tiktok'])) {
               continue;
           }
           $clIcon = $iconEmojiMap[$cl['icon'] ?? ''] ?? '🔗';

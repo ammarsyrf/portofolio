@@ -21,7 +21,8 @@ CREATE TABLE IF NOT EXISTS profile (
     email VARCHAR(150) DEFAULT '',
     linkedin VARCHAR(255) DEFAULT '',
     github VARCHAR(255) DEFAULT '',
-    whatsapp VARCHAR(50) DEFAULT '',
+    instagram VARCHAR(255) DEFAULT '',
+    tiktok VARCHAR(255) DEFAULT '',
     skills TEXT COMMENT 'comma-separated list',
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -97,7 +98,7 @@ CREATE TABLE IF NOT EXISTS site_settings (
 -- =====================================================
 -- Seed: profile
 -- =====================================================
-INSERT INTO profile (id, full_name, role_title, tagline, about, email, linkedin, github, whatsapp, skills)
+INSERT INTO profile (id, full_name, role_title, tagline, about, email, linkedin, github, instagram, tiktok, skills)
 VALUES (
     1,
     'Ammar Syarif',
@@ -107,6 +108,7 @@ VALUES (
     'zentokun90@gmail.com',
     'https://linkedin.com/in/zentokun90',
     'https://github.com/zentokun90',
+    '',
     '',
     'PHP Native,MySQL,JavaScript,HTML/CSS,Data Mining,C4.5 Algorithm,RapidMiner,Sistem Informasi'
 )
@@ -152,8 +154,7 @@ INSERT INTO links (label, url, icon, sort_order, is_active) VALUES
 ('Unduh CV (PDF)', '#cv', 'cv', 1, 1),
 ('Kirim Email Resmi', 'mailto:zentokun90@gmail.com', 'email', 2, 1),
 ('Profil LinkedIn', 'https://linkedin.com/in/zentokun90', 'linkedin', 3, 1),
-('Repositori GitHub', 'https://github.com/zentokun90', 'github', 4, 1),
-('Konsultasi WhatsApp', 'https://wa.me/', 'whatsapp', 5, 1)
+('Repositori GitHub', 'https://github.com/zentokun90', 'github', 4, 1)
 ON DUPLICATE KEY UPDATE label = VALUES(label);
 
 -- =====================================================

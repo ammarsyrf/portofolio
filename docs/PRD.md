@@ -30,7 +30,7 @@ Website portofolio pribadi untuk Ammar Syarif, lulusan S1 Sistem Informasi, digu
 2. **About** — paragraf latar belakang, pendidikan, fokus keahlian
 3. **Skills** — daftar tech stack & kompetensi, dikelompokkan per kategori (mis. Frontend, Backend, Database, Tools)
 4. **Projects** — grid seluruh proyek (7 proyek awal, lihat `CONTENT.md`), klik → detail (deskripsi, tech stack, peran, hasil, link demo/repo)
-5. **Contact** — email, LinkedIn, GitHub, WhatsApp (klik-to-chat)
+5. **Contact** — email, LinkedIn, GitHub, Instagram, dan TikTok
 
 ### 5.2 Achievements (`achievements.php`)
 - Grid sertifikat/penghargaan: judul, penerbit/penyelenggara, tanggal, gambar sertifikat, link verifikasi (kalau ada)
@@ -48,7 +48,7 @@ Website portofolio pribadi untuk Ammar Syarif, lulusan S1 Sistem Informasi, digu
 - Admin bisa hapus/moderasi pesan yang tidak pantas dari admin panel
 
 ### 5.5 Links (`links.php`)
-- Halaman sederhana berisi daftar tombol link penting (gaya Linktree): CV, LinkedIn, GitHub, Email, WhatsApp, dan link custom lain yang bisa ditambah admin
+- Halaman sederhana berisi daftar tombol link penting (gaya Linktree): CV, LinkedIn, GitHub, Email, Instagram, TikTok, dan link custom lain yang bisa ditambah admin
 - Cocok untuk ditaruh di bio Instagram/LinkedIn
 
 ### 5.6 Navigasi Global & Command Palette

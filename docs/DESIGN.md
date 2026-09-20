@@ -35,7 +35,7 @@ Single-page scroll, section-section berikut (urutan sesuai `PRD.md`):
 3. **About** — kartu kaca berisi paragraf about, layout dua kolom di desktop (teks + elemen visual kecil), satu kolom di mobile
 4. **Skills** — badge/chip flat (bukan kartu kaca berat) dikelompokkan per kategori, mirip gaya badge di satriabahari
 5. **Projects** — grid kartu kaca, MUNCUL BERTAHAP saat di-scroll (lihat bagian Animasi), tiap kartu: judul, kategori (tag warna aksen), ringkasan, tech stack chip kecil
-6. **Contact** — kartu kaca dengan tombol-tombol kontak (email, WhatsApp, LinkedIn, GitHub)
+6. **Contact** — kartu kaca dengan tombol-tombol kontak dan sosial (email, LinkedIn, GitHub, Instagram, TikTok)
 
 Card treatment dibedakan sesuai fungsi (jangan semua kartu identik — hindari kesan "SaaS card kit"):
 - Kartu hero/about: glass besar, border lebih terang, sedikit glow

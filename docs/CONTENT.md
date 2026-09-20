@@ -12,7 +12,8 @@ Gunakan data ini sebagai isi awal (bukan lorem ipsum). Semua field ini nantinya 
 - **Email**: zentokun90@gmail.com *(asumsi — konfirmasi domain email yang benar)*
 - **LinkedIn**: https://linkedin.com/in/zentokun90 *(asumsi — konfirmasi username persis)*
 - **GitHub**: https://github.com/zentokun90 *(asumsi — konfirmasi username persis)*
-- **WhatsApp**: *(isi nomor aktif)*
+- **Instagram**: *(isi URL profil aktif lewat admin)*
+- **TikTok**: *(isi URL profil aktif lewat admin)*
 - **Foto profil**: *(perlu diunggah manual lewat admin)*
 - **CV (PDF)**: *(perlu diunggah manual lewat admin)*
 
@@ -77,7 +78,8 @@ Diisi otomatis dari data profil di atas, plus link tambahan berikut:
 2. **Email** → mailto:zentokun90@gmail.com *(asumsi, cek ulang)*
 3. **LinkedIn** → https://linkedin.com/in/zentokun90 *(asumsi, cek ulang)*
 4. **GitHub** → https://github.com/zentokun90 *(asumsi, cek ulang)*
-5. **WhatsApp** → *(isi nomor aktif)*
+5. **Instagram** → *(isi URL profil aktif lewat admin)*
+6. **TikTok** → *(isi URL profil aktif lewat admin)*
 
 Admin bisa menambah link lain lewat panel (misal: Instagram, TikTok, portofolio lama, dsb.) — tinggal tambah lewat CRUD Links.
 
@@ -94,7 +96,7 @@ Tidak perlu konten awal — halaman ini terisi otomatis dari pesan pengunjung ya
 
 ## TODO sebelum go-live
 - [ ] Konfirmasi domain email & username LinkedIn/GitHub yang benar
-- [ ] Isi nomor WhatsApp aktif
+- [ ] Isi URL Instagram dan TikTok aktif (jika ingin ditampilkan)
 - [ ] Lengkapi deskripsi detail untuk: LMS Asafiyah 02, Big Cargo, Big Aviation, GoHaji Umroh, Zenerie, Pustaka48
 - [ ] Siapkan foto profil (disarankan foto formal/semi-formal, latar polos)
 - [ ] Siapkan file CV dalam format PDF
@@ -102,4 +104,3 @@ Tidak perlu konten awal — halaman ini terisi otomatis dari pesan pengunjung ya
 - [ ] Siapkan daftar sertifikat/penghargaan untuk Achievements (kalau ada)
 - [ ] Putuskan apakah section Creations mau diisi atau disembunyikan dulu
 - [ ] Buat Google OAuth Client ID & Secret untuk fitur Guestbook (lihat panduan di `AGENTS.md`)
-

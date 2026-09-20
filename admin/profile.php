@@ -39,7 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = trim($_POST['email'] ?? '');
             $linkedin = trim($_POST['linkedin'] ?? '');
             $github = trim($_POST['github'] ?? '');
-            $whatsapp = trim($_POST['whatsapp'] ?? '');
+            $instagram = trim($_POST['instagram'] ?? '');
+            $tiktok = trim($_POST['tiktok'] ?? '');
 
             $deletePhoto = isset($_POST['delete_photo']) && $_POST['delete_photo'] === '1';
             $deleteCv = isset($_POST['delete_cv']) && $_POST['delete_cv'] === '1';
@@ -100,7 +101,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             email = :email,
                             linkedin = :linkedin,
                             github = :github,
-                            whatsapp = :whatsapp,
+                            instagram = :instagram,
+                            tiktok = :tiktok,
                             photo = :photo,
                             cv_file = :cv_file
                         WHERE id = 1
@@ -115,7 +117,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         ':email' => $email,
                         ':linkedin' => $linkedin,
                         ':github' => $github,
-                        ':whatsapp' => $whatsapp,
+                        ':instagram' => $instagram,
+                        ':tiktok' => $tiktok,
                         ':photo' => $photoFileName,
                         ':cv_file' => $cvFileName
                     ]);
@@ -349,23 +352,27 @@ require_once __DIR__ . '/includes/sidebar.php';
             <label class="form-label" for="email">Alamat Email Resmi</label>
             <input type="email" id="email" name="email" class="form-input" value="<?= e($profile['email']) ?>" placeholder="zentokun90@gmail.com">
           </div>
-
           <div class="form-group">
-            <label class="form-label" for="whatsapp">Nomor WhatsApp Aktif</label>
-            <input type="text" id="whatsapp" name="whatsapp" class="form-input" value="<?= e($profile['whatsapp']) ?>" placeholder="08xxxxxxxxxx atau 628xxxxxxxxxx">
-            <div class="form-help">Format nomor lokal atau internasional dengan kode negara (misal 628123456789).</div>
+            <label class="form-label" for="linkedin">Tautan Akun LinkedIn (URL)</label>
+            <input type="url" id="linkedin" name="linkedin" class="form-input" value="<?= e($profile['linkedin']) ?>" placeholder="https://linkedin.com/in/zentokun90">
           </div>
         </div>
 
         <div class="form-row form-row-2">
           <div class="form-group">
-            <label class="form-label" for="linkedin">Tautan Akun LinkedIn (URL)</label>
-            <input type="url" id="linkedin" name="linkedin" class="form-input" value="<?= e($profile['linkedin']) ?>" placeholder="https://linkedin.com/in/zentokun90">
-          </div>
-
-          <div class="form-group">
             <label class="form-label" for="github">Tautan Akun GitHub (URL)</label>
             <input type="url" id="github" name="github" class="form-input" value="<?= e($profile['github']) ?>" placeholder="https://github.com/zentokun90">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="instagram">Tautan Instagram (URL)</label>
+            <input type="url" id="instagram" name="instagram" class="form-input" value="<?= e($profile['instagram'] ?? '') ?>" placeholder="https://instagram.com/username">
+          </div>
+        </div>
+
+        <div class="form-row form-row-2">
+          <div class="form-group">
+            <label class="form-label" for="tiktok">Tautan TikTok (URL)</label>
+            <input type="url" id="tiktok" name="tiktok" class="form-input" value="<?= e($profile['tiktok'] ?? '') ?>" placeholder="https://tiktok.com/@username">
           </div>
         </div>
       </div>

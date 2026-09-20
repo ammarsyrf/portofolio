@@ -4,7 +4,10 @@ Semua perubahan dicatat berdasarkan commit Git. Format tanggal mengikuti waktu c
 
 ## Unreleased
 
-Tidak ada perubahan yang belum dicatat.
+### Kontak dan media sosial
+
+- Menghapus seluruh kanal kontak WhatsApp dari halaman publik, halaman tautan, pilihan link admin, dan data kontak yang tersimpan.
+- Menambahkan URL Instagram dan TikTok yang dapat diatur melalui **Admin → Kelola Profil & Berkas**; tautannya tampil otomatis pada kartu kontak, halaman Tautan, dan structured data SEO.
 
 ## 2026-09-20
 

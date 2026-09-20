@@ -84,7 +84,6 @@ require_once __DIR__ . '/includes/sidebar.php';
                       'email'     => '✉️',
                       'linkedin'  => '💼',
                       'github'    => '🐙',
-                      'whatsapp'  => '💬',
                       'link'      => '🔗',
                       'instagram' => '📸',
                       'tiktok'    => '🎵',

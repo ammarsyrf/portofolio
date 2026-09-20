@@ -55,8 +55,6 @@ function homepage_content_defaults(): array
         'contact_title' => 'Mari Membangun Solusi Bersama',
         'contact_email_title' => 'Mulai percakapan profesional',
         'contact_email_description' => 'Untuk kolaborasi, rekrutmen, dan diskusi proyek',
-        'contact_whatsapp_title' => 'Chat via WhatsApp',
-        'contact_whatsapp_description' => 'Balas cepat pada jam kerja',
         'contact_linkedin_title' => 'Terhubung di LinkedIn',
         'contact_linkedin_description' => 'Lihat profil dan pengalaman',
         'contact_github_title' => 'Jelajahi GitHub',

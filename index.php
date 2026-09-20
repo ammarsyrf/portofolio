@@ -27,7 +27,8 @@ if (!$profile) {
         'email' => 'zentokun90@gmail.com',
         'linkedin' => 'https://linkedin.com/in/zentokun90',
         'github' => 'https://github.com/zentokun90',
-        'whatsapp' => '',
+        'instagram' => '',
+        'tiktok' => '',
         'skills' => 'Laravel, PHP, MySQL, Redis, Next.js, React, Tailwind CSS, TypeScript, Docker, Linux, Pest, Flutter, Algoritma C4.5, S1 Sistem Informasi'
     ];
 }
@@ -217,21 +218,11 @@ if (!empty($profile['cv_file'])) {
                   </svg>
                 </a>
 
-                <?php if (!empty($profile['whatsapp'])): 
-                  $waClean = preg_replace('/[^0-9]/', '', $profile['whatsapp']);
-                ?>
-                  <a href="https://wa.me/<?= e($waClean) ?>" target="_blank" rel="noopener noreferrer" class="bento-float-btn" title="WhatsApp">
+                <a href="#contact" class="bento-float-btn" title="Kirim Pesan">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                     </svg>
                   </a>
-                <?php else: ?>
-                  <a href="#contact" class="bento-float-btn" title="Kirim Pesan">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                    </svg>
-                  </a>
-                <?php endif; ?>
               </div>
 
             </div>
@@ -1198,32 +1189,6 @@ if (!empty($profile['cv_file'])) {
                     </div>
                   </div>
 
-                  <!-- WhatsApp -->
-                  <div class="bento-card bento-card-deck deck-contact-card deck-contact-whatsapp-card">
-                    <div class="deck-contact-heading">
-                      <span class="deck-contact-icon">◌</span>
-                      <div>
-                        <span class="deck-eyebrow">Diskusi cepat</span>
-                        <h4>WhatsApp Chat</h4>
-                      </div>
-                    </div>
-                    <p class="deck-contact-lead">
-                      Hubungi langsung melalui pesan instan untuk diskusi cepat seputar kebutuhan pengembangan web Anda.
-                    </p>
-                    <div class="deck-contact-action-area">
-                      <?php 
-                        $waNum = !empty($profile['whatsapp']) ? preg_replace('/[^0-9]/', '', $profile['whatsapp']) : '';
-                      ?>
-                      <?php if ($waNum): ?>
-                        <a href="https://wa.me/<?= e($waNum) ?>" target="_blank" rel="noopener noreferrer" class="deck-contact-action-btn">
-                          <span>Chat via WhatsApp</span>
-                        </a>
-                      <?php else: ?>
-                        <span class="deck-contact-unavailable">Nomor WhatsApp akan segera diperbarui.</span>
-                      <?php endif; ?>
-                    </div>
-                  </div>
-
                   <!-- Jejaring Profesional -->
                   <div class="bento-card bento-card-deck deck-contact-card deck-contact-links-card">
                     <div>
@@ -1240,6 +1205,16 @@ if (!empty($profile['cv_file'])) {
                       <?php if (!empty($profile['linkedin'])): ?>
                         <a href="<?= e($profile['linkedin']) ?>" target="_blank" rel="noopener noreferrer" class="deck-social-row">
                           <span>LinkedIn</span><small>Profil profesional</small>
+                        </a>
+                      <?php endif; ?>
+                      <?php if (!empty($profile['instagram'])): ?>
+                        <a href="<?= e($profile['instagram']) ?>" target="_blank" rel="noopener noreferrer" class="deck-social-row">
+                          <span>Instagram</span><small>Update &amp; aktivitas</small>
+                        </a>
+                      <?php endif; ?>
+                      <?php if (!empty($profile['tiktok'])): ?>
+                        <a href="<?= e($profile['tiktok']) ?>" target="_blank" rel="noopener noreferrer" class="deck-social-row">
+                          <span>TikTok</span><small>Konten &amp; kreasi</small>
                         </a>
                       <?php endif; ?>
                       <a href="<?= BASE_URL ?>/guestbook" class="deck-social-row">
@@ -1836,17 +1811,8 @@ if (!empty($profile['cv_file'])) {
             </a>
           <?php endif; ?>
 
-          <?php if (!empty($profile['whatsapp'])):
-            $waClean = preg_replace('/[^0-9]/', '', $profile['whatsapp']);
-          ?>
-            <a href="https://wa.me/<?= e($waClean) ?>" target="_blank" rel="noopener noreferrer" class="contact-bento-card contact-whatsapp-card">
-              <span class="contact-card-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.6-4.1A8 8 0 1 1 20 11.5Z"/><path d="M8.5 8.4c.3-.7.6-.7.9-.7h.4c.3 0 .4.1.5.4l.7 1.6c.1.2.1.4 0 .6l-.4.5c-.1.1-.1.3 0 .4.5.9 1.2 1.6 2.1 2.1.1.1.3.1.4 0l.5-.5c.2-.1.4-.1.6 0l1.6.7c.3.1.4.3.4.5v.4c0 .3 0 .6-.7.9-.4.2-1.1.3-2.1-.2-1-.5-2.5-1.5-3.5-3.2-1-1.6-1.1-2.9-.8-3.5Z"/></svg>
-              </span>
-              <span class="contact-card-copy"><span class="contact-kicker">Respons cepat</span><strong><?= e($homeContent['contact_whatsapp_title']) ?></strong><small><?= e($homeContent['contact_whatsapp_description']) ?></small></span>
-              <span class="contact-card-arrow" aria-hidden="true">↗</span>
-            </a>
-          <?php endif; ?>
+          <?php if (!empty($profile['instagram'])): ?><a href="<?= e($profile['instagram']) ?>" target="_blank" rel="noopener noreferrer" class="contact-bento-card contact-linkedin-card"><span class="contact-card-icon">📸</span><span class="contact-card-copy"><span class="contact-kicker">Media sosial</span><strong>Instagram</strong><small>Ikuti update dan karya terbaru</small></span><span class="contact-card-arrow">↗</span></a><?php endif; ?>
+          <?php if (!empty($profile['tiktok'])): ?><a href="<?= e($profile['tiktok']) ?>" target="_blank" rel="noopener noreferrer" class="contact-bento-card contact-github-card"><span class="contact-card-icon">🎵</span><span class="contact-card-copy"><span class="contact-kicker">Media sosial</span><strong>TikTok</strong><small>Lihat konten dan proses kreatif</small></span><span class="contact-card-arrow">↗</span></a><?php endif; ?>
 
           <?php if (!empty($profile['linkedin'])): ?>
             <a href="<?= e($profile['linkedin']) ?>" target="_blank" rel="noopener noreferrer" class="contact-bento-card contact-linkedin-card">
