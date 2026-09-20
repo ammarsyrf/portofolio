@@ -219,9 +219,15 @@ button, input, textarea, select {
   border: 1px solid rgba(76, 141, 255, 0.25);
   color: var(--color-accent-bright);
   font-family: var(--font-display);
-  font-size: 0.66rem;
+  font-size: 0.58rem;
   font-weight: 800;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.08em;
+  transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+@keyframes brandNameEnter {
+  from { opacity: 0; transform: translateX(-7px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 .brand-full {
@@ -572,6 +578,14 @@ button, input, textarea, select {
     padding-left: 0.3rem;
   }
 
+  .site-header:hover .brand-grid-icon,
+  .site-header:focus-within .brand-grid-icon {
+    transform: rotate(-5deg) scale(1.07);
+    background: rgba(76, 141, 255, 0.26);
+    border-color: rgba(121, 166, 255, 0.62);
+    box-shadow: 0 0 16px rgba(76, 141, 255, 0.32);
+  }
+
   .site-header:hover .nav-pill,
   .site-header:focus-within .nav-pill {
     justify-content: flex-start;
@@ -586,6 +600,11 @@ button, input, textarea, select {
     width: 112px;
     max-width: 112px;
     opacity: 1;
+  }
+
+  .site-header:hover .nav-brand-pill .brand-full,
+  .site-header:focus-within .nav-brand-pill .brand-full {
+    animation: brandNameEnter 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
   main.site-container,
