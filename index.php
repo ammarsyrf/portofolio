@@ -138,16 +138,16 @@ if (!empty($profile['cv_file'])) {
 
               <!-- Card 2: Our Brand — Zenerie -->
               <div class="bento-card bento-card-player bento-card-brand">
-                <a href="https://www.zenerie.my.id" target="_blank" rel="noopener noreferrer" class="bento-player-thumb-wrap bento-brand-logo-link" aria-label="Kunjungi website Zenerie">
+                <a href="<?= e($homeContent['brand_url']) ?>" target="_blank" rel="noopener noreferrer" class="bento-player-thumb-wrap bento-brand-logo-link" aria-label="Kunjungi website Zenerie">
                   <img src="<?= asset('uploads/photos/zenerie-logo.jpg') ?>" alt="Logo Zenerie" class="bento-player-thumb bento-brand-logo">
                 </a>
                 <div class="bento-player-info">
                   <div class="bento-player-header">
-                    <span class="bento-player-title">Our Brand <span style="color: var(--color-accent);">♥</span></span>
-                    <span class="bento-player-badge">Zenerie</span>
+                    <span class="bento-player-title"><?= e($homeContent['brand_title']) ?> <span style="color: var(--color-accent);">♥</span></span>
+                    <span class="bento-player-badge"><?= e($homeContent['brand_badge']) ?></span>
                   </div>
-                  <div class="bento-player-subtitle">Zenerie adalah brand kreatif yang kami rintis untuk menghadirkan identitas dan pengalaman digital yang berkesan.</div>
-                  <a href="https://www.zenerie.my.id" target="_blank" rel="noopener noreferrer" class="bento-brand-visit">Kunjungi Zenerie <span aria-hidden="true">↗</span></a>
+                  <div class="bento-player-subtitle"><?= e($homeContent['brand_description']) ?></div>
+                  <a href="<?= e($homeContent['brand_url']) ?>" target="_blank" rel="noopener noreferrer" class="bento-brand-visit"><?= e($homeContent['brand_button']) ?> <span aria-hidden="true">↗</span></a>
                 </div>
               </div>
 
@@ -163,9 +163,9 @@ if (!empty($profile['cv_file'])) {
                 </p>
                 <div class="bento-identity-actions">
                   <?php if ($hasCv): ?>
-                    <a href="<?= e($cvUrl) ?>" download class="btn-bento-pill primary" id="btn-download-cv">View Profile</a>
+                    <a href="<?= e($cvUrl) ?>" download class="btn-bento-pill primary" id="btn-download-cv"><?= e($homeContent['identity_button']) ?></a>
                   <?php else: ?>
-                    <a href="#about" class="btn-bento-pill primary">View Profile</a>
+                    <a href="#about" class="btn-bento-pill primary"><?= e($homeContent['identity_button']) ?></a>
                   <?php endif; ?>
                   <span class="bento-dots-menu" title="Menu Opsi">•••</span>
                 </div>
@@ -324,10 +324,10 @@ if (!empty($profile['cv_file'])) {
                   <div class="bento-card bento-card-media">
                     <div class="bento-media-header">
                       <div class="media-title-wrap">
-                        <h4>Media</h4>
+                        <h4><?= e($homeContent['media_title']) ?></h4>
                         <span class="media-count-badge"><?= count($mediaProjects) ?> Karya</span>
                       </div>
-                      <a href="#projects" class="bento-see-all">See All ➔</a>
+                      <a href="#projects" class="bento-see-all"><?= e($homeContent['media_button']) ?></a>
                     </div>
 
                     <div class="bento-media-cards-row">
@@ -354,8 +354,8 @@ if (!empty($profile['cv_file'])) {
                   <div class="bento-card bento-card-skills-widget">
                     <div class="bento-skills-header">
                       <div class="skills-widget-heading">
-                        <h4>Tech Stack</h4>
-                        <span class="skills-widget-dot">● Active</span>
+                        <h4><?= e($homeContent['tech_widget_title']) ?></h4>
+                        <span class="skills-widget-dot"><?= e($homeContent['tech_widget_status']) ?></span>
                       </div>
                       <div class="skills-cat-tabs" id="skillCatTabs" role="tablist">
                         <button type="button" class="cat-tab-btn active" data-cat="all">Semua</button>
@@ -943,8 +943,8 @@ if (!empty($profile['cv_file'])) {
                     </div>
 
                     <div class="skills-widget-footer">
-                      <span class="skills-footer-tag">✦ Teruji di Produksi &amp; Riset</span>
-                      <a href="#skills" class="bento-see-all">Semua Skill ➔</a>
+                      <span class="skills-footer-tag"><?= e($homeContent['tech_widget_footer']) ?></span>
+                      <a href="#skills" class="bento-see-all"><?= e($homeContent['tech_widget_button']) ?></a>
                     </div>
                   </div>
 
@@ -1742,8 +1742,8 @@ if (!empty($profile['cv_file'])) {
     <section id="projects" class="section-padding">
       <div class="site-container">
         <div class="section-header">
-          <div class="section-caption">Koleksi Proyek</div>
-          <h2 class="section-title">Hasil Karya & Sistem Bisnis</h2>
+          <div class="section-caption"><?= e($homeContent['projects_caption']) ?></div>
+          <h2 class="section-title"><?= e($homeContent['projects_title']) ?></h2>
         </div>
 
         <p class="projects-mobile-swipe-hint" aria-hidden="true">Geser kartu untuk melihat proyek lainnya</p>

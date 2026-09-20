@@ -24,13 +24,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $content = get_homepage_content($pdo);
 $groups = [
     'Hero & Statistik' => ['hero_education_label','hero_degree','hero_field','hero_specialty_label','hero_specialty_value','hero_availability_label','hero_availability_value','hero_readiness','hero_line_one','hero_line_two','hero_line_three','hero_badge','hero_vertical_badge'],
+    'Kartu Brand Zenerie' => ['brand_title','brand_badge','brand_description','brand_url','brand_button'],
+    'Widget Dashboard' => ['identity_button','media_title','media_button','tech_widget_title','tech_widget_status','tech_widget_footer','tech_widget_button'],
     'Kartu Tentang (Bento)' => ['about_widget_title','about_widget_status','about_widget_text_one','about_widget_text_two','about_metric_one_value','about_metric_one_label','about_metric_two_value','about_metric_two_label'],
     'Bagian Tentang Saya' => ['about_caption','about_title','about_kicker','about_heading','about_paragraph_one','about_paragraph_two','about_paragraph_three'],
     'Bagian Keahlian' => ['skills_caption','skills_title','skills_lead'],
+    'Bagian Proyek' => ['projects_caption','projects_title'],
     'Bagian Kontak' => ['contact_caption','contact_title','contact_email_title','contact_email_description','contact_whatsapp_title','contact_whatsapp_description','contact_linkedin_title','contact_linkedin_description','contact_github_title','contact_github_description','contact_form_title','contact_form_button'],
 ];
 $labels = [
     'hero_education_label'=>'Label pendidikan','hero_degree'=>'Gelar singkat','hero_field'=>'Bidang pendidikan','hero_specialty_label'=>'Label spesialisasi','hero_specialty_value'=>'Nilai spesialisasi','hero_availability_label'=>'Label ketersediaan','hero_availability_value'=>'Nilai ketersediaan','hero_readiness'=>'Kesiapan teknis (0–100)','hero_line_one'=>'Hero baris 1','hero_line_two'=>'Hero baris 2','hero_line_three'=>'Hero baris 3','hero_badge'=>'Badge hero','hero_vertical_badge'=>'Badge vertikal',
+    'brand_title'=>'Judul brand','brand_badge'=>'Badge brand','brand_description'=>'Deskripsi Zenerie','brand_url'=>'URL website Zenerie','brand_button'=>'Teks tombol','identity_button'=>'Tombol profil','media_title'=>'Judul media','media_button'=>'Tombol media','tech_widget_title'=>'Judul tech stack','tech_widget_status'=>'Status tech stack','tech_widget_footer'=>'Footer tech stack','tech_widget_button'=>'Tombol tech stack','projects_caption'=>'Caption proyek','projects_title'=>'Judul proyek',
     'about_widget_title'=>'Judul kartu','about_widget_status'=>'Status','about_widget_text_one'=>'Paragraf 1','about_widget_text_two'=>'Paragraf 2','about_metric_one_value'=>'Metrik 1 nilai','about_metric_one_label'=>'Metrik 1 label','about_metric_two_value'=>'Metrik 2 nilai','about_metric_two_label'=>'Metrik 2 label',
     'about_caption'=>'Caption section','about_title'=>'Judul section','about_kicker'=>'Kicker','about_heading'=>'Judul panel','about_paragraph_one'=>'Paragraf 1','about_paragraph_two'=>'Paragraf 2','about_paragraph_three'=>'Paragraf 3',
     'skills_caption'=>'Caption section','skills_title'=>'Judul section','skills_lead'=>'Deskripsi section',
