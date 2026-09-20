@@ -1,0 +1,4 @@
+# Proteksi Direktori Internal
+# Berkas di dalam folder ini hanya boleh dipanggil dari server (require/include),
+# dan tidak boleh diakses langsung melalui peramban.
+Require all denied

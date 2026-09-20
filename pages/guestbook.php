@@ -7,6 +7,7 @@
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/functions.php';
+require_once __DIR__ . '/../includes/security.php';
 
 require_once __DIR__ . '/../includes/seo.php';
 
@@ -218,8 +219,11 @@ $hasOauthConfig = (GOOGLE_CLIENT_ID !== 'YOUR_GOOGLE_CLIENT_ID.apps.googleuserco
               <div class="guest-bubble">
                 <div class="guest-bubble-header">
                   <div class="guest-info-block">
-                    <?php if (!empty($msg['user_avatar'])): ?>
-                      <img src="<?= e($msg['user_avatar']) ?>" alt="<?= e($msg['user_name']) ?>" class="guest-avatar" style="width: 38px; height: 38px;">
+                    <?php 
+                      $safeAvatar = sanitize_safe_url($msg['user_avatar'] ?? '');
+                      if (!empty($safeAvatar)): 
+                    ?>
+                      <img src="<?= e($safeAvatar) ?>" alt="<?= e($msg['user_name']) ?>" class="guest-avatar" style="width: 38px; height: 38px;">
                     <?php else: ?>
                       <div class="guest-avatar" style="width: 38px; height: 38px; background: rgba(76, 141, 255, 0.2); color: var(--color-accent-bright); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.85rem;">
                         <?= e($initial) ?>

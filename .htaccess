@@ -1,14 +1,33 @@
+# Keamanan Server
 Options -Indexes
 DirectoryIndex index.php
 ErrorDocument 404 /404.php
+ServerSignature Off
 
+# HTTP Security Headers
 <IfModule mod_headers.c>
+    # Cegah Clickjacking
+    Header always set X-Frame-Options "SAMEORIGIN"
+    # Cegah MIME Type Sniffing
+    Header always set X-Content-Type-Options "nosniff"
+    # Perlindungan Filter XSS
+    Header always set X-XSS-Protection "1; mode=block"
+    # Kebijakan Referrer
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    # Batasi Akses Fitur Perangkat Keras
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+
     <FilesMatch "^(index|login)\.php$">
         Header always set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
         Header always set Pragma "no-cache"
         Header always set Expires "0"
     </FilesMatch>
 </IfModule>
+
+# Blokir akses langsung ke berkas sensitif, konfigurasi, backup, database, dan log
+<FilesMatch "^(config\.php|\.env|\.git|\.user\.ini|php\.ini|composer\.(json|lock)|package(-lock)?\.json|error\.log|.*\.(sql|sqlite|db|log|bak|old|swp|md|sh|inc))$">
+    Require all denied
+</FilesMatch>
 
 <IfModule mod_rewrite.c>
     RewriteEngine On

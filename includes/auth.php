@@ -7,15 +7,41 @@
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/functions.php';
 
-/**
- * Memeriksa apakah admin sedang login
- */
-function is_admin_logged_in(): bool {
-    return !empty($_SESSION['admin_logged_in']) && !empty($_SESSION['admin_user_id']);
+if (!defined('ADMIN_SESSION_LIFETIME')) {
+    define('ADMIN_SESSION_LIFETIME', 7200); // 2 jam batas inaktivitas (dalam detik)
 }
 
 /**
- * Mendaftarkan sesi login admin dengan regenerasi ID sesi untuk mencegah session fixation
+ * Memeriksa apakah admin sedang login, valid, dan belum kedaluwarsa
+ */
+function is_admin_logged_in(): bool {
+    if (empty($_SESSION['admin_logged_in']) || empty($_SESSION['admin_user_id'])) {
+        return false;
+    }
+
+    // 1. Pemeriksaan Inactivity Timeout (2 jam tanpa interaksi)
+    $lastActivity = (int)($_SESSION['admin_last_activity'] ?? 0);
+    if ($lastActivity > 0 && (time() - $lastActivity) > ADMIN_SESSION_LIFETIME) {
+        logout_admin();
+        return false;
+    }
+
+    // 2. Proteksi Session Hijacking (Validasi User-Agent)
+    $currentUa = $_SERVER['HTTP_USER_AGENT'] ?? '';
+    $storedUa = $_SESSION['admin_user_agent'] ?? '';
+    if (!empty($storedUa) && !hash_equals($storedUa, $currentUa)) {
+        logout_admin();
+        return false;
+    }
+
+    // Perbarui waktu aktivitas terakhir
+    $_SESSION['admin_last_activity'] = time();
+
+    return true;
+}
+
+/**
+ * Mendaftarkan sesi login admin dengan regenerasi ID sesi dan fingerprint perangkat
  */
 function login_admin(array $admin): void {
     session_regenerate_id(true);
@@ -23,6 +49,8 @@ function login_admin(array $admin): void {
     $_SESSION['admin_user_id'] = $admin['id'];
     $_SESSION['admin_username'] = $admin['username'];
     $_SESSION['admin_login_time'] = time();
+    $_SESSION['admin_last_activity'] = time();
+    $_SESSION['admin_user_agent'] = $_SERVER['HTTP_USER_AGENT'] ?? '';
 }
 
 /**

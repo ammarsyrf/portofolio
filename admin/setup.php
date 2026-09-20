@@ -13,11 +13,17 @@ require_once __DIR__ . '/../includes/functions.php';
 $stmt = $pdo->query("SELECT COUNT(*) FROM admin_users");
 $adminCount = (int)$stmt->fetchColumn();
 
-$isSetupLocked = ($adminCount > 0);
+if ($adminCount > 0) {
+    // Inisialisasi sudah selesai, cegah akses setup dan alihkan ke login
+    set_flash('info', 'Inisialisasi sistem telah selesai. Silakan login menggunakan akun administrator.');
+    redirect(BASE_URL . '/admin/login');
+}
+
+$isSetupLocked = false;
 $successMessage = '';
 $errorMessage = '';
 
-if (!$isSetupLocked && $_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $token = $_POST['csrf_token'] ?? '';
     if (!verify_csrf_token($token)) {
         $errorMessage = 'Sesi tidak valid (CSRF token mismatch). Silakan refresh halaman dan coba lagi.';

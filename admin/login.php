@@ -6,6 +6,7 @@
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/functions.php';
+require_once __DIR__ . '/../includes/security.php';
 
 // Jika admin sudah login, langsung alihkan ke dashboard
 if (!empty($_SESSION['admin_logged_in']) && !empty($_SESSION['admin_user_id'])) {
@@ -19,34 +20,63 @@ $hasUsers = ((int)$checkUsers->fetchColumn() > 0);
 $errorMessage = '';
 $flash = get_flash();
 
+// Cek status rate limiting untuk IP klien
+$clientIp = get_client_ip();
+$throttle = is_login_locked($clientIp);
+$isLocked = $throttle['locked'];
+
+if ($isLocked) {
+    $remainingMinutes = max(1, (int)ceil($throttle['remaining_seconds'] / 60));
+    $errorMessage = "⚠️ Terlalu banyak percobaan login gagal. Demi keamanan, akses login dari IP Anda dikunci sementara selama {$remainingMinutes} menit.";
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $token = $_POST['csrf_token'] ?? '';
-    if (!verify_csrf_token($token)) {
-        $errorMessage = 'Sesi form telah kedaluwarsa. Silakan muat ulang halaman.';
+    if ($isLocked) {
+        $remainingMinutes = max(1, (int)ceil($throttle['remaining_seconds'] / 60));
+        $errorMessage = "⚠️ Akses login masih dikunci. Silakan coba kembali dalam {$remainingMinutes} menit.";
     } else {
-        $username = trim($_POST['username'] ?? '');
-        $password = $_POST['password'] ?? '';
-
-        if (empty($username) || empty($password)) {
-            $errorMessage = 'Silakan masukkan username dan password Anda.';
+        $token = $_POST['csrf_token'] ?? '';
+        if (!verify_csrf_token($token)) {
+            $errorMessage = 'Sesi form telah kedaluwarsa. Silakan muat ulang halaman.';
         } else {
-            // Prepared statement untuk mencari admin
-            $stmt = $pdo->prepare("SELECT * FROM admin_users WHERE username = :username LIMIT 1");
-            $stmt->execute([':username' => $username]);
-            $admin = $stmt->fetch();
+            $username = trim($_POST['username'] ?? '');
+            $password = $_POST['password'] ?? '';
 
-            if ($admin && password_verify($password, $admin['password'])) {
-                // Regenerasi session ID untuk mencegah session fixation
-                session_regenerate_id(true);
-                $_SESSION['admin_logged_in'] = true;
-                $_SESSION['admin_user_id'] = $admin['id'];
-                $_SESSION['admin_username'] = $admin['username'];
-                $_SESSION['admin_login_time'] = time();
-
-                set_flash('success', 'Selamat datang kembali, ' . e($admin['username']) . '!');
-                redirect(BASE_URL . '/admin/dashboard');
+            if (empty($username) || empty($password)) {
+                $errorMessage = 'Silakan masukkan username dan password Anda.';
             } else {
-                $errorMessage = 'Kombinasi username atau password tidak tepat.';
+                // Prepared statement untuk mencari admin
+                $stmt = $pdo->prepare("SELECT * FROM admin_users WHERE username = :username LIMIT 1");
+                $stmt->execute([':username' => $username]);
+                $admin = $stmt->fetch();
+
+                if ($admin && password_verify($password, $admin['password'])) {
+                    // Reset counter percobaan gagal saat login berhasil
+                    reset_login_attempts($clientIp);
+
+                    // Regenerasi session ID untuk mencegah session fixation
+                    session_regenerate_id(true);
+                    $_SESSION['admin_logged_in'] = true;
+                    $_SESSION['admin_user_id'] = $admin['id'];
+                    $_SESSION['admin_username'] = $admin['username'];
+                    $_SESSION['admin_login_time'] = time();
+                    $_SESSION['admin_last_activity'] = time();
+                    $_SESSION['admin_user_agent'] = $_SERVER['HTTP_USER_AGENT'] ?? '';
+
+                    set_flash('success', 'Selamat datang kembali, ' . e($admin['username']) . '!');
+                    redirect(BASE_URL . '/admin/dashboard');
+                } else {
+                    // Catat kegagalan login dan evaluasi rate limiting
+                    $record = record_failed_login($clientIp);
+                    if ($record['locked']) {
+                        $remainingMinutes = max(1, (int)ceil($record['remaining_seconds'] / 60));
+                        $isLocked = true;
+                        $errorMessage = "⚠️ Terlalu banyak percobaan gagal (5x). Akses login dikunci selama {$remainingMinutes} menit demi keamanan.";
+                    } else {
+                        $remainingAttempts = MAX_LOGIN_ATTEMPTS - $record['attempts'];
+                        $errorMessage = "Kombinasi username atau password tidak tepat. (Sisa percobaan aman: {$remainingAttempts})";
+                    }
+                }
             }
         }
     }
@@ -175,16 +205,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="form-group">
           <label class="form-label" for="username">Username</label>
-          <input type="text" id="username" name="username" class="form-control" required autofocus autocomplete="username">
+          <input type="text" id="username" name="username" class="form-control" required autofocus autocomplete="username" <?= $isLocked ? 'disabled' : '' ?>>
         </div>
 
         <div class="form-group">
           <label class="form-label" for="password">Password</label>
-          <input type="password" id="password" name="password" class="form-control" required autocomplete="current-password">
+          <input type="password" id="password" name="password" class="form-control" required autocomplete="current-password" <?= $isLocked ? 'disabled' : '' ?>>
         </div>
 
-        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.75rem;">
-          Masuk ke Dashboard
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.75rem;" <?= $isLocked ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : '' ?>>
+          <?= $isLocked ? '🔒 Login Dikunci Sementara' : 'Masuk ke Dashboard' ?>
         </button>
       </form>
 
