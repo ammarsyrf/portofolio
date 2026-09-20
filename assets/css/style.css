@@ -703,6 +703,17 @@ section[id] {
   scroll-margin-top: 6.5rem;
 }
 
+/* Desktop landing view: dashboard pertama dimulai rapat dari atas dan
+   mengambil satu viewport penuh sebelum section berikutnya muncul. */
+@media (min-width: 1181px) {
+  .bento-master-canvas {
+    min-height: 100svh;
+    box-sizing: border-box;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+}
+
 .bento-master-canvas .site-container {
   max-width: 1360px;
   width: 100%;
