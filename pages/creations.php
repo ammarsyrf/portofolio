@@ -7,6 +7,9 @@
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/functions.php';
+require_once __DIR__ . '/../includes/seo.php';
+
+$profile = get_profile($pdo);
 
 // Cek toggle pengaturan keterlihatan
 $showSection = (get_setting($pdo, 'show_creations_section', '1') === '1');
@@ -17,8 +20,16 @@ $creations = $showSection ? get_published_creations($pdo) : [];
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kreasi Konten Digital — Ammar Syarif</title>
-  <meta name="description" content="Kurasi konten edukasi teknologi, tips rekayasa sistem, dan eksplorasi data di platform TikTok dan Instagram oleh Ammar Syarif.">
+  <title>Kreasi Konten Digital — Ammar Syarif (@zentokun90) | Zenerie</title>
+  <meta name="description" content="Kurasi konten edukasi teknologi, tips rekayasa sistem, dan eksplorasi data di TikTok &amp; Instagram oleh Ammar Syarif (@zentokun90) di Zenerie.">
+  <?php render_seo(
+      $profile,
+      'Kreasi Konten Digital — Ammar Syarif (@zentokun90) | Zenerie',
+      'Kurasi konten edukasi teknologi, tips rekayasa sistem, dan eksplorasi data di TikTok & Instagram oleh Ammar Syarif (@zentokun90) di Zenerie.',
+      '/creations',
+      'website',
+      ['Kreasi Konten' => '/creations']
+  ); ?>
 
   <!-- Google Fonts: Space Grotesk & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -100,7 +111,7 @@ $creations = $showSection ? get_published_creations($pdo) : [];
   <!-- Site Footer -->
   <footer class="site-footer">
     <div class="site-container footer-inner">
-      <div>&copy; <?= date('Y') ?> Ammar Syarif. Digital Creations.</div>
+      <div>&copy; <?= date('Y') ?> <?= e($profile['full_name'] ?? 'Ammar Syarif') ?> (@zentokun90) — Zenerie. Digital Creations.</div>
       <div style="display: flex; gap: 1.5rem;">
         <a href="<?= BASE_URL ?>/" class="footer-admin-link">Beranda</a>
         <a href="<?= BASE_URL ?>/achievements" class="footer-admin-link">Pencapaian</a>

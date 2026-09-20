@@ -7,7 +7,9 @@
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/functions.php';
+require_once __DIR__ . '/../includes/seo.php';
 
+$profile = get_profile($pdo);
 $achievements = get_published_achievements($pdo);
 ?>
 <!DOCTYPE html>
@@ -15,8 +17,16 @@ $achievements = get_published_achievements($pdo);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pencapaian & Sertifikat — Ammar Syarif</title>
-  <meta name="description" content="Daftar sertifikat, penghargaan, dan pengakuan profesional Ammar Syarif di bidang rekayasa sistem web dan analitik data.">
+  <title>Pencapaian &amp; Sertifikat — Ammar Syarif (@zentokun90) | Zenerie</title>
+  <meta name="description" content="Daftar sertifikat kompetensi, penghargaan, dan rekam jejak profesional Ammar Syarif (@zentokun90) di Zenerie.">
+  <?php render_seo(
+      $profile,
+      'Pencapaian & Sertifikat — Ammar Syarif (@zentokun90) | Zenerie',
+      'Daftar sertifikat kompetensi, penghargaan, dan rekam jejak profesional Ammar Syarif (@zentokun90) di Zenerie.',
+      '/achievements',
+      'website',
+      ['Pencapaian' => '/achievements']
+  ); ?>
 
   <!-- Google Fonts: Space Grotesk & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -102,7 +112,7 @@ $achievements = get_published_achievements($pdo);
   <!-- Site Footer -->
   <footer class="site-footer">
     <div class="site-container footer-inner">
-      <div>&copy; <?= date('Y') ?> Ammar Syarif. Portfolio & Achievements.</div>
+      <div>&copy; <?= date('Y') ?> <?= e($profile['full_name'] ?? 'Ammar Syarif') ?> (@zentokun90) — Zenerie. Portfolio &amp; Achievements.</div>
       <div style="display: flex; gap: 1.5rem;">
         <a href="<?= BASE_URL ?>/" class="footer-admin-link">Beranda</a>
         <a href="<?= BASE_URL ?>/links" class="footer-admin-link">Tautan</a>

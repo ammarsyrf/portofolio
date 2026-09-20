@@ -8,6 +8,10 @@ require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/functions.php';
 
+require_once __DIR__ . '/../includes/seo.php';
+
+$profile = get_profile($pdo);
+
 // Handle logout guest visitor
 if (isset($_GET['logout_guest'])) {
     logout_guest();
@@ -71,8 +75,16 @@ $hasOauthConfig = (GOOGLE_CLIENT_ID !== 'YOUR_GOOGLE_CLIENT_ID.apps.googleuserco
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buku Tamu Pengunjung — Ammar Syarif</title>
-  <meta name="description" content="Tinggalkan pesan, salam profesional, atau tanggapan untuk portofolio Ammar Syarif melalui autentikasi akun Google.">
+  <title>Buku Tamu Interaktif — Ammar Syarif (@zentokun90) | Zenerie</title>
+  <meta name="description" content="Tinggalkan pesan, salam profesional, atau ulasan untuk Ammar Syarif (@zentokun90) di Zenerie melalui autentikasi Google.">
+  <?php render_seo(
+      $profile,
+      'Buku Tamu Interaktif — Ammar Syarif (@zentokun90) | Zenerie',
+      'Tinggalkan pesan, salam profesional, atau ulasan untuk Ammar Syarif (@zentokun90) di Zenerie melalui autentikasi Google.',
+      '/guestbook',
+      'website',
+      ['Buku Tamu' => '/guestbook']
+  ); ?>
 
   <!-- Google Fonts: Space Grotesk & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -236,7 +248,7 @@ $hasOauthConfig = (GOOGLE_CLIENT_ID !== 'YOUR_GOOGLE_CLIENT_ID.apps.googleuserco
   <!-- Site Footer -->
   <footer class="site-footer">
     <div class="site-container footer-inner">
-      <div>&copy; <?= date('Y') ?> Ammar Syarif. Buku Tamu Digital.</div>
+      <div>&copy; <?= date('Y') ?> <?= e($profile['full_name'] ?? 'Ammar Syarif') ?> (@zentokun90) — Zenerie. Buku Tamu Digital.</div>
       <div style="display: flex; gap: 1.5rem;">
         <a href="<?= BASE_URL ?>/" class="footer-admin-link">Beranda</a>
         <a href="<?= BASE_URL ?>/links" class="footer-admin-link">Tautan</a>

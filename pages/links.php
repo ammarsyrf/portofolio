@@ -57,9 +57,16 @@ $iconSvgMap = [
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tautan Resmi &amp; Bio Bento — <?= e($profile['full_name'] ?? 'Ammar Syarif') ?></title>
-  <meta name="description" content="Kumpulan tautan resmi, berkas CV, kontak, dan kanal profesional Ammar Syarif dalam format Bento Grid.">
-  <?php render_seo($profile, 'Tautan Resmi — ' . ($profile['full_name'] ?? 'Ammar Syarif'), $profile['tagline'] ?? '', '/links'); ?>
+  <title>Tautan Resmi Ammar Syarif (@zentokun90) — Bio Bento | Zenerie</title>
+  <meta name="description" content="Pusat tautan resmi, berkas CV, kontak, repositori GitHub, dan media sosial Ammar Syarif (@zentokun90) di Zenerie.">
+  <?php render_seo(
+      $profile,
+      'Tautan Resmi Ammar Syarif (@zentokun90) — Bio Bento | Zenerie',
+      'Pusat tautan resmi, berkas CV, kontak, repositori GitHub, dan media sosial Ammar Syarif (@zentokun90) di Zenerie.',
+      '/links',
+      'website',
+      ['Tautan Bio' => '/links']
+  ); ?>
 
   <!-- Google Fonts: Space Grotesk & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -341,7 +348,7 @@ $iconSvgMap = [
   <!-- Site Footer -->
   <footer class="site-footer">
     <div class="site-container footer-inner">
-      <div>&copy; <?= date('Y') ?> Ammar Syarif. Bio Bento Links.</div>
+      <div>&copy; <?= date('Y') ?> <?= e($profile['full_name'] ?? 'Ammar Syarif') ?> (@zentokun90) — Zenerie. Bio Bento Links.</div>
       <div style="display: flex; gap: 1.5rem;">
         <a href="<?= BASE_URL ?>/" class="footer-admin-link">Beranda</a>
         <a href="<?= BASE_URL ?>/guestbook" class="footer-admin-link">Buku Tamu</a>
