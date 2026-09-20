@@ -7,7 +7,7 @@
 
 $currentPage = basename($_SERVER['PHP_SELF']);
 $isHome = ($currentPage === 'index.php');
-$homePrefix = $isHome ? '' : (BASE_URL . '/index.php');
+$homePrefix = $isHome ? '' : (BASE_URL . '/');
 
 // Fetch mini photo if exists
 $navPhoto = '';
@@ -20,7 +20,7 @@ if (isset($profile) && !empty($profile['photo']) && file_exists(UPLOAD_DIR_PHOTO
     <div class="nav-pill-bar">
       
       <!-- Brand / Logo -->
-      <a href="<?= BASE_URL ?>/index.php" class="nav-brand-pill" title="Ammar Syarif — Portofolio">
+      <a href="<?= BASE_URL ?>/" class="nav-brand-pill" title="Ammar Syarif — Portofolio">
         <div class="brand-grid-icon" aria-hidden="true">A//S</div>
         <span class="brand-name"><span class="brand-short">A//S</span><span class="brand-full">Ammar Syarif</span></span>
       </a>
@@ -39,16 +39,16 @@ if (isset($profile) && !empty($profile['photo']) && file_exists(UPLOAD_DIR_PHOTO
         <a href="<?= $homePrefix ?>#projects" class="nav-pill" title="Proyek" aria-label="Proyek">
           <svg class="nav-item-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/></svg><span class="nav-label">Proyek</span>
         </a>
-        <a href="<?= BASE_URL ?>/pages/achievements.php" class="nav-pill <?= ($currentPage === 'achievements.php') ? 'active' : '' ?>" title="Pencapaian" aria-label="Pencapaian">
+        <a href="<?= BASE_URL ?>/achievements" class="nav-pill <?= ($currentPage === 'achievements.php') ? 'active' : '' ?>" title="Pencapaian" aria-label="Pencapaian">
           <svg class="nav-item-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 3 4 3 4-3v8a4 4 0 0 1-8 0z"/><path d="M8 18H5m14 0h-3"/></svg><span class="nav-label">Pencapaian</span>
         </a>
-        <a href="<?= BASE_URL ?>/pages/creations.php" class="nav-pill <?= ($currentPage === 'creations.php') ? 'active' : '' ?>" title="Kreasi" aria-label="Kreasi">
+        <a href="<?= BASE_URL ?>/creations" class="nav-pill <?= ($currentPage === 'creations.php') ? 'active' : '' ?>" title="Kreasi" aria-label="Kreasi">
           <svg class="nav-item-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m10 9 5 3-5 3z"/></svg><span class="nav-label">Kreasi</span>
         </a>
-        <a href="<?= BASE_URL ?>/pages/guestbook.php" class="nav-pill <?= ($currentPage === 'guestbook.php') ? 'active' : '' ?>" title="Buku Tamu" aria-label="Buku Tamu">
+        <a href="<?= BASE_URL ?>/guestbook" class="nav-pill <?= ($currentPage === 'guestbook.php') ? 'active' : '' ?>" title="Buku Tamu" aria-label="Buku Tamu">
           <svg class="nav-item-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v11H9l-4 4z"/><path d="M8 9h8m-8 3h5"/></svg><span class="nav-label">Buku Tamu</span>
         </a>
-        <a href="<?= BASE_URL ?>/pages/links.php" class="nav-pill <?= ($currentPage === 'links.php') ? 'active' : '' ?>" title="Tautan" aria-label="Tautan">
+        <a href="<?= BASE_URL ?>/links" class="nav-pill <?= ($currentPage === 'links.php') ? 'active' : '' ?>" title="Tautan" aria-label="Tautan">
           <svg class="nav-item-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.1.1l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1"/><path d="M14 11a5 5 0 0 0-7.1-.1l-2 2A5 5 0 0 0 12 20l1.1-1.1"/></svg><span class="nav-label">Tautan</span>
         </a>
       </nav>

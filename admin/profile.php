@@ -238,7 +238,7 @@ require_once __DIR__ . '/includes/sidebar.php';
         </p>
       </div>
       <div>
-        <a href="<?= BASE_URL ?>/index.php" target="_blank" class="btn btn-secondary btn-sm">
+        <a href="<?= BASE_URL ?>/" target="_blank" class="btn btn-secondary btn-sm">
           Lihat Halaman Publik
         </a>
       </div>

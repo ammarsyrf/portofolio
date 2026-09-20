@@ -58,7 +58,7 @@ require_once __DIR__ . '/includes/sidebar.php';
         </div>
       </fieldset>
     <?php endforeach; ?>
-    <div style="display:flex;gap:.75rem;align-items:center"><button class="btn btn-primary" type="submit">Simpan Konten Halaman Utama</button><a class="btn btn-secondary" target="_blank" href="<?= BASE_URL ?>/index.php">Pratinjau Web ↗</a></div>
+    <div style="display:flex;gap:.75rem;align-items:center"><button class="btn btn-primary" type="submit">Simpan Konten Halaman Utama</button><a class="btn btn-secondary" target="_blank" href="<?= BASE_URL ?>/">Pratinjau Web ↗</a></div>
   </form>
 </div>
 <?php require_once __DIR__ . '/includes/footer.php'; ?>

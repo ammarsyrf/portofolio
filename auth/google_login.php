@@ -10,7 +10,7 @@ require_once __DIR__ . '/../includes/functions.php';
 // Cek apakah kredensial Google OAuth sudah dikonfigurasi
 if (GOOGLE_CLIENT_ID === 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com' || empty(GOOGLE_CLIENT_ID)) {
     set_flash('danger', 'Google OAuth belum dikonfigurasi. Silakan masukkan GOOGLE_CLIENT_ID dan GOOGLE_CLIENT_SECRET di file config.php.');
-    redirect(BASE_URL . '/pages/guestbook.php');
+    redirect(BASE_URL . '/guestbook');
 }
 
 // Generate random state untuk mencegah CSRF pada OAuth callback

@@ -1239,7 +1239,7 @@ if (!empty($profile['cv_file'])) {
                           <span>LinkedIn</span><small>Profil profesional</small>
                         </a>
                       <?php endif; ?>
-                      <a href="<?= BASE_URL ?>/pages/guestbook.php" class="deck-social-row">
+                      <a href="<?= BASE_URL ?>/guestbook" class="deck-social-row">
                         <span>Buku Tamu</span><small>Tinggalkan pesan</small>
                       </a>
                     </div>
@@ -1887,8 +1887,8 @@ if (!empty($profile['cv_file'])) {
         &copy; <?= date('Y') ?> <?= e($profile['full_name']) ?>. Dark Glassmorphism Portfolio.
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; align-items: center; justify-content: center;">
-        <a href="<?= BASE_URL ?>/pages/links.php" class="footer-admin-link">Semua Tautan</a>
-        <a href="<?= BASE_URL ?>/pages/guestbook.php" class="footer-admin-link">Buku Tamu</a>
+        <a href="<?= BASE_URL ?>/links" class="footer-admin-link">Semua Tautan</a>
+        <a href="<?= BASE_URL ?>/guestbook" class="footer-admin-link">Buku Tamu</a>
         <a href="<?= BASE_URL ?>/admin/login.php" class="footer-admin-link">Portal Admin</a>
       </div>
     </div>

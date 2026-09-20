@@ -63,7 +63,7 @@ require_once __DIR__ . '/includes/sidebar.php';
           <tr>
             <td colspan="5" style="text-align: center; padding: 3rem 1rem;">
               <p style="color: var(--color-cream-muted); margin-bottom: 0.5rem;">Belum ada pesan yang masuk di buku tamu.</p>
-              <a href="<?= BASE_URL ?>/pages/guestbook.php" target="_blank" class="btn btn-secondary btn-sm">Lihat Halaman Buku Tamu Publik</a>
+              <a href="<?= BASE_URL ?>/guestbook" target="_blank" class="btn btn-secondary btn-sm">Lihat Halaman Buku Tamu Publik</a>
             </td>
           </tr>
         <?php else: ?>

@@ -12,7 +12,7 @@ require_once __DIR__ . '/../includes/functions.php';
 if (isset($_GET['logout_guest'])) {
     logout_guest();
     set_flash('info', 'Anda telah keluar dari sesi pengunjung Google.');
-    redirect(BASE_URL . '/pages/guestbook.php');
+    redirect(BASE_URL . '/guestbook');
 }
 
 $guestUser = get_guest_user();
@@ -23,7 +23,7 @@ $errorMessage = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$isLoggedIn) {
         set_flash('danger', 'Anda harus masuk dengan Google terlebih dahulu untuk mengirimkan pesan.');
-        redirect(BASE_URL . '/pages/guestbook.php');
+        redirect(BASE_URL . '/guestbook');
     }
 
     $token = $_POST['csrf_token'] ?? '';
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ]);
 
                 set_flash('success', 'Terima kasih, ' . e($guestUser['name']) . '! Pesan Anda berhasil ditambahkan ke Buku Tamu.');
-                redirect(BASE_URL . '/pages/guestbook.php');
+                redirect(BASE_URL . '/guestbook');
             } catch (PDOException $e) {
                 error_log("Guestbook Insert Error: " . $e->getMessage());
                 $errorMessage = 'Terjadi kesalahan sistem saat menyimpan pesan Anda.';
@@ -238,8 +238,8 @@ $hasOauthConfig = (GOOGLE_CLIENT_ID !== 'YOUR_GOOGLE_CLIENT_ID.apps.googleuserco
     <div class="site-container footer-inner">
       <div>&copy; <?= date('Y') ?> Ammar Syarif. Buku Tamu Digital.</div>
       <div style="display: flex; gap: 1.5rem;">
-        <a href="<?= BASE_URL ?>/index.php" class="footer-admin-link">Beranda</a>
-        <a href="<?= BASE_URL ?>/pages/links.php" class="footer-admin-link">Tautan</a>
+        <a href="<?= BASE_URL ?>/" class="footer-admin-link">Beranda</a>
+        <a href="<?= BASE_URL ?>/links" class="footer-admin-link">Tautan</a>
         <a href="<?= BASE_URL ?>/admin/login.php" class="footer-admin-link">Portal Admin</a>
       </div>
     </div>

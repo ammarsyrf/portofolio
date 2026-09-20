@@ -5,9 +5,14 @@
     # Shortcut /login -> admin/login.php
     RewriteRule ^login/?$ admin/login.php [L,R=302]
 
-    # Clean URL routing ke folder pages/
-    RewriteRule ^achievements(\.php)?/?$ pages/achievements.php [L]
-    RewriteRule ^creations(\.php)?/?$ pages/creations.php [L]
-    RewriteRule ^guestbook(\.php)?/?$ pages/guestbook.php [L]
-    RewriteRule ^links(\.php)?/?$ pages/links.php [L]
+    # Canonical public URLs: jangan tampilkan /pages atau ekstensi .php.
+    RewriteCond %{THE_REQUEST} \s/+index\.php[?\s] [NC]
+    RewriteRule ^index\.php$ ./ [R=301,L]
+    RewriteCond %{THE_REQUEST} \s/+pages/(achievements|creations|guestbook|links)\.php[?\s] [NC]
+    RewriteRule ^pages/(achievements|creations|guestbook|links)\.php$ $1 [R=301,L,NE]
+    RewriteCond %{THE_REQUEST} \s/+(achievements|creations|guestbook|links)\.php[?\s] [NC]
+    RewriteRule ^(achievements|creations|guestbook|links)\.php$ $1 [R=301,L,NE]
+
+    # Clean URL routing ke folder pages/ (internal rewrite, URL browser tetap bersih).
+    RewriteRule ^(achievements|creations|guestbook|links)/?$ pages/$1.php [L]
 </IfModule>

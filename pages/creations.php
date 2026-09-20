@@ -50,7 +50,7 @@ $creations = $showSection ? get_published_creations($pdo) : [];
         <p style="color: var(--color-text-dim); max-width: 52ch; margin: 0 auto 1.75rem; font-size: var(--text-sm); line-height: 1.6;">
           Bagian kreasi konten TikTok dan Instagram dikurasi secara manual dan berkala. Saat ini belum ada post yang dipublikasikan atau sedang dinonaktifkan dari panel admin.
         </p>
-        <a href="<?= BASE_URL ?>/index.php#projects" class="btn btn-primary btn-sm">
+        <a href="<?= BASE_URL ?>/#projects" class="btn btn-primary btn-sm">
           Jelajahi Proyek Web
         </a>
       </div>
@@ -102,8 +102,8 @@ $creations = $showSection ? get_published_creations($pdo) : [];
     <div class="site-container footer-inner">
       <div>&copy; <?= date('Y') ?> Ammar Syarif. Digital Creations.</div>
       <div style="display: flex; gap: 1.5rem;">
-        <a href="<?= BASE_URL ?>/index.php" class="footer-admin-link">Beranda</a>
-        <a href="<?= BASE_URL ?>/pages/achievements.php" class="footer-admin-link">Pencapaian</a>
+        <a href="<?= BASE_URL ?>/" class="footer-admin-link">Beranda</a>
+        <a href="<?= BASE_URL ?>/achievements" class="footer-admin-link">Pencapaian</a>
         <a href="<?= BASE_URL ?>/admin/login.php" class="footer-admin-link">Portal Admin</a>
       </div>
     </div>

@@ -72,7 +72,7 @@ if (!empty($profile['cv_file'])) {
             <span>Unduh Berkas CV Resmi (PDF)</span>
           </a>
         <?php else: ?>
-          <a href="<?= BASE_URL ?>/index.php#contact" class="link-pill">
+          <a href="<?= BASE_URL ?>/#contact" class="link-pill">
             <span>📄</span>
             <span>Minta Berkas CV (Hubungi Kontak)</span>
           </a>
@@ -140,7 +140,7 @@ if (!empty($profile['cv_file'])) {
         <?php endforeach; ?>
 
         <!-- Kembali ke Portofolio Utama -->
-        <a href="<?= BASE_URL ?>/index.php" class="link-pill" style="margin-top: 1rem; border-color: rgba(255,255,255,0.2);">
+        <a href="<?= BASE_URL ?>/" class="link-pill" style="margin-top: 1rem; border-color: rgba(255,255,255,0.2);">
           <span>🌐</span>
           <span>Buka Website Portofolio Lengkap</span>
         </a>
@@ -155,8 +155,8 @@ if (!empty($profile['cv_file'])) {
     <div class="site-container footer-inner">
       <div>&copy; <?= date('Y') ?> Ammar Syarif. Bio Links.</div>
       <div style="display: flex; gap: 1.5rem;">
-        <a href="<?= BASE_URL ?>/index.php" class="footer-admin-link">Beranda</a>
-        <a href="<?= BASE_URL ?>/pages/guestbook.php" class="footer-admin-link">Buku Tamu</a>
+        <a href="<?= BASE_URL ?>/" class="footer-admin-link">Beranda</a>
+        <a href="<?= BASE_URL ?>/guestbook" class="footer-admin-link">Buku Tamu</a>
         <a href="<?= BASE_URL ?>/admin/login.php" class="footer-admin-link">Portal Admin</a>
       </div>
     </div>

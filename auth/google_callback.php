@@ -10,7 +10,7 @@ require_once __DIR__ . '/../includes/functions.php';
 // Cek error dari Google
 if (!empty($_GET['error'])) {
     set_flash('danger', 'Login Google dibatalkan atau gagal: ' . e($_GET['error']));
-    redirect(BASE_URL . '/pages/guestbook.php');
+    redirect(BASE_URL . '/guestbook');
 }
 
 // Validasi state parameter untuk mencegah CSRF
@@ -20,13 +20,13 @@ unset($_SESSION['oauth_state']); // Hapus state setelah dipakai
 
 if (empty($returnedState) || empty($sessionState) || !hash_equals($sessionState, $returnedState)) {
     set_flash('danger', 'Validasi sesi login Google tidak valid (State mismatch). Silakan coba lagi.');
-    redirect(BASE_URL . '/pages/guestbook.php');
+    redirect(BASE_URL . '/guestbook');
 }
 
 $code = $_GET['code'] ?? '';
 if (empty($code)) {
     set_flash('danger', 'Otorisasi Google tidak mengembalikan authorization code.');
-    redirect(BASE_URL . '/pages/guestbook.php');
+    redirect(BASE_URL . '/guestbook');
 }
 
 // --------------------------------------------------------------------------
@@ -73,7 +73,7 @@ $tokenData = json_decode((string)$tokenResponse, true);
 if (empty($tokenData['access_token'])) {
     error_log("Google OAuth Token Exchange Failed: " . (string)$tokenResponse);
     set_flash('danger', 'Gagal menukarkan token otentikasi dengan Google. Pastikan Client ID dan Secret di config.php sudah benar.');
-    redirect(BASE_URL . '/pages/guestbook.php');
+    redirect(BASE_URL . '/guestbook');
 }
 
 $accessToken = $tokenData['access_token'];
@@ -113,7 +113,7 @@ $userData = json_decode((string)$userResponse, true);
 if (empty($userData['sub'])) {
     error_log("Google OAuth Userinfo Failed: " . (string)$userResponse);
     set_flash('danger', 'Gagal memuat profil pengguna dari Google.');
-    redirect(BASE_URL . '/pages/guestbook.php');
+    redirect(BASE_URL . '/guestbook');
 }
 
 // --------------------------------------------------------------------------
@@ -128,4 +128,4 @@ set_guest_user([
 ]);
 
 set_flash('success', 'Selamat datang, ' . e($userData['name'] ?? 'Pengunjung') . '! Anda telah terverifikasi melalui Google.');
-redirect(BASE_URL . '/pages/guestbook.php');
+redirect(BASE_URL . '/guestbook');

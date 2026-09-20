@@ -49,7 +49,7 @@ $achievements = get_published_achievements($pdo);
         <p style="color: var(--color-text-dim); max-width: 52ch; margin: 0 auto 1.75rem; font-size: var(--text-sm); line-height: 1.6;">
           Daftar pencapaian dan sertifikat sedang dalam proses kurasi dan verifikasi dokumen. Data dapat ditambahkan secara langsung melalui portal administrator.
         </p>
-        <a href="<?= BASE_URL ?>/index.php#projects" class="btn btn-primary btn-sm">
+        <a href="<?= BASE_URL ?>/#projects" class="btn btn-primary btn-sm">
           Lihat Koleksi Proyek
         </a>
       </div>
@@ -104,8 +104,8 @@ $achievements = get_published_achievements($pdo);
     <div class="site-container footer-inner">
       <div>&copy; <?= date('Y') ?> Ammar Syarif. Portfolio & Achievements.</div>
       <div style="display: flex; gap: 1.5rem;">
-        <a href="<?= BASE_URL ?>/index.php" class="footer-admin-link">Beranda</a>
-        <a href="<?= BASE_URL ?>/pages/links.php" class="footer-admin-link">Tautan</a>
+        <a href="<?= BASE_URL ?>/" class="footer-admin-link">Beranda</a>
+        <a href="<?= BASE_URL ?>/links" class="footer-admin-link">Tautan</a>
         <a href="<?= BASE_URL ?>/admin/login.php" class="footer-admin-link">Portal Admin</a>
       </div>
     </div>
