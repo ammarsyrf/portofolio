@@ -264,7 +264,13 @@ if (!empty($profile['cv_file'])) {
                   <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
                 </svg>
               </button>
-              <button type="button" class="dock-item" data-deck-index="4" role="tab" aria-selected="false" aria-controls="deck-panel-4" title="Kontak & Kanal Profesional">
+              <button type="button" class="dock-item" data-deck-index="4" role="tab" aria-selected="false" aria-controls="deck-panel-4" title="Gear & Workspace Setup (Hardware & Software)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="12" rx="2"/>
+                  <line x1="2" y1="20" x2="22" y2="20"/>
+                </svg>
+              </button>
+              <button type="button" class="dock-item" data-deck-index="5" role="tab" aria-selected="false" aria-controls="deck-panel-5" title="Kontak & Kanal Profesional">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                   <polyline points="22,6 12,13 2,6"/>
@@ -1300,9 +1306,165 @@ if (!empty($profile['cv_file'])) {
                 </div>
 
                 <!-- ==============================================
-                     PANEL 4: KONTAK (Kanal Hubungi Langsung)
+                     PANEL 4: GEAR & WORKSPACE SETUP (Hardware & Software)
                      ============================================== -->
-                <div class="bento-deck-panel" id="deck-panel-4" role="tabpanel" data-panel="4">
+                <div class="bento-deck-panel bento-panel-gear" id="deck-panel-4" role="tabpanel" data-panel="4">
+                  
+                  <!-- Card 1: Hardware & Workstation Rig -->
+                  <div class="bento-card bento-card-deck deck-gear-card deck-gear-hardware-card">
+                    <div class="bento-card-heading">
+                      <div>
+                        <span class="deck-eyebrow">Workstation &amp; Rig</span>
+                        <h4>Hardware Utama</h4>
+                      </div>
+                      <span class="gear-status-pill"><span class="gear-status-dot"></span> Aktif</span>
+                    </div>
+                    <p class="deck-gear-lead">
+                      Perangkat keras performa tinggi untuk kompilasi kode cepat, multitasking intensif, dan komputasi AI lokal.
+                    </p>
+                    <div class="gear-spec-list">
+                      <div class="gear-spec-item">
+                        <div class="gear-spec-icon">💻</div>
+                        <div class="gear-spec-content">
+                          <span class="gear-spec-label">Mesin Utama</span>
+                          <strong class="gear-spec-name">AMD Ryzen™ / Intel Core i7</strong>
+                          <span class="gear-spec-detail">32GB RAM DDR5 • 1TB NVMe PCIe 4.0</span>
+                        </div>
+                      </div>
+                      <div class="gear-spec-item">
+                        <div class="gear-spec-icon">🖥️</div>
+                        <div class="gear-spec-content">
+                          <span class="gear-spec-label">Dual Display Setup</span>
+                          <strong class="gear-spec-name">27&quot; QHD 165Hz IPS + 24&quot; Portrait</strong>
+                          <span class="gear-spec-detail">Optimal koding vertikal &amp; terminal preview</span>
+                        </div>
+                      </div>
+                      <div class="gear-spec-item">
+                        <div class="gear-spec-icon">⌨️</div>
+                        <div class="gear-spec-content">
+                          <span class="gear-spec-label">Input &amp; Periferal</span>
+                          <strong class="gear-spec-name">Custom 75% Mechanical Keyboard</strong>
+                          <span class="gear-spec-detail">Lubed Linear Switches • Wireless Precision Mouse</span>
+                        </div>
+                      </div>
+                      <div class="gear-spec-item">
+                        <div class="gear-spec-icon">🎧</div>
+                        <div class="gear-spec-content">
+                          <span class="gear-spec-label">Audio Monitor</span>
+                          <strong class="gear-spec-name">Studio Monitor Headphones / IEM</strong>
+                          <span class="gear-spec-detail">Acoustic clarity &amp; passive noise isolation</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="deck-card-actions" style="margin-top: auto;">
+                      <span class="bento-status-badge-inline">⚡ Dedicated Development Rig</span>
+                    </div>
+                  </div>
+
+                  <!-- Card 2: Development & Software Stack -->
+                  <div class="bento-card bento-card-deck deck-gear-card deck-gear-software-card">
+                    <div class="bento-card-heading">
+                      <div>
+                        <span class="deck-eyebrow">Development Environment</span>
+                        <h4>Software &amp; Toolchain</h4>
+                      </div>
+                      <span class="gear-cat-badge">Daily Driver</span>
+                    </div>
+                    <p class="deck-gear-lead">
+                      Toolchain harian yang dikonfigurasi untuk kecepatan navigasi kode, otomasi CLI, dan arsitektur stabil.
+                    </p>
+                    <div class="gear-category-blocks">
+                      <div class="gear-cat-block">
+                        <span class="gear-block-title">OS &amp; Shell</span>
+                        <div class="gear-tag-cluster">
+                          <span class="gear-tool-tag highlighted">Windows 11 Pro</span>
+                          <span class="gear-tool-tag highlighted">WSL2 (Ubuntu 24.04)</span>
+                          <span class="gear-tool-tag">Windows Terminal</span>
+                          <span class="gear-tool-tag">PowerShell 7</span>
+                          <span class="gear-tool-tag">Starship Prompt</span>
+                          <span class="gear-tool-tag">Git CLI</span>
+                        </div>
+                      </div>
+                      <div class="gear-cat-block">
+                        <span class="gear-block-title">IDE &amp; Editors</span>
+                        <div class="gear-tag-cluster">
+                          <span class="gear-tool-tag highlighted">Antigravity IDE</span>
+                          <span class="gear-tool-tag highlighted">Cursor AI</span>
+                          <span class="gear-tool-tag">VS Code</span>
+                          <span class="gear-tool-tag">JetBrains Mono</span>
+                        </div>
+                      </div>
+                      <div class="gear-cat-block">
+                        <span class="gear-block-title">Runtime, DB &amp; API</span>
+                        <div class="gear-tag-cluster">
+                          <span class="gear-tool-tag">PHP 8.2</span>
+                          <span class="gear-tool-tag highlighted">Laravel 13</span>
+                          <span class="gear-tool-tag">Node.js 20</span>
+                          <span class="gear-tool-tag">MySQL / PostgreSQL</span>
+                          <span class="gear-tool-tag">TablePlus</span>
+                          <span class="gear-tool-tag">Postman</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="deck-card-actions" style="margin-top: auto;">
+                      <span class="bento-status-badge-inline">🛠️ Tuned CLI &amp; Hotkeys</span>
+                    </div>
+                  </div>
+
+                  <!-- Card 3: AI & Productivity Suite -->
+                  <div class="bento-card bento-card-deck deck-gear-card deck-gear-ai-card">
+                    <div class="bento-card-heading">
+                      <div>
+                        <span class="deck-eyebrow">Productivity &amp; Intelligence</span>
+                        <h4>AI &amp; Alur Kerja</h4>
+                      </div>
+                      <span class="gear-ai-badge">Agentic AI</span>
+                    </div>
+                    <p class="deck-gear-lead">
+                      Sinergi rekayasa modern: penalaran LLM tingkat lanjut digabungkan dengan desain terstruktur dan otomasi.
+                    </p>
+                    <div class="gear-ai-feature-list">
+                      <div class="gear-ai-item">
+                        <div class="gear-ai-icon">🤖</div>
+                        <div>
+                          <strong>Frontier AI Models</strong>
+                          <span>Claude 3.7 Sonnet (Thinking Mode), OpenAI GPT-4o, Google Gemini 2.5 Pro.</span>
+                        </div>
+                      </div>
+                      <div class="gear-ai-item">
+                        <div class="gear-ai-icon">🎯</div>
+                        <div>
+                          <strong>Prompt &amp; Agent Engineering</strong>
+                          <span>System prompts, multi-agent chaining, context grounding &amp; function calling.</span>
+                        </div>
+                      </div>
+                      <div class="gear-ai-item">
+                        <div class="gear-ai-icon">🎨</div>
+                        <div>
+                          <strong>Desain &amp; Manajemen Ide</strong>
+                          <span>Figma (Design System &amp; UI prototype), Obsidian (Markdown PKM), Notion.</span>
+                        </div>
+                      </div>
+                      <div class="gear-ai-item">
+                        <div class="gear-ai-icon">🚀</div>
+                        <div>
+                          <strong>DevOps &amp; Hosting</strong>
+                          <span>SSH Key-based deployment, SCP automation, Nginx, GitKraken.</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="deck-card-actions" style="margin-top: auto;">
+                      <a href="#skills" class="btn-bento-pill primary">Lihat Tech Stack ➔</a>
+                      <span class="bento-status-badge-inline">● 100% AI-Augmented</span>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- ==============================================
+                     PANEL 5: KONTAK (Kanal Hubungi Langsung)
+                     ============================================== -->
+                <div class="bento-deck-panel bento-panel-contact" id="deck-panel-5" role="tabpanel" data-panel="5">
                   
                   <!-- Email -->
                   <div class="bento-card bento-card-deck deck-contact-card deck-contact-email-card">
@@ -1354,6 +1516,29 @@ if (!empty($profile['cv_file'])) {
                       <a href="<?= BASE_URL ?>/guestbook" class="deck-social-row">
                         <span>Buku Tamu</span><small>Tinggalkan pesan</small>
                       </a>
+                    </div>
+                  </div>
+
+                  <!-- Kolaborasi & Ketersediaan -->
+                  <div class="bento-card bento-card-deck deck-contact-card deck-contact-avail-card">
+                    <div>
+                      <span class="deck-eyebrow">Status Kerja</span>
+                      <h4>Ketersediaan &amp; Zona</h4>
+                    </div>
+                    <p class="deck-contact-lead">Terbuka untuk proyek lepas (freelance), konsultasi arsitektur, maupun peluang full-time.</p>
+                    <div class="deck-social-links-list">
+                      <div class="deck-social-row">
+                        <span>Zona Waktu</span><small>WIB (UTC+7) • Jakarta</small>
+                      </div>
+                      <div class="deck-social-row">
+                        <span>Ketersediaan</span><small style="color: #10B981; font-weight: 700;">● Open for Opportunities</small>
+                      </div>
+                      <div class="deck-social-row">
+                        <span>Waktu Respons</span><small>&lt; 24 Jam Kerja</small>
+                      </div>
+                    </div>
+                    <div class="deck-card-actions" style="margin-top: auto; padding-top: 0.5rem;">
+                      <a href="#contact" class="btn-bento-pill primary" style="width: 100%; text-align: center;">Tinggalkan Pesan ➔</a>
                     </div>
                   </div>
 
