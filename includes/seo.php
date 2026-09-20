@@ -172,6 +172,12 @@ function render_seo(
         ];
     }
     ?>
+  <!-- ==================== Favicons & App Icons ==================== -->
+  <link rel="icon" type="image/svg+xml" href="<?= asset('img/favicon.svg') ?>">
+  <link rel="icon" type="image/png" sizes="32x32" href="<?= asset('img/favicon-32x32.png') ?>">
+  <link rel="icon" type="image/png" sizes="64x64" href="<?= asset('img/favicon.png') ?>">
+  <link rel="apple-touch-icon" sizes="180x180" href="<?= asset('img/apple-touch-icon.png') ?>">
+
   <!-- ==================== SEO & Canonical ==================== -->
   <link rel="canonical" href="<?= e($canonical) ?>">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">

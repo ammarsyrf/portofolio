@@ -16,16 +16,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Daftar tujuan statis
   const commandItems = [
-    { label: 'Beranda (Home)', category: 'Halaman', url: baseUrl + '/index.php#hero', icon: '🏠' },
-    { label: 'Tentang Ammar (About)', category: 'Section', url: baseUrl + '/index.php#about', icon: '👤' },
-    { label: 'Keahlian & Toolkit (Skills)', category: 'Section', url: baseUrl + '/index.php#skills', icon: '⚡' },
-    { label: 'Koleksi Proyek (Projects)', category: 'Section', url: baseUrl + '/index.php#projects', icon: '💼' },
-    { label: 'Pencapaian & Sertifikat (Achievements)', category: 'Halaman', url: baseUrl + '/pages/achievements.php', icon: '🏆' },
-    { label: 'Kreasi TikTok & Instagram (Creations)', category: 'Halaman', url: baseUrl + '/pages/creations.php', icon: '🎬' },
-    { label: 'Buku Tamu Pengunjung (Guestbook)', category: 'Halaman', url: baseUrl + '/pages/guestbook.php', icon: '📖' },
-    { label: 'Semua Tautan Penting (Links)', category: 'Halaman', url: baseUrl + '/pages/links.php', icon: '🔗' },
-    { label: 'Hubungi Kontak Langsung (Contact)', category: 'Aksi', url: baseUrl + '/index.php#contact', icon: '📬' },
-    { label: 'Unduh Berkas CV (PDF)', category: 'Aksi', url: baseUrl + '/pages/links.php', icon: '📄' },
+    { label: 'Beranda (Home)', category: 'Halaman', url: baseUrl + '/#hero', icon: '🏠' },
+    { label: 'Tentang Ammar (About)', category: 'Section', url: baseUrl + '/#about', icon: '👤' },
+    { label: 'Keahlian & Toolkit (Skills)', category: 'Section', url: baseUrl + '/#skills', icon: '⚡' },
+    { label: 'Koleksi Proyek (Projects)', category: 'Section', url: baseUrl + '/#projects', icon: '💼' },
+    { label: 'Pencapaian & Sertifikat (Achievements)', category: 'Halaman', url: baseUrl + '/achievements', icon: '🏆' },
+    { label: 'Kreasi TikTok & Instagram (Creations)', category: 'Halaman', url: baseUrl + '/creations', icon: '🎬' },
+    { label: 'Buku Tamu Pengunjung (Guestbook)', category: 'Halaman', url: baseUrl + '/guestbook', icon: '📖' },
+    { label: 'Semua Tautan Penting (Links)', category: 'Halaman', url: baseUrl + '/links', icon: '🔗' },
+    { label: 'Hubungi Kontak Langsung (Contact)', category: 'Aksi', url: baseUrl + '/#contact', icon: '📬' },
+    { label: 'Unduh Berkas CV (PDF)', category: 'Aksi', url: baseUrl + '/links', icon: '📄' },
     { label: 'Portal Administrator', category: 'Admin', url: baseUrl + '/admin/login', icon: '⚙️' }
   ];
 

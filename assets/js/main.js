@@ -497,9 +497,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!recipient || !name || !email || !message) return;
 
+    const submitBtn = contactQuickForm.querySelector('button[type="submit"]');
+    const originalText = submitBtn ? submitBtn.innerHTML : '';
+    if (submitBtn) {
+      submitBtn.innerHTML = '<span>✉️ Membuka Email Client...</span>';
+      submitBtn.disabled = true;
+    }
+
     const subject = `Diskusi proyek dari ${name}`;
     const body = `Halo Ammar,\n\n${message}\n\nSalam,\n${name}\n${email}`;
     window.location.href = `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    setTimeout(() => {
+      if (submitBtn) {
+        submitBtn.innerHTML = '<span>✓ Tautan Email Terbuka!</span>';
+        setTimeout(() => {
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = false;
+        }, 3500);
+      }
+    }, 800);
   });
 
   // ------------------------------------------------------------------------

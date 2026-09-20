@@ -184,9 +184,9 @@ $hasOauthConfig = (GOOGLE_CLIENT_ID !== 'YOUR_GOOGLE_CLIENT_ID.apps.googleuserco
             <span>Masuk dengan Akun Google</span>
           </a>
 
-          <?php if (!$hasOauthConfig): ?>
-            <div style="font-size: 0.72rem; color: var(--color-text-faint); margin-top: 1.25rem;">
-              ℹ️ Catatan Pengembang: Kredensial Google OAuth dapat diisi di file <code>config.php</code> agar otentikasi live aktif.
+          <?php if (!$hasOauthConfig && function_exists('is_admin_logged_in') && is_admin_logged_in()): ?>
+            <div style="font-size: 0.72rem; color: var(--color-text-faint); margin-top: 1.25rem; background: rgba(76,141,255,0.08); padding: 0.5rem 0.75rem; border-radius: 6px; border: 1px dashed rgba(76,141,255,0.3);">
+              ⚙️ Admin Note: Isi kredensial Google OAuth di <code>config.php</code> untuk mengaktifkan login publik.
             </div>
           <?php endif; ?>
         </div>

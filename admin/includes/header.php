@@ -23,6 +23,10 @@ $currentAdminUser = $_SESSION['admin_username'] ?? 'Admin';
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="<?= asset('img/favicon.svg') ?>">
+  <link rel="icon" type="image/png" sizes="32x32" href="<?= asset('img/favicon-32x32.png') ?>">
+
   <link rel="stylesheet" href="<?= asset('css/style.css') ?>">
   
   <style>
