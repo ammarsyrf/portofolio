@@ -1,5 +1,11 @@
 # AGENTS.md — Instruksi untuk AI Coding Agent
 
+## ⚡ Aturan Siklus Alur Kerja (Wajib Diikuti)
+1. **Edit lokal first**: Kerjakan semua perubahan di lingkungan lokal.
+2. **Testing**: Uji tampilan dan fungsionalitas di browser/lokal sebelum commit.
+3. **Push git commit**: Commit dengan pesan rapi dan lakukan `git push origin <branch>`.
+4. **Deploy**: Deploy ke server hosting (`zen.zenerie.my.id`). Jaga agar `config.php` produksi tidak tertimpa.
+
 Baca file ini sebelum mulai coding. Baca juga `PRD.md` (requirement), `DESIGN.md` (arah visual), `CONTENT.md` (isi konten nyata), dan `database/schema.sql` (struktur DB) di folder yang sama.
 
 ## Tech Stack (wajib, jangan diganti)
