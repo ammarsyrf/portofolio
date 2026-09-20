@@ -12,6 +12,7 @@ Semua perubahan dicatat berdasarkan commit Git. Format tanggal mengikuti waktu c
 ### URL admin
 
 - Menetapkan URL bersih untuk seluruh panel admin, termasuk `/admin/login`, serta redirect permanen dari URL lama yang memakai ekstensi `.php`.
+- Menonaktifkan directory listing dan menambahkan header anti-cache untuk halaman utama/login agar cache lama tidak menampilkan halaman indeks server.
 
 ## 2026-09-20
 
