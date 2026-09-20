@@ -236,20 +236,21 @@ $currentAdminUser = $_SESSION['admin_username'] ?? 'Admin';
       line-height: 1.4;
     }
 
-    .form-input, .form-textarea, .form-select {
+    .form-input, .form-textarea, .form-select, .form-control {
       width: 100%;
       background-color: var(--color-bg-surface);
       border: 1px solid var(--color-line);
       color: var(--color-cream);
       padding: 0.75rem 0.9rem;
-      border-radius: 2px;
+      border-radius: 6px;
       font-size: var(--text-sm);
-      transition: border-color var(--transition-fast);
+      transition: all var(--transition-fast);
       font-family: var(--font-body);
     }
 
-    .form-input:focus, .form-textarea:focus, .form-select:focus {
+    .form-input:focus, .form-textarea:focus, .form-select:focus, .form-control:focus {
       border-color: var(--color-brass);
+      box-shadow: 0 0 0 3px rgba(76, 141, 255, 0.18);
       outline: none;
     }
 
