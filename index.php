@@ -365,9 +365,14 @@ if (!empty($profile['cv_file'])) {
                           <span class="term-v-str">"Laravel 13 • MySQL • Next.js"</span>
                         </div>
                         <div class="term-row">
-                          <span class="term-k">ai_ops</span>
+                          <span class="term-k">ai_stack</span>
                           <span class="term-op">:</span>
-                          <span class="term-v-str">"Prompt Crafting • Context Framing"</span>
+                          <span class="term-v-str">"Claude • Gemini • OpenAI • Prompting"</span>
+                        </div>
+                        <div class="term-row">
+                          <span class="term-k">workflow</span>
+                          <span class="term-op">:</span>
+                          <span class="term-v-str">"Agentic Acceleration (3x Speed)"</span>
                         </div>
                         <div class="term-row">
                           <span class="term-k">location</span>
@@ -380,16 +385,17 @@ if (!empty($profile['cv_file'])) {
                       <div class="term-interactive-zone" id="termInteractiveZone">
                         <div class="term-line term-prompt-line">
                           <span class="term-user">zen@dev</span><span class="term-sep">:</span><span class="term-path">~</span><span class="term-char">$</span>
-                          <span class="term-active-cmd" id="termActiveCmd">pest --testsuite=portfolio</span>
+                          <span class="term-active-cmd" id="termActiveCmd">pest test &amp;&amp; eval-prompt</span>
                           <span class="term-cursor" id="termCursor">▋</span>
                         </div>
                         <div class="term-test-output" id="termTestOutput" style="display: none;">
                           <div class="term-test-pass">
                             <span class="term-badge-pass">PASS</span>
-                            <span>Tests: 18 passed, 0 failed (0.04s)</span>
+                            <span>Pest v3 &bull; 18 passed (0.04s)</span>
                           </div>
-                          <div class="term-test-summary">
+                          <div class="term-test-summary" style="display: flex; flex-direction: column; gap: 0.15rem; margin-top: 0.2rem;">
                             <span style="color: #34d399;">✓ 100% Bebas SQLi &amp; Siap Produksi</span>
+                            <span style="color: #c084fc;">✓ Prompt Token Efficiency: 98.4% (Optimal Reasoning)</span>
                           </div>
                         </div>
                       </div>
