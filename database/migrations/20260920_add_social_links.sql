@@ -35,3 +35,8 @@ EXECUTE migration_statement;
 DEALLOCATE PREPARE migration_statement;
 
 DELETE FROM links WHERE icon = 'whatsapp' OR LOWER(label) LIKE '%whatsapp%';
+
+UPDATE profile SET 
+    instagram = IF(instagram IS NULL OR instagram = '', 'https://instagram.com/zentokun90', instagram),
+    tiktok = IF(tiktok IS NULL OR tiktok = '', 'https://tiktok.com/@zentokun90', tiktok)
+WHERE id = 1;

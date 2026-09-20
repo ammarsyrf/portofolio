@@ -59,6 +59,10 @@ function homepage_content_defaults(): array
         'contact_linkedin_description' => 'Lihat profil dan pengalaman',
         'contact_github_title' => 'Jelajahi GitHub',
         'contact_github_description' => 'Repository dan eksperimen',
+        'contact_instagram_title' => 'Ikuti di Instagram',
+        'contact_instagram_description' => 'Update karya & aktivitas terbaru',
+        'contact_tiktok_title' => 'Tonton di TikTok',
+        'contact_tiktok_description' => 'Konten kreatif & video teknologi',
         'contact_form_title' => 'Ceritakan kebutuhan proyekmu',
         'contact_form_button' => 'Kirim melalui Email',
     ];

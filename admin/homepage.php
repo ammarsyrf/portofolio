@@ -30,7 +30,7 @@ $groups = [
     'Bagian Tentang Saya' => ['about_caption','about_title','about_kicker','about_heading','about_paragraph_one','about_paragraph_two','about_paragraph_three'],
     'Bagian Keahlian' => ['skills_caption','skills_title','skills_lead'],
     'Bagian Proyek' => ['projects_caption','projects_title'],
-    'Bagian Kontak' => ['contact_caption','contact_title','contact_email_title','contact_email_description','contact_linkedin_title','contact_linkedin_description','contact_github_title','contact_github_description','contact_form_title','contact_form_button'],
+    'Bagian Kontak' => ['contact_caption','contact_title','contact_email_title','contact_email_description','contact_linkedin_title','contact_linkedin_description','contact_github_title','contact_github_description','contact_instagram_title','contact_instagram_description','contact_tiktok_title','contact_tiktok_description','contact_form_title','contact_form_button'],
 ];
 $labels = [
     'hero_education_label'=>'Label pendidikan','hero_degree'=>'Gelar singkat','hero_field'=>'Bidang pendidikan','hero_specialty_label'=>'Label spesialisasi','hero_specialty_value'=>'Nilai spesialisasi','hero_availability_label'=>'Label ketersediaan','hero_availability_value'=>'Nilai ketersediaan','hero_readiness'=>'Kesiapan teknis (0–100)','hero_line_one'=>'Hero baris 1','hero_line_two'=>'Hero baris 2','hero_line_three'=>'Hero baris 3','hero_badge'=>'Badge hero','hero_vertical_badge'=>'Badge vertikal',
@@ -38,13 +38,13 @@ $labels = [
     'about_widget_title'=>'Judul kartu','about_widget_status'=>'Status','about_widget_text_one'=>'Paragraf 1','about_widget_text_two'=>'Paragraf 2','about_metric_one_value'=>'Metrik 1 nilai','about_metric_one_label'=>'Metrik 1 label','about_metric_two_value'=>'Metrik 2 nilai','about_metric_two_label'=>'Metrik 2 label',
     'about_caption'=>'Caption section','about_title'=>'Judul section','about_kicker'=>'Kicker','about_heading'=>'Judul panel','about_paragraph_one'=>'Paragraf 1','about_paragraph_two'=>'Paragraf 2','about_paragraph_three'=>'Paragraf 3',
     'skills_caption'=>'Caption section','skills_title'=>'Judul section','skills_lead'=>'Deskripsi section',
-    'contact_caption'=>'Caption section','contact_title'=>'Judul section','contact_email_title'=>'Judul kartu email','contact_email_description'=>'Deskripsi kartu email','contact_linkedin_title'=>'Judul kartu LinkedIn','contact_linkedin_description'=>'Deskripsi kartu LinkedIn','contact_github_title'=>'Judul kartu GitHub','contact_github_description'=>'Deskripsi kartu GitHub','contact_form_title'=>'Judul form pesan','contact_form_button'=>'Teks tombol form',
+    'contact_caption'=>'Caption section','contact_title'=>'Judul section','contact_email_title'=>'Judul kartu email','contact_email_description'=>'Deskripsi kartu email','contact_linkedin_title'=>'Judul kartu LinkedIn','contact_linkedin_description'=>'Deskripsi kartu LinkedIn','contact_github_title'=>'Judul kartu GitHub','contact_github_description'=>'Deskripsi kartu GitHub','contact_instagram_title'=>'Judul kartu Instagram','contact_instagram_description'=>'Deskripsi kartu Instagram','contact_tiktok_title'=>'Judul kartu TikTok','contact_tiktok_description'=>'Deskripsi kartu TikTok','contact_form_title'=>'Judul form pesan','contact_form_button'=>'Teks tombol form',
 ];
 require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/includes/sidebar.php';
 ?>
 <div class="admin-card" style="max-width: 980px;">
-  <div class="admin-card-header"><div><div class="admin-card-title">Konten halaman index</div><p style="font-size:var(--text-xs);color:var(--color-cream-muted);margin-top:.25rem">Profil, foto, sosial, CV, proyek, pencapaian, kreasi, dan tautan tetap dikelola dari menu masing-masing. Form ini mengatur seluruh salinan statis utama di beranda.</p></div></div>
+  <div class="admin-card-header"><div><div class="admin-card-title">Konten halaman index</div><p style="font-size:var(--text-xs);color:var(--color-cream-muted);margin-top:.25rem">Tautan media sosial (Instagram, TikTok, LinkedIn, GitHub, Email), profil, foto, dan CV dikelola dari menu <a href="<?= BASE_URL ?>/admin/profile" style="color:var(--color-accent-bright);text-decoration:underline">Profil, Foto & CV</a>. Form ini mengatur seluruh teks dan salinan statis di beranda.</p></div></div>
   <?php if ($errorMessage): ?><div class="flash-alert flash-danger"><div><?= e($errorMessage) ?></div></div><?php endif; ?>
   <form method="post">
     <?= csrf_field() ?>

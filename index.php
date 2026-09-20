@@ -27,8 +27,8 @@ if (!$profile) {
         'email' => 'zentokun90@gmail.com',
         'linkedin' => 'https://linkedin.com/in/zentokun90',
         'github' => 'https://github.com/zentokun90',
-        'instagram' => '',
-        'tiktok' => '',
+        'instagram' => 'https://instagram.com/zentokun90',
+        'tiktok' => 'https://tiktok.com/@zentokun90',
         'skills' => 'Laravel, PHP, MySQL, Redis, Next.js, React, Tailwind CSS, TypeScript, Docker, Linux, Pest, Flutter, Algoritma C4.5, S1 Sistem Informasi'
     ];
 }
@@ -1811,9 +1811,6 @@ if (!empty($profile['cv_file'])) {
             </a>
           <?php endif; ?>
 
-          <?php if (!empty($profile['instagram'])): ?><a href="<?= e($profile['instagram']) ?>" target="_blank" rel="noopener noreferrer" class="contact-bento-card contact-linkedin-card"><span class="contact-card-icon">📸</span><span class="contact-card-copy"><span class="contact-kicker">Media sosial</span><strong>Instagram</strong><small>Ikuti update dan karya terbaru</small></span><span class="contact-card-arrow">↗</span></a><?php endif; ?>
-          <?php if (!empty($profile['tiktok'])): ?><a href="<?= e($profile['tiktok']) ?>" target="_blank" rel="noopener noreferrer" class="contact-bento-card contact-github-card"><span class="contact-card-icon">🎵</span><span class="contact-card-copy"><span class="contact-kicker">Media sosial</span><strong>TikTok</strong><small>Lihat konten dan proses kreatif</small></span><span class="contact-card-arrow">↗</span></a><?php endif; ?>
-
           <?php if (!empty($profile['linkedin'])): ?>
             <a href="<?= e($profile['linkedin']) ?>" target="_blank" rel="noopener noreferrer" class="contact-bento-card contact-linkedin-card">
               <span class="contact-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9v9M6 6v.01M10 18v-5a4 4 0 0 1 8 0v5m-8-4v4"/></svg></span>
@@ -1826,6 +1823,34 @@ if (!empty($profile['cv_file'])) {
             <a href="<?= e($profile['github']) ?>" target="_blank" rel="noopener noreferrer" class="contact-bento-card contact-github-card">
               <span class="contact-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 22v-3.9c0-1 .1-1.6-.5-2.2 2.4-.3 4.9-1.2 4.9-5.3 0-1.2-.4-2.1-1.1-2.9.1-.3.5-1.4-.1-2.9 0 0-.9-.3-3 1.1a10.2 10.2 0 0 0-5.4 0C7.7 4.6 6.8 4.9 6.8 4.9c-.6 1.5-.2 2.6-.1 2.9-.7.8-1.1 1.7-1.1 2.9 0 4.1 2.5 5 4.9 5.3-.6.6-.6 1.3-.6 2.2V22"/><path d="M9 19c-2 .6-3.5-.5-4-1.5"/></svg></span>
               <span class="contact-card-copy"><span class="contact-kicker">Open source & kode</span><strong><?= e($homeContent['contact_github_title']) ?></strong><small><?= e($homeContent['contact_github_description']) ?></small></span>
+              <span class="contact-card-arrow" aria-hidden="true">↗</span>
+            </a>
+          <?php endif; ?>
+
+          <?php if (!empty($profile['instagram'])): ?>
+            <a href="<?= e($profile['instagram']) ?>" target="_blank" rel="noopener noreferrer" class="contact-bento-card contact-instagram-card">
+              <span class="contact-card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              </span>
+              <span class="contact-card-copy">
+                <span class="contact-kicker">Media sosial</span>
+                <strong><?= e($homeContent['contact_instagram_title']) ?></strong>
+                <small><?= e($homeContent['contact_instagram_description']) ?></small>
+              </span>
+              <span class="contact-card-arrow" aria-hidden="true">↗</span>
+            </a>
+          <?php endif; ?>
+
+          <?php if (!empty($profile['tiktok'])): ?>
+            <a href="<?= e($profile['tiktok']) ?>" target="_blank" rel="noopener noreferrer" class="contact-bento-card contact-tiktok-card">
+              <span class="contact-card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+              </span>
+              <span class="contact-card-copy">
+                <span class="contact-kicker">Video & kreasi</span>
+                <strong><?= e($homeContent['contact_tiktok_title']) ?></strong>
+                <small><?= e($homeContent['contact_tiktok_description']) ?></small>
+              </span>
               <span class="contact-card-arrow" aria-hidden="true">↗</span>
             </a>
           <?php endif; ?>
