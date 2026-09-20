@@ -136,33 +136,18 @@ if (!empty($profile['cv_file'])) {
                 </div>
               </div>
 
-              <!-- Card 2: Featured Project Mini-Player -->
-              <div class="bento-card bento-card-player">
-                <div class="bento-player-thumb-wrap">
-                  <?php if (!empty($featuredImg)): ?>
-                    <img src="<?= e($featuredImg) ?>" alt="<?= e($featuredProject['title'] ?? 'Proyek Unggulan') ?>" class="bento-player-thumb">
-                  <?php else: ?>
-                    <div style="width: 100%; height: 100%; background: var(--color-bg-surface); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: var(--color-accent-bright);">
-                      VZ
-                    </div>
-                  <?php endif; ?>
-                </div>
+              <!-- Card 2: Our Brand — Zenerie -->
+              <div class="bento-card bento-card-player bento-card-brand">
+                <a href="https://www.zenerie.my.id" target="_blank" rel="noopener noreferrer" class="bento-player-thumb-wrap bento-brand-logo-link" aria-label="Kunjungi website Zenerie">
+                  <img src="<?= asset('uploads/photos/zenerie-logo.jpg') ?>" alt="Logo Zenerie" class="bento-player-thumb bento-brand-logo">
+                </a>
                 <div class="bento-player-info">
                   <div class="bento-player-header">
-                    <span class="bento-player-title"><?= e($featuredProject['title'] ?? 'Villa Zein') ?> <span style="color: var(--color-accent);">♥</span></span>
-                    <span class="bento-player-badge">★ Unggulan</span>
+                    <span class="bento-player-title">Our Brand <span style="color: var(--color-accent);">♥</span></span>
+                    <span class="bento-player-badge">Zenerie</span>
                   </div>
-                  <div class="bento-player-subtitle">by <?= e($profile['full_name'] ?? 'Ammar Syarif') ?></div>
-                  <div class="bento-player-controls">
-                    <button type="button" class="player-ctrl-btn" id="btn-prev-proj" title="Proyek Sebelumnya">⏮</button>
-                    <button type="button" class="player-ctrl-main btn-detail-trigger" data-id="<?= $featuredId ?>" title="Buka Detail Proyek">▶</button>
-                    <button type="button" class="player-ctrl-btn" id="btn-next-proj" title="Proyek Berikutnya">⏭</button>
-                  </div>
-                  <div class="bento-player-timeline">
-                    <div class="bento-player-track">
-                      <div class="bento-player-thumb-point"></div>
-                    </div>
-                  </div>
+                  <div class="bento-player-subtitle">Brand yang dibangun bersama pasangan saya.</div>
+                  <a href="https://www.zenerie.my.id" target="_blank" rel="noopener noreferrer" class="bento-brand-visit">Kunjungi Zenerie <span aria-hidden="true">↗</span></a>
                 </div>
               </div>
 
