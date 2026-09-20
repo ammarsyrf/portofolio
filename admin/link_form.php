@@ -15,7 +15,7 @@ if ($isEdit) {
     $link = get_link_by_id($pdo, $linkId);
     if (!$link) {
         set_flash('danger', 'Data tautan tidak ditemukan.');
-        redirect(BASE_URL . '/admin/links.php');
+        redirect(BASE_URL . '/admin/links');
     }
     $pageTitle = 'Edit Tautan: ' . $link['label'];
 } else {
@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ]);
                 set_flash('success', 'Tautan baru berhasil ditambahkan.');
             }
-            redirect(BASE_URL . '/admin/links.php');
+            redirect(BASE_URL . '/admin/links');
         }
     }
 }
@@ -111,7 +111,7 @@ require_once __DIR__ . '/includes/sidebar.php';
       </p>
     </div>
     <div>
-      <a href="<?= BASE_URL ?>/admin/links.php" class="btn btn-secondary btn-sm">&larr; Kembali</a>
+      <a href="<?= BASE_URL ?>/admin/links" class="btn btn-secondary btn-sm">&larr; Kembali</a>
     </div>
   </div>
 
@@ -166,7 +166,7 @@ require_once __DIR__ . '/includes/sidebar.php';
       <button type="submit" class="btn btn-primary">
         <?= $isEdit ? 'Simpan Perubahan' : 'Tambahkan Tautan' ?>
       </button>
-      <a href="<?= BASE_URL ?>/admin/links.php" class="btn btn-secondary">Batal</a>
+      <a href="<?= BASE_URL ?>/admin/links" class="btn btn-secondary">Batal</a>
     </div>
   </form>
 </div>

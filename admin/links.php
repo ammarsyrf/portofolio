@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $token = $_POST['csrf_token'] ?? '';
     if (!verify_csrf_token($token)) {
         set_flash('danger', 'Token CSRF tidak valid. Silakan coba kembali.');
-        redirect(BASE_URL . '/admin/links.php');
+        redirect(BASE_URL . '/admin/links');
     }
 
     $linkId = (int)($_POST['link_id'] ?? 0);
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
         set_flash('success', 'Tautan berhasil dihapus.');
     }
-    redirect(BASE_URL . '/admin/links.php');
+    redirect(BASE_URL . '/admin/links');
 }
 
 // Ambil seluruh tautan
@@ -43,7 +43,7 @@ require_once __DIR__ . '/includes/sidebar.php';
       </p>
     </div>
     <div>
-      <a href="<?= BASE_URL ?>/admin/link_form.php" class="btn btn-primary btn-sm">
+      <a href="<?= BASE_URL ?>/admin/link-form" class="btn btn-primary btn-sm">
         + Tambah Tautan Baru
       </a>
     </div>
@@ -66,7 +66,7 @@ require_once __DIR__ . '/includes/sidebar.php';
           <tr>
             <td colspan="6" style="text-align: center; padding: 3rem 1rem;">
               <p style="color: var(--color-cream-muted); margin-bottom: 1rem;">Belum ada tautan yang dibuat.</p>
-              <a href="<?= BASE_URL ?>/admin/link_form.php" class="btn btn-primary btn-sm">Tambah Tautan Pertama</a>
+              <a href="<?= BASE_URL ?>/admin/link-form" class="btn btn-primary btn-sm">Tambah Tautan Pertama</a>
             </td>
           </tr>
         <?php else: ?>
@@ -120,7 +120,7 @@ require_once __DIR__ . '/includes/sidebar.php';
 
               <td style="text-align: right;">
                 <div style="display: inline-flex; gap: 0.4rem;">
-                  <a href="<?= BASE_URL ?>/admin/link_form.php?id=<?= (int)$l['id'] ?>" class="btn btn-secondary btn-sm" style="padding: 0.35rem 0.65rem;">
+                  <a href="<?= BASE_URL ?>/admin/link-form?id=<?= (int)$l['id'] ?>" class="btn btn-secondary btn-sm" style="padding: 0.35rem 0.65rem;">
                     Edit
                   </a>
 

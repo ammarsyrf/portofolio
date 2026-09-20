@@ -9,6 +9,10 @@ Semua perubahan dicatat berdasarkan commit Git. Format tanggal mengikuti waktu c
 - Menghapus seluruh kanal kontak WhatsApp dari halaman publik, halaman tautan, pilihan link admin, dan data kontak yang tersimpan.
 - Menambahkan URL Instagram dan TikTok yang dapat diatur melalui **Admin → Kelola Profil & Berkas**; tautannya tampil otomatis pada kartu kontak, halaman Tautan, dan structured data SEO.
 
+### URL admin
+
+- Menetapkan URL bersih untuk seluruh panel admin, termasuk `/admin/login`, serta redirect permanen dari URL lama yang memakai ekstensi `.php`.
+
 ## 2026-09-20
 
 ### SEO, URL, dan navigasi

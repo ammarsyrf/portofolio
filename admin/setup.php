@@ -180,7 +180,7 @@ if (!$isSetupLocked && $_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div style="margin-top: 1.5rem; text-align: center;">
-          <a href="<?= BASE_URL ?>/admin/login.php" class="btn btn-primary" style="width: 100%;">
+          <a href="<?= BASE_URL ?>/admin/login" class="btn btn-primary" style="width: 100%;">
             Lanjut ke Halaman Login Admin
           </a>
         </div>
@@ -194,7 +194,7 @@ if (!$isSetupLocked && $_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div style="margin-top: 1.5rem; text-align: center;">
-          <a href="<?= BASE_URL ?>/admin/login.php" class="btn btn-primary" style="width: 100%;">
+          <a href="<?= BASE_URL ?>/admin/login" class="btn btn-primary" style="width: 100%;">
             Buka Halaman Login
           </a>
         </div>

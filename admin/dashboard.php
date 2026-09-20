@@ -107,10 +107,10 @@ require_once __DIR__ . '/includes/sidebar.php';
     <div class="admin-card-header">
       <div class="admin-card-title">Daftar Proyek Terkini</div>
       <div style="display: flex; gap: 0.75rem;">
-        <a href="<?= BASE_URL ?>/admin/project_form.php" class="btn btn-primary btn-sm">
+        <a href="<?= BASE_URL ?>/admin/project-form" class="btn btn-primary btn-sm">
           + Tambah Proyek
         </a>
-        <a href="<?= BASE_URL ?>/admin/projects.php" class="btn btn-secondary btn-sm">
+        <a href="<?= BASE_URL ?>/admin/projects" class="btn btn-secondary btn-sm">
           Semua Proyek
         </a>
       </div>
@@ -151,7 +151,7 @@ require_once __DIR__ . '/includes/sidebar.php';
                   <?php endif; ?>
                 </td>
                 <td style="text-align: right;">
-                  <a href="<?= BASE_URL ?>/admin/project_form.php?id=<?= (int)$p['id'] ?>" class="btn btn-secondary btn-sm" style="padding: 0.3rem 0.65rem;">
+                  <a href="<?= BASE_URL ?>/admin/project-form?id=<?= (int)$p['id'] ?>" class="btn btn-secondary btn-sm" style="padding: 0.3rem 0.65rem;">
                     Edit
                   </a>
                 </td>
@@ -167,7 +167,7 @@ require_once __DIR__ . '/includes/sidebar.php';
   <div class="admin-card" style="margin-bottom: 0;">
     <div class="admin-card-header">
       <div class="admin-card-title">Pesan Buku Tamu Terkini</div>
-      <a href="<?= BASE_URL ?>/admin/guestbook.php" class="btn btn-secondary btn-sm">
+      <a href="<?= BASE_URL ?>/admin/guestbook" class="btn btn-secondary btn-sm">
         Kelola & Moderasi
       </a>
     </div>
@@ -186,7 +186,7 @@ require_once __DIR__ . '/includes/sidebar.php';
                 <?= e(mb_strimwidth($gb['message'], 0, 120, '...')) ?>
               </div>
             </div>
-            <a href="<?= BASE_URL ?>/admin/guestbook.php" class="btn btn-secondary btn-sm" style="font-size: 0.72rem; flex-shrink: 0;">
+            <a href="<?= BASE_URL ?>/admin/guestbook" class="btn btn-secondary btn-sm" style="font-size: 0.72rem; flex-shrink: 0;">
               Lihat
             </a>
           </div>

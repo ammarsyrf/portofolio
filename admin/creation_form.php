@@ -15,7 +15,7 @@ if ($isEdit) {
     $creation = get_creation_by_id($pdo, $creationId);
     if (!$creation) {
         set_flash('danger', 'Data kreasi tidak ditemukan.');
-        redirect(BASE_URL . '/admin/creations.php');
+        redirect(BASE_URL . '/admin/creations');
     }
     $pageTitle = 'Edit Kreasi Konten: ' . $creation['title'];
 } else {
@@ -113,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ]);
                     set_flash('success', 'Post kreasi baru berhasil ditambahkan.');
                 }
-                redirect(BASE_URL . '/admin/creations.php');
+                redirect(BASE_URL . '/admin/creations');
             }
         }
     }
@@ -132,7 +132,7 @@ require_once __DIR__ . '/includes/sidebar.php';
       </p>
     </div>
     <div>
-      <a href="<?= BASE_URL ?>/admin/creations.php" class="btn btn-secondary btn-sm">&larr; Kembali</a>
+      <a href="<?= BASE_URL ?>/admin/creations" class="btn btn-secondary btn-sm">&larr; Kembali</a>
     </div>
   </div>
 
@@ -216,7 +216,7 @@ require_once __DIR__ . '/includes/sidebar.php';
       <button type="submit" class="btn btn-primary">
         <?= $isEdit ? 'Simpan Perubahan' : 'Tambahkan Kreasi' ?>
       </button>
-      <a href="<?= BASE_URL ?>/admin/creations.php" class="btn btn-secondary">Batal</a>
+      <a href="<?= BASE_URL ?>/admin/creations" class="btn btn-secondary">Batal</a>
     </div>
   </form>
 </div>

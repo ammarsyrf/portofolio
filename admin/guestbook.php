@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $token = $_POST['csrf_token'] ?? '';
     if (!verify_csrf_token($token)) {
         set_flash('danger', 'Token CSRF tidak valid. Silakan coba kembali.');
-        redirect(BASE_URL . '/admin/guestbook.php');
+        redirect(BASE_URL . '/admin/guestbook');
     }
 
     $messageId = (int)($_POST['message_id'] ?? 0);
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
         set_flash('success', 'Pesan buku tamu berhasil dihapus.');
     }
-    redirect(BASE_URL . '/admin/guestbook.php');
+    redirect(BASE_URL . '/admin/guestbook');
 }
 
 // Ambil pesan terbaru

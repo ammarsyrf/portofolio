@@ -1,9 +1,8 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /porto/
 
-    # Shortcut /login -> admin/login.php
-    RewriteRule ^login/?$ admin/login.php [L,R=302]
+    # Shortcut /login -> admin login with clean URL.
+    RewriteRule ^login/?$ admin/login [L,R=302]
     RewriteRule ^robots\.txt$ robots.php [L]
     RewriteRule ^sitemap\.xml$ sitemap.php [L]
 
@@ -15,6 +14,26 @@
     RewriteCond %{THE_REQUEST} \s/+(achievements|creations|guestbook|links)\.php[?\s] [NC]
     RewriteRule ^(achievements|creations|guestbook|links)\.php$ $1 [R=301,L,NE]
 
+    # Canonical admin URLs: keep the PHP implementation internal. The request
+    # prefix is retained so this works both in a subdirectory and a vhost root.
+    RewriteCond %{THE_REQUEST} \s+(.*/)admin/achievement_form\.php[?\s] [NC]
+    RewriteRule ^admin/achievement_form\.php$ %1admin/achievement-form [R=301,L,NE]
+    RewriteCond %{THE_REQUEST} \s+(.*/)admin/creation_form\.php[?\s] [NC]
+    RewriteRule ^admin/creation_form\.php$ %1admin/creation-form [R=301,L,NE]
+    RewriteCond %{THE_REQUEST} \s+(.*/)admin/link_form\.php[?\s] [NC]
+    RewriteRule ^admin/link_form\.php$ %1admin/link-form [R=301,L,NE]
+    RewriteCond %{THE_REQUEST} \s+(.*/)admin/project_form\.php[?\s] [NC]
+    RewriteRule ^admin/project_form\.php$ %1admin/project-form [R=301,L,NE]
+    RewriteCond %{THE_REQUEST} \s+(.*/)admin/(achievements|creations|dashboard|guestbook|homepage|links|login|logout|profile|projects|setup)\.php[?\s] [NC]
+    RewriteRule ^admin/(achievements|creations|dashboard|guestbook|homepage|links|login|logout|profile|projects|setup)\.php$ %1admin/$1 [R=301,L,NE]
+
     # Clean URL routing ke folder pages/ (internal rewrite, URL browser tetap bersih).
     RewriteRule ^(achievements|creations|guestbook|links)/?$ pages/$1.php [L]
+
+    # Internal routing for the admin panel. Hyphenated routes map to existing PHP files.
+    RewriteRule ^admin/achievement-form/?$ admin/achievement_form.php [L]
+    RewriteRule ^admin/creation-form/?$ admin/creation_form.php [L]
+    RewriteRule ^admin/link-form/?$ admin/link_form.php [L]
+    RewriteRule ^admin/project-form/?$ admin/project_form.php [L]
+    RewriteRule ^admin/(achievements|creations|dashboard|guestbook|homepage|links|login|logout|profile|projects|setup)/?$ admin/$1.php [L]
 </IfModule>

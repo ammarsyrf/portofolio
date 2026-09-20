@@ -9,7 +9,7 @@ require_once __DIR__ . '/../includes/functions.php';
 
 // Jika admin sudah login, langsung alihkan ke dashboard
 if (!empty($_SESSION['admin_logged_in']) && !empty($_SESSION['admin_user_id'])) {
-    redirect(BASE_URL . '/admin/dashboard.php');
+    redirect(BASE_URL . '/admin/dashboard');
 }
 
 // Cek apakah tabel admin_users masih kosong (jika kosong, sarankan ke setup.php)
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['admin_login_time'] = time();
 
                 set_flash('success', 'Selamat datang kembali, ' . e($admin['username']) . '!');
-                redirect(BASE_URL . '/admin/dashboard.php');
+                redirect(BASE_URL . '/admin/dashboard');
             } else {
                 $errorMessage = 'Kombinasi username atau password tidak tepat.';
             }

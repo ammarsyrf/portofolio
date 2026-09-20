@@ -1858,7 +1858,7 @@ if (!empty($profile['cv_file'])) {
       <div style="display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; align-items: center; justify-content: center;">
         <a href="<?= BASE_URL ?>/links" class="footer-admin-link">Semua Tautan</a>
         <a href="<?= BASE_URL ?>/guestbook" class="footer-admin-link">Buku Tamu</a>
-        <a href="<?= BASE_URL ?>/admin/login.php" class="footer-admin-link">Portal Admin</a>
+        <a href="<?= BASE_URL ?>/admin/login" class="footer-admin-link">Portal Admin</a>
       </div>
     </div>
   </footer>

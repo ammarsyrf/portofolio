@@ -15,7 +15,7 @@ if ($isEdit) {
     $project = get_project_by_id($pdo, $projectId);
     if (!$project) {
         set_flash('danger', 'Proyek tidak ditemukan.');
-        redirect(BASE_URL . '/admin/projects.php');
+        redirect(BASE_URL . '/admin/projects');
     }
     $pageTitle = 'Edit Proyek: ' . $project['title'];
 } else {
@@ -142,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     set_flash('success', 'Proyek baru "' . e($title) . '" berhasil ditambahkan.');
                 }
 
-                redirect(BASE_URL . '/admin/projects.php');
+                redirect(BASE_URL . '/admin/projects');
             }
         }
     }
@@ -161,7 +161,7 @@ require_once __DIR__ . '/includes/sidebar.php';
       </p>
     </div>
     <div>
-      <a href="<?= BASE_URL ?>/admin/projects.php" class="btn btn-secondary btn-sm">
+      <a href="<?= BASE_URL ?>/admin/projects" class="btn btn-secondary btn-sm">
         Kembali ke Daftar
       </a>
     </div>
@@ -270,7 +270,7 @@ require_once __DIR__ . '/includes/sidebar.php';
       <button type="submit" class="btn btn-primary">
         <?= $isEdit ? 'Simpan Perubahan Proyek' : 'Tambahkan Proyek Sekarang' ?>
       </button>
-      <a href="<?= BASE_URL ?>/admin/projects.php" class="btn btn-secondary">
+      <a href="<?= BASE_URL ?>/admin/projects" class="btn btn-secondary">
         Batal
       </a>
     </div>

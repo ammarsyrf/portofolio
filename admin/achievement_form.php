@@ -15,7 +15,7 @@ if ($isEdit) {
     $achievement = get_achievement_by_id($pdo, $achievementId);
     if (!$achievement) {
         set_flash('danger', 'Pencapaian tidak ditemukan.');
-        redirect(BASE_URL . '/admin/achievements.php');
+        redirect(BASE_URL . '/admin/achievements');
     }
     $pageTitle = 'Edit Pencapaian: ' . $achievement['title'];
 } else {
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ]);
                     set_flash('success', 'Pencapaian baru berhasil ditambahkan.');
                 }
-                redirect(BASE_URL . '/admin/achievements.php');
+                redirect(BASE_URL . '/admin/achievements');
             }
         }
     }
@@ -137,7 +137,7 @@ require_once __DIR__ . '/includes/sidebar.php';
       </p>
     </div>
     <div>
-      <a href="<?= BASE_URL ?>/admin/achievements.php" class="btn btn-secondary btn-sm">&larr; Kembali</a>
+      <a href="<?= BASE_URL ?>/admin/achievements" class="btn btn-secondary btn-sm">&larr; Kembali</a>
     </div>
   </div>
 
@@ -222,7 +222,7 @@ require_once __DIR__ . '/includes/sidebar.php';
       <button type="submit" class="btn btn-primary">
         <?= $isEdit ? 'Simpan Perubahan' : 'Tambahkan Pencapaian' ?>
       </button>
-      <a href="<?= BASE_URL ?>/admin/achievements.php" class="btn btn-secondary">Batal</a>
+      <a href="<?= BASE_URL ?>/admin/achievements" class="btn btn-secondary">Batal</a>
     </div>
   </form>
 </div>

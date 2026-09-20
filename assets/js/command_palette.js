@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { label: 'Semua Tautan Penting (Links)', category: 'Halaman', url: baseUrl + '/pages/links.php', icon: '🔗' },
     { label: 'Hubungi Kontak Langsung (Contact)', category: 'Aksi', url: baseUrl + '/index.php#contact', icon: '📬' },
     { label: 'Unduh Berkas CV (PDF)', category: 'Aksi', url: baseUrl + '/pages/links.php', icon: '📄' },
-    { label: 'Portal Administrator', category: 'Admin', url: baseUrl + '/admin/login.php', icon: '⚙️' }
+    { label: 'Portal Administrator', category: 'Admin', url: baseUrl + '/admin/login', icon: '⚙️' }
   ];
 
   let selectedIndex = 0;

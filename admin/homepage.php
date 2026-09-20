@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             save_homepage_content($pdo, $_POST);
             set_flash('success', 'Konten halaman utama berhasil diperbarui.');
-            redirect(BASE_URL . '/admin/homepage.php');
+            redirect(BASE_URL . '/admin/homepage');
         } catch (JsonException $exception) {
             $errorMessage = 'Konten tidak dapat disimpan. Silakan coba kembali.';
         }

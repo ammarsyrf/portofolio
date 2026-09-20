@@ -31,7 +31,7 @@ Jalankan server bawaan PHP dari root direktori:
 php -S 127.0.0.1:8080
 ```
 - **Halaman Utama**: `http://127.0.0.1:8080/index.php`
-- **Panel Admin**: `http://127.0.0.1:8080/admin/login.php` (User: `ammar` / Pass: `AmmarSyarif2026!`)
+- **Panel Admin**: `http://127.0.0.1:8080/admin/login` (gunakan kredensial yang dikonfigurasi di database; jangan simpan password di repository)
 - **Buku Tamu**: `http://127.0.0.1:8080/pages/guestbook.php`
 
 ## ⚙️ Google OAuth (Untuk Fitur Buku Tamu)

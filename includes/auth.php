@@ -49,5 +49,5 @@ function logout_admin(): void {
 if (!is_admin_logged_in()) {
     // Simpan pesan flash
     set_flash('danger', 'Sesi Anda telah berakhir atau Anda belum login.');
-    redirect(BASE_URL . '/admin/login.php');
+    redirect(BASE_URL . '/admin/login');
 }

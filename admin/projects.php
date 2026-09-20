@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $token = $_POST['csrf_token'] ?? '';
     if (!verify_csrf_token($token)) {
         set_flash('danger', 'Token CSRF tidak valid. Silakan coba kembali.');
-        redirect(BASE_URL . '/admin/projects.php');
+        redirect(BASE_URL . '/admin/projects');
     }
 
     $projectId = (int)($_POST['project_id'] ?? 0);
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             set_flash('danger', 'Proyek tidak ditemukan.');
         }
     }
-    redirect(BASE_URL . '/admin/projects.php');
+    redirect(BASE_URL . '/admin/projects');
 }
 
 // Ambil semua proyek
@@ -53,7 +53,7 @@ require_once __DIR__ . '/includes/sidebar.php';
       </p>
     </div>
     <div>
-      <a href="<?= BASE_URL ?>/admin/project_form.php" class="btn btn-primary btn-sm">
+      <a href="<?= BASE_URL ?>/admin/project-form" class="btn btn-primary btn-sm">
         + Tambah Proyek Baru
       </a>
     </div>
@@ -77,7 +77,7 @@ require_once __DIR__ . '/includes/sidebar.php';
           <tr>
             <td colspan="7" style="text-align: center; padding: 3rem 1rem;">
               <p style="color: var(--color-cream-muted); margin-bottom: 1rem;">Belum ada proyek yang tersimpan.</p>
-              <a href="<?= BASE_URL ?>/admin/project_form.php" class="btn btn-primary btn-sm">Tambah Proyek Pertama</a>
+              <a href="<?= BASE_URL ?>/admin/project-form" class="btn btn-primary btn-sm">Tambah Proyek Pertama</a>
             </td>
           </tr>
         <?php else: ?>
@@ -128,7 +128,7 @@ require_once __DIR__ . '/includes/sidebar.php';
 
               <td style="text-align: right;">
                 <div style="display: inline-flex; gap: 0.4rem;">
-                  <a href="<?= BASE_URL ?>/admin/project_form.php?id=<?= (int)$p['id'] ?>" class="btn btn-secondary btn-sm" style="padding: 0.35rem 0.65rem;">
+                  <a href="<?= BASE_URL ?>/admin/project-form?id=<?= (int)$p['id'] ?>" class="btn btn-secondary btn-sm" style="padding: 0.35rem 0.65rem;">
                     Edit
                   </a>
 

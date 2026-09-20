@@ -25,4 +25,4 @@ session_destroy();
 // Start session baru untuk flash message
 session_start();
 set_flash('success', 'Anda telah berhasil keluar dari sesi administrator.');
-redirect(BASE_URL . '/admin/login.php');
+redirect(BASE_URL . '/admin/login');

@@ -104,7 +104,7 @@ $creations = $showSection ? get_published_creations($pdo) : [];
       <div style="display: flex; gap: 1.5rem;">
         <a href="<?= BASE_URL ?>/" class="footer-admin-link">Beranda</a>
         <a href="<?= BASE_URL ?>/achievements" class="footer-admin-link">Pencapaian</a>
-        <a href="<?= BASE_URL ?>/admin/login.php" class="footer-admin-link">Portal Admin</a>
+        <a href="<?= BASE_URL ?>/admin/login" class="footer-admin-link">Portal Admin</a>
       </div>
     </div>
   </footer>

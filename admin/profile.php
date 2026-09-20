@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ]);
 
                     set_flash('success', 'Data profil dan berkas berhasil diperbarui.');
-                    redirect(BASE_URL . '/admin/profile.php');
+                    redirect(BASE_URL . '/admin/profile');
                 }
             }
         }
@@ -159,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ]);
 
                     set_flash('success', 'Password administrator berhasil diubah! Gunakan password baru untuk login berikutnya.');
-                    redirect(BASE_URL . '/admin/profile.php?tab=password');
+                    redirect(BASE_URL . '/admin/profile?tab=password');
                 } else {
                     $errorMessage = 'Password saat ini yang Anda masukkan salah.';
                 }
