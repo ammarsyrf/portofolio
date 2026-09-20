@@ -1204,7 +1204,6 @@ if (!empty($profile['cv_file'])) {
                       Untuk kolaborasi, rekrutmen, atau konsultasi pengembangan sistem.
                     </p>
                     <div class="deck-contact-action-area">
-                      <span class="deck-contact-private-note">Alamat email tidak ditampilkan secara publik.</span>
                       <a href="mailto:<?= e($profile['email']) ?>" class="deck-contact-action-btn">
                         <span>Kirim Email</span><span aria-hidden="true">↗</span>
                       </a>
