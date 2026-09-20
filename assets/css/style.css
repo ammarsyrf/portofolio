@@ -4490,8 +4490,10 @@ section[id] {
     gap: 0.9rem;
     overflow-x: auto;
     overflow-y: hidden;
-    margin-right: -0.85rem;
-    padding: 0 0.85rem 0.85rem 0;
+    /* Satu kartu penuh per layar. Sebelumnya 84vw sengaja menampilkan
+       potongan kartu berikutnya, tetapi terlihat seperti layout rusak. */
+    margin-right: 0;
+    padding: 0 0 0.85rem;
     scroll-snap-type: x mandatory;
     scroll-padding-left: 0;
     scrollbar-width: none;
@@ -4505,7 +4507,7 @@ section[id] {
 
   .skills-category-grid .skills-domain-card,
   .skills-category-grid .skills-category-card {
-    flex: 0 0 min(84vw, 330px);
+    flex: 0 0 100%;
     scroll-snap-align: start;
     scroll-snap-stop: always;
   }
