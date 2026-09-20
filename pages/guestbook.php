@@ -75,12 +75,12 @@ $hasOauthConfig = (GOOGLE_CLIENT_ID !== 'YOUR_GOOGLE_CLIENT_ID.apps.googleuserco
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buku Tamu Interaktif — Ammar Syarif (@zentokun90) | Zenerie</title>
-  <meta name="description" content="Tinggalkan pesan, salam profesional, atau ulasan untuk Ammar Syarif (@zentokun90) di Zenerie melalui autentikasi Google.">
+  <title>Buku Tamu Interaktif — <?= e($profile['full_name'] ?? 'Ammar Syarif') ?> | Zenerie</title>
+  <meta name="description" content="Tinggalkan pesan, salam profesional, atau ulasan untuk <?= e($profile['full_name'] ?? 'Ammar Syarif') ?> di Zenerie melalui autentikasi Google.">
   <?php render_seo(
       $profile,
-      'Buku Tamu Interaktif — Ammar Syarif (@zentokun90) | Zenerie',
-      'Tinggalkan pesan, salam profesional, atau ulasan untuk Ammar Syarif (@zentokun90) di Zenerie melalui autentikasi Google.',
+      'Buku Tamu Interaktif — ' . ($profile['full_name'] ?? 'Ammar Syarif') . ' | Zenerie',
+      'Tinggalkan pesan, salam profesional, atau ulasan untuk ' . ($profile['full_name'] ?? 'Ammar Syarif') . ' di Zenerie melalui autentikasi Google.',
       '/guestbook',
       'website',
       ['Buku Tamu' => '/guestbook']
@@ -248,7 +248,7 @@ $hasOauthConfig = (GOOGLE_CLIENT_ID !== 'YOUR_GOOGLE_CLIENT_ID.apps.googleuserco
   <!-- Site Footer -->
   <footer class="site-footer">
     <div class="site-container footer-inner">
-      <div>&copy; <?= date('Y') ?> <?= e($profile['full_name'] ?? 'Ammar Syarif') ?> (@zentokun90) — Zenerie. Buku Tamu Digital.</div>
+      <div>&copy; <?= date('Y') ?> <?= e($profile['full_name'] ?? 'Ammar Syarif') ?> — Zenerie. Buku Tamu Digital.</div>
       <div style="display: flex; gap: 1.5rem;">
         <a href="<?= BASE_URL ?>/" class="footer-admin-link">Beranda</a>
         <a href="<?= BASE_URL ?>/links" class="footer-admin-link">Tautan</a>

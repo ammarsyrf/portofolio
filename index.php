@@ -82,13 +82,13 @@ if (!empty($profile['cv_file'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?= e($profile['full_name']) ?> (zentokun90) — <?= e($profile['role_title']) ?> | Zenerie</title>
-  <meta name="description" content="Portofolio resmi <?= e($profile['full_name']) ?> (@zentokun90) di Zenerie. <?= e($profile['role_title']) ?> — <?= e($profile['tagline']) ?>">
-  <meta name="author" content="<?= e($profile['full_name']) ?> (zentokun90)">
+  <title><?= e($profile['full_name']) ?> — <?= e($profile['role_title']) ?> | Zenerie</title>
+  <meta name="description" content="Portofolio resmi <?= e($profile['full_name']) ?> di Zenerie. <?= e($profile['role_title']) ?> — <?= e($profile['tagline']) ?>">
+  <meta name="author" content="<?= e($profile['full_name']) ?>">
   <?php render_seo(
       $profile,
-      $profile['full_name'] . ' (zentokun90) — ' . $profile['role_title'] . ' | Zenerie',
-      'Portofolio resmi ' . $profile['full_name'] . ' (@zentokun90) di Zenerie. ' . $profile['role_title'] . ' — ' . $profile['tagline'],
+      $profile['full_name'] . ' — ' . $profile['role_title'] . ' | Zenerie',
+      'Portofolio resmi ' . $profile['full_name'] . ' di Zenerie. ' . $profile['role_title'] . ' — ' . $profile['tagline'],
       '/'
   ); ?>
 
@@ -1883,7 +1883,7 @@ if (!empty($profile['cv_file'])) {
   <footer class="site-footer">
     <div class="site-container footer-inner">
       <div>
-        &copy; <?= date('Y') ?> <?= e($profile['full_name']) ?> (@zentokun90) — Zenerie. Dark Glassmorphism Portfolio.
+        &copy; <?= date('Y') ?> <?= e($profile['full_name']) ?> — Zenerie. Dark Glassmorphism Portfolio.
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; align-items: center; justify-content: center;">
         <a href="<?= BASE_URL ?>/links" class="footer-admin-link">Semua Tautan</a>

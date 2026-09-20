@@ -18,7 +18,7 @@ function render_seo(
     $name = !empty($profile['full_name']) ? $profile['full_name'] : 'Ammar Syarif';
     $role = !empty($profile['role_title']) ? $profile['role_title'] : 'Web Developer & Data Analyst';
     $tagline = !empty($profile['tagline']) ? $profile['tagline'] : 'Membangun sistem yang rapi dan mengubah data jadi keputusan.';
-    $fullDesc = !empty($description) ? $description : ($name . ' (zentokun90) — ' . $role . '. ' . $tagline);
+    $fullDesc = !empty($description) ? $description : ($name . ' — ' . $role . '. ' . $tagline);
 
     // URL Foto/Avatar untuk Open Graph & Twitter Card
     $image = '';

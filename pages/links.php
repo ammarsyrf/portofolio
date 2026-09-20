@@ -57,12 +57,12 @@ $iconSvgMap = [
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tautan Resmi Ammar Syarif (@zentokun90) — Bio Bento | Zenerie</title>
-  <meta name="description" content="Pusat tautan resmi, berkas CV, kontak, repositori GitHub, dan media sosial Ammar Syarif (@zentokun90) di Zenerie.">
+  <title>Tautan Resmi <?= e($profile['full_name'] ?? 'Ammar Syarif') ?> — Bio Bento | Zenerie</title>
+  <meta name="description" content="Pusat tautan resmi, berkas CV, kontak, repositori kode, dan media sosial <?= e($profile['full_name'] ?? 'Ammar Syarif') ?> di Zenerie.">
   <?php render_seo(
       $profile,
-      'Tautan Resmi Ammar Syarif (@zentokun90) — Bio Bento | Zenerie',
-      'Pusat tautan resmi, berkas CV, kontak, repositori GitHub, dan media sosial Ammar Syarif (@zentokun90) di Zenerie.',
+      'Tautan Resmi ' . ($profile['full_name'] ?? 'Ammar Syarif') . ' — Bio Bento | Zenerie',
+      'Pusat tautan resmi, berkas CV, kontak, repositori kode, dan media sosial ' . ($profile['full_name'] ?? 'Ammar Syarif') . ' di Zenerie.',
       '/links',
       'website',
       ['Tautan Bio' => '/links']
@@ -187,7 +187,7 @@ $iconSvgMap = [
               </div>
               <div class="links-card-text">
                 <h3 class="links-card-title">Kirim Email Resmi</h3>
-                <p class="links-card-desc"><?= e($profile['email']) ?></p>
+                <p class="links-card-desc">Kirim pesan langsung untuk diskusi proyek atau kolaborasi</p>
               </div>
             </div>
           </a>
@@ -300,7 +300,11 @@ $iconSvgMap = [
           }
           $iconKey = strtolower(trim($cl['icon'] ?? 'link'));
           $svgMarkup = $iconSvgMap[$iconKey] ?? $iconSvgMap['link'];
-          $host = parse_url($cl['url'], PHP_URL_HOST) ?: $cl['url'];
+          if (str_starts_with($cl['url'], 'mailto:')) {
+              $host = 'Email Langsung';
+          } else {
+              $host = parse_url($cl['url'], PHP_URL_HOST) ?: 'Tautan Eksternal';
+          }
         ?>
           <a href="<?= e($cl['url']) ?>" target="_blank" rel="noopener noreferrer" class="links-bento-card card-custom">
             <div class="card-glow-bg"></div>
@@ -348,7 +352,7 @@ $iconSvgMap = [
   <!-- Site Footer -->
   <footer class="site-footer">
     <div class="site-container footer-inner">
-      <div>&copy; <?= date('Y') ?> <?= e($profile['full_name'] ?? 'Ammar Syarif') ?> (@zentokun90) — Zenerie. Bio Bento Links.</div>
+      <div>&copy; <?= date('Y') ?> <?= e($profile['full_name'] ?? 'Ammar Syarif') ?> — Zenerie. Bio Bento Links.</div>
       <div style="display: flex; gap: 1.5rem;">
         <a href="<?= BASE_URL ?>/" class="footer-admin-link">Beranda</a>
         <a href="<?= BASE_URL ?>/guestbook" class="footer-admin-link">Buku Tamu</a>

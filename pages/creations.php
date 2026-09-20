@@ -20,12 +20,12 @@ $creations = $showSection ? get_published_creations($pdo) : [];
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kreasi Konten Digital — Ammar Syarif (@zentokun90) | Zenerie</title>
-  <meta name="description" content="Kurasi konten edukasi teknologi, tips rekayasa sistem, dan eksplorasi data di TikTok &amp; Instagram oleh Ammar Syarif (@zentokun90) di Zenerie.">
+  <title>Kreasi Konten Digital — <?= e($profile['full_name'] ?? 'Ammar Syarif') ?> | Zenerie</title>
+  <meta name="description" content="Kurasi konten edukasi teknologi, tips rekayasa sistem, dan eksplorasi data di media sosial oleh <?= e($profile['full_name'] ?? 'Ammar Syarif') ?> di Zenerie.">
   <?php render_seo(
       $profile,
-      'Kreasi Konten Digital — Ammar Syarif (@zentokun90) | Zenerie',
-      'Kurasi konten edukasi teknologi, tips rekayasa sistem, dan eksplorasi data di TikTok & Instagram oleh Ammar Syarif (@zentokun90) di Zenerie.',
+      'Kreasi Konten Digital — ' . ($profile['full_name'] ?? 'Ammar Syarif') . ' | Zenerie',
+      'Kurasi konten edukasi teknologi, tips rekayasa sistem, dan eksplorasi data di media sosial oleh ' . ($profile['full_name'] ?? 'Ammar Syarif') . ' di Zenerie.',
       '/creations',
       'website',
       ['Kreasi Konten' => '/creations']
@@ -111,7 +111,7 @@ $creations = $showSection ? get_published_creations($pdo) : [];
   <!-- Site Footer -->
   <footer class="site-footer">
     <div class="site-container footer-inner">
-      <div>&copy; <?= date('Y') ?> <?= e($profile['full_name'] ?? 'Ammar Syarif') ?> (@zentokun90) — Zenerie. Digital Creations.</div>
+      <div>&copy; <?= date('Y') ?> <?= e($profile['full_name'] ?? 'Ammar Syarif') ?> — Zenerie. Digital Creations.</div>
       <div style="display: flex; gap: 1.5rem;">
         <a href="<?= BASE_URL ?>/" class="footer-admin-link">Beranda</a>
         <a href="<?= BASE_URL ?>/achievements" class="footer-admin-link">Pencapaian</a>
