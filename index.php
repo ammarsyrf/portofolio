@@ -319,33 +319,98 @@ if (!empty($profile['cv_file'])) {
                     </div>
                   </div>
 
-                  <!-- Widget 2: Media Showcase (Vertical Capsules) -->
-                  <div class="bento-card bento-card-media">
-                    <div class="bento-media-header">
-                      <div class="media-title-wrap">
-                        <h4><?= e($homeContent['media_title']) ?></h4>
-                        <span class="media-count-badge"><?= count($mediaProjects) ?> Karya</span>
+                  <!-- Widget 2: Live Terminal & Work Status Console -->
+                  <div class="bento-card bento-card-terminal" id="bentoTerminalCard">
+                    <!-- Terminal Window Top Bar -->
+                    <div class="terminal-topbar">
+                      <div class="terminal-window-controls">
+                        <span class="t-dot t-dot-red" title="Close"></span>
+                        <span class="t-dot t-dot-yellow" title="Minimize"></span>
+                        <span class="t-dot t-dot-green" title="Expand"></span>
                       </div>
-                      <a href="#projects" class="bento-see-all"><?= e($homeContent['media_button']) ?></a>
+                      <div class="terminal-title">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="terminal-shell-icon">
+                          <polyline points="4 17 10 11 4 5"></polyline>
+                          <line x1="12" y1="19" x2="20" y2="19"></line>
+                        </svg>
+                        <span>ammar@zen:~$</span>
+                      </div>
+                      <div class="terminal-status-pill">
+                        <span class="terminal-pulse-dot"></span>
+                        <span>ACTIVE</span>
+                      </div>
                     </div>
 
-                    <div class="bento-media-cards-row">
-                      <?php foreach ($mediaProjects as $mp): 
-                        $mpImg = !empty($mp['image']) && file_exists(UPLOAD_DIR_PROJECTS . '/' . basename($mp['image']))
-                          ? upload_url('projects', $mp['image'])
-                          : '';
-                      ?>
-                        <div class="bento-media-mini-card btn-detail-trigger" data-id="<?= (int)$mp['id'] ?>" role="button" tabindex="0" title="Buka detail <?= e($mp['title']) ?>">
-                          <?php if (!empty($mpImg)): ?>
-                            <img src="<?= e($mpImg) ?>" alt="<?= e($mp['title']) ?>" loading="eager" fetchpriority="high" decoding="async" />
-                          <?php else: ?>
-                            <div class="media-thumb-placeholder"><?= strtoupper(substr($mp['title'], 0, 2)) ?></div>
-                          <?php endif; ?>
-                          <div class="bento-media-overlay">
-                            <span class="bento-media-title"><?= e($mp['title']) ?></span>
+                    <!-- Terminal Interactive Console Screen -->
+                    <div class="terminal-screen" id="terminalScreen">
+                      <div class="term-line term-prompt-line">
+                        <span class="term-user">zen@dev</span><span class="term-sep">:</span><span class="term-path">~</span><span class="term-char">$</span>
+                        <span class="term-cmd-text">status --live</span>
+                      </div>
+
+                      <div class="term-code-block">
+                        <div class="term-row">
+                          <span class="term-k">status</span>
+                          <span class="term-op">:</span>
+                          <span class="term-v-status">"● Available for Hire"</span>
+                        </div>
+                        <div class="term-row">
+                          <span class="term-k">role</span>
+                          <span class="term-op">:</span>
+                          <span class="term-v-str">"Fullstack &amp; Analyst"</span>
+                        </div>
+                        <div class="term-row">
+                          <span class="term-k">focus</span>
+                          <span class="term-op">:</span>
+                          <span class="term-v-str">"Laravel 10 • MySQL • Next.js"</span>
+                        </div>
+                        <div class="term-row">
+                          <span class="term-k">location</span>
+                          <span class="term-op">:</span>
+                          <span class="term-v-str">"Jakarta, ID (GMT+7)"</span>
+                        </div>
+                      </div>
+
+                      <!-- Interactive Command Output Simulation -->
+                      <div class="term-interactive-zone" id="termInteractiveZone">
+                        <div class="term-line term-prompt-line">
+                          <span class="term-user">zen@dev</span><span class="term-sep">:</span><span class="term-path">~</span><span class="term-char">$</span>
+                          <span class="term-active-cmd" id="termActiveCmd">pest --testsuite=portfolio</span>
+                          <span class="term-cursor" id="termCursor">▋</span>
+                        </div>
+                        <div class="term-test-output" id="termTestOutput" style="display: none;">
+                          <div class="term-test-pass">
+                            <span class="term-badge-pass">PASS</span>
+                            <span>Tests: 18 passed, 0 failed (0.04s)</span>
+                          </div>
+                          <div class="term-test-summary">
+                            <span style="color: #34d399;">✓ 100% Bebas SQLi &amp; Siap Produksi</span>
                           </div>
                         </div>
-                      <?php endforeach; ?>
+                      </div>
+                    </div>
+
+                    <!-- Terminal Bottom Bar / Quick Action Strip -->
+                    <div class="terminal-bottom-bar">
+                      <button type="button" class="btn-term-run" id="btnRunTerminalTest" title="Jalankan simulasi tes performa">
+                        <span class="run-icon">▶</span>
+                        <span id="btnRunTestLabel">Run Test</span>
+                      </button>
+                      <div class="terminal-quick-actions">
+                        <?php if ($hasCv): ?>
+                          <a href="<?= e($cvUrl) ?>" class="term-btn-action" target="_blank" download title="Unduh Curriculum Vitae (PDF)">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                              <polyline points="7 10 12 15 17 10"></polyline>
+                              <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span>CV</span>
+                          </a>
+                        <?php endif; ?>
+                        <a href="#contact" class="term-btn-action term-btn-highlight" title="Kirim pesan langsung">
+                          <span>Hire Me ↗</span>
+                        </a>
+                      </div>
                     </div>
                   </div>
 

@@ -501,4 +501,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = `Halo Ammar,\n\n${message}\n\nSalam,\n${name}\n${email}`;
     window.location.href = `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
+
+  // ------------------------------------------------------------------------
+  // 9. Bento Terminal Interactive Console Simulation
+  // ------------------------------------------------------------------------
+  const btnRunTerminalTest = document.getElementById('btnRunTerminalTest');
+  const termTestOutput = document.getElementById('termTestOutput');
+  const btnRunTestLabel = document.getElementById('btnRunTestLabel');
+
+  if (btnRunTerminalTest && termTestOutput) {
+    let isTesting = false;
+
+    btnRunTerminalTest.addEventListener('click', () => {
+      if (isTesting) return;
+      isTesting = true;
+
+      if (btnRunTestLabel) btnRunTestLabel.textContent = 'Testing...';
+      btnRunTerminalTest.style.opacity = '0.7';
+      termTestOutput.style.display = 'none';
+
+      setTimeout(() => {
+        termTestOutput.style.display = 'block';
+        if (btnRunTestLabel) btnRunTestLabel.textContent = 'Passed ✓';
+        btnRunTerminalTest.style.opacity = '1';
+        btnRunTerminalTest.style.borderColor = '#10B981';
+        btnRunTerminalTest.style.color = '#34D399';
+
+        setTimeout(() => {
+          if (btnRunTestLabel) btnRunTestLabel.textContent = 'Run Again ↺';
+          btnRunTerminalTest.style.borderColor = '';
+          btnRunTerminalTest.style.color = '';
+          isTesting = false;
+        }, 3000);
+      }, 450);
+    });
+  }
 });

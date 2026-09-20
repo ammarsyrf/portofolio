@@ -1850,6 +1850,335 @@ section[id] {
   background: rgba(255, 255, 255, 0.1);
 }
 
+/* =========================================================
+   Widget 2: Live Terminal & Work Status Console
+   ========================================================= */
+.bento-card-terminal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.65rem;
+  padding: 1.2rem 1.3rem;
+  height: 100%;
+  min-height: 280px;
+  background: rgba(11, 15, 25, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-base);
+}
+
+.bento-card-terminal:hover {
+  border-color: rgba(76, 141, 255, 0.35);
+  box-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.65), 0 0 22px rgba(76, 141, 255, 0.15);
+}
+
+.terminal-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.terminal-window-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.38rem;
+}
+
+.t-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.t-dot:hover {
+  transform: scale(1.15);
+}
+
+.t-dot-red {
+  background: #ff5f56;
+  box-shadow: 0 0 6px rgba(255, 95, 86, 0.4);
+}
+
+.t-dot-yellow {
+  background: #ffbd2e;
+  box-shadow: 0 0 6px rgba(255, 189, 46, 0.4);
+}
+
+.t-dot-green {
+  background: #27c93f;
+  box-shadow: 0 0 6px rgba(39, 201, 63, 0.4);
+}
+
+.terminal-title {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 0.72rem;
+  color: #94a3b8;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.terminal-shell-icon {
+  color: #38bdf8;
+}
+
+.terminal-status-pill {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 9999px;
+  padding: 0.12rem 0.48rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #34d399;
+  letter-spacing: 0.05em;
+}
+
+.terminal-pulse-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 6px #34d399;
+  animation: termPulse 1.5s infinite;
+}
+
+@keyframes termPulse {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 8px #34d399; }
+  100% { transform: scale(0.9); opacity: 0.7; }
+}
+
+.terminal-screen {
+  background: rgba(6, 9, 15, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 0.75rem 0.85rem;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.term-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.term-user {
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+.term-sep {
+  color: #64748b;
+}
+
+.term-path {
+  color: #c084fc;
+}
+
+.term-char {
+  color: #94a3b8;
+  margin-right: 0.15rem;
+}
+
+.term-cmd-text {
+  color: #f8fafc;
+  font-weight: 600;
+}
+
+.term-code-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.2rem 0 0.2rem 0.6rem;
+  border-left: 2px solid rgba(76, 141, 255, 0.25);
+  margin: 0.1rem 0;
+}
+
+.term-row {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.term-k {
+  color: #93c5fd;
+  font-size: 0.7rem;
+}
+
+.term-op {
+  color: #64748b;
+  font-size: 0.7rem;
+}
+
+.term-v-status {
+  color: #34d399;
+  font-weight: 700;
+  background: rgba(16, 185, 129, 0.12);
+  padding: 0.05rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.68rem;
+}
+
+.term-v-str {
+  color: #e2e8f0;
+  font-size: 0.7rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.term-interactive-zone {
+  margin-top: 0.15rem;
+}
+
+.term-active-cmd {
+  color: #fbbf24;
+  font-weight: 600;
+}
+
+.term-cursor {
+  color: #38bdf8;
+  animation: termBlink 1s infinite;
+  font-weight: 900;
+}
+
+@keyframes termBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.term-test-output {
+  margin-top: 0.35rem;
+  padding: 0.35rem 0.5rem;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 6px;
+  font-size: 0.66rem;
+  animation: termFadeIn 0.3s ease;
+}
+
+@keyframes termFadeIn {
+  from { opacity: 0; transform: translateY(3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.term-test-pass {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #f1f5f9;
+  font-weight: 600;
+}
+
+.term-badge-pass {
+  background: #10b981;
+  color: #0b0f17;
+  font-weight: 800;
+  padding: 0.08rem 0.3rem;
+  border-radius: 3px;
+  font-size: 0.58rem;
+}
+
+.term-test-summary {
+  margin-top: 0.2rem;
+  font-size: 0.64rem;
+}
+
+.terminal-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.btn-term-run {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.32rem 0.7rem;
+  border-radius: 6px;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  color: #38bdf8;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-term-run:hover {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: #38bdf8;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+}
+
+.btn-term-run .run-icon {
+  font-size: 0.6rem;
+}
+
+.terminal-quick-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.term-btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.32rem 0.65rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.term-btn-action:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.term-btn-highlight {
+  background: rgba(76, 141, 255, 0.15);
+  border-color: rgba(76, 141, 255, 0.35);
+  color: #93c5fd;
+}
+
+.term-btn-highlight:hover {
+  background: rgba(76, 141, 255, 0.3);
+  border-color: #4C8DFF;
+  color: #fff;
+  box-shadow: 0 0 12px rgba(76, 141, 255, 0.4);
+}
+
 /* Widget 2: Media Showcase (Vertical Capsules ala Prototype) */
 .bento-card-media {
   display: flex;
@@ -2871,7 +3200,8 @@ section[id] {
   /* Media tidak boleh ikut meregang setinggi widget Tech Stack. Tinggi widget
      skill bisa berubah setelah refresh/filter, sedangkan preview proyek harus
      selalu memiliki proporsi tetap sejak paint pertama. */
-  .bento-deck-panel[data-panel="0"] .bento-card-media {
+  .bento-deck-panel[data-panel="0"] .bento-card-media,
+  .bento-deck-panel[data-panel="0"] .bento-card-terminal {
     align-self: start;
     height: 280px;
     min-height: 280px;
