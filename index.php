@@ -146,7 +146,7 @@ if (!empty($profile['cv_file'])) {
                     <span class="bento-player-title">Our Brand <span style="color: var(--color-accent);">♥</span></span>
                     <span class="bento-player-badge">Zenerie</span>
                   </div>
-                  <div class="bento-player-subtitle">Brand yang dibangun bersama pasangan saya.</div>
+                  <div class="bento-player-subtitle">Zenerie adalah brand kreatif yang kami rintis untuk menghadirkan identitas dan pengalaman digital yang berkesan.</div>
                   <a href="https://www.zenerie.my.id" target="_blank" rel="noopener noreferrer" class="bento-brand-visit">Kunjungi Zenerie <span aria-hidden="true">↗</span></a>
                 </div>
               </div>
