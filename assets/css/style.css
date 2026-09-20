@@ -2816,17 +2816,26 @@ section[id] {
 }
 
 @media (min-width: 1180px) {
+  /* Media tidak boleh ikut meregang setinggi widget Tech Stack. Tinggi widget
+     skill bisa berubah setelah refresh/filter, sedangkan preview proyek harus
+     selalu memiliki proporsi tetap sejak paint pertama. */
+  .bento-deck-panel[data-panel="0"] .bento-card-media {
+    align-self: start;
+    height: 280px;
+    min-height: 280px;
+  }
+
   .bento-deck-panel[data-panel="0"] .bento-media-cards-row {
-    flex: 1 1 auto;
-    min-height: 0;
+    flex: 0 0 195px;
+    height: 195px;
+    min-height: 195px;
   }
 
   .bento-deck-panel[data-panel="0"] .bento-media-mini-card {
     /* Dua karya tampil lega; item berikutnya tetap dapat digeser. */
     flex: 0 0 calc((100% - 0.75rem) / 2);
-    /* Kunci tinggi thumbnail sejak paint pertama agar refresh tidak meloncat. */
-    height: 100%;
-    min-height: 0;
+    height: 195px;
+    min-height: 195px;
   }
 }
 
