@@ -357,12 +357,17 @@ if (!empty($profile['cv_file'])) {
                         <div class="term-row">
                           <span class="term-k">role</span>
                           <span class="term-op">:</span>
-                          <span class="term-v-str">"Fullstack &amp; Analyst"</span>
+                          <span class="term-v-str">"Fullstack &amp; AI-Augmented Dev"</span>
                         </div>
                         <div class="term-row">
                           <span class="term-k">focus</span>
                           <span class="term-op">:</span>
-                          <span class="term-v-str">"Laravel 10 • MySQL • Next.js"</span>
+                          <span class="term-v-str">"Laravel 13 • MySQL • Next.js"</span>
+                        </div>
+                        <div class="term-row">
+                          <span class="term-k">ai_ops</span>
+                          <span class="term-op">:</span>
+                          <span class="term-v-str">"Prompt Crafting • Context Framing"</span>
                         </div>
                         <div class="term-row">
                           <span class="term-k">location</span>
@@ -425,6 +430,7 @@ if (!empty($profile['cv_file'])) {
                         <button type="button" class="cat-tab-btn active" data-cat="all">Semua</button>
                         <button type="button" class="cat-tab-btn" data-cat="frontend">Frontend</button>
                         <button type="button" class="cat-tab-btn" data-cat="backend">Backend</button>
+                        <button type="button" class="cat-tab-btn" data-cat="ai">AI &amp; Prompting</button>
                         <button type="button" class="cat-tab-btn" data-cat="database">Database</button>
                         <button type="button" class="cat-tab-btn" data-cat="devops">DevOps</button>
                         <button type="button" class="cat-tab-btn" data-cat="testing">Testing</button>
@@ -559,7 +565,7 @@ if (!empty($profile['cv_file'])) {
                       </div>
 
                       <!-- ==================== BACKEND ==================== -->
-                      <div class="skill-icon-chip" data-cat="backend" data-highlight="true" title="Laravel — Enterprise PHP Framework">
+                      <div class="skill-icon-chip" data-cat="backend" data-highlight="true" title="Laravel 13 — Modern PHP Framework">
                         <div class="chip-svg-wrap laravel">
                           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon>
@@ -568,7 +574,7 @@ if (!empty($profile['cv_file'])) {
                           </svg>
                         </div>
                         <div class="chip-detail">
-                          <span class="chip-name">Laravel</span>
+                          <span class="chip-name">Laravel 13</span>
                           <span class="chip-sub">Framework</span>
                         </div>
                       </div>
@@ -664,6 +670,58 @@ if (!empty($profile['cv_file'])) {
                         <div class="chip-detail">
                           <span class="chip-name">Scheduler</span>
                           <span class="chip-sub">Cron Tasks</span>
+                        </div>
+                      </div>
+
+                      <!-- ==================== AI & PROMPTING ==================== -->
+                      <div class="skill-icon-chip" data-cat="ai" data-highlight="true" title="Prompt Engineering — Context Priming, Few-Shot &amp; System Directives">
+                        <div class="chip-svg-wrap ai">
+                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"></path>
+                          </svg>
+                        </div>
+                        <div class="chip-detail">
+                          <span class="chip-name">Prompt Eng.</span>
+                          <span class="chip-sub">Context &amp; Logic</span>
+                        </div>
+                      </div>
+
+                      <div class="skill-icon-chip" data-cat="ai" title="Claude 3.7 &amp; Sonnet — Complex Logic &amp; Architectural Synthesis">
+                        <div class="chip-svg-wrap claude">
+                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                          </svg>
+                        </div>
+                        <div class="chip-detail">
+                          <span class="chip-name">Claude &amp; Gemini</span>
+                          <span class="chip-sub">Architecture AI</span>
+                        </div>
+                      </div>
+
+                      <div class="skill-icon-chip" data-cat="ai" title="OpenAI / ChatGPT — Reasoning Models &amp; Workflow Automation">
+                        <div class="chip-svg-wrap openai">
+                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                            <circle cx="9" cy="9" r="2"></circle>
+                            <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+                          </svg>
+                        </div>
+                        <div class="chip-detail">
+                          <span class="chip-name">OpenAI / LLMs</span>
+                          <span class="chip-sub">Reasoning &amp; APIs</span>
+                        </div>
+                      </div>
+
+                      <div class="skill-icon-chip" data-cat="ai" title="Cursor &amp; Agentic AI — Autonomous Multi-File Development">
+                        <div class="chip-svg-wrap cursor">
+                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="4 17 10 11 4 5"></polyline>
+                            <line x1="12" y1="19" x2="20" y2="19"></line>
+                          </svg>
+                        </div>
+                        <div class="chip-detail">
+                          <span class="chip-name">Agentic Dev</span>
+                          <span class="chip-sub">Cursor &amp; Tools</span>
                         </div>
                       </div>
 

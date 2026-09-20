@@ -1857,10 +1857,10 @@ section[id] {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 0.65rem;
-  padding: 1.2rem 1.3rem;
+  gap: 0.75rem;
+  padding: 1.25rem 1.35rem;
   height: 100%;
-  min-height: 280px;
+  min-height: 380px;
   background: rgba(11, 15, 25, 0.78);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
@@ -2499,6 +2499,10 @@ section[id] {
 .chip-svg-wrap.c45 { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.25); }
 .chip-svg-wrap.dm { background: rgba(236, 72, 153, 0.15); color: #f472b6; border: 1px solid rgba(244, 114, 182, 0.25); }
 .chip-svg-wrap.rm { background: rgba(249, 115, 22, 0.15); color: #fb923c; border: 1px solid rgba(251, 146, 60, 0.25); }
+.chip-svg-wrap.ai { background: rgba(168, 85, 247, 0.2); color: #d8b4fe; border: 1px solid rgba(192, 132, 252, 0.35); box-shadow: 0 0 10px rgba(168, 85, 247, 0.2); }
+.chip-svg-wrap.claude { background: rgba(217, 119, 6, 0.18); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+.chip-svg-wrap.openai { background: rgba(16, 185, 129, 0.18); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.3); }
+.chip-svg-wrap.cursor { background: rgba(59, 130, 246, 0.18); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
 
 .chip-detail {
   display: flex;
@@ -3197,14 +3201,16 @@ section[id] {
 }
 
 @media (min-width: 1180px) {
-  /* Media tidak boleh ikut meregang setinggi widget Tech Stack. Tinggi widget
-     skill bisa berubah setelah refresh/filter, sedangkan preview proyek harus
-     selalu memiliki proporsi tetap sejak paint pertama. */
-  .bento-deck-panel[data-panel="0"] .bento-card-media,
-  .bento-deck-panel[data-panel="0"] .bento-card-terminal {
+  .bento-deck-panel[data-panel="0"] .bento-card-media {
     align-self: start;
     height: 280px;
     min-height: 280px;
+  }
+
+  .bento-deck-panel[data-panel="0"] .bento-card-terminal {
+    align-self: stretch;
+    height: 100%;
+    min-height: 380px;
   }
 
   .bento-deck-panel[data-panel="0"] .bento-media-cards-row {
