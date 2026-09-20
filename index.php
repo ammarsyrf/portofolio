@@ -9,6 +9,7 @@ require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/functions.php';
 require_once __DIR__ . '/includes/homepage_content.php';
+require_once __DIR__ . '/includes/seo.php';
 
 // Ambil data profil dari database
 $profile = get_profile($pdo);
@@ -83,6 +84,7 @@ if (!empty($profile['cv_file'])) {
   <title><?= e($profile['full_name']) ?> — <?= e($profile['role_title']) ?></title>
   <meta name="description" content="<?= e($profile['tagline']) ?>">
   <meta name="author" content="<?= e($profile['full_name']) ?>">
+  <?php render_seo($profile, $profile['full_name'] . ' — ' . $profile['role_title'], $profile['tagline'], '/'); ?>
 
   <!-- Google Fonts: Space Grotesk (Heading) & Inter (Body/UI) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -97,7 +99,8 @@ if (!empty($profile['cv_file'])) {
   <!-- Global Sticky Nav -->
   <?php require_once __DIR__ . '/includes/nav.php'; ?>
 
-  <main id="top">
+<main id="top">
+    <h1 class="sr-only"><?= e($profile['full_name']) ?> — <?= e($profile['role_title']) ?></h1>
     <!-- ====================================================================
          SECTION 1: BENTO DASHBOARD HERO (Inspired by Bento Widget Layout)
          ==================================================================== -->

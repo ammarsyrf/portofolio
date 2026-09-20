@@ -4,6 +4,8 @@
 
     # Shortcut /login -> admin/login.php
     RewriteRule ^login/?$ admin/login.php [L,R=302]
+    RewriteRule ^robots\.txt$ robots.php [L]
+    RewriteRule ^sitemap\.xml$ sitemap.php [L]
 
     # Canonical public URLs: jangan tampilkan /pages atau ekstensi .php.
     RewriteCond %{THE_REQUEST} \s/+index\.php[?\s] [NC]
