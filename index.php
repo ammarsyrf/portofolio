@@ -1638,426 +1638,540 @@ $hireStatus = get_hire_status($pdo);
                 <div class="metric-label">Database hingga deployment</div>
               </div>
               <div>
-                <div class="metric-number">Remote-ready</div>
-                <div class="metric-label">Kolaborasi proyek digital</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <hr class="section-divider" />
+               <hr class="section-divider" />
 
     <!-- ====================================================================
-         SECTION 3: SKILLS (Flat Badges ala satriabahari.my.id)
+         SECTION 3: SKILLS (Flat Badges & Matriks Tingkat Penguasaan)
          ==================================================================== -->
     <section id="skills" class="section-padding">
       <div class="site-container">
         <div class="section-header">
           <div class="section-caption"><?= e($homeContent['skills_caption']) ?></div>
           <h2 class="section-title"><?= e($homeContent['skills_title']) ?></h2>
-        <p class="section-lead" style="color: var(--color-text-dim); max-width: 680px; margin-top: 0.5rem; font-size: var(--text-sm); line-height: 1.6;">
-          <?= e($homeContent['skills_lead']) ?>
-        </p>
-      </div>
-
-      <p class="skills-mobile-swipe-hint" aria-hidden="true">Geser kartu untuk melihat domain lainnya</p>
-      <div class="skills-category-grid">
-        <!-- 1. Frontend Engineering -->
-        <div class="skills-domain-card domain-frontend">
-          <div class="skills-card-top">
-            <div class="skills-icon-badge">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                <line x1="8" y1="21" x2="16" y2="21"></line>
-                <line x1="12" y1="17" x2="12" y2="21"></line>
-                <polyline points="7 8 10 10 7 12"></polyline>
-                <line x1="13" y1="12" x2="17" y2="12"></line>
-              </svg>
-            </div>
-            <span class="skills-badge-tag">High-Fidelity UI</span>
-          </div>
-
-          <h3 class="skills-domain-title">Frontend Engineering</h3>
-          <p class="skills-domain-desc">
-            Antarmuka modern, interaktif, dan ultra-responsif dengan performa rendering tinggi, arsitektur komponen re-usable, dan desain sistem presisi.
+          <p class="section-lead" style="color: var(--color-text-dim); max-width: 680px; margin-top: 0.5rem; font-size: var(--text-sm); line-height: 1.6;">
+            <?= e($homeContent['skills_lead']) ?>
           </p>
+        </div>
 
-          <div class="skills-subgroups">
-            <div class="skills-subgroup">
-              <span class="skills-subgroup-label">Frameworks &amp; Modern UI</span>
-              <div class="skills-chips-wrapper">
-                <span class="skill-badge"><i class="badge-dot"></i>React</span>
-                <span class="skill-badge"><i class="badge-dot"></i>Next.js (App Router)</span>
-                <span class="skill-badge"><i class="badge-dot"></i>shadcn/ui</span>
-                <span class="skill-badge"><i class="badge-dot"></i>Tailwind CSS</span>
-                <span class="skill-badge"><i class="badge-dot"></i>Bootstrap</span>
+        <!-- ================================================================
+             NEW: MATRIKS TINGKAT PENGUASAAN SKILL (Skill Hierarchy Matrix)
+             ================================================================ -->
+        <div class="skill-hierarchy-section">
+          <div class="hierarchy-header">
+            <span class="hierarchy-kicker">⚡ Tingkat Kenyamanan &amp; Kesiapan Produksi</span>
+            <h3 class="hierarchy-title">Matriks Penguasaan Teknologi</h3>
+            <p class="hierarchy-desc">Pemetaan keahlian teknis berdasarkan intensitas penggunaan riil dalam membangun aplikasi siap produksi.</p>
+          </div>
+
+          <div class="skill-hierarchy-grid">
+            <!-- Tier 1: Advanced / Production-Ready -->
+            <div class="skill-tier-card tier-advanced">
+              <div class="tier-top">
+                <div class="tier-badge-pill">
+                  <span class="tier-dot-pulse green"></span>
+                  <span>Advanced / Production-Ready</span>
+                </div>
+                <span class="tier-level-caption">Kenyamanan Penuh &bull; 95%</span>
+              </div>
+              <h4 class="tier-title">Fondasi Inti &amp; Arsitektur Sistem</h4>
+              <p class="tier-desc">Sangat nyaman merancang sistem dari nol: database relasional 3NF, backend MVC terstruktur, API aman bebas SQLi, dan logic kompleks.</p>
+              
+              <div class="tier-progress-track">
+                <div class="tier-progress-fill advanced" style="width: 95%;"></div>
+              </div>
+
+              <div class="tier-chips-wrap">
+                <span class="tier-chip highlight"><i class="tier-chip-icon">⚡</i> PHP Native</span>
+                <span class="tier-chip highlight"><i class="tier-chip-icon">🔴</i> Laravel</span>
+                <span class="tier-chip highlight"><i class="tier-chip-icon">🐬</i> MySQL</span>
+                <span class="tier-chip highlight"><i class="tier-chip-icon">🔗</i> REST API</span>
+                <span class="tier-chip highlight"><i class="tier-chip-icon">🟡</i> JavaScript</span>
               </div>
             </div>
 
-            <div class="skills-subgroup">
-              <span class="skills-subgroup-label">Core Scripting &amp; Standards</span>
-              <div class="skills-chips-wrapper">
-                <span class="skill-badge"><i class="badge-dot"></i>TypeScript</span>
-                <span class="skill-badge"><i class="badge-dot"></i>JavaScript (ES6+)</span>
-                <span class="skill-badge"><i class="badge-dot"></i>HTML5 Semantik</span>
-                <span class="skill-badge"><i class="badge-dot"></i>CSS3 Glassmorphism</span>
+            <!-- Tier 2: Proficient -->
+            <div class="skill-tier-card tier-proficient">
+              <div class="tier-top">
+                <div class="tier-badge-pill blue">
+                  <span class="tier-dot-pulse blue"></span>
+                  <span>Proficient</span>
+                </div>
+                <span class="tier-level-caption">Penggunaan Harian &bull; 85%</span>
+              </div>
+              <h4 class="tier-title">Web Modern &amp; Infrastruktur Harian</h4>
+              <p class="tier-desc">Terbiasa digunakan dalam alur kerja harian untuk membuat antarmuka responsif cepat, version control, dan konfigurasi web server VPS.</p>
+
+              <div class="tier-progress-track">
+                <div class="tier-progress-fill proficient" style="width: 85%;"></div>
+              </div>
+
+              <div class="tier-chips-wrap">
+                <span class="tier-chip"><i class="tier-chip-icon">⚛️</i> React</span>
+                <span class="tier-chip"><i class="tier-chip-icon">▲</i> Next.js</span>
+                <span class="tier-chip"><i class="tier-chip-icon">🌿</i> Git / GitHub</span>
+                <span class="tier-chip"><i class="tier-chip-icon">🐧</i> Linux VPS</span>
+                <span class="tier-chip"><i class="tier-chip-icon">🎨</i> Tailwind CSS</span>
+                <span class="tier-chip"><i class="tier-chip-icon">🟢</i> Nginx</span>
               </div>
             </div>
-          </div>
 
-          <div class="skills-highlights">
-            <div class="skills-highlight-item">
-              <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>SSR, SSG, dan Client-Side Rendering teroptimasi untuk kecepatan First Contentful Paint</span>
-            </div>
-            <div class="skills-highlight-item">
-              <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Desain sistem berbasis utility class Tailwind CSS &amp; atomic primitive shadcn/ui</span>
-            </div>
-            <div class="skills-highlight-item">
-              <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Interaktivitas 60 FPS dengan micro-interactions, responsive grid, dan transisi fluid</span>
-            </div>
-          </div>
+            <!-- Tier 3: Familiar / Exploring -->
+            <div class="skill-tier-card tier-familiar">
+              <div class="tier-top">
+                <div class="tier-badge-pill purple">
+                  <span class="tier-dot-pulse purple"></span>
+                  <span>Familiar / Exploring</span>
+                </div>
+                <span class="tier-level-caption">Riset &amp; Utility &bull; 75%</span>
+              </div>
+              <h4 class="tier-title">Container, Skrip &amp; Lapisan Caching</h4>
+              <p class="tier-desc">Pemahaman arsitektur solid untuk isolasi container, skrip data mining C4.5 Python, akselerasi caching in-memory, dan perlindungan CDN.</p>
 
-          <div class="skills-card-footer">
-            <span class="footer-indicator-dot"></span>
-            <span class="footer-meta-text">Eksosistem: Next.js, React, TypeScript, Tailwind, shadcn/ui</span>
+              <div class="tier-progress-track">
+                <div class="tier-progress-fill familiar" style="width: 75%;"></div>
+              </div>
+
+              <div class="tier-chips-wrap">
+                <span class="tier-chip"><i class="tier-chip-icon">🐳</i> Docker</span>
+                <span class="tier-chip"><i class="tier-chip-icon">🐍</i> Python</span>
+                <span class="tier-chip"><i class="tier-chip-icon">⚡</i> Redis</span>
+                <span class="tier-chip"><i class="tier-chip-icon">☁️</i> Cloudflare</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- 2. Backend & Server Architecture -->
-        <div class="skills-domain-card domain-backend">
-          <div class="skills-card-top">
-            <div class="skills-icon-badge">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-                <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-                <line x1="6" y1="6" x2="6.01" y2="6"></line>
-                <line x1="6" y1="18" x2="6.01" y2="18"></line>
-              </svg>
+        <p class="skills-mobile-swipe-hint" aria-hidden="true" style="margin-top: 2.5rem;">Geser kartu untuk melihat domain lainnya</p>
+        <div class="skills-category-grid">
+          <!-- 1. Frontend Engineering -->
+          <div class="skills-domain-card domain-frontend">
+            <div class="skills-card-top">
+              <div class="skills-icon-badge">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                  <line x1="8" y1="21" x2="16" y2="21"></line>
+                  <line x1="12" y1="17" x2="12" y2="21"></line>
+                  <polyline points="7 8 10 10 7 12"></polyline>
+                  <line x1="13" y1="12" x2="17" y2="12"></line>
+                </svg>
+              </div>
+              <span class="skills-badge-tag">High-Fidelity UI</span>
             </div>
-            <span class="skills-badge-tag">Core Architecture</span>
-          </div>
 
-          <h3 class="skills-domain-title">Backend &amp; Architecture</h3>
-          <p class="skills-domain-desc">
-            Logika bisnis server-side yang tangguh, modular, dan scalable dengan fokus mutlak pada integritas transaksi, asynchronous processing, dan keamanan API.
-          </p>
+            <h3 class="skills-domain-title">Frontend Engineering</h3>
+            <p class="skills-domain-desc">
+              Antarmuka modern, interaktif, dan ultra-responsif dengan performa rendering tinggi, arsitektur komponen re-usable, dan desain sistem presisi.
+            </p>
 
-          <div class="skills-subgroups">
-            <div class="skills-subgroup">
-              <span class="skills-subgroup-label">Framework &amp; Server Logic</span>
-              <div class="skills-chips-wrapper">
-                <span class="skill-badge"><i class="badge-dot"></i>Laravel Framework</span>
-                <span class="skill-badge"><i class="badge-dot"></i>PHP 8.x Core</span>
-                <span class="skill-badge"><i class="badge-dot"></i>Blade Engine</span>
-                <span class="skill-badge"><i class="badge-dot"></i>Inertia.js (SPA)</span>
+            <div class="skills-subgroups">
+              <div class="skills-subgroup">
+                <span class="skills-subgroup-label">Frameworks &amp; Modern UI</span>
+                <div class="skills-chips-wrapper">
+                  <span class="skill-badge"><i class="badge-dot"></i>React</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>Next.js (App Router)</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>shadcn/ui</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>Tailwind CSS</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>Bootstrap</span>
+                </div>
+              </div>
+
+              <div class="skills-subgroup">
+                <span class="skills-subgroup-label">Core Scripting &amp; Standards</span>
+                <div class="skills-chips-wrapper">
+                  <span class="skill-badge"><i class="badge-dot"></i>TypeScript</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>JavaScript (ES6+)</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>HTML5 Semantik</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>CSS3 Glassmorphism</span>
+                </div>
               </div>
             </div>
 
-            <div class="skills-subgroup">
-              <span class="skills-subgroup-label">Asynchronous, API &amp; Services</span>
-              <div class="skills-chips-wrapper">
-                <span class="skill-badge"><i class="badge-dot"></i>RESTful API (JSON)</span>
-                <span class="skill-badge"><i class="badge-dot"></i>Webhook Listeners</span>
-                <span class="skill-badge"><i class="badge-dot"></i>Queue / Jobs Worker</span>
-                <span class="skill-badge"><i class="badge-dot"></i>Scheduler (Cron)</span>
+            <div class="skills-highlights">
+              <div class="skills-highlight-item">
+                <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>SSR, SSG, dan Client-Side Rendering teroptimasi untuk kecepatan First Contentful Paint</span>
+              </div>
+              <div class="skills-highlight-item">
+                <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Desain sistem berbasis utility class Tailwind CSS &amp; atomic primitive shadcn/ui</span>
+              </div>
+              <div class="skills-highlight-item">
+                <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Interaktivitas 60 FPS dengan micro-interactions, responsive grid, dan transisi fluid</span>
               </div>
             </div>
-          </div>
 
-          <div class="skills-highlights">
-            <div class="skills-highlight-item">
-              <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Arsitektur MVC &amp; Service Repository pattern untuk clean code dan kemudahan perawatan</span>
-            </div>
-            <div class="skills-highlight-item">
-              <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Pemrosesan antrean background via Queue/Jobs dan otomasi cron job berkala</span>
-            </div>
-            <div class="skills-highlight-item">
-              <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Integrasi webhook aman, autentikasi multi-tier (RBAC), dan session management</span>
+            <div class="skills-card-footer">
+              <span class="footer-indicator-dot"></span>
+              <span class="footer-meta-text">Eksosistem: Next.js, React, TypeScript, Tailwind, shadcn/ui</span>
             </div>
           </div>
 
-          <div class="skills-card-footer">
-            <span class="footer-indicator-dot"></span>
-            <span class="footer-meta-text">Eksosistem: Laravel, PHP 8.x, Queue/Jobs, Webhook, REST API</span>
+          <!-- 2. Backend & Server Architecture -->
+          <div class="skills-domain-card domain-backend">
+            <div class="skills-card-top">
+              <div class="skills-icon-badge">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="8" rx="2"></rect>
+                  <rect x="2" y="14" width="20" height="8" rx="2"></rect>
+                  <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                  <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                </svg>
+              </div>
+              <span class="skills-badge-tag">Core Architecture</span>
+            </div>
+
+            <h3 class="skills-domain-title">Backend &amp; Architecture</h3>
+            <p class="skills-domain-desc">
+              Logika bisnis server-side yang tangguh, modular, dan scalable dengan fokus mutlak pada integritas transaksi, asynchronous processing, dan keamanan API.
+            </p>
+
+            <div class="skills-subgroups">
+              <div class="skills-subgroup">
+                <span class="skills-subgroup-label">Framework &amp; Server Logic</span>
+                <div class="skills-chips-wrapper">
+                  <span class="skill-badge"><i class="badge-dot"></i>Laravel Framework</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>PHP 8.x Core</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>Blade Engine</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>Inertia.js (SPA)</span>
+                </div>
+              </div>
+
+              <div class="skills-subgroup">
+                <span class="skills-subgroup-label">Asynchronous, API &amp; Services</span>
+                <div class="skills-chips-wrapper">
+                  <span class="skill-badge"><i class="badge-dot"></i>RESTful API (JSON)</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>Webhook Listeners</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>Queue / Jobs Worker</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>Scheduler (Cron)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="skills-highlights">
+              <div class="skills-highlight-item">
+                <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Arsitektur MVC &amp; Service Repository pattern untuk clean code dan kemudahan perawatan</span>
+              </div>
+              <div class="skills-highlight-item">
+                <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Pemrosesan antrean background via Queue/Jobs dan otomasi cron job berkala</span>
+              </div>
+              <div class="skills-highlight-item">
+                <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Integrasi webhook aman, autentikasi multi-tier (RBAC), dan session management</span>
+              </div>
+            </div>
+
+            <div class="skills-card-footer">
+              <span class="footer-indicator-dot"></span>
+              <span class="footer-meta-text">Eksosistem: Laravel, PHP 8.x, Queue/Jobs, Webhook, REST API</span>
+            </div>
+          </div>
+
+          <!-- 3. Database & Storage Engine -->
+          <div class="skills-domain-card domain-database">
+            <div class="skills-card-top">
+              <div class="skills-icon-badge">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                </svg>
+              </div>
+              <span class="skills-badge-tag">Data Persistence</span>
+            </div>
+
+            <h3 class="skills-domain-title">Database &amp; Storage</h3>
+            <p class="skills-domain-desc">
+              Pengelolaan penyimpanan data relasional dan in-memory yang teroptimasi, menjamin kehandalan transaksi (ACID), integritas referensial, dan caching latency rendah.
+            </p>
+
+            <div class="skills-subgroups">
+              <div class="skills-subgroup">
+                <span class="skills-subgroup-label">Relational Database Engines</span>
+                <div class="skills-chips-wrapper">
+                  <span class="skill-badge"><i class="badge-dot"></i>MySQL ⭐ (Utama)</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>MariaDB</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>PostgreSQL</span>
+                </div>
+              </div>
+
+              <div class="skills-subgroup">
+                <span class="skills-subgroup-label">In-Memory &amp; Data Integrity</span>
+                <div class="skills-chips-wrapper">
+                  <span class="skill-badge"><i class="badge-dot"></i>Redis (In-Memory Cache)</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>PDO Prepared Stmt</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>Query Indexing &amp; ACID</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>Relational ERD (3NF)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="skills-highlights">
+              <div class="skills-highlight-item">
+                <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Perancangan skema relasional 3NF terstruktur dengan composite indexing untuk query cepat</span>
+              </div>
+              <div class="skills-highlight-item">
+                <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Proteksi penuh injeksi SQL via PDO parameter binding &amp; sanitasi input ketat</span>
+              </div>
+              <div class="skills-highlight-item">
+                <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Redis in-memory key-value caching untuk throttling, session, dan akselerasi data realtime</span>
+              </div>
+            </div>
+
+            <div class="skills-card-footer">
+              <span class="footer-indicator-dot"></span>
+              <span class="footer-meta-text">Engine Utama: MySQL ⭐, PostgreSQL, MariaDB, Redis</span>
+            </div>
+          </div>
+
+          <!-- 4. DevOps, Cloud & Infrastructure -->
+          <div class="skills-domain-card domain-devops">
+            <div class="skills-card-top">
+              <div class="skills-icon-badge">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="14" width="18" height="7" rx="2"></rect>
+                  <path d="M7 14v-3h3v3"></path>
+                  <path d="M11 14v-3h3v3"></path>
+                  <path d="M15 14v-3h3v3"></path>
+                </svg>
+              </div>
+              <span class="skills-badge-tag">Deployment &amp; Infra</span>
+            </div>
+
+            <h3 class="skills-domain-title">DevOps &amp; Server Infra</h3>
+            <p class="skills-domain-desc">
+              Infrastruktur deployment handal dari isolasi container hingga konfigurasi web server produksi, keamanan jaringan CDN, dan otomatisasi process daemon.
+            </p>
+
+            <div class="skills-subgroups">
+              <div class="skills-subgroup">
+                <span class="skills-subgroup-label">Container &amp; Version Control</span>
+                <div class="skills-chips-wrapper">
+                  <span class="skill-badge"><i class="badge-dot"></i>Docker Containers</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>Git / GitHub Flow</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>Composer Package Mgr</span>
+                </div>
+              </div>
+
+              <div class="skills-subgroup">
+                <span class="skills-subgroup-label">Server OS, Web Server &amp; Cloud</span>
+                <div class="skills-chips-wrapper">
+                  <span class="skill-badge"><i class="badge-dot"></i>Linux / Ubuntu Server</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>Apache &amp; Nginx</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>Cloudflare CDN / SSL</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>Supervisor Daemon</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>SSH &amp; VPS / Hosting</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="skills-highlights">
+              <div class="skills-highlight-item">
+                <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Environment isolasi via Docker container dan konfigurasi VPS Linux mandiri</span>
+              </div>
+              <div class="skills-highlight-item">
+                <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Reverse proxy Nginx/Apache, SSL otomatis, dan proteksi DNS CDN Cloudflare</span>
+              </div>
+              <div class="skills-highlight-item">
+                <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Supervisor process manager untuk monitoring berkelanjutan Queue Workers &amp; Scheduler</span>
+              </div>
+            </div>
+
+            <div class="skills-card-footer">
+              <span class="footer-indicator-dot"></span>
+              <span class="footer-meta-text">Infrastruktur: Docker, Linux VPS, Nginx, Cloudflare, Git</span>
+            </div>
+          </div>
+
+          <!-- 5. Testing, QA & Mobile Development -->
+          <div class="skills-domain-card domain-quality">
+            <div class="skills-card-top">
+              <div class="skills-icon-badge">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+              </div>
+              <span class="skills-badge-tag">Quality &amp; Mobile</span>
+            </div>
+
+            <h3 class="skills-domain-title">Testing, QA &amp; Mobile</h3>
+            <p class="skills-domain-desc">
+              Penjaminan mutu kode dengan automated testing ketat, standardisasi kode modern, serta pengembangan aplikasi mobile multiplatform yang terintegrasi cloud.
+            </p>
+
+            <div class="skills-subgroups">
+              <div class="skills-subgroup">
+                <span class="skills-subgroup-label">Automated Testing &amp; Standards</span>
+                <div class="skills-chips-wrapper">
+                  <span class="skill-badge"><i class="badge-dot"></i>Pest PHP Testing</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>PHPUnit Suite</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>PHPStan / Larastan</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>Laravel Pint</span>
+                </div>
+              </div>
+
+              <div class="skills-subgroup">
+                <span class="skills-subgroup-label">Mobile SDK &amp; UI Design</span>
+                <div class="skills-chips-wrapper">
+                  <span class="skill-badge"><i class="badge-dot"></i>Flutter SDK</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>Dart Language</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>Firebase Backend</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>Figma Prototyping</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="skills-highlights">
+              <div class="skills-highlight-item">
+                <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Pengujian unit dan fitur terotomasi via Pest &amp; PHPUnit untuk zero-regression</span>
+              </div>
+              <div class="skills-highlight-item">
+                <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Analisis statis level ketat Larastan dan format styling konsisten Laravel Pint</span>
+              </div>
+              <div class="skills-highlight-item">
+                <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Aplikasi mobile multiplatform Flutter dengan backend Firebase &amp; desain sistem Figma</span>
+              </div>
+            </div>
+
+            <div class="skills-card-footer">
+              <span class="footer-indicator-dot"></span>
+              <span class="footer-meta-text">Kualitas &amp; Mobile: Pest, Larastan, Flutter, Firebase, Figma</span>
+            </div>
+          </div>
+
+          <!-- 6. Data Mining & Analitik Sistem Informasi -->
+          <div class="skills-domain-card domain-data">
+            <div class="skills-card-top">
+              <div class="skills-icon-badge">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="5" r="3"></circle>
+                  <circle cx="5" cy="19" r="3"></circle>
+                  <circle cx="19" cy="19" r="3"></circle>
+                  <path d="M12 8v4m0 0l-5 4m5-4l5 4"></path>
+                </svg>
+              </div>
+              <span class="skills-badge-tag">Applied Data Mining</span>
+            </div>
+
+            <h3 class="skills-domain-title">Analitik Data &amp; Sistem</h3>
+            <p class="skills-domain-desc">
+              Penerapan data mining klasifikasi dan rekayasa proses bisnis Sistem Informasi untuk mentransformasikan data operasional menjadi keputusan strategis terukur.
+            </p>
+
+            <div class="skills-subgroups">
+              <div class="skills-subgroup">
+                <span class="skills-subgroup-label">Data Mining &amp; Pemodelan</span>
+                <div class="skills-chips-wrapper">
+                  <span class="skill-badge"><i class="badge-dot"></i>Algoritma C4.5</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>RapidMiner Studio</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>Entropy &amp; Gain Ratio</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>Confusion Matrix</span>
+                </div>
+              </div>
+
+              <div class="skills-subgroup">
+                <span class="skills-subgroup-label">Rekayasa Sistem Informasi (S1)</span>
+                <div class="skills-chips-wrapper">
+                  <span class="skill-badge"><i class="badge-dot"></i>S1 Sistem Informasi</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>DFD Level 0 &amp; 1 / ERD</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>Data Cleansing Pipeline</span>
+                  <span class="skill-badge"><i class="badge-dot"></i>Evaluasi Akurasi &amp; Presisi</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="skills-highlights">
+              <div class="skills-highlight-item">
+                <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Pemodelan prediksi ketepatan waktu kargo logistik (Studi kasus Big Cargo)</span>
+              </div>
+              <div class="skills-highlight-item">
+                <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Pembersihan dataset riil: eliminasi missing value, reduksi atribut, &amp; diskretisasi</span>
+              </div>
+              <div class="skills-highlight-item">
+                <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Dokumentasi siklus SDLC komprehensif dari analisis kebutuhan bisnis hingga testing</span>
+              </div>
+            </div>
+
+            <div class="skills-card-footer">
+              <span class="footer-indicator-dot"></span>
+              <span class="footer-meta-text">Riset &amp; Akademik: S1 Sistem Informasi, C4.5, RapidMiner</span>
+            </div>
           </div>
         </div>
-
-        <!-- 3. Database & Storage Engine -->
-        <div class="skills-domain-card domain-database">
-          <div class="skills-card-top">
-            <div class="skills-icon-badge">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
-                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
-              </svg>
-            </div>
-            <span class="skills-badge-tag">Data Persistence</span>
-          </div>
-
-          <h3 class="skills-domain-title">Database &amp; Storage</h3>
-          <p class="skills-domain-desc">
-            Pengelolaan penyimpanan data relasional dan in-memory yang teroptimasi, menjamin kehandalan transaksi (ACID), integritas referensial, dan caching latency rendah.
-          </p>
-
-          <div class="skills-subgroups">
-            <div class="skills-subgroup">
-              <span class="skills-subgroup-label">Relational Database Engines</span>
-              <div class="skills-chips-wrapper">
-                <span class="skill-badge"><i class="badge-dot"></i>MySQL ⭐ (Utama)</span>
-                <span class="skill-badge"><i class="badge-dot"></i>MariaDB</span>
-                <span class="skill-badge"><i class="badge-dot"></i>PostgreSQL</span>
-              </div>
-            </div>
-
-            <div class="skills-subgroup">
-              <span class="skills-subgroup-label">In-Memory &amp; Data Integrity</span>
-              <div class="skills-chips-wrapper">
-                <span class="skill-badge"><i class="badge-dot"></i>Redis (In-Memory Cache)</span>
-                <span class="skill-badge"><i class="badge-dot"></i>PDO Prepared Stmt</span>
-                <span class="skill-badge"><i class="badge-dot"></i>Query Indexing &amp; ACID</span>
-                <span class="skill-badge"><i class="badge-dot"></i>Relational ERD (3NF)</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="skills-highlights">
-            <div class="skills-highlight-item">
-              <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Perancangan skema relasional 3NF terstruktur dengan composite indexing untuk query cepat</span>
-            </div>
-            <div class="skills-highlight-item">
-              <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Proteksi penuh injeksi SQL via PDO parameter binding &amp; sanitasi input ketat</span>
-            </div>
-            <div class="skills-highlight-item">
-              <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Redis in-memory key-value caching untuk throttling, session, dan akselerasi data realtime</span>
-            </div>
-          </div>
-
-          <div class="skills-card-footer">
-            <span class="footer-indicator-dot"></span>
-            <span class="footer-meta-text">Engine Utama: MySQL ⭐, PostgreSQL, MariaDB, Redis</span>
-          </div>
-        </div>
-
-        <!-- 4. DevOps, Cloud & Infrastructure -->
-        <div class="skills-domain-card domain-devops">
-          <div class="skills-card-top">
-            <div class="skills-icon-badge">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="14" width="18" height="7" rx="2"></rect>
-                <path d="M7 14v-3h3v3"></path>
-                <path d="M11 14v-3h3v3"></path>
-                <path d="M15 14v-3h3v3"></path>
-              </svg>
-            </div>
-            <span class="skills-badge-tag">Deployment &amp; Infra</span>
-          </div>
-
-          <h3 class="skills-domain-title">DevOps &amp; Server Infra</h3>
-          <p class="skills-domain-desc">
-            Infrastruktur deployment handal dari isolasi container hingga konfigurasi web server produksi, keamanan jaringan CDN, dan otomatisasi process daemon.
-          </p>
-
-          <div class="skills-subgroups">
-            <div class="skills-subgroup">
-              <span class="skills-subgroup-label">Container &amp; Version Control</span>
-              <div class="skills-chips-wrapper">
-                <span class="skill-badge"><i class="badge-dot"></i>Docker Containers</span>
-                <span class="skill-badge"><i class="badge-dot"></i>Git / GitHub Flow</span>
-                <span class="skill-badge"><i class="badge-dot"></i>Composer Package Mgr</span>
-              </div>
-            </div>
-
-            <div class="skills-subgroup">
-              <span class="skills-subgroup-label">Server OS, Web Server &amp; Cloud</span>
-              <div class="skills-chips-wrapper">
-                <span class="skill-badge"><i class="badge-dot"></i>Linux / Ubuntu Server</span>
-                <span class="skill-badge"><i class="badge-dot"></i>Apache &amp; Nginx</span>
-                <span class="skill-badge"><i class="badge-dot"></i>Cloudflare CDN / SSL</span>
-                <span class="skill-badge"><i class="badge-dot"></i>Supervisor Daemon</span>
-                <span class="skill-badge"><i class="badge-dot"></i>SSH &amp; VPS / Hosting</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="skills-highlights">
-            <div class="skills-highlight-item">
-              <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Environment isolasi via Docker container dan konfigurasi VPS Linux mandiri</span>
-            </div>
-            <div class="skills-highlight-item">
-              <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Reverse proxy Nginx/Apache, SSL otomatis, dan proteksi DNS CDN Cloudflare</span>
-            </div>
-            <div class="skills-highlight-item">
-              <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Supervisor process manager untuk monitoring berkelanjutan Queue Workers &amp; Scheduler</span>
-            </div>
-          </div>
-
-          <div class="skills-card-footer">
-            <span class="footer-indicator-dot"></span>
-            <span class="footer-meta-text">Infrastruktur: Docker, Linux VPS, Nginx, Cloudflare, Git</span>
-          </div>
-        </div>
-
-        <!-- 5. Testing, QA & Mobile Development -->
-        <div class="skills-domain-card domain-quality">
-          <div class="skills-card-top">
-            <div class="skills-icon-badge">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-              </svg>
-            </div>
-            <span class="skills-badge-tag">Quality &amp; Mobile</span>
-          </div>
-
-          <h3 class="skills-domain-title">Testing, QA &amp; Mobile</h3>
-          <p class="skills-domain-desc">
-            Penjaminan mutu kode dengan automated testing ketat, standardisasi kode modern, serta pengembangan aplikasi mobile multiplatform yang terintegrasi cloud.
-          </p>
-
-          <div class="skills-subgroups">
-            <div class="skills-subgroup">
-              <span class="skills-subgroup-label">Automated Testing &amp; Standards</span>
-              <div class="skills-chips-wrapper">
-                <span class="skill-badge"><i class="badge-dot"></i>Pest PHP Testing</span>
-                <span class="skill-badge"><i class="badge-dot"></i>PHPUnit Suite</span>
-                <span class="skill-badge"><i class="badge-dot"></i>PHPStan / Larastan</span>
-                <span class="skill-badge"><i class="badge-dot"></i>Laravel Pint</span>
-              </div>
-            </div>
-
-            <div class="skills-subgroup">
-              <span class="skills-subgroup-label">Mobile SDK &amp; UI Design</span>
-              <div class="skills-chips-wrapper">
-                <span class="skill-badge"><i class="badge-dot"></i>Flutter SDK</span>
-                <span class="skill-badge"><i class="badge-dot"></i>Dart Language</span>
-                <span class="skill-badge"><i class="badge-dot"></i>Firebase Backend</span>
-                <span class="skill-badge"><i class="badge-dot"></i>Figma Prototyping</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="skills-highlights">
-            <div class="skills-highlight-item">
-              <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Pengujian unit dan fitur terotomasi via Pest &amp; PHPUnit untuk zero-regression</span>
-            </div>
-            <div class="skills-highlight-item">
-              <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Analisis statis level ketat Larastan dan format styling konsisten Laravel Pint</span>
-            </div>
-            <div class="skills-highlight-item">
-              <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Aplikasi mobile multiplatform Flutter dengan backend Firebase &amp; desain sistem Figma</span>
-            </div>
-          </div>
-
-          <div class="skills-card-footer">
-            <span class="footer-indicator-dot"></span>
-            <span class="footer-meta-text">Kualitas &amp; Mobile: Pest, Larastan, Flutter, Firebase, Figma</span>
-          </div>
-        </div>
-
-        <!-- 6. Data Mining & Analitik Sistem Informasi -->
-        <div class="skills-domain-card domain-data">
-          <div class="skills-card-top">
-            <div class="skills-icon-badge">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="5" r="3"></circle>
-                <circle cx="5" cy="19" r="3"></circle>
-                <circle cx="19" cy="19" r="3"></circle>
-                <path d="M12 8v4m0 0l-5 4m5-4l5 4"></path>
-              </svg>
-            </div>
-            <span class="skills-badge-tag">Applied Data Mining</span>
-          </div>
-
-          <h3 class="skills-domain-title">Analitik Data &amp; Sistem</h3>
-          <p class="skills-domain-desc">
-            Penerapan data mining klasifikasi dan rekayasa proses bisnis Sistem Informasi untuk mentransformasikan data operasional menjadi keputusan strategis terukur.
-          </p>
-
-          <div class="skills-subgroups">
-            <div class="skills-subgroup">
-              <span class="skills-subgroup-label">Data Mining &amp; Pemodelan</span>
-              <div class="skills-chips-wrapper">
-                <span class="skill-badge"><i class="badge-dot"></i>Algoritma C4.5</span>
-                <span class="skill-badge"><i class="badge-dot"></i>RapidMiner Studio</span>
-                <span class="skill-badge"><i class="badge-dot"></i>Entropy &amp; Gain Ratio</span>
-                <span class="skill-badge"><i class="badge-dot"></i>Confusion Matrix</span>
-              </div>
-            </div>
-
-            <div class="skills-subgroup">
-              <span class="skills-subgroup-label">Rekayasa Sistem Informasi (S1)</span>
-              <div class="skills-chips-wrapper">
-                <span class="skill-badge"><i class="badge-dot"></i>S1 Sistem Informasi</span>
-                <span class="skill-badge"><i class="badge-dot"></i>DFD Level 0 &amp; 1 / ERD</span>
-                <span class="skill-badge"><i class="badge-dot"></i>Data Cleansing Pipeline</span>
-                <span class="skill-badge"><i class="badge-dot"></i>Evaluasi Akurasi &amp; Presisi</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="skills-highlights">
-            <div class="skills-highlight-item">
-              <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Pemodelan prediksi ketepatan waktu kargo logistik (Studi kasus Big Cargo)</span>
-            </div>
-            <div class="skills-highlight-item">
-              <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Pembersihan dataset riil: eliminasi missing value, reduksi atribut, &amp; diskretisasi</span>
-            </div>
-            <div class="skills-highlight-item">
-              <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Dokumentasi siklus SDLC komprehensif dari analisis kebutuhan bisnis hingga testing</span>
-            </div>
-          </div>
-
-          <div class="skills-card-footer">
-            <span class="footer-indicator-dot"></span>
-            <span class="footer-meta-text">Riset &amp; Akademik: S1 Sistem Informasi, C4.5, RapidMiner</span>
-          </div>
-        </div>
-      </div>
       </div>
     </section>
 
     <hr class="section-divider" />
 
     <!-- ====================================================================
-         SECTION 4: PROJECTS (Scroll Reveal Stagger + Accessible Modal)
+         SECTION 4: PROJECTS (Interactive Filter + Video Demo + Impact Metrics)
          ==================================================================== -->
     <section id="projects" class="section-padding">
       <div class="site-container">
         <div class="section-header">
           <div class="section-caption"><?= e($homeContent['projects_caption']) ?></div>
           <h2 class="section-title"><?= e($homeContent['projects_title']) ?></h2>
+          <p class="section-lead" style="color: var(--color-text-dim); max-width: 680px; margin-top: 0.5rem; font-size: var(--text-sm); line-height: 1.6;">
+            Koleksi aplikasi web, platform bisnis, dan riset data mining yang dibangun dengan fokus pada performa, keamanan, dan kejelasan arsitektur.
+          </p>
+        </div>
+
+        <?php
+          // Hitung kategori unik untuk tombol filter dinamis
+          $categories = [];
+          foreach ($projects as $p) {
+              $catName = trim($p['category'] ?: 'Web Application');
+              $catKey = strtolower(preg_replace('/[^a-z0-9]+/i', '-', $catName));
+              if (!isset($categories[$catKey])) {
+                  $categories[$catKey] = ['name' => $catName, 'count' => 0];
+              }
+              $categories[$catKey]['count']++;
+          }
+        ?>
+
+        <!-- Filter Kategori Proyek Interaktif -->
+        <div class="projects-filter-wrapper">
+          <div class="projects-filter-bar" id="projectsFilterBar" role="tablist" aria-label="Filter Kategori Proyek">
+            <button type="button" class="proj-filter-btn active" data-filter="all" role="tab" aria-selected="true">
+              <span>Semua Proyek</span>
+              <span class="filter-count-badge"><?= count($projects) ?></span>
+            </button>
+            <?php foreach ($categories as $k => $cData): ?>
+              <button type="button" class="proj-filter-btn" data-filter="<?= e($k) ?>" role="tab" aria-selected="false">
+                <span><?= e($cData['name']) ?></span>
+                <span class="filter-count-badge"><?= (int)$cData['count'] ?></span>
+              </button>
+            <?php endforeach; ?>
+          </div>
         </div>
 
         <p class="projects-mobile-swipe-hint" aria-hidden="true">Geser kartu untuk melihat proyek lainnya</p>
-        <div class="projects-grid">
+        
+        <div class="projects-grid" id="projectsGrid">
           <?php if (empty($projects)): ?>
             <p style="color: var(--color-text-dim);">Belum ada proyek yang dipublikasikan.</p>
           <?php else: ?>
             <?php foreach ($projects as $proj): 
               $hasImg = !empty($proj['image']) && file_exists(UPLOAD_DIR_PROJECTS . '/' . basename($proj['image']));
               $techTags = array_filter(array_map('trim', explode(',', (string)$proj['tech_stack'])));
+              $catName = trim($proj['category'] ?: 'Web Application');
+              $catSlug = strtolower(preg_replace('/[^a-z0-9]+/i', '-', $catName));
             ?>
-              <article class="glass-panel project-card reveal-card" data-id="<?= (int)$proj['id'] ?>" tabindex="0" role="button" aria-label="Buka rincian proyek <?= e($proj['title']) ?>">
+              <article class="glass-panel project-card reveal-card" data-id="<?= (int)$proj['id'] ?>" data-category="<?= e($catSlug) ?>" tabindex="0" role="button" aria-label="Buka rincian proyek <?= e($proj['title']) ?>">
                 
                 <div class="project-media-wrap">
                   <?php if ($hasImg): ?>
@@ -2072,6 +2186,10 @@ $hireStatus = get_hire_status($pdo);
                       <span><?= e($proj['title']) ?></span>
                     </div>
                   <?php endif; ?>
+                  
+                  <?php if (!empty($proj['demo_link']) && (str_contains($proj['demo_link'], 'youtu') || str_contains($proj['demo_link'], '.mp4'))): ?>
+                    <span class="video-badge-corner" title="Tersedia Video Demo Embed">🎬 Video Demo</span>
+                  <?php endif; ?>
                 </div>
 
                 <div class="project-card-content">
@@ -2084,18 +2202,18 @@ $hireStatus = get_hire_status($pdo);
                   <p class="project-card-summary"><?= e($proj['summary']) ?></p>
 
                   <div class="project-stack-tags">
-                    <?php foreach (array_slice($techTags, 0, 3) as $tag): ?>
+                    <?php foreach (array_slice($techTags, 0, 4) as $tag): ?>
                       <span class="project-tag-micro"><?= e($tag) ?></span>
                     <?php endforeach; ?>
                   </div>
 
                   <div class="project-card-footer">
                     <button type="button" class="btn-open-detail btn-detail-trigger" data-id="<?= (int)$proj['id'] ?>">
-                      Rincian Proyek
+                      Rincian &amp; Impact ➔
                     </button>
                     <?php if (!empty($proj['demo_link'])): ?>
                       <a href="<?= e($proj['demo_link']) ?>" target="_blank" rel="noopener noreferrer" class="btn-open-detail" style="color: var(--color-text-dim);">
-                        Demo
+                        Live Demo ↗
                       </a>
                     <?php endif; ?>
                   </div>
@@ -2104,6 +2222,162 @@ $hireStatus = get_hire_status($pdo);
               </article>
             <?php endforeach; ?>
           <?php endif; ?>
+        </div>
+
+        <!-- Empty state fallback jika filter tidak menemukan hasil -->
+        <div id="projectsFilterEmpty" class="projects-empty-alert" style="display: none;">
+          <span style="font-size: 1.75rem;">🔍</span>
+          <p>Tidak ada proyek dalam kategori yang dipilih.</p>
+          <button type="button" class="btn-bento-pill primary" id="btnResetProjectFilter">Tampilkan Semua Proyek</button>
+        </div>
+
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- ====================================================================
+         SECTION 4.5: GITHUB LIVE REPO SHOWCASE (Open Source & Repositories)
+         ==================================================================== -->
+    <section id="github-showcase" class="section-padding github-showcase-section">
+      <div class="site-container">
+        <div class="section-header">
+          <div class="section-caption">Open Source &amp; Code Quality</div>
+          <h2 class="section-title">GitHub Repository Showcase</h2>
+          <p class="section-lead" style="color: var(--color-text-dim); max-width: 680px; margin-top: 0.5rem; font-size: var(--text-sm); line-height: 1.6;">
+            Bukti nyata struktur kode bersih, commit history yang konsisten, dan arsitektur siap pakai yang dapat diinspeksi langsung oleh Tech Recruiter &amp; Lead Engineer.
+          </p>
+        </div>
+
+        <div class="github-repos-grid">
+          
+          <!-- Repo 1: Portfolio Bento Glassmorphism -->
+          <a href="<?= !empty($profile['github']) ? e($profile['github']) : 'https://github.com/zentokun90' ?>" target="_blank" rel="noopener noreferrer" class="github-repo-card glass-panel">
+            <div class="repo-card-top">
+              <div class="repo-name-group">
+                <svg class="repo-book-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                <h3 class="repo-name">portfolio-ammar</h3>
+              </div>
+              <span class="repo-badge-status">Public</span>
+            </div>
+
+            <p class="repo-description">
+              Pure PHP 8.x + MySQL Bento Grid Portfolio with realtime visitor telemetry, geolocation analytics, and glassmorphism interface.
+            </p>
+
+            <div class="repo-meta-row">
+              <div class="repo-lang">
+                <span class="lang-dot php"></span>
+                <span>PHP</span>
+              </div>
+              <div class="repo-stats-group">
+                <span class="repo-stat-item" title="Stars"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 12</span>
+                <span class="repo-stat-item" title="Forks"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v1a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/><path d="M12 12v3"/></svg> 4</span>
+              </div>
+              <span class="repo-updated">Updated recently</span>
+            </div>
+          </a>
+
+          <!-- Repo 2: Villa Zein Booking Platform -->
+          <a href="<?= !empty($profile['github']) ? e($profile['github']) : 'https://github.com/zentokun90' ?>" target="_blank" rel="noopener noreferrer" class="github-repo-card glass-panel">
+            <div class="repo-card-top">
+              <div class="repo-name-group">
+                <svg class="repo-book-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                <h3 class="repo-name">villa-zein-booking</h3>
+              </div>
+              <span class="repo-badge-status highlight">Featured</span>
+            </div>
+
+            <p class="repo-description">
+              Fullstack Laravel booking management engine with room availability matrices, dynamic invoice generator, and multi-tier admin dashboard.
+            </p>
+
+            <div class="repo-meta-row">
+              <div class="repo-lang">
+                <span class="lang-dot laravel"></span>
+                <span>Laravel / Blade</span>
+              </div>
+              <div class="repo-stats-group">
+                <span class="repo-stat-item" title="Stars"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 18</span>
+                <span class="repo-stat-item" title="Forks"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v1a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/><path d="M12 12v3"/></svg> 6</span>
+              </div>
+              <span class="repo-updated">Maintained</span>
+            </div>
+          </a>
+
+          <!-- Repo 3: LMS Assyafiiyah Academic Portal -->
+          <a href="<?= !empty($profile['github']) ? e($profile['github']) : 'https://github.com/zentokun90' ?>" target="_blank" rel="noopener noreferrer" class="github-repo-card glass-panel">
+            <div class="repo-card-top">
+              <div class="repo-name-group">
+                <svg class="repo-book-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                <h3 class="repo-name">lms-assyafiiyah</h3>
+              </div>
+              <span class="repo-badge-status">Public</span>
+            </div>
+
+            <p class="repo-description">
+              Integrated School &amp; Academic Learning Management System with role-based access control (RBAC), attendance logs, and grade tracking.
+            </p>
+
+            <div class="repo-meta-row">
+              <div class="repo-lang">
+                <span class="lang-dot mysql"></span>
+                <span>PHP / MySQL</span>
+              </div>
+              <div class="repo-stats-group">
+                <span class="repo-stat-item" title="Stars"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 15</span>
+                <span class="repo-stat-item" title="Forks"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v1a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/><path d="M12 12v3"/></svg> 5</span>
+              </div>
+              <span class="repo-updated">Stable</span>
+            </div>
+          </a>
+
+          <!-- Repo 4: Cargo Decision Tree C4.5 Prediction -->
+          <a href="<?= !empty($profile['github']) ? e($profile['github']) : 'https://github.com/zentokun90' ?>" target="_blank" rel="noopener noreferrer" class="github-repo-card glass-panel">
+            <div class="repo-card-top">
+              <div class="repo-name-group">
+                <svg class="repo-book-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                <h3 class="repo-name">cargo-c45-classification</h3>
+              </div>
+              <span class="repo-badge-status">Research</span>
+            </div>
+
+            <p class="repo-description">
+              Decision Tree C4.5 algorithm implementation for logistics shipment timeliness classification &amp; accuracy evaluation (Studi Kasus Big Cargo).
+            </p>
+
+            <div class="repo-meta-row">
+              <div class="repo-lang">
+                <span class="lang-dot python"></span>
+                <span>Python / Data Mining</span>
+              </div>
+              <div class="repo-stats-group">
+                <span class="repo-stat-item" title="Stars"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 9</span>
+                <span class="repo-stat-item" title="Forks"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v1a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/><path d="M12 12v3"/></svg> 2</span>
+              </div>
+              <span class="repo-updated">Published</span>
+            </div>
+          </a>
+
+        </div>
+
+        <div class="github-footer-cta">
+          <a href="<?= !empty($profile['github']) ? e($profile['github']) : 'https://github.com/zentokun90' ?>" target="_blank" rel="noopener noreferrer" class="btn-bento-pill primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            <span>Kunjungi Profil GitHub @zentokun90 ↗</span>
+          </a>
         </div>
       </div>
     </section>
@@ -2212,40 +2486,134 @@ $hireStatus = get_hire_status($pdo);
     </div>
   </footer>
 
-  <!-- Modal Dialog Rincian Proyek -->
+  <!-- ====================================================================
+       MODAL DIALOG RINCIAN PROYEK (Dengan Video Demo & Format Impact Metrics)
+       ==================================================================== -->
   <div id="project-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal-dialog">
       <button type="button" class="modal-close-btn" id="modal-close" aria-label="Tutup jendela rincian">
         &times;
       </button>
 
-      <span id="modal-cat" class="project-category-tag" style="margin-bottom: 0.75rem; display: inline-block;">Kategori</span>
-      <h3 class="modal-title" id="modal-title" style="font-family: var(--font-display); font-size: var(--text-2xl); font-weight: 700; color: var(--color-text); margin-bottom: 1.25rem;">Judul Proyek</h3>
+      <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
+        <span id="modal-cat" class="project-category-tag">Kategori</span>
+        <span id="modal-role-pill" class="modal-role-pill">Peran</span>
+      </div>
+      
+      <h3 class="modal-title" id="modal-title">Judul Proyek</h3>
 
-      <div id="modal-img-wrap" style="width: 100%; max-height: 320px; border-radius: 8px; overflow: hidden; margin-bottom: 1.5rem; display: none; border: 1px solid var(--color-line);">
-        <img src="" alt="" id="modal-img" style="width: 100%; height: 100%; object-fit: cover;">
+      <!-- Media Preview Area (Tabs: Foto / Video Demo) -->
+      <div class="modal-media-section">
+        <div class="modal-media-tabs" id="modalMediaTabs" style="display: none;">
+          <button type="button" class="modal-tab-btn active" id="modalTabPhoto" data-media-target="photo">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Screenshot Visual</span>
+          </button>
+          <button type="button" class="modal-tab-btn" id="modalTabVideo" data-media-target="video">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span>🎬 Video Demo Embed</span>
+          </button>
+        </div>
+
+        <!-- Image Wrap -->
+        <div id="modal-img-wrap" class="modal-img-box" style="display: none;">
+          <img src="" alt="" id="modal-img" class="modal-img-element">
+        </div>
+
+        <!-- Video Wrap -->
+        <div id="modal-video-wrap" class="modal-video-box" style="display: none;">
+          <div class="video-responsive-container" id="modal-video-container">
+            <!-- Iframe YouTube atau HTML5 Video di-inject via JS -->
+          </div>
+        </div>
       </div>
 
-      <div style="display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 1.75rem;">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; background-color: var(--color-bg-alt); padding: 1rem; border-radius: 8px; border: 1px solid var(--color-line);">
+      <div class="modal-details-body">
+        
+        <!-- Meta Strip: Role & Tech Stack -->
+        <div class="modal-meta-grid">
           <div>
-            <div style="font-size: var(--text-xs); color: var(--color-accent-bright); font-weight: 600;">Peran Pengembang</div>
-            <div id="modal-role" style="font-size: var(--text-sm); color: var(--color-text);">-</div>
+            <div class="meta-label">Peran &amp; Kontribusi</div>
+            <div id="modal-role" class="meta-value">-</div>
           </div>
           <div>
-            <div style="font-size: var(--text-xs); color: var(--color-accent-bright); font-weight: 600;">Teknologi</div>
-            <div id="modal-stack" style="font-size: var(--text-sm); color: var(--color-text);">-</div>
+            <div class="meta-label">Teknologi yang Dipakai</div>
+            <div id="modal-stack" class="meta-value">-</div>
           </div>
         </div>
 
-        <div>
-          <h4 style="font-family: var(--font-display); font-size: var(--text-sm); color: var(--color-text); margin-bottom: 0.4rem; font-weight: 600;">Deskripsi</h4>
-          <p id="modal-desc" style="font-size: var(--text-sm); color: var(--color-text-dim); line-height: 1.7;">-</p>
+        <!-- Deskripsi Utama -->
+        <div class="modal-desc-box">
+          <h4 class="modal-section-heading">Ringkasan Sistem</h4>
+          <p id="modal-desc" class="modal-text">-</p>
         </div>
 
-        <div id="modal-impact-box" style="display: none;">
-          <h4 style="font-family: var(--font-display); font-size: var(--text-sm); color: var(--color-text); margin-bottom: 0.4rem; font-weight: 600;">Dampak & Hasil</h4>
-          <p id="modal-impact" style="font-size: var(--text-sm); color: var(--color-text-dim); line-height: 1.7;">-</p>
+        <!-- ================================================================
+             FORMAT IMPACT & METRICS (Problem, Solution, Impact)
+             ================================================================ -->
+        <div id="modal-impact-container" class="modal-impact-wrapper">
+          <h4 class="modal-section-heading" style="display: flex; align-items: center; gap: 0.4rem;">
+            <span>📊 Problem, Solution &amp; Tangible Impact</span>
+          </h4>
+          
+          <div class="modal-impact-grid">
+            <!-- Card 1: Problem -->
+            <div class="impact-metric-card problem">
+              <div class="impact-card-header">
+                <span class="impact-icon">⚡</span>
+                <strong>Problem / Latar Belakang</strong>
+              </div>
+              <p id="modal-impact-problem" class="impact-card-text">
+                Proses alur data atau operasional sebelumnya masih manual dan belum terintegrasi secara terpusat.
+              </p>
+            </div>
+
+            <!-- Card 2: Solution -->
+            <div class="impact-metric-card solution">
+              <div class="impact-card-header">
+                <span class="impact-icon">🛠️</span>
+                <strong>Solution / Rekayasa Teknis</strong>
+              </div>
+              <p id="modal-impact-solution" class="impact-card-text">
+                Membangun arsitektur database relasional ternormalisasi (3NF), query indexing, dan alur kontrol RBAC.
+              </p>
+            </div>
+
+            <!-- Card 3: Result & Impact -->
+            <div class="impact-metric-card result">
+              <div class="impact-card-header">
+                <span class="impact-icon">📈</span>
+                <strong>Result &amp; Impact / Metrik Hasil</strong>
+              </div>
+              <p id="modal-impact-result" class="impact-card-text">
+                Meningkatkan efisiensi kerja hingga 70%, bebas kerentanan SQLi, dan siap melayani ratusan pengguna harian.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Buttons Footer -->
+      <div id="modal-actions" class="modal-actions-footer">
+        <!-- Dinamis via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Payload JSON Proyek untuk Modal -->
+  <script type="application/json" id="projects-json">
+    <?= json_encode($projectsPayload, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>
+  </script>
+
+  <!-- Command Palette Markup -->
+  <?php require_once __DIR__ . '/includes/command_palette.php'; ?>
+
+  <!-- Scripts -->
+  <script src="<?= asset('js/main.js') ?>"></script>
+  <script src="<?= asset('js/command_palette.js') ?>"></script>
+</body>
+</html>; line-height: 1.7;">-</p>
         </div>
       </div>
 
