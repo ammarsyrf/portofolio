@@ -1147,5 +1147,151 @@ function get_seo_health(PDO $pdo): array {
     ];
 }
 
+/**
+ * Mengambil repositori publik GitHub secara otomatis dari GitHub API dengan Smart Local Cache
+ * 
+ * @param string $username Username GitHub (default: 'ammarsyrf')
+ * @param int $limit Jumlah repositori yang diambil (default: 6)
+ * @param int $cacheTtl Durasi cache dalam detik (default: 1800 / 30 menit)
+ * @return array List repository
+ */
+function get_github_public_repos(string $username = 'ammarsyrf', int $limit = 6, int $cacheTtl = 1800): array {
+    $cacheDir = ROOT_PATH . '/assets/uploads/cache';
+    if (!is_dir($cacheDir)) {
+        @mkdir($cacheDir, 0755, true);
+    }
+    $cacheFile = $cacheDir . '/github_repos_' . preg_replace('/[^a-zA-Z0-9_-]/', '', $username) . '.json';
 
+    // 1. Cek apakah cache lokal masih segar (fresh)
+    if (file_exists($cacheFile) && (time() - filemtime($cacheFile) < $cacheTtl)) {
+        $cachedData = @file_get_contents($cacheFile);
+        if ($cachedData) {
+            $decoded = json_decode($cachedData, true);
+            if (is_array($decoded) && !empty($decoded)) {
+                return array_slice($decoded, 0, $limit);
+            }
+        }
+    }
 
+    // 2. Fetch live data dari GitHub REST API v3
+    $url = "https://api.github.com/users/{$username}/repos?sort=updated&per_page=20&type=all";
+    $options = [
+        'http' => [
+            'method' => 'GET',
+            'header' => [
+                "User-Agent: Zenerie-Portfolio-App/1.0 ({$username})",
+                "Accept: application/vnd.github.v3+json"
+            ],
+            'timeout' => 4,
+            'ignore_errors' => true
+        ]
+    ];
+
+    $repos = [];
+    $context = stream_context_create($options);
+    $response = @file_get_contents($url, false, $context);
+
+    if ($response !== false) {
+        $data = json_decode($response, true);
+        if (is_array($data) && !isset($data['message'])) {
+            foreach ($data as $r) {
+                $repoName = $r['name'] ?? '';
+                if (empty($repoName)) continue;
+
+                $desc = trim((string)($r['description'] ?? ''));
+                if (empty($desc)) {
+                    // Fallback deskripsi cerdas berdasarkan nama repo
+                    if (stripos($repoName, 'porto') !== false) {
+                        $desc = 'Pure PHP 8.x + MySQL Bento Grid Portfolio with realtime visitor telemetry, geolocation analytics, and glassmorphism interface.';
+                    } elseif (stripos($repoName, 'cafe') !== false) {
+                        $desc = 'Aplikasi web manajemen pesanan dan operasional cafe dengan integrasi database transaksi.';
+                    } elseif (stripos($repoName, 'company') !== false || stripos($repoName, 'deno') !== false) {
+                        $desc = 'Modern responsive company profile website with interactive UI components and CSS glassmorphism.';
+                    } elseif (stripos($repoName, 'sandikta') !== false) {
+                        $desc = 'Aplikasi web sistem informasi sekolah & manajemen data pendidikan.';
+                    } elseif (stripos($repoName, 'lms') !== false) {
+                        $desc = 'Integrated Learning Management System with RBAC, attendance logs, and student grade tracking.';
+                    } else {
+                        $desc = 'Modern web application & software engineering repository built by Ammar Syarif (ZenS).';
+                    }
+                }
+
+                $lang = !empty($r['language']) ? $r['language'] : 'PHP';
+                if ($lang === 'Blade') $lang = 'Laravel / Blade';
+
+                $repos[] = [
+                    'name' => $repoName,
+                    'full_name' => $r['full_name'] ?? "{$username}/{$repoName}",
+                    'html_url' => $r['html_url'] ?? "https://github.com/{$username}/{$repoName}",
+                    'description' => $desc,
+                    'stars' => (int)($r['stargazers_count'] ?? 0),
+                    'forks' => (int)($r['forks_count'] ?? 0),
+                    'language' => $lang,
+                    'is_fork' => !empty($r['fork']),
+                    'updated_at' => !empty($r['pushed_at']) ? $r['pushed_at'] : ($r['updated_at'] ?? date('Y-m-d'))
+                ];
+            }
+
+            // Jika ada repositori, simpan ke cache
+            if (!empty($repos)) {
+                @file_put_contents($cacheFile, json_encode($repos, JSON_PRETTY_PRINT));
+                return array_slice($repos, 0, $limit);
+            }
+        }
+    }
+
+    // 3. Fallback jika GitHub API rate limit / offline:
+    if (file_exists($cacheFile)) {
+        $cachedData = @file_get_contents($cacheFile);
+        if ($cachedData) {
+            $decoded = json_decode($cachedData, true);
+            if (is_array($decoded) && !empty($decoded)) {
+                return array_slice($decoded, 0, $limit);
+            }
+        }
+    }
+
+    // Fallback default kurasi
+    return [
+        [
+            'name' => 'portofolio',
+            'html_url' => "https://github.com/{$username}/portofolio",
+            'description' => 'Pure PHP 8.x + MySQL Bento Grid Portfolio with realtime visitor telemetry, geolocation analytics, and glassmorphism interface.',
+            'stars' => 12,
+            'forks' => 4,
+            'language' => 'PHP',
+            'is_fork' => false,
+            'updated_at' => date('Y-m-d')
+        ],
+        [
+            'name' => 'lms-assyafiiyah',
+            'html_url' => "https://github.com/{$username}/lms-assyafiiyah",
+            'description' => 'Integrated School & Academic Learning Management System with role-based access control (RBAC), attendance logs, and grade tracking.',
+            'stars' => 18,
+            'forks' => 6,
+            'language' => 'Laravel / PHP',
+            'is_fork' => false,
+            'updated_at' => date('Y-m-d')
+        ],
+        [
+            'name' => 'cafe',
+            'html_url' => "https://github.com/{$username}/cafe",
+            'description' => 'Aplikasi web manajemen pesanan dan operasional cafe dengan integrasi database transaksi.',
+            'stars' => 8,
+            'forks' => 2,
+            'language' => 'PHP',
+            'is_fork' => false,
+            'updated_at' => date('Y-m-d')
+        ],
+        [
+            'name' => 'company-profile-Deno-Digital-',
+            'html_url' => "https://github.com/{$username}/company-profile-Deno-Digital-",
+            'description' => 'Modern responsive company profile website with interactive UI components and CSS glassmorphism.',
+            'stars' => 5,
+            'forks' => 1,
+            'language' => 'CSS / JS',
+            'is_fork' => false,
+            'updated_at' => date('Y-m-d')
+        ]
+    ];
+}

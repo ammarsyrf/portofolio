@@ -7092,6 +7092,11 @@ section[id] {
 .lang-dot.laravel { background-color: #f43f5e; }
 .lang-dot.mysql { background-color: #f59e0b; }
 .lang-dot.python { background-color: #3b82f6; }
+.lang-dot.typescript { background-color: #3178c6; }
+.lang-dot.javascript { background-color: #f7df1e; }
+.lang-dot.css { background-color: #264de4; }
+.lang-dot.html { background-color: #e34f26; }
+.lang-dot.dart { background-color: #00b4ab; }
 
 .repo-stats-group {
   display: flex;

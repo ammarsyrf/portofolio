@@ -16,5 +16,5 @@ connect_ssh.bat
 .DS_Store
 Thumbs.db
 .idea/
-.vscode/
-
+# Uploads cache
+assets/uploads/cache/

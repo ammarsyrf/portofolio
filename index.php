@@ -2383,128 +2383,81 @@ $hireStatus = get_hire_status($pdo);
           </div>
         </div>
 
+        <?php
+          // Tarik data repositori publik secara real-time via GitHub API (dengan smart local cache)
+          $ghUsername = !empty($profile['github']) ? trim(basename(parse_url($profile['github'], PHP_URL_PATH))) : 'ammarsyrf';
+          if (empty($ghUsername)) $ghUsername = 'ammarsyrf';
+          $githubRepos = get_github_public_repos($ghUsername, 6);
+        ?>
+
         <div class="github-repos-grid">
-          
-          <!-- Repo 1: Portfolio Bento Glassmorphism -->
-          <a href="https://github.com/ammarsyrf/portofolio" target="_blank" rel="noopener noreferrer" class="github-repo-card glass-panel">
-            <div class="repo-card-top">
-              <div class="repo-name-group">
-                <svg class="repo-book-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                </svg>
-                <h3 class="repo-name">portofolio</h3>
+          <?php foreach ($githubRepos as $repo): 
+            $langName = $repo['language'] ?? 'PHP';
+            $langClass = 'php';
+            if (stripos($langName, 'laravel') !== false || stripos($langName, 'blade') !== false) {
+                $langClass = 'laravel';
+            } elseif (stripos($langName, 'python') !== false) {
+                $langClass = 'python';
+            } elseif (stripos($langName, 'mysql') !== false || stripos($langName, 'sql') !== false) {
+                $langClass = 'mysql';
+            } elseif (stripos($langName, 'type') !== false || stripos($langName, 'ts') !== false) {
+                $langClass = 'typescript';
+            } elseif (stripos($langName, 'java') !== false || stripos($langName, 'js') !== false) {
+                $langClass = 'javascript';
+            } elseif (stripos($langName, 'css') !== false) {
+                $langClass = 'css';
+            } elseif (stripos($langName, 'html') !== false) {
+                $langClass = 'html';
+            } elseif (stripos($langName, 'dart') !== false) {
+                $langClass = 'dart';
+            }
+          ?>
+            <a href="<?= e($repo['html_url']) ?>" target="_blank" rel="noopener noreferrer" class="github-repo-card glass-panel">
+              <div class="repo-card-top">
+                <div class="repo-name-group">
+                  <svg class="repo-book-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                  </svg>
+                  <h3 class="repo-name"><?= e($repo['name']) ?></h3>
+                </div>
+                <span class="repo-badge-status <?= !empty($repo['is_fork']) ? '' : 'highlight' ?>">
+                  <?= !empty($repo['is_fork']) ? 'Forked' : 'Public' ?>
+                </span>
               </div>
-              <span class="repo-badge-status">Public</span>
-            </div>
 
-            <p class="repo-description">
-              Pure PHP 8.x + MySQL Bento Grid Portfolio with realtime visitor telemetry, geolocation analytics, and glassmorphism interface.
-            </p>
+              <p class="repo-description">
+                <?= e($repo['description']) ?>
+              </p>
 
-            <div class="repo-meta-row">
-              <div class="repo-lang">
-                <span class="lang-dot php"></span>
-                <span>PHP</span>
+              <div class="repo-meta-row">
+                <div class="repo-lang">
+                  <span class="lang-dot <?= e($langClass) ?>"></span>
+                  <span><?= e($langName) ?></span>
+                </div>
+                <div class="repo-stats-group">
+                  <span class="repo-stat-item" title="Stars"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> <?= (int)$repo['stars'] ?></span>
+                  <span class="repo-stat-item" title="Forks"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v1a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/><path d="M12 12v3"/></svg> <?= (int)$repo['forks'] ?></span>
+                </div>
+                <span class="repo-updated">
+                  <?php 
+                    if (!empty($repo['updated_at'])) {
+                        $diffDays = round((time() - strtotime($repo['updated_at'])) / 86400);
+                        if ($diffDays <= 1) {
+                            echo 'Updated recently';
+                        } elseif ($diffDays < 30) {
+                            echo "Updated {$diffDays}d ago";
+                        } else {
+                            echo 'Maintained';
+                        }
+                    } else {
+                        echo 'Active';
+                    }
+                  ?>
+                </span>
               </div>
-              <div class="repo-stats-group">
-                <span class="repo-stat-item" title="Stars"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 12</span>
-                <span class="repo-stat-item" title="Forks"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v1a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/><path d="M12 12v3"/></svg> 4</span>
-              </div>
-              <span class="repo-updated">Updated recently</span>
-            </div>
-          </a>
-
-          <!-- Repo 2: LMS Assyafiiyah Academic Portal -->
-          <a href="https://github.com/ammarsyrf/lms-assyafiiyah" target="_blank" rel="noopener noreferrer" class="github-repo-card glass-panel">
-            <div class="repo-card-top">
-              <div class="repo-name-group">
-                <svg class="repo-book-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                </svg>
-                <h3 class="repo-name">lms-assyafiiyah</h3>
-              </div>
-              <span class="repo-badge-status highlight">Featured</span>
-            </div>
-
-            <p class="repo-description">
-              Integrated School &amp; Academic Learning Management System with role-based access control (RBAC), attendance logs, and grade tracking.
-            </p>
-
-            <div class="repo-meta-row">
-              <div class="repo-lang">
-                <span class="lang-dot laravel"></span>
-                <span>Laravel / PHP</span>
-              </div>
-              <div class="repo-stats-group">
-                <span class="repo-stat-item" title="Stars"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 18</span>
-                <span class="repo-stat-item" title="Forks"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v1a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/><path d="M12 12v3"/></svg> 6</span>
-              </div>
-              <span class="repo-updated">Maintained</span>
-            </div>
-          </a>
-
-          <!-- Repo 3: Villa Zein Booking Platform -->
-          <a href="<?= !empty($profile['github']) ? e($profile['github']) : 'https://github.com/ammarsyrf' ?>" target="_blank" rel="noopener noreferrer" class="github-repo-card glass-panel">
-            <div class="repo-card-top">
-              <div class="repo-name-group">
-                <svg class="repo-book-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                </svg>
-                <h3 class="repo-name">villa-zein-booking</h3>
-              </div>
-              <span class="repo-badge-status">Public</span>
-            </div>
-
-            <p class="repo-description">
-              Fullstack Laravel booking management engine with room availability matrices, dynamic invoice generator, and multi-tier admin dashboard.
-            </p>
-
-            <div class="repo-meta-row">
-              <div class="repo-lang">
-                <span class="lang-dot laravel"></span>
-                <span>Laravel / Blade</span>
-              </div>
-              <div class="repo-stats-group">
-                <span class="repo-stat-item" title="Stars"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 15</span>
-                <span class="repo-stat-item" title="Forks"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v1a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/><path d="M12 12v3"/></svg> 5</span>
-              </div>
-              <span class="repo-updated">Stable</span>
-            </div>
-          </a>
-
-          <!-- Repo 4: Cargo Decision Tree C4.5 Prediction -->
-          <a href="<?= !empty($profile['github']) ? e($profile['github']) : 'https://github.com/ammarsyrf' ?>" target="_blank" rel="noopener noreferrer" class="github-repo-card glass-panel">
-            <div class="repo-card-top">
-              <div class="repo-name-group">
-                <svg class="repo-book-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                </svg>
-                <h3 class="repo-name">cargo-c45-classification</h3>
-              </div>
-              <span class="repo-badge-status">Research</span>
-            </div>
-
-            <p class="repo-description">
-              Decision Tree C4.5 algorithm implementation for logistics shipment timeliness classification &amp; accuracy evaluation (Studi Kasus Big Cargo).
-            </p>
-
-            <div class="repo-meta-row">
-              <div class="repo-lang">
-                <span class="lang-dot python"></span>
-                <span>Python / Data Mining</span>
-              </div>
-              <div class="repo-stats-group">
-                <span class="repo-stat-item" title="Stars"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 9</span>
-                <span class="repo-stat-item" title="Forks"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v1a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/><path d="M12 12v3"/></svg> 2</span>
-              </div>
-              <span class="repo-updated">Published</span>
-            </div>
-          </a>
-
+            </a>
+          <?php endforeach; ?>
         </div>
 
         <div class="github-footer-cta">
