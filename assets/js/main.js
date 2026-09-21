@@ -750,7 +750,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let html = '';
         days.forEach(d => {
           const lvl = Math.min(4, Math.max(0, parseInt(d.level) || 0));
-          const countLabel = lvl > 0 ? `${lvl * 3} contributions` : 'No contributions';
+          const countLabel = d.count || (lvl > 0 ? `${lvl * 3} contributions` : 'No contributions');
           html += `<div class="heatmap-sq lvl-${lvl}" data-date="${d.date}" data-level="${lvl}" data-count="${countLabel}" title="${d.date}: ${countLabel}"></div>`;
         });
         heatmapSquaresGrid.innerHTML = html;

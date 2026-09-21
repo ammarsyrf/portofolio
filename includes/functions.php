@@ -1248,11 +1248,35 @@ function get_github_user_stats(string $username = 'ammarsyrf', int $cacheTtl = 8
         } elseif (preg_match('/<h2[^>]*>\s*([0-9,]+)\s*contributions/is', $lastYearHtml, $m)) {
             $stats['total_contributions'] = trim($m[1]);
         }
-        if (preg_match_all('/<td[^>]*data-date="([^"]+)"[^>]*data-level="([^"]+)"/i', $lastYearHtml, $dm)) {
-            $days = [];
-            for ($i = 0; $i < count($dm[1]); $i++) {
-                $days[] = ['date' => $dm[1][$i], 'level' => (int)$dm[2][$i]];
+
+        $tooltips = [];
+        if (preg_match_all('/<tool-tip[^>]*for="([^"]*)"[^>]*>(.*?)<\/tool-tip>/is', $lastYearHtml, $tm)) {
+            for ($i = 0; $i < count($tm[1]); $i++) {
+                $tooltips[$tm[1][$i]] = trim(strip_tags($tm[2][$i]));
             }
+        }
+
+        if (preg_match_all('/<td([^>]*data-date="[^"]+"[^>]*)>/i', $lastYearHtml, $tdMatches)) {
+            $days = [];
+            foreach ($tdMatches[1] as $tdAttr) {
+                $date = '';
+                $level = 0;
+                $id = '';
+                if (preg_match('/data-date="([^"]+)"/i', $tdAttr, $m)) $date = $m[1];
+                if (preg_match('/data-level="([^"]+)"/i', $tdAttr, $m)) $level = (int)$m[1];
+                if (preg_match('/id="([^"]+)"/i', $tdAttr, $m)) $id = $m[1];
+
+                if (!empty($date)) {
+                    $tooltip = $tooltips[$id] ?? ($level > 0 ? ($level * 3) . " contributions" : "No contributions");
+                    $days[] = [
+                        'date' => $date,
+                        'level' => $level,
+                        'count' => $tooltip
+                    ];
+                }
+            }
+            // Urutkan hari secara kronologis dari tanggal terlama ke terbaru (hari ini)
+            usort($days, fn($a, $b) => strcmp($a['date'], $b['date']));
             $stats['days'] = $days;
             $stats['years_data']['last'] = [
                 'total' => $stats['total_contributions'],
@@ -1273,11 +1297,34 @@ function get_github_user_stats(string $username = 'ammarsyrf', int $cacheTtl = 8
             } elseif (preg_match('/<h2[^>]*>\s*([0-9,]+)\s*contributions/is', $yearHtml, $ym)) {
                 $totalY = trim($ym[1]);
             }
-            $yDays = [];
-            if (preg_match_all('/<td[^>]*data-date="([^"]+)"[^>]*data-level="([^"]+)"/i', $yearHtml, $ydm)) {
-                for ($k = 0; $k < count($ydm[1]); $k++) {
-                    $yDays[] = ['date' => $ydm[1][$k], 'level' => (int)$ydm[2][$k]];
+
+            $yTooltips = [];
+            if (preg_match_all('/<tool-tip[^>]*for="([^"]*)"[^>]*>(.*?)<\/tool-tip>/is', $yearHtml, $ytm)) {
+                for ($i = 0; $i < count($ytm[1]); $i++) {
+                    $yTooltips[$ytm[1][$i]] = trim(strip_tags($ytm[2][$i]));
                 }
+            }
+
+            $yDays = [];
+            if (preg_match_all('/<td([^>]*data-date="[^"]+"[^>]*)>/i', $yearHtml, $yTdMatches)) {
+                foreach ($yTdMatches[1] as $tdAttr) {
+                    $date = '';
+                    $level = 0;
+                    $id = '';
+                    if (preg_match('/data-date="([^"]+)"/i', $tdAttr, $m)) $date = $m[1];
+                    if (preg_match('/data-level="([^"]+)"/i', $tdAttr, $m)) $level = (int)$m[1];
+                    if (preg_match('/id="([^"]+)"/i', $tdAttr, $m)) $id = $m[1];
+
+                    if (!empty($date)) {
+                        $tooltip = $yTooltips[$id] ?? ($level > 0 ? ($level * 3) . " contributions" : "No contributions");
+                        $yDays[] = [
+                            'date' => $date,
+                            'level' => $level,
+                            'count' => $tooltip
+                        ];
+                    }
+                }
+                usort($yDays, fn($a, $b) => strcmp($a['date'], $b['date']));
             }
             $stats['years_data'][(string)$y] = [
                 'total' => $totalY,

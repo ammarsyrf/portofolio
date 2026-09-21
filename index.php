@@ -2322,7 +2322,7 @@ $hireStatus = get_hire_status($pdo);
                       foreach ($initDays as $dItem) {
                         $lvl = min(4, max(0, (int)$dItem['level']));
                         $cls = 'lvl-' . $lvl;
-                        $countLabel = $lvl > 0 ? ($lvl * 3) . " contributions" : "No contributions";
+                        $countLabel = !empty($dItem['count']) ? $dItem['count'] : ($lvl > 0 ? ($lvl * 3) . " contributions" : "No contributions");
                         echo '<div class="heatmap-sq ' . $cls . '" data-date="' . e($dItem['date']) . '" data-level="' . $lvl . '" data-count="' . e($countLabel) . '" title="' . e($dItem['date'] . ': ' . $countLabel) . '"></div>';
                       }
                     } else {
