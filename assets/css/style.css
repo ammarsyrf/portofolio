@@ -448,12 +448,19 @@ button, input, textarea, select {
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
-    left: max(0.85rem, calc(50% - 43.5rem - 64px));
+    left: 1.25rem;
     width: 60px;
     margin: 0;
     z-index: 1000;
     pointer-events: none;
     transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Berikan clearance di sisi kiri agar sidebar tidak pernah menimpa (niban) konten utama */
+  main,
+  section,
+  .site-footer {
+    padding-left: 5.5rem;
   }
 
   .site-header .site-container {
@@ -607,6 +614,18 @@ button, input, textarea, select {
     width: auto;
     max-width: 130px;
     opacity: 1;
+  }
+}
+
+@media (min-width: 1480px) {
+  .site-header {
+    left: max(1.5rem, calc(50% - 46.5rem));
+  }
+
+  main,
+  section,
+  .site-footer {
+    padding-left: 0;
   }
 }
 
