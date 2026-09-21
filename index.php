@@ -2258,30 +2258,43 @@ $hireStatus = get_hire_status($pdo);
           </p>
         </div>
 
+        <?php
+          // Tarik data profil, statistik kontribusi, dan repositori publik secara real-time via GitHub API
+          $ghUsername = !empty($profile['github']) ? trim(basename(parse_url($profile['github'], PHP_URL_PATH))) : 'ammarsyrf';
+          if (empty($ghUsername) || stripos($ghUsername, 'zentokun') !== false) $ghUsername = 'ammarsyrf';
+          $githubStats = get_github_user_stats($ghUsername);
+          $githubRepos = get_github_public_repos($ghUsername, 6);
+        ?>
+
+        <script id="github-years-data" type="application/json">
+          <?= json_encode($githubStats['years_data'] ?? [], JSON_HEX_TAG | JSON_HEX_AMP) ?>
+        </script>
+
         <!-- ================================================================
              GITHUB ACTIVITY & CONTRIBUTION HEATMAP WIDGET
              ================================================================ -->
-        <div class="github-activity-card">
+        <div class="github-activity-card" id="githubActivityCard">
           <div class="github-activity-header">
             <div class="github-activity-stat">
-              <span class="github-contrib-number">1,157</span>
-              <span class="github-contrib-caption">contributions in the last year</span>
+              <span class="github-contrib-number" id="githubContribNumber"><?= e($githubStats['total_contributions'] ?? '1,162') ?></span>
+              <span class="github-contrib-caption" id="githubContribCaption">contributions in the last year</span>
             </div>
-            <div class="github-year-pills" role="tablist" aria-label="Tahun Aktivitas GitHub">
-              <button type="button" class="year-pill active">2026</button>
-              <button type="button" class="year-pill">2025</button>
-              <button type="button" class="year-pill">2024</button>
-              <button type="button" class="year-pill">2023</button>
-              <button type="button" class="year-pill">2022</button>
-              <button type="button" class="year-pill">2021</button>
-              <button type="button" class="year-pill">2020</button>
+            <div class="github-year-pills" id="githubYearPills" role="tablist" aria-label="Tahun Aktivitas GitHub">
+              <button type="button" class="year-pill active" data-year="last" title="1 Tahun Terakhir">Last Year</button>
+              <button type="button" class="year-pill" data-year="2026" title="Aktivitas 2026">2026</button>
+              <button type="button" class="year-pill" data-year="2025" title="Aktivitas 2025">2025</button>
+              <button type="button" class="year-pill" data-year="2024" title="Aktivitas 2024">2024</button>
+              <button type="button" class="year-pill" data-year="2023" title="Aktivitas 2023">2023</button>
+              <button type="button" class="year-pill" data-year="2022" title="Aktivitas 2022">2022</button>
+              <button type="button" class="year-pill" data-year="2021" title="Aktivitas 2021">2021</button>
+              <button type="button" class="year-pill" data-year="2020" title="Aktivitas 2020">2020</button>
             </div>
           </div>
 
           <!-- Heatmap Canvas -->
           <div class="github-heatmap-wrapper">
             <div class="github-heatmap-grid">
-              <div class="heatmap-months-row">
+              <div class="heatmap-months-row" id="heatmapMonthsRow">
                 <span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span>
               </div>
               <div class="heatmap-days-container">
@@ -2290,35 +2303,26 @@ $hireStatus = get_hire_status($pdo);
                   <span>Wed</span>
                   <span>Fri</span>
                 </div>
-                <div class="heatmap-squares-grid">
+                <div class="heatmap-squares-grid" id="heatmapSquaresGrid">
                   <?php
-                    $pattern = [
-                      [2,3,1,0,0,0,0], [1,0,2,0,0,0,0], [0,1,0,3,2,0,0], [2,0,4,1,0,0,0],
-                      [4,3,2,0,0,0,0], [1,2,0,0,0,0,0], [0,0,3,1,0,0,0], [2,1,0,0,0,0,0],
-                      [0,0,0,0,1,0,0], [1,0,0,2,0,0,0], [0,0,0,0,0,0,0], [2,1,0,0,0,0,0],
-                      [1,0,0,0,0,0,0], [0,2,1,0,0,0,0], [3,0,0,0,0,0,0], [0,0,0,0,0,0,0],
-                      [0,0,4,2,0,0,0], [1,3,4,1,0,0,0], [3,4,2,0,0,0,0], [0,1,0,0,2,0,0],
-                      [0,3,0,0,0,0,0], [2,1,0,0,0,0,0], [0,0,0,1,0,0,0], [0,2,0,0,0,0,0],
-                      [1,0,1,0,0,0,0], [0,0,0,2,0,0,0], [2,1,2,0,0,0,0], [1,0,0,0,0,0,0],
-                      [3,2,0,0,0,0,0], [1,0,0,1,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0],
-                      [1,0,2,0,0,0,0], [0,0,0,0,0,0,0], [0,1,0,0,0,0,0], [0,0,0,0,0,0,0],
-                      [2,0,3,1,0,0,0], [1,2,0,0,0,0,0], [0,0,2,0,0,0,0], [0,3,1,0,0,0,0],
-                      [2,0,0,0,0,0,0], [1,0,0,0,0,0,0], [0,0,3,2,0,0,0], [1,2,1,0,0,0,0],
-                      [3,1,0,0,0,0,0], [2,3,4,2,0,0,0], [1,4,3,1,0,0,0], [4,3,4,2,0,0,0],
-                      [3,2,4,4,1,0,0], [2,4,4,4,2,0,0], [4,3,2,4,3,0,0], [3,4,4,2,0,0,0]
-                    ];
-                    foreach ($pattern as $wIdx => $week) {
-                      foreach ($week as $dIdx => $lvl) {
-                        $cls = 'lvl-' . min(4, (int)$lvl);
-                        $title = $lvl > 0 ? ($lvl * 3) . " contributions" : "No contributions";
-                        echo '<div class="heatmap-sq ' . $cls . '" title="' . e($title) . '"></div>';
+                    $initDays = !empty($githubStats['days']) ? $githubStats['days'] : ($githubStats['years_data']['2026']['days'] ?? []);
+                    if (!empty($initDays)) {
+                      foreach ($initDays as $dItem) {
+                        $lvl = min(4, max(0, (int)$dItem['level']));
+                        $cls = 'lvl-' . $lvl;
+                        $countLabel = $lvl > 0 ? ($lvl * 3) . " contributions" : "No contributions";
+                        echo '<div class="heatmap-sq ' . $cls . '" data-date="' . e($dItem['date']) . '" data-level="' . $lvl . '" data-count="' . e($countLabel) . '" title="' . e($dItem['date'] . ': ' . $countLabel) . '"></div>';
+                      }
+                    } else {
+                      for ($i = 0; $i < 365; $i++) {
+                        echo '<div class="heatmap-sq lvl-0" title="No contributions"></div>';
                       }
                     }
                   ?>
                 </div>
               </div>
               <div class="heatmap-footer-row">
-                <span>Learn how we count contributions</span>
+                <span>Learn how we count contributions via official GitHub API</span>
                 <div class="heatmap-legend">
                   <span>Less</span>
                   <div class="heatmap-legend-squares">
@@ -2336,15 +2340,15 @@ $hireStatus = get_hire_status($pdo);
 
           <!-- Organizations Strip -->
           <div class="github-orgs-strip">
-            <a href="https://github.com/NexusDevWeb" target="_blank" rel="noopener noreferrer" class="github-org-chip">
+            <a href="https://github.com/NexusDevWeb" target="_blank" rel="noopener noreferrer" class="github-org-chip" title="Organisasi NexusDevWeb">
               <span class="org-avatar-icon nexus">⚡</span>
               <span>@NexusDevWeb</span>
             </a>
-            <a href="https://github.com/NexDigi-Dev" target="_blank" rel="noopener noreferrer" class="github-org-chip">
+            <a href="https://github.com/NexDigi-Dev" target="_blank" rel="noopener noreferrer" class="github-org-chip" title="Organisasi NexDigi-Dev">
               <span class="org-avatar-icon nexdigi">⌘</span>
               <span>@NexDigi-Dev</span>
             </a>
-            <a href="https://github.com/zeneriedev" target="_blank" rel="noopener noreferrer" class="github-org-chip">
+            <a href="https://github.com/zeneriedev" target="_blank" rel="noopener noreferrer" class="github-org-chip" title="Organisasi zeneriedev">
               <span class="org-avatar-icon zenerie">✦</span>
               <span>@zeneriedev</span>
             </a>
@@ -2353,18 +2357,14 @@ $hireStatus = get_hire_status($pdo);
           <!-- Activity Overview -->
           <div class="github-activity-overview">
             <div class="activity-summary-col">
-              <h4>Activity Overview</h4>
+              <h4>Activity Overview &amp; Ecosystem</h4>
               <div class="activity-repo-list">
                 <svg class="activity-book-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
                   <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
                 </svg>
                 <div>
-                  Contributed to 
-                  <a href="https://github.com/NexusDevWeb/Ekosistem-NDC" target="_blank" rel="noopener noreferrer" class="activity-repo-link">NexusDevWeb/Ekosistem-NDC</a>, 
-                  <a href="https://github.com/NexDigi-Dev/Ekosistem-NDC" target="_blank" rel="noopener noreferrer" class="activity-repo-link">NexDigi-Dev/Ekosistem-NDC</a>, 
-                  <a href="https://github.com/NexusDevWeb/lms-assyafiiyah" target="_blank" rel="noopener noreferrer" class="activity-repo-link">NexusDevWeb/lms-assyafiiyah</a>, 
-                  and <strong>32 other repositories</strong>.
+                  Akun resmi <strong>@<?= e($ghUsername) ?></strong> (<?= e($githubStats['name'] ?? 'ZenS') ?>) aktif mengelola <strong><?= (int)($githubStats['public_repos'] ?? count($githubRepos)) ?> repositori publik</strong> dengan keahlian Full-Stack Engineering, arsitektur database, dan ekosistem digital.
                 </div>
               </div>
             </div>
@@ -2382,13 +2382,6 @@ $hireStatus = get_hire_status($pdo);
             </div>
           </div>
         </div>
-
-        <?php
-          // Tarik data repositori publik secara real-time via GitHub API (dengan smart local cache)
-          $ghUsername = !empty($profile['github']) ? trim(basename(parse_url($profile['github'], PHP_URL_PATH))) : 'ammarsyrf';
-          if (empty($ghUsername)) $ghUsername = 'ammarsyrf';
-          $githubRepos = get_github_public_repos($ghUsername, 6);
-        ?>
 
         <div class="github-repos-grid">
           <?php foreach ($githubRepos as $repo): 

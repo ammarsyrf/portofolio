@@ -1158,6 +1158,140 @@ function get_seo_health(PDO $pdo): array {
 }
 
 /**
+ * Mengambil profil & statistik GitHub kontribusi real-time multi-tahun
+ * 
+ * @param string $username Username GitHub (default: 'ammarsyrf')
+ * @param int $cacheTtl Durasi cache (default: 86400 / 24 jam)
+ * @return array
+ */
+function get_github_user_stats(string $username = 'ammarsyrf', int $cacheTtl = 86400): array {
+    $username = trim($username);
+    if (empty($username) || stripos($username, 'zentokun') !== false) {
+        $username = 'ammarsyrf';
+    }
+
+    $cacheDir = ROOT_PATH . '/assets/uploads/cache';
+    if (!is_dir($cacheDir)) {
+        @mkdir($cacheDir, 0755, true);
+    }
+    $cacheFile = $cacheDir . '/github_stats_' . preg_replace('/[^a-zA-Z0-9_-]/', '', $username) . '.json';
+
+    // 1. Cek cache
+    if (file_exists($cacheFile) && (time() - filemtime($cacheFile) < $cacheTtl)) {
+        $cached = @file_get_contents($cacheFile);
+        if ($cached) {
+            $dec = json_decode($cached, true);
+            if (is_array($dec) && !empty($dec['years_data'])) {
+                return $dec;
+            }
+        }
+    }
+
+    $stats = [
+        'username' => $username,
+        'name' => 'ZenS',
+        'avatar_url' => "https://avatars.githubusercontent.com/u/67619692?v=4",
+        'public_repos' => 6,
+        'followers' => 3,
+        'following' => 4,
+        'company' => 'nexdigicreative.com',
+        'total_contributions' => '1,162',
+        'days' => [],
+        'years_data' => []
+    ];
+
+    // Fetch user info from API
+    $ctx = stream_context_create([
+        'http' => [
+            'method' => 'GET',
+            'header' => [
+                "User-Agent: Zenerie-Portfolio-App/1.0 ({$username})",
+                "Accept: application/vnd.github.v3+json"
+            ],
+            'timeout' => 4,
+            'ignore_errors' => true
+        ]
+    ]);
+
+    $userRes = @file_get_contents("https://api.github.com/users/{$username}", false, $ctx);
+    if ($userRes !== false) {
+        $userData = json_decode($userRes, true);
+        if (is_array($userData) && isset($userData['login'])) {
+            $stats['name'] = $userData['name'] ?? 'ZenS';
+            $stats['avatar_url'] = $userData['avatar_url'] ?? $stats['avatar_url'];
+            $stats['public_repos'] = (int)($userData['public_repos'] ?? 6);
+            $stats['followers'] = (int)($userData['followers'] ?? 3);
+            $stats['following'] = (int)($userData['following'] ?? 4);
+            $stats['company'] = $userData['company'] ?? 'nexdigicreative.com';
+        }
+    }
+
+    // Scrape multi-year contributions
+    $years = [2026, 2025, 2024, 2023, 2022, 2021, 2020];
+    $browserCtx = stream_context_create([
+        'http' => [
+            'method' => 'GET',
+            'header' => [
+                "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+            ],
+            'timeout' => 4,
+            'ignore_errors' => true
+        ]
+    ]);
+
+    // 1) Ambil overview 1 tahun terakhir
+    $lastYearHtml = @file_get_contents("https://github.com/users/{$username}/contributions", false, $browserCtx);
+    if ($lastYearHtml !== false) {
+        if (preg_match('/([0-9,]+)\s+contributions\s+in\s+the\s+last\s+year/i', $lastYearHtml, $m)) {
+            $stats['total_contributions'] = trim($m[1]);
+        }
+        if (preg_match_all('/<td[^>]*data-date="([^"]+)"[^>]*data-level="([^"]+)"/i', $lastYearHtml, $dm)) {
+            $days = [];
+            for ($i = 0; $i < count($dm[1]); $i++) {
+                $days[] = ['date' => $dm[1][$i], 'level' => (int)$dm[2][$i]];
+            }
+            $stats['days'] = $days;
+            $stats['years_data']['last'] = [
+                'total' => $stats['total_contributions'],
+                'days_count' => count($days),
+                'days' => $days
+            ];
+        }
+    }
+
+    // 2) Ambil data spesifik per tahun
+    foreach ($years as $y) {
+        $yearUrl = "https://github.com/users/{$username}/contributions?from={$y}-12-01&to={$y}-12-31";
+        $yearHtml = @file_get_contents($yearUrl, false, $browserCtx);
+        if ($yearHtml !== false) {
+            $totalY = "0";
+            if (preg_match('/([0-9,]+)\s+contributions/i', $yearHtml, $ym)) {
+                $totalY = trim($ym[1]);
+            }
+            $yDays = [];
+            if (preg_match_all('/<td[^>]*data-date="([^"]+)"[^>]*data-level="([^"]+)"/i', $yearHtml, $ydm)) {
+                for ($k = 0; $k < count($ydm[1]); $k++) {
+                    $yDays[] = ['date' => $ydm[1][$k], 'level' => (int)$ydm[2][$k]];
+                }
+            }
+            $stats['years_data'][(string)$y] = [
+                'total' => $totalY,
+                'days_count' => count($yDays),
+                'days' => $yDays
+            ];
+        }
+    }
+
+    // Fallback default jika koneksi gagal
+    if (empty($stats['years_data']['2026'])) {
+        $stats['years_data']['2026'] = ['total' => '1,000', 'days_count' => count($stats['days']), 'days' => $stats['days']];
+    }
+
+    @file_put_contents($cacheFile, json_encode($stats, JSON_PRETTY_PRINT));
+    return $stats;
+}
+
+/**
  * Mengambil repositori publik GitHub secara otomatis dari GitHub API dengan Smart Local Cache
  * 
  * @param string $username Username GitHub (default: 'ammarsyrf')

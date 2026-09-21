@@ -702,4 +702,75 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 450);
     });
   }
+
+  // ------------------------------------------------------------------------
+  // 10. GitHub Activity & Multi-Year Contribution Heatmap Interactive Switcher
+  // ------------------------------------------------------------------------
+  const githubYearsDataScript = document.getElementById('github-years-data');
+  const githubYearPills = document.querySelectorAll('#githubYearPills .year-pill');
+  const githubContribNumber = document.getElementById('githubContribNumber');
+  const githubContribCaption = document.getElementById('githubContribCaption');
+  const heatmapSquaresGrid = document.getElementById('heatmapSquaresGrid');
+  const heatmapMonthsRow = document.getElementById('heatmapMonthsRow');
+
+  if (githubYearsDataScript && githubYearPills.length > 0 && heatmapSquaresGrid) {
+    let yearsData = {};
+    try {
+      yearsData = JSON.parse(githubYearsDataScript.textContent || '{}');
+    } catch (e) {
+      console.warn('Gagal membaca data tahun GitHub:', e);
+    }
+
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    function renderYearHeatmap(yearKey) {
+      const yearInfo = yearsData[yearKey];
+      if (!yearInfo) return;
+
+      // 1. Update counter dengan animasi
+      if (githubContribNumber) {
+        githubContribNumber.style.opacity = '0.5';
+        setTimeout(() => {
+          githubContribNumber.textContent = yearInfo.total || '0';
+          githubContribNumber.style.opacity = '1';
+        }, 120);
+      }
+
+      if (githubContribCaption) {
+        if (yearKey === 'last') {
+          githubContribCaption.textContent = 'contributions in the last year';
+        } else {
+          githubContribCaption.textContent = `contributions in ${yearKey}`;
+        }
+      }
+
+      // 2. Render Squares
+      const days = yearInfo.days || [];
+      if (days.length > 0) {
+        let html = '';
+        days.forEach(d => {
+          const lvl = Math.min(4, Math.max(0, parseInt(d.level) || 0));
+          const countLabel = lvl > 0 ? `${lvl * 3} contributions` : 'No contributions';
+          html += `<div class="heatmap-sq lvl-${lvl}" data-date="${d.date}" data-level="${lvl}" data-count="${countLabel}" title="${d.date}: ${countLabel}"></div>`;
+        });
+        heatmapSquaresGrid.innerHTML = html;
+      }
+
+      // 3. Update Months Header row jika spesifik tahun
+      if (heatmapMonthsRow && yearKey !== 'last') {
+        heatmapMonthsRow.innerHTML = monthNames.map(m => `<span>${m}</span>`).join('');
+      } else if (heatmapMonthsRow) {
+        heatmapMonthsRow.innerHTML = `<span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span>`;
+      }
+    }
+
+    githubYearPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        githubYearPills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        const selectedYear = pill.getAttribute('data-year');
+        renderYearHeatmap(selectedYear);
+      });
+    });
+  }
 });
