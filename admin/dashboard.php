@@ -48,6 +48,8 @@ $security  = get_security_monitor($pdo);
 $health    = get_server_health($pdo);
 $seoHealth = get_seo_health($pdo);
 $notes     = get_admin_notes($pdo);
+$hireStatus= get_hire_status($pdo);
+
 
 // ── Proyek Terkini & Pesan Terbaru ──────────────────────────────────────────
 $recentProjects  = $pdo->query("SELECT id, title, category, is_published, sort_order FROM projects ORDER BY id DESC LIMIT 4")->fetchAll();
@@ -305,11 +307,24 @@ require_once __DIR__ . '/includes/sidebar.php';
     </p>
   </div>
 
-  <!-- Export Analytics Button -->
-  <div style="display: flex; gap: 0.5rem;">
-    <a href="<?= BASE_URL ?>/admin/export_analytics.php?range=30" class="btn btn-secondary btn-sm" style="display:inline-flex; align-items:center; gap:0.4rem; font-size:0.75rem; padding:0.45rem 0.85rem;">
+  <!-- Header Action Buttons -->
+  <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
+    <!-- Live Hire Status Toggle Button -->
+    <button type="button" id="btnToggleHireStatus" class="btn btn-secondary btn-sm" style="display:inline-flex; align-items:center; gap:0.45rem; font-size:0.75rem; padding:0.45rem 0.85rem; border-color: <?= $hireStatus['color'] ?>; cursor:pointer;" title="Klik untuk mengubah status ketersediaan kerja (Open to Work / Busy)">
+      <span id="hireStatusDot" style="display:inline-block; width:8px; height:8px; border-radius:50%; background:<?= $hireStatus['color'] ?>;"></span>
+      <span id="hireStatusText" style="font-weight:600; color:<?= $hireStatus['color'] ?>;"><?= $hireStatus['short'] ?></span>
+    </button>
+
+    <!-- 1-Click Database Backup (.sql) -->
+    <a href="<?= BASE_URL ?>/admin/backup_db.php" class="btn btn-secondary btn-sm" style="display:inline-flex; align-items:center; gap:0.4rem; font-size:0.75rem; padding:0.45rem 0.85rem;" title="Unduh snapshot SQL database portofolio">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+      Backup DB (.sql)
+    </a>
+
+    <!-- Export Analytics CSV -->
+    <a href="<?= BASE_URL ?>/admin/export_analytics.php?range=30" class="btn btn-secondary btn-sm" style="display:inline-flex; align-items:center; gap:0.4rem; font-size:0.75rem; padding:0.45rem 0.85rem;" title="Unduh log data kunjungan">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Unduh Laporan CSV (30 Hari)
+      Laporan CSV
     </a>
   </div>
 </div>
@@ -820,6 +835,36 @@ require_once __DIR__ . '/includes/sidebar.php';
           scratchpadStatus.style.color = '#EF4444';
         });
       }, 800);
+    });
+  }
+
+  // Toggle Hire Status (Available for Hire / Busy)
+  const btnToggleHire = document.getElementById('btnToggleHireStatus');
+  const hireDot = document.getElementById('hireStatusDot');
+  const hireText = document.getElementById('hireStatusText');
+
+  if (btnToggleHire) {
+    btnToggleHire.addEventListener('click', function() {
+      btnToggleHire.style.opacity = '0.5';
+      btnToggleHire.disabled = true;
+
+      fetch('<?= BASE_URL ?>/admin/api_hire_status.php', {
+        method: 'POST'
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'success') {
+          hireDot.style.background = data.color;
+          hireText.style.color = data.color;
+          hireText.textContent = data.short;
+          btnToggleHire.style.borderColor = data.color;
+        }
+      })
+      .catch(err => console.error('Hire toggle error:', err))
+      .finally(() => {
+        btnToggleHire.style.opacity = '1';
+        btnToggleHire.disabled = false;
+      });
     });
   }
 })();

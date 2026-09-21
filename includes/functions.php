@@ -332,6 +332,35 @@ function set_setting(PDO $pdo, string $key, string $value): void {
     $stmt->execute(['k' => $key, 'v' => $value]);
 }
 
+/**
+ * Hire / Work Availability Status Helpers
+ */
+function get_hire_status(PDO $pdo): array {
+    $status = get_setting($pdo, 'hire_status', 'available');
+    if ($status === 'busy') {
+        return [
+            'status' => 'busy',
+            'label'  => '● Sedang Sibuk / Proyek Penuh',
+            'short'  => 'Busy / Project Focus',
+            'color'  => '#F87171',
+            'badge'  => '🔴 Busy'
+        ];
+    }
+    return [
+        'status' => 'available',
+        'label'  => '● Siap Rekrutmen & Freelance',
+        'short'  => 'Available for Hire',
+        'color'  => '#34D399',
+        'badge'  => '🟢 Open to Work'
+    ];
+}
+
+function set_hire_status(PDO $pdo, string $status): void {
+    $val = ($status === 'busy') ? 'busy' : 'available';
+    set_setting($pdo, 'hire_status', $val);
+}
+
+
 // =========================================================================
 // GUEST VISITOR (GOOGLE OAUTH) SESSION HELPERS
 // Terpisah secara ketat dari session admin

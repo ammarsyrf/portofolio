@@ -77,9 +77,10 @@ if (!empty($profile['cv_file'])) {
     $cvPath = UPLOAD_DIR_CV . '/' . basename($profile['cv_file']);
     if (file_exists($cvPath)) {
         $hasCv = true;
-        $cvUrl = upload_url('cv', $profile['cv_file']);
+        $cvUrl = BASE_URL . '/download-cv.php';
     }
 }
+$hireStatus = get_hire_status($pdo);
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -138,7 +139,7 @@ if (!empty($profile['cv_file'])) {
                   </div>
                   <div class="bento-meta-pill">
                     <span class="bento-pill-tag"><?= e($homeContent['hero_availability_label']) ?></span>
-                    <span class="bento-pill-val" style="color: #34D399;"><?= e($homeContent['hero_availability_value']) ?></span>
+                    <span class="bento-pill-val" id="publicHireStatus" style="color: <?= e($hireStatus['color']) ?>; font-weight:600;"><?= e($hireStatus['label']) ?></span>
                   </div>
                   <div class="bento-progress-row">
                     <div class="bento-progress-track" title="Tingkat Kesiapan Teknis">

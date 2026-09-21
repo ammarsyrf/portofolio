@@ -100,7 +100,8 @@ $iconSvgMap = [
           <div class="links-profile-info">
             <div class="links-badge-group">
               <span class="links-role-pill"><?= e($profile['role_title'] ?? 'Web Developer & Data Analyst') ?></span>
-              <span class="links-status-chip"><span class="chip-pulse"></span> Open for Opportunities</span>
+              <?php $hireStatus = get_hire_status($pdo); ?>
+              <span class="links-status-chip" style="border-color: rgba(255,255,255,0.1);"><span class="chip-pulse" style="background: <?= e($hireStatus['color']) ?>;"></span> <?= e($hireStatus['short']) ?></span>
             </div>
             <h1 class="links-bento-name"><?= e($profile['full_name'] ?? 'Ammar Syarif') ?></h1>
             <p class="links-bento-tagline">
