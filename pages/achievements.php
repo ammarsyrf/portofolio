@@ -116,7 +116,6 @@ $achievements = get_published_achievements($pdo);
       <div style="display: flex; gap: 1.5rem;">
         <a href="<?= BASE_URL ?>/" class="footer-admin-link">Beranda</a>
         <a href="<?= BASE_URL ?>/links" class="footer-admin-link">Tautan</a>
-        <a href="<?= BASE_URL ?>/admin/login" class="footer-admin-link">Portal Admin</a>
       </div>
     </div>
   </footer>

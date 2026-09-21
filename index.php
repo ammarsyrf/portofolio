@@ -2607,7 +2607,6 @@ $hireStatus = get_hire_status($pdo);
       <div style="display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; align-items: center; justify-content: center;">
         <a href="<?= BASE_URL ?>/links" class="footer-admin-link">Semua Tautan</a>
         <a href="<?= BASE_URL ?>/guestbook" class="footer-admin-link">Buku Tamu</a>
-        <a href="<?= BASE_URL ?>/admin/login" class="footer-admin-link">Portal Admin</a>
       </div>
     </div>
   </footer>
@@ -2739,26 +2738,5 @@ $hireStatus = get_hire_status($pdo);
   <script src="<?= asset('js/main.js') ?>"></script>
   <script src="<?= asset('js/command_palette.js') ?>"></script>
 </body>
-</html>; line-height: 1.7;">-</p>
-        </div>
-      </div>
-
-      <div id="modal-actions" style="display: none; gap: 0.75rem; border-top: 1px solid var(--color-line); padding-top: 1.25rem;">
-        <!-- Dinamis -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Payload JSON Proyek untuk Modal -->
-  <script type="application/json" id="projects-json">
-    <?= json_encode($projectsPayload, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>
-  </script>
-
-  <!-- Command Palette Markup -->
-  <?php require_once __DIR__ . '/includes/command_palette.php'; ?>
-
-  <!-- Scripts -->
-  <script src="<?= asset('js/main.js') ?>"></script>
-  <script src="<?= asset('js/command_palette.js') ?>"></script>
-</body>
 </html>
+
