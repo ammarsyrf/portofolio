@@ -15,31 +15,33 @@ if (!defined('LOGIN_LOCKOUT_TIME')) {
 /**
  * Mendapatkan IP klien pengunjung secara aman
  */
-function get_client_ip(): string {
-    $ipKeys = [
-        'HTTP_CF_CONNECTING_IP', // Cloudflare
-        'HTTP_X_FORWARDED_FOR',  // Proxy / Load Balancer
-        'HTTP_X_REAL_IP',
-        'REMOTE_ADDR'
-    ];
+if (!function_exists('get_client_ip')) {
+    function get_client_ip(): string {
+        $ipKeys = [
+            'HTTP_CF_CONNECTING_IP', // Cloudflare
+            'HTTP_X_FORWARDED_FOR',  // Proxy / Load Balancer
+            'HTTP_X_REAL_IP',
+            'REMOTE_ADDR'
+        ];
 
-    foreach ($ipKeys as $key) {
-        if (!empty($_SERVER[$key])) {
-            $ipList = explode(',', $_SERVER[$key]);
-            foreach ($ipList as $ip) {
-                $ip = trim($ip);
-                if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false) {
-                    return $ip;
-                }
-                // Fallback jika valid IP (termasuk private IP saat dev lokal)
-                if (filter_var($ip, FILTER_VALIDATE_IP) !== false) {
-                    return $ip;
+        foreach ($ipKeys as $key) {
+            if (!empty($_SERVER[$key])) {
+                $ipList = explode(',', $_SERVER[$key]);
+                foreach ($ipList as $ip) {
+                    $ip = trim($ip);
+                    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false) {
+                        return $ip;
+                    }
+                    // Fallback jika valid IP (termasuk private IP saat dev lokal)
+                    if (filter_var($ip, FILTER_VALIDATE_IP) !== false) {
+                        return $ip;
+                    }
                 }
             }
         }
-    }
 
-    return '127.0.0.1';
+        return '127.0.0.1';
+    }
 }
 
 /**

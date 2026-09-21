@@ -446,27 +446,29 @@ function ensure_page_views_schema(PDO $pdo): void {
 /**
  * Dapatkan IP asli pengunjung (support Cloudflare / Reverse Proxy)
  */
-function get_client_ip(): string {
-    $headers = [
-        'HTTP_CF_CONNECTING_IP',
-        'HTTP_X_REAL_IP',
-        'HTTP_X_FORWARDED_FOR',
-        'HTTP_CLIENT_IP',
-        'REMOTE_ADDR'
-    ];
+if (!function_exists('get_client_ip')) {
+    function get_client_ip(): string {
+        $headers = [
+            'HTTP_CF_CONNECTING_IP',
+            'HTTP_X_REAL_IP',
+            'HTTP_X_FORWARDED_FOR',
+            'HTTP_CLIENT_IP',
+            'REMOTE_ADDR'
+        ];
 
-    foreach ($headers as $header) {
-        if (!empty($_SERVER[$header])) {
-            $ipList = explode(',', (string)$_SERVER[$header]);
-            foreach ($ipList as $ip) {
-                $ip = trim($ip);
-                if (filter_var($ip, FILTER_VALIDATE_IP)) {
-                    return $ip;
+        foreach ($headers as $header) {
+            if (!empty($_SERVER[$header])) {
+                $ipList = explode(',', (string)$_SERVER[$header]);
+                foreach ($ipList as $ip) {
+                    $ip = trim($ip);
+                    if (filter_var($ip, FILTER_VALIDATE_IP)) {
+                        return $ip;
+                    }
                 }
             }
         }
+        return '127.0.0.1';
     }
-    return '127.0.0.1';
 }
 
 /**
