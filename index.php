@@ -30,7 +30,7 @@ if (!$profile) {
         'cv_file' => '',
         'email' => 'zentokun90@gmail.com',
         'linkedin' => 'https://linkedin.com/in/zentokun90',
-        'github' => 'https://github.com/zentokun90',
+        'github' => 'https://github.com/ammarsyrf',
         'instagram' => 'https://instagram.com/zentokun90',
         'tiktok' => 'https://tiktok.com/@zentokun90',
         'skills' => 'Laravel, PHP, MySQL, Redis, Next.js, React, Tailwind CSS, TypeScript, Docker, Linux, Pest, Flutter, Algoritma C4.5, S1 Sistem Informasi'
@@ -2261,14 +2261,14 @@ $hireStatus = get_hire_status($pdo);
         <div class="github-repos-grid">
           
           <!-- Repo 1: Portfolio Bento Glassmorphism -->
-          <a href="<?= !empty($profile['github']) ? e($profile['github']) : 'https://github.com/zentokun90' ?>" target="_blank" rel="noopener noreferrer" class="github-repo-card glass-panel">
+          <a href="https://github.com/ammarsyrf/portofolio" target="_blank" rel="noopener noreferrer" class="github-repo-card glass-panel">
             <div class="repo-card-top">
               <div class="repo-name-group">
                 <svg class="repo-book-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
                   <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
                 </svg>
-                <h3 class="repo-name">portfolio-ammar</h3>
+                <h3 class="repo-name">portofolio</h3>
               </div>
               <span class="repo-badge-status">Public</span>
             </div>
@@ -2290,8 +2290,38 @@ $hireStatus = get_hire_status($pdo);
             </div>
           </a>
 
-          <!-- Repo 2: Villa Zein Booking Platform -->
-          <a href="<?= !empty($profile['github']) ? e($profile['github']) : 'https://github.com/zentokun90' ?>" target="_blank" rel="noopener noreferrer" class="github-repo-card glass-panel">
+          <!-- Repo 2: LMS Assyafiiyah Academic Portal -->
+          <a href="https://github.com/ammarsyrf/lms-assyafiiyah" target="_blank" rel="noopener noreferrer" class="github-repo-card glass-panel">
+            <div class="repo-card-top">
+              <div class="repo-name-group">
+                <svg class="repo-book-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                <h3 class="repo-name">lms-assyafiiyah</h3>
+              </div>
+              <span class="repo-badge-status highlight">Featured</span>
+            </div>
+
+            <p class="repo-description">
+              Integrated School &amp; Academic Learning Management System with role-based access control (RBAC), attendance logs, and grade tracking.
+            </p>
+
+            <div class="repo-meta-row">
+              <div class="repo-lang">
+                <span class="lang-dot laravel"></span>
+                <span>Laravel / PHP</span>
+              </div>
+              <div class="repo-stats-group">
+                <span class="repo-stat-item" title="Stars"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 18</span>
+                <span class="repo-stat-item" title="Forks"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v1a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/><path d="M12 12v3"/></svg> 6</span>
+              </div>
+              <span class="repo-updated">Maintained</span>
+            </div>
+          </a>
+
+          <!-- Repo 3: Villa Zein Booking Platform -->
+          <a href="<?= !empty($profile['github']) ? e($profile['github']) : 'https://github.com/ammarsyrf' ?>" target="_blank" rel="noopener noreferrer" class="github-repo-card glass-panel">
             <div class="repo-card-top">
               <div class="repo-name-group">
                 <svg class="repo-book-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -2300,7 +2330,7 @@ $hireStatus = get_hire_status($pdo);
                 </svg>
                 <h3 class="repo-name">villa-zein-booking</h3>
               </div>
-              <span class="repo-badge-status highlight">Featured</span>
+              <span class="repo-badge-status">Public</span>
             </div>
 
             <p class="repo-description">
@@ -2313,36 +2343,6 @@ $hireStatus = get_hire_status($pdo);
                 <span>Laravel / Blade</span>
               </div>
               <div class="repo-stats-group">
-                <span class="repo-stat-item" title="Stars"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 18</span>
-                <span class="repo-stat-item" title="Forks"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v1a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/><path d="M12 12v3"/></svg> 6</span>
-              </div>
-              <span class="repo-updated">Maintained</span>
-            </div>
-          </a>
-
-          <!-- Repo 3: LMS Assyafiiyah Academic Portal -->
-          <a href="<?= !empty($profile['github']) ? e($profile['github']) : 'https://github.com/zentokun90' ?>" target="_blank" rel="noopener noreferrer" class="github-repo-card glass-panel">
-            <div class="repo-card-top">
-              <div class="repo-name-group">
-                <svg class="repo-book-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                </svg>
-                <h3 class="repo-name">lms-assyafiiyah</h3>
-              </div>
-              <span class="repo-badge-status">Public</span>
-            </div>
-
-            <p class="repo-description">
-              Integrated School &amp; Academic Learning Management System with role-based access control (RBAC), attendance logs, and grade tracking.
-            </p>
-
-            <div class="repo-meta-row">
-              <div class="repo-lang">
-                <span class="lang-dot mysql"></span>
-                <span>PHP / MySQL</span>
-              </div>
-              <div class="repo-stats-group">
                 <span class="repo-stat-item" title="Stars"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 15</span>
                 <span class="repo-stat-item" title="Forks"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v1a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/><path d="M12 12v3"/></svg> 5</span>
               </div>
@@ -2351,7 +2351,7 @@ $hireStatus = get_hire_status($pdo);
           </a>
 
           <!-- Repo 4: Cargo Decision Tree C4.5 Prediction -->
-          <a href="<?= !empty($profile['github']) ? e($profile['github']) : 'https://github.com/zentokun90' ?>" target="_blank" rel="noopener noreferrer" class="github-repo-card glass-panel">
+          <a href="<?= !empty($profile['github']) ? e($profile['github']) : 'https://github.com/ammarsyrf' ?>" target="_blank" rel="noopener noreferrer" class="github-repo-card glass-panel">
             <div class="repo-card-top">
               <div class="repo-name-group">
                 <svg class="repo-book-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -2383,9 +2383,9 @@ $hireStatus = get_hire_status($pdo);
         </div>
 
         <div class="github-footer-cta">
-          <a href="<?= !empty($profile['github']) ? e($profile['github']) : 'https://github.com/zentokun90' ?>" target="_blank" rel="noopener noreferrer" class="btn-bento-pill primary">
+          <a href="<?= !empty($profile['github']) ? e($profile['github']) : 'https://github.com/ammarsyrf' ?>" target="_blank" rel="noopener noreferrer" class="btn-bento-pill primary">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
-            <span>Kunjungi Profil GitHub @zentokun90 ↗</span>
+            <span>Kunjungi Profil GitHub @ammarsyrf (ZenS) ↗</span>
           </a>
         </div>
       </div>

@@ -35,19 +35,21 @@ function render_seo(
 
     // Daftar kanal sosial resmi untuk Google Entity Knowledge Graph (sameAs)
     $sameAs = array_values(array_filter([
-        $profile['github'] ?? 'https://github.com/zentokun90',
+        $profile['github'] ?? 'https://github.com/ammarsyrf',
         $profile['linkedin'] ?? 'https://linkedin.com/in/zentokun90',
         $profile['instagram'] ?? 'https://instagram.com/zentokun90',
         $profile['tiktok'] ?? 'https://tiktok.com/@zentokun90',
         'https://zen.zenerie.my.id/',
-        'https://github.com/zentokun90',
+        'https://github.com/ammarsyrf',
         'https://tiktok.com/@zentokun90'
     ]));
     $sameAs = array_values(array_unique($sameAs));
 
-    // Keyword list berbobot tinggi untuk Ammar Syarif, zentokun90, dan zenerie
+    // Keyword list berbobot tinggi untuk Ammar Syarif, ZenS, ammarsyrf, dan zenerie
     $keywords = [
         'Ammar Syarif',
+        'ZenS',
+        'ammarsyrf',
         'zentokun90',
         'zenerie',
         'Zenerie',
@@ -68,12 +70,12 @@ function render_seo(
     $schemaGraph = [
         '@context' => 'https://schema.org',
         '@graph' => [
-            // Entitas Person (Ammar Syarif / zentokun90)
+            // Entitas Person (Ammar Syarif / ZenS / ammarsyrf)
             [
                 '@type' => 'Person',
                 '@id' => $base . '/#person',
                 'name' => $name,
-                'alternateName' => ['zentokun90', 'Zenerie', 'Ammar', 'Zen', 'zeneriem'],
+                'alternateName' => ['ZenS', 'ammarsyrf', 'zentokun90', 'Zenerie', 'Ammar', 'Zen', 'zeneriem'],
                 'jobTitle' => $role,
                 'description' => $tagline,
                 'url' => $base . '/',
@@ -182,7 +184,7 @@ function render_seo(
   <link rel="canonical" href="<?= e($canonical) ?>">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="keywords" content="<?= e(implode(', ', $keywords)) ?>">
-  <meta name="author" content="<?= e($name) ?> (zentokun90)">
+  <meta name="author" content="<?= e($name) ?> (ZenS / @ammarsyrf)">
   <meta name="publisher" content="Zenerie">
 
   <!-- ==================== GEO & Local Search ==================== -->
@@ -192,7 +194,7 @@ function render_seo(
   <meta name="ICBM" content="-6.2088, 106.8456">
 
   <!-- ==================== Open Graph (Facebook / WhatsApp / LinkedIn) ==================== -->
-  <meta property="og:site_name" content="Zenerie — <?= e($name) ?> (@zentokun90)">
+  <meta property="og:site_name" content="Zenerie — <?= e($name) ?> (@ammarsyrf)">
   <meta property="og:type" content="<?= e($type) ?>">
   <meta property="og:locale" content="id_ID">
   <meta property="og:title" content="<?= e($title) ?>">
@@ -200,18 +202,18 @@ function render_seo(
   <meta property="og:url" content="<?= e($canonical) ?>">
   <?php if (!empty($image)): ?>
   <meta property="og:image" content="<?= e($image) ?>">
-  <meta property="og:image:alt" content="Portofolio <?= e($name) ?> (zentokun90) - Zenerie">
+  <meta property="og:image:alt" content="Portofolio <?= e($name) ?> (ZenS / ammarsyrf) - Zenerie">
   <?php endif; ?>
 
   <!-- ==================== Twitter Cards ==================== -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@zentokun90">
-  <meta name="twitter:creator" content="@zentokun90">
+  <meta name="twitter:site" content="@ammarsyrf">
+  <meta name="twitter:creator" content="@ammarsyrf">
   <meta name="twitter:title" content="<?= e($title) ?>">
   <meta name="twitter:description" content="<?= e($fullDesc) ?>">
   <?php if (!empty($image)): ?>
   <meta name="twitter:image" content="<?= e($image) ?>">
-  <meta name="twitter:image:alt" content="Portofolio <?= e($name) ?> (zentokun90) - Zenerie">
+  <meta name="twitter:image:alt" content="Portofolio <?= e($name) ?> (ZenS / ammarsyrf) - Zenerie">
   <?php endif; ?>
 
   <!-- ==================== Schema.org Knowledge Graph (JSON-LD) ==================== -->

@@ -20,7 +20,7 @@ if (!$profile) {
         'tagline' => 'Membangun sistem yang rapi dan mengubah data jadi keputusan.',
         'email' => 'zentokun90@gmail.com',
         'linkedin' => 'https://linkedin.com/in/zentokun90',
-        'github' => 'https://github.com/zentokun90',
+        'github' => 'https://github.com/ammarsyrf',
         'instagram' => 'https://instagram.com/zentokun90',
         'tiktok' => 'https://tiktok.com/@zentokun90',
         'photo' => '',
