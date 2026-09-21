@@ -1201,21 +1201,38 @@ function get_github_user_stats(string $username = 'ammarsyrf', int $cacheTtl = 8
         'years_data' => []
     ];
 
-    // Fetch user info from API
-    $ctx = stream_context_create([
-        'http' => [
-            'method' => 'GET',
-            'header' => [
-                "User-Agent: Zenerie-Portfolio-App/1.0 ({$username})",
-                "Accept: application/vnd.github.v3+json"
-            ],
-            'timeout' => 4,
-            'ignore_errors' => true
-        ]
-    ]);
+    $httpFetch = function(string $url, array $headers = []) {
+        if (function_exists('curl_init')) {
+            $ch = curl_init($url);
+            curl_setopt_array($ch, [
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_HTTPHEADER => $headers,
+                CURLOPT_TIMEOUT => 8,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_SSL_VERIFYPEER => false
+            ]);
+            $res = curl_exec($ch);
+            curl_close($ch);
+            if ($res !== false && strlen($res) > 0) return $res;
+        }
+        $ctx = stream_context_create([
+            'http' => [
+                'method' => 'GET',
+                'header' => $headers,
+                'timeout' => 8,
+                'ignore_errors' => true
+            ]
+        ]);
+        return @file_get_contents($url, false, $ctx);
+    };
 
-    $userRes = @file_get_contents("https://api.github.com/users/{$username}", false, $ctx);
-    if ($userRes !== false) {
+    // Fetch user info from API
+    $apiHeaders = [
+        "User-Agent: Zenerie-Portfolio-App/1.0 ({$username})",
+        "Accept: application/vnd.github.v3+json"
+    ];
+    $userRes = $httpFetch("https://api.github.com/users/{$username}", $apiHeaders);
+    if ($userRes !== false && $userRes !== null) {
         $userData = json_decode($userRes, true);
         if (is_array($userData) && isset($userData['login'])) {
             $stats['name'] = $userData['name'] ?? 'ZenS';
@@ -1229,20 +1246,14 @@ function get_github_user_stats(string $username = 'ammarsyrf', int $cacheTtl = 8
 
     // Scrape multi-year contributions
     $years = [2026, 2025, 2024, 2023, 2022, 2021, 2020];
-    $browserCtx = stream_context_create([
-        'http' => [
-            'method' => 'GET',
-            'header' => [
-                "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-            ],
-            'timeout' => 4,
-            'ignore_errors' => true
-        ]
-    ]);
+    $browserHeaders = [
+        "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+    ];
 
     // 1) Ambil overview 1 tahun terakhir
-    $lastYearHtml = @file_get_contents("https://github.com/users/{$username}/contributions", false, $browserCtx);
-    if ($lastYearHtml !== false) {
+    $lastYearHtml = $httpFetch("https://github.com/users/{$username}/contributions", $browserHeaders);
+    if ($lastYearHtml !== false && $lastYearHtml !== null && strlen($lastYearHtml) > 500) {
         if (preg_match('/([0-9,]+)\s*contributions\s*in\s*the\s*last\s*year/is', $lastYearHtml, $m)) {
             $stats['total_contributions'] = trim($m[1]);
         } elseif (preg_match('/<h2[^>]*>\s*([0-9,]+)\s*contributions/is', $lastYearHtml, $m)) {
@@ -1289,8 +1300,8 @@ function get_github_user_stats(string $username = 'ammarsyrf', int $cacheTtl = 8
     // 2) Ambil data spesifik per tahun
     foreach ($years as $y) {
         $yearUrl = "https://github.com/users/{$username}/contributions?from={$y}-12-01&to={$y}-12-31";
-        $yearHtml = @file_get_contents($yearUrl, false, $browserCtx);
-        if ($yearHtml !== false) {
+        $yearHtml = $httpFetch($yearUrl, $browserHeaders);
+        if ($yearHtml !== false && $yearHtml !== null && strlen($yearHtml) > 500) {
             $totalY = "0";
             if (preg_match('/([0-9,]+)\s*contributions\s*in\s*' . $y . '/is', $yearHtml, $ym)) {
                 $totalY = trim($ym[1]);
@@ -1341,7 +1352,9 @@ function get_github_user_stats(string $username = 'ammarsyrf', int $cacheTtl = 8
         }
     }
 
-    @file_put_contents($cacheFile, json_encode($stats, JSON_PRETTY_PRINT));
+    if (!empty($stats['days'])) {
+        @file_put_contents($cacheFile, json_encode($stats, JSON_PRETTY_PRINT));
+    }
     return $stats;
 }
 
