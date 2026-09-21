@@ -361,7 +361,7 @@ require_once __DIR__ . '/includes/sidebar.php';
         <div class="form-row form-row-2">
           <div class="form-group">
             <label class="form-label" for="github">Tautan Akun GitHub (URL)</label>
-            <input type="url" id="github" name="github" class="form-input" value="<?= e($profile['github']) ?>" placeholder="https://github.com/zentokun90">
+            <input type="url" id="github" name="github" class="form-input" value="<?= e($profile['github']) ?>" placeholder="https://github.com/ammarsyrf">
           </div>
           <div class="form-group">
             <label class="form-label" for="instagram">Tautan Instagram (URL)</label>

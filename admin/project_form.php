@@ -249,7 +249,7 @@ require_once __DIR__ . '/includes/sidebar.php';
 
       <div class="form-group">
         <label class="form-label" for="repo_link">Tautan Repositori GitHub (URL)</label>
-        <input type="url" id="repo_link" name="repo_link" class="form-input" value="<?= e($project['repo_link']) ?>" placeholder="https://github.com/zentokun90/repo">
+        <input type="url" id="repo_link" name="repo_link" class="form-input" value="<?= e($project['repo_link']) ?>" placeholder="https://github.com/ammarsyrf/repo">
       </div>
     </div>
 

@@ -123,8 +123,8 @@ function render_seo(
                 '@type' => 'WebSite',
                 '@id' => $base . '/#website',
                 'url' => $base . '/',
-                'name' => $name . ' (zentokun90) — Zenerie Portfolio',
-                'alternateName' => ['Zenerie', 'zentokun90 Portfolio', 'Portofolio Ammar Syarif'],
+                'name' => $name . ' (ZenS / ammarsyrf) — Zenerie Portfolio',
+                'alternateName' => ['Zenerie', 'ammarsyrf Portfolio', 'Portofolio Ammar Syarif', 'ZenS Portfolio'],
                 'description' => $tagline,
                 'inLanguage' => ['id-ID', 'en-US'],
                 'publisher' => [

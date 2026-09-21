@@ -212,6 +212,16 @@ function get_profile(PDO $pdo): ?array {
     $stmt = $pdo->prepare("SELECT * FROM profile WHERE id = 1 LIMIT 1");
     $stmt->execute();
     $profile = $stmt->fetch();
+    if ($profile) {
+        // Otomatis koreksi jika masih tertulis zentokun90 di database
+        if (!empty($profile['github']) && stripos($profile['github'], 'zentokun90') !== false) {
+            $profile['github'] = 'https://github.com/ammarsyrf';
+            try {
+                $pdo->exec("UPDATE profile SET github = 'https://github.com/ammarsyrf' WHERE id = 1");
+                $pdo->exec("UPDATE links SET url = 'https://github.com/ammarsyrf' WHERE (url LIKE '%zentokun90%' OR url LIKE '%github.com%') AND (platform = 'github' OR title LIKE '%GitHub%')");
+            } catch (Exception $e) {}
+        }
+    }
     return $profile ?: null;
 }
 
@@ -1156,6 +1166,11 @@ function get_seo_health(PDO $pdo): array {
  * @return array List repository
  */
 function get_github_public_repos(string $username = 'ammarsyrf', int $limit = 6, int $cacheTtl = 1800): array {
+    $username = trim($username);
+    if (empty($username) || stripos($username, 'zentokun') !== false) {
+        $username = 'ammarsyrf';
+    }
+
     $cacheDir = ROOT_PATH . '/assets/uploads/cache';
     if (!is_dir($cacheDir)) {
         @mkdir($cacheDir, 0755, true);
@@ -1208,7 +1223,11 @@ function get_github_public_repos(string $username = 'ammarsyrf', int $limit = 6,
                     } elseif (stripos($repoName, 'company') !== false || stripos($repoName, 'deno') !== false) {
                         $desc = 'Modern responsive company profile website with interactive UI components and CSS glassmorphism.';
                     } elseif (stripos($repoName, 'sandikta') !== false) {
-                        $desc = 'Aplikasi web sistem informasi sekolah & manajemen data pendidikan.';
+                        $desc = 'Sistem Informasi Akademik & Manajemen Data Pendidikan Terpadu.';
+                    } elseif (stripos($repoName, 'digital-squad') !== false) {
+                        $desc = 'Platform Komunitas & Kolaborasi Pengembang Web Digital.';
+                    } elseif (stripos($repoName, 'list') !== false) {
+                        $desc = 'Interactive Task & List Management Web Application.';
                     } elseif (stripos($repoName, 'lms') !== false) {
                         $desc = 'Integrated Learning Management System with RBAC, attendance logs, and student grade tracking.';
                     } else {
@@ -1257,38 +1276,48 @@ function get_github_public_repos(string $username = 'ammarsyrf', int $limit = 6,
             'name' => 'portofolio',
             'html_url' => "https://github.com/{$username}/portofolio",
             'description' => 'Pure PHP 8.x + MySQL Bento Grid Portfolio with realtime visitor telemetry, geolocation analytics, and glassmorphism interface.',
-            'stars' => 12,
-            'forks' => 4,
+            'stars' => 0,
+            'forks' => 0,
             'language' => 'PHP',
             'is_fork' => false,
             'updated_at' => date('Y-m-d')
         ],
         [
-            'name' => 'lms-assyafiiyah',
-            'html_url' => "https://github.com/{$username}/lms-assyafiiyah",
-            'description' => 'Integrated School & Academic Learning Management System with role-based access control (RBAC), attendance logs, and grade tracking.',
-            'stars' => 18,
-            'forks' => 6,
-            'language' => 'Laravel / PHP',
-            'is_fork' => false,
+            'name' => 'sandikta',
+            'html_url' => "https://github.com/{$username}/sandikta",
+            'description' => 'Sistem Informasi Akademik & Manajemen Data Pendidikan Terpadu.',
+            'stars' => 0,
+            'forks' => 0,
+            'language' => 'Laravel / Blade',
+            'is_fork' => true,
             'updated_at' => date('Y-m-d')
         ],
         [
             'name' => 'cafe',
             'html_url' => "https://github.com/{$username}/cafe",
             'description' => 'Aplikasi web manajemen pesanan dan operasional cafe dengan integrasi database transaksi.',
-            'stars' => 8,
-            'forks' => 2,
+            'stars' => 0,
+            'forks' => 0,
             'language' => 'PHP',
             'is_fork' => false,
+            'updated_at' => date('Y-m-d')
+        ],
+        [
+            'name' => 'digital-squad',
+            'html_url' => "https://github.com/{$username}/digital-squad",
+            'description' => 'Platform Komunitas & Kolaborasi Pengembang Web Digital.',
+            'stars' => 0,
+            'forks' => 0,
+            'language' => 'Laravel / Blade',
+            'is_fork' => true,
             'updated_at' => date('Y-m-d')
         ],
         [
             'name' => 'company-profile-Deno-Digital-',
             'html_url' => "https://github.com/{$username}/company-profile-Deno-Digital-",
             'description' => 'Modern responsive company profile website with interactive UI components and CSS glassmorphism.',
-            'stars' => 5,
-            'forks' => 1,
+            'stars' => 0,
+            'forks' => 0,
             'language' => 'CSS / JS',
             'is_fork' => false,
             'updated_at' => date('Y-m-d')
