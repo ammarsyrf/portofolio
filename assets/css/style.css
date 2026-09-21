@@ -216,48 +216,37 @@ button, input, textarea, select {
 .nav-brand-pill {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
   text-decoration: none;
   flex-shrink: 0;
 }
 
-.brand-grid-icon {
-  display: grid;
-  width: 32px;
-  height: 32px;
-  place-items: center;
-  background: rgba(76, 141, 255, 0.15);
-  border-radius: 9px;
-  border: 1px solid rgba(76, 141, 255, 0.25);
-  color: var(--color-accent-bright);
-  font-family: var(--font-display);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.nav-brand-pill:hover .brand-grid-icon {
-  transform: rotate(-5deg) scale(1.05);
-  background: rgba(76, 141, 255, 0.25);
-  border-color: rgba(121, 166, 255, 0.5);
-  box-shadow: 0 0 14px rgba(76, 141, 255, 0.35);
+.brand-morph-wrap {
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  height: 34px;
 }
 
 .brand-short {
   display: none;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #60a5fa 0%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .brand-full {
-  display: inline;
-}
-
-.nav-brand-pill .brand-name {
+  display: inline-block;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 0.95rem;
   color: var(--color-text);
   letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 
 .nav-menu {
@@ -483,15 +472,64 @@ button, input, textarea, select {
   }
 
   .nav-brand-pill {
+    display: flex;
+    align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 0.2rem 0.3rem 0.4rem;
+    min-height: 40px;
+    padding: 0.25rem 0.35rem 0.45rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    gap: 0.65rem;
+    overflow: hidden;
     transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .nav-brand-pill .brand-name,
+  .brand-morph-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 36px;
+  }
+
+  /* Collapsed state: A//S is prominent and centered */
+  .brand-short {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.88rem;
+    letter-spacing: -0.03em;
+    color: var(--color-accent-bright);
+    background: linear-gradient(135deg, #60a5fa 0%, #38bdf8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 1;
+    transform: scale(1);
+    filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.4));
+    transition: opacity 0.26s cubic-bezier(0.16, 1, 0.3, 1), transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Collapsed state: Ammar Syarif is hidden initially */
+  .brand-full {
+    display: block !important;
+    position: absolute;
+    left: 0.35rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #ffffff;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-12px) scale(0.95);
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+  }
+
   .nav-label {
     display: block;
     width: 0;
@@ -504,14 +542,7 @@ button, input, textarea, select {
 
   .btn-hire-text,
   .kbd-shortcut {
-    display: none;
-  }
-
-  .brand-grid-icon {
-    width: 34px;
-    height: 34px;
-    font-size: 0.68rem;
-    flex-shrink: 0;
+    display: none !important;
   }
 
   .nav-menu {
@@ -554,8 +585,7 @@ button, input, textarea, select {
 
   .nav-avatar-mini,
   .nav-icon-btn,
-  .btn-palette-trigger,
-  .btn-hire {
+  .btn-palette-trigger {
     width: 36px;
     height: 36px;
     min-height: 36px;
@@ -565,8 +595,31 @@ button, input, textarea, select {
     flex-shrink: 0;
   }
 
+  .btn-hire {
+    width: 36px;
+    height: 36px;
+    min-height: 36px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .btn-hire:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 18px rgba(59, 130, 246, 0.65);
+  }
+
   .btn-hire-plus {
-    font-size: 1.1rem;
+    font-size: 1.18rem;
+    font-weight: 700;
+    line-height: 1;
   }
 
   /* Hover & Focus Expand States (Expands Leftward without touching canvas) */
@@ -588,11 +641,24 @@ button, input, textarea, select {
     box-shadow: 0 20px 48px rgba(0, 0, 0, 0.7), 0 0 28px rgba(76, 141, 255, 0.15);
   }
 
+  .site-header:hover .brand-short,
+  .site-header:focus-within .brand-short {
+    opacity: 0;
+    transform: scale(0.75) translateX(-15px);
+    pointer-events: none;
+  }
+
+  .site-header:hover .brand-full,
+  .site-header:focus-within .brand-full {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    pointer-events: auto;
+  }
+
   .site-header:hover .nav-brand-pill,
   .site-header:focus-within .nav-brand-pill {
     justify-content: flex-start;
-    width: 100%;
-    padding-left: 0.4rem;
+    padding-left: 0.45rem;
   }
 
   .site-header:hover .nav-pill,
@@ -602,8 +668,6 @@ button, input, textarea, select {
     padding: 0 0.75rem;
   }
 
-  .site-header:hover .nav-brand-pill .brand-name,
-  .site-header:focus-within .nav-brand-pill .brand-name,
   .site-header:hover .nav-label,
   .site-header:focus-within .nav-label {
     width: auto;

@@ -21,8 +21,10 @@ if (isset($profile) && !empty($profile['photo']) && file_exists(UPLOAD_DIR_PHOTO
       
       <!-- Brand / Logo -->
       <a href="<?= BASE_URL ?>/" class="nav-brand-pill" title="Ammar Syarif — Zenerie">
-        <div class="brand-grid-icon" aria-hidden="true">A//S</div>
-        <span class="brand-name"><span class="brand-short">A//S</span><span class="brand-full">Ammar Syarif</span></span>
+        <div class="brand-morph-wrap">
+          <span class="brand-short">A//S</span>
+          <span class="brand-full">Ammar Syarif</span>
+        </div>
       </a>
 
       <!-- Main Navigation Menu -->
