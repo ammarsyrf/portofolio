@@ -184,7 +184,8 @@ require_once __DIR__ . '/includes/sidebar.php';
 
       <div class="form-group">
         <label class="form-label" for="category">Kategori Proyek</label>
-        <input type="text" id="category" name="category" class="form-input" value="<?= e($project['category']) ?>" placeholder="Contoh: Web Platform, Web Application, Web Project">
+        <input type="text" id="category" name="category" class="form-input" value="<?= e($project['category']) ?>" placeholder="Contoh: Web Platform, Web Application, Data Mining, Sistem Informasi">
+        <div class="form-help">Kategori ini otomatis menjadi tombol filter interaktif di halaman depan.</div>
       </div>
     </div>
 
@@ -212,8 +213,9 @@ require_once __DIR__ . '/includes/sidebar.php';
     </div>
 
     <div class="form-group">
-      <label class="form-label" for="result_impact">Hasil / Dampak Sistem (Opsional)</label>
-      <textarea id="result_impact" name="result_impact" rows="3" class="form-textarea" placeholder="Contoh: Mempercepat proses reservasi hingga 70%, mendukung pemesanan 5 villa secara real-time..."><?= e($project['result_impact']) ?></textarea>
+      <label class="form-label" for="result_impact">📊 Problem, Solution &amp; Impact (Metrik Hasil Nyata)</label>
+      <textarea id="result_impact" name="result_impact" rows="3" class="form-textarea" placeholder="Contoh: Mempersingkat alur kerja hingga 70%, bebas kerentanan SQLi, dan mendukung 500+ pengguna aktif."><?= e($project['result_impact']) ?></textarea>
+      <div class="form-help">Ditampilkan pada badge sorotan khusus di modal rincian proyek untuk menarik perhatian Tech Recruiter.</div>
     </div>
 
     <!-- Upload Gambar -->
@@ -240,8 +242,9 @@ require_once __DIR__ . '/includes/sidebar.php';
 
     <div class="form-row form-row-2">
       <div class="form-group">
-        <label class="form-label" for="demo_link">Tautan Demo / Live Website (URL)</label>
-        <input type="url" id="demo_link" name="demo_link" class="form-input" value="<?= e($project['demo_link']) ?>" placeholder="https://contoh-demo.com">
+        <label class="form-label" for="demo_link">🎬 Tautan Demo / Live Website / Video YouTube</label>
+        <input type="url" id="demo_link" name="demo_link" class="form-input" value="<?= e($project['demo_link']) ?>" placeholder="https://contoh-demo.com atau https://youtube.com/watch?v=...">
+        <div class="form-help">Jika diisi link YouTube / file .mp4, otomatis muncul tab <strong>🎬 Video Demo Embed</strong> di modal!</div>
       </div>
 
       <div class="form-group">
