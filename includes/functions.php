@@ -1243,7 +1243,9 @@ function get_github_user_stats(string $username = 'ammarsyrf', int $cacheTtl = 8
     // 1) Ambil overview 1 tahun terakhir
     $lastYearHtml = @file_get_contents("https://github.com/users/{$username}/contributions", false, $browserCtx);
     if ($lastYearHtml !== false) {
-        if (preg_match('/([0-9,]+)\s+contributions\s+in\s+the\s+last\s+year/i', $lastYearHtml, $m)) {
+        if (preg_match('/([0-9,]+)\s*contributions\s*in\s*the\s*last\s*year/is', $lastYearHtml, $m)) {
+            $stats['total_contributions'] = trim($m[1]);
+        } elseif (preg_match('/<h2[^>]*>\s*([0-9,]+)\s*contributions/is', $lastYearHtml, $m)) {
             $stats['total_contributions'] = trim($m[1]);
         }
         if (preg_match_all('/<td[^>]*data-date="([^"]+)"[^>]*data-level="([^"]+)"/i', $lastYearHtml, $dm)) {
@@ -1266,7 +1268,9 @@ function get_github_user_stats(string $username = 'ammarsyrf', int $cacheTtl = 8
         $yearHtml = @file_get_contents($yearUrl, false, $browserCtx);
         if ($yearHtml !== false) {
             $totalY = "0";
-            if (preg_match('/([0-9,]+)\s+contributions/i', $yearHtml, $ym)) {
+            if (preg_match('/([0-9,]+)\s*contributions\s*in\s*' . $y . '/is', $yearHtml, $ym)) {
+                $totalY = trim($ym[1]);
+            } elseif (preg_match('/<h2[^>]*>\s*([0-9,]+)\s*contributions/is', $yearHtml, $ym)) {
                 $totalY = trim($ym[1]);
             }
             $yDays = [];
@@ -1284,8 +1288,10 @@ function get_github_user_stats(string $username = 'ammarsyrf', int $cacheTtl = 8
     }
 
     // Fallback default jika koneksi gagal
-    if (empty($stats['years_data']['2026'])) {
-        $stats['years_data']['2026'] = ['total' => '1,000', 'days_count' => count($stats['days']), 'days' => $stats['days']];
+    if (empty($stats['years_data']['2026']) || $stats['years_data']['2026']['total'] === '0') {
+        if (!empty($stats['years_data']['last'])) {
+            $stats['years_data']['2026'] = $stats['years_data']['last'];
+        }
     }
 
     @file_put_contents($cacheFile, json_encode($stats, JSON_PRETTY_PRINT));
