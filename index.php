@@ -2276,9 +2276,15 @@ $hireStatus = get_hire_status($pdo);
         <div class="github-activity-card" id="githubActivityCard">
           <div class="github-activity-header">
             <div class="github-activity-stat">
-              <div class="github-contrib-badge">
-                <span class="github-contrib-dot"></span>
-                <span>Live Activity</span>
+              <div class="github-contrib-badges-wrap">
+                <div class="github-contrib-badge">
+                  <span class="github-contrib-dot"></span>
+                  <span>Live Activity</span>
+                </div>
+                <a href="?refresh_github=1#github-showcase" class="github-sync-btn" title="Tarik data terbaru dari GitHub API sekarang">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                  <span>Sync Now</span>
+                </a>
               </div>
               <div class="github-contrib-counter">
                 <span class="github-contrib-number" id="githubContribNumber"><?= e($githubStats['total_contributions'] ?? '1,162') ?></span>

@@ -7173,6 +7173,12 @@ section[id] {
   gap: 0.35rem;
 }
 
+.github-contrib-badges-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .github-contrib-badge {
   display: inline-flex;
   align-items: center;
@@ -7187,6 +7193,28 @@ section[id] {
   padding: 0.2rem 0.55rem;
   border-radius: 999px;
   width: fit-content;
+}
+
+.github-sync-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #60a5fa;
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.github-sync-btn:hover {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: rgba(59, 130, 246, 0.5);
+  color: #93c5fd;
+  transform: translateY(-1px);
 }
 
 .github-contrib-dot {

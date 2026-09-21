@@ -1176,8 +1176,9 @@ function get_github_user_stats(string $username = 'ammarsyrf', int $cacheTtl = 8
     }
     $cacheFile = $cacheDir . '/github_stats_' . preg_replace('/[^a-zA-Z0-9_-]/', '', $username) . '.json';
 
-    // 1. Cek cache
-    if (file_exists($cacheFile) && (time() - filemtime($cacheFile) < $cacheTtl)) {
+    // 1. Cek cache (dapat di-bypass dengan ?refresh_github=1)
+    $forceRefresh = !empty($_GET['refresh_github']);
+    if (!$forceRefresh && file_exists($cacheFile) && (time() - filemtime($cacheFile) < $cacheTtl)) {
         $cached = @file_get_contents($cacheFile);
         if ($cached) {
             $dec = json_decode($cached, true);
@@ -1311,8 +1312,9 @@ function get_github_public_repos(string $username = 'ammarsyrf', int $limit = 6,
     }
     $cacheFile = $cacheDir . '/github_repos_' . preg_replace('/[^a-zA-Z0-9_-]/', '', $username) . '.json';
 
-    // 1. Cek apakah cache lokal masih segar (fresh)
-    if (file_exists($cacheFile) && (time() - filemtime($cacheFile) < $cacheTtl)) {
+    // 1. Cek apakah cache lokal masih segar (fresh, bypass dengan ?refresh_github=1)
+    $forceRefresh = !empty($_GET['refresh_github']);
+    if (!$forceRefresh && file_exists($cacheFile) && (time() - filemtime($cacheFile) < $cacheTtl)) {
         $cachedData = @file_get_contents($cacheFile);
         if ($cachedData) {
             $decoded = json_decode($cachedData, true);
