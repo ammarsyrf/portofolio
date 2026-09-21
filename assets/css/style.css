@@ -176,7 +176,7 @@ button, input, textarea, select {
 }
 
 /* --------------------------------------------------------------------------
-   5. Floating Navigation & "Rekrut Saya"
+   5. Floating Navigation & Sidebar (Desktop Rail & Mobile Nav)
    -------------------------------------------------------------------------- */
 .site-header {
   position: sticky;
@@ -201,7 +201,7 @@ button, input, textarea, select {
   justify-content: space-between;
   width: 100%;
   max-width: 1280px;
-  background: rgba(14, 18, 27, 0.85);
+  background: rgba(14, 18, 27, 0.88);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -286,8 +286,8 @@ button, input, textarea, select {
 
 .nav-item-icon {
   display: inline-block;
-  width: 14px;
-  height: 14px;
+  width: 15px;
+  height: 15px;
   fill: none;
   stroke: currentColor;
   stroke-width: 2;
@@ -442,7 +442,110 @@ button, input, textarea, select {
   color: var(--color-accent-bright);
 }
 
-@media (max-width: 1080px) {
+/* Desktop Sidebar Rail (Fixed Left Dock as in Figma) */
+@media (min-width: 1080px) {
+  .site-header {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    left: max(0.85rem, calc(50% - 43.5rem - 64px));
+    width: 60px;
+    margin: 0;
+    z-index: 1000;
+    pointer-events: none;
+  }
+
+  .site-header .site-container {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    pointer-events: auto;
+  }
+
+  .nav-pill-bar {
+    flex-direction: column;
+    width: 58px;
+    padding: 0.65rem 0.3rem;
+    gap: 0.32rem;
+    border-radius: 22px;
+    background: rgba(14, 18, 27, 0.92);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+    margin: 0 auto;
+  }
+
+  .nav-brand-pill {
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .nav-brand-pill .brand-name,
+  .nav-label,
+  .btn-hire-text,
+  .kbd-shortcut {
+    display: none !important;
+  }
+
+  .brand-grid-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 0.68rem;
+  }
+
+  .nav-menu {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.22rem;
+    align-items: center;
+    margin: 0.15rem 0;
+  }
+
+  .nav-pill {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 12px;
+    position: relative;
+  }
+
+  .nav-item-icon {
+    display: block;
+    width: 18px;
+    height: 18px;
+  }
+
+  .nav-right-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.32rem;
+    align-items: center;
+    padding-top: 0.35rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .nav-avatar-mini,
+  .nav-icon-btn,
+  .btn-palette-trigger,
+  .btn-hire {
+    width: 36px;
+    height: 36px;
+    min-height: 36px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 12px;
+  }
+
+  .btn-hire-plus {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 1079px) {
   .nav-menu {
     display: none;
     position: absolute;
@@ -1571,10 +1674,12 @@ section[id] {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 0.65rem;
-  padding: 1.15rem 1.25rem;
-  height: 330px;
-  max-height: 330px;
+  gap: 0.75rem;
+  padding: 1.35rem 1.5rem;
+  height: 420px;
+  min-height: 420px;
+  max-height: 420px;
+  box-sizing: border-box;
 }
 
 .bento-about-header {
@@ -1586,19 +1691,19 @@ section[id] {
 
 .bento-about-header h4 {
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--color-text);
   margin: 0;
 }
 
 .bento-mini-status-pill {
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   font-weight: 600;
   color: #38bdf8;
   background: rgba(56, 189, 248, 0.1);
   border: 1px solid rgba(56, 189, 248, 0.25);
-  padding: 0.2rem 0.6rem;
+  padding: 0.22rem 0.65rem;
   border-radius: 999px;
   display: inline-flex;
   align-items: center;
@@ -1618,15 +1723,15 @@ section[id] {
 .bento-about-body {
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
+  gap: 0.65rem;
   flex-grow: 1;
   justify-content: center;
 }
 
 .bento-about-text {
-  font-size: 0.81rem;
+  font-size: 0.84rem;
   color: var(--color-text-dim);
-  line-height: 1.52;
+  line-height: 1.6;
   margin: 0;
 }
 
@@ -1644,7 +1749,7 @@ section[id] {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 0.45rem 0.65rem;
+  padding: 0.6rem 0.8rem;
   background: rgba(255, 255, 255, 0.025);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 12px;
@@ -1655,25 +1760,25 @@ section[id] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.15rem;
+  gap: 0.18rem;
   text-align: center;
 }
 
 .about-metric-unit .m-val {
   font-family: var(--font-display);
-  font-size: 0.86rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--color-accent-bright);
 }
 
 .about-metric-unit .m-lbl {
-  font-size: 0.62rem;
+  font-size: 0.65rem;
   color: var(--color-text-dim);
 }
 
 .about-metric-sep {
   width: 1px;
-  height: 18px;
+  height: 20px;
   background: rgba(255, 255, 255, 0.1);
 }
 
@@ -1684,10 +1789,12 @@ section[id] {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 0.5rem;
-  padding: 1rem 1.15rem;
-  height: 330px;
-  max-height: 330px;
+  gap: 0.65rem;
+  padding: 1.25rem 1.4rem;
+  height: 420px;
+  min-height: 420px;
+  max-height: 420px;
+  box-sizing: border-box;
   background: rgba(11, 15, 25, 0.78);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
@@ -2157,9 +2264,11 @@ section[id] {
   flex-direction: column;
   justify-content: space-between;
   gap: 0.65rem;
-  padding: 1.15rem 1.25rem;
-  height: 330px;
-  max-height: 330px;
+  padding: 1.25rem 1.4rem;
+  height: 420px;
+  min-height: 420px;
+  max-height: 420px;
+  box-sizing: border-box;
 }
 
 .bento-skills-header {
@@ -2176,19 +2285,19 @@ section[id] {
 
 .skills-widget-heading h4 {
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--color-text);
   margin: 0;
 }
 
 .skills-widget-dot {
-  font-size: 0.62rem;
+  font-size: 0.65rem;
   color: #10B981;
   font-weight: 600;
   background: rgba(16, 185, 129, 0.12);
   border: 1px solid rgba(16, 185, 129, 0.25);
-  padding: 0.15rem 0.55rem;
+  padding: 0.18rem 0.6rem;
   border-radius: 999px;
   display: inline-flex;
   align-items: center;
@@ -2244,8 +2353,8 @@ section[id] {
   grid-auto-rows: 38px;
   gap: 0.4rem;
   align-content: start;
-  height: 200px;
-  max-height: 200px;
+  height: 285px;
+  max-height: 285px;
   overflow-y: auto;
   scrollbar-width: thin;
   padding-right: 3px;
@@ -2291,10 +2400,11 @@ section[id] {
   width: 26px;
   height: 26px;
   min-width: 26px;
-  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.05);
   flex-shrink: 0;
 }
 
@@ -2377,10 +2487,11 @@ section[id] {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 0.55rem;
-  padding: 1.1rem 1.25rem;
-  height: 330px;
-  max-height: 330px;
+  gap: 0.75rem;
+  padding: 1.35rem 1.5rem;
+  height: 420px;
+  min-height: 420px;
+  max-height: 420px;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -2396,7 +2507,7 @@ section[id] {
   display: inline-flex;
   margin-bottom: 0.35rem;
   color: var(--color-accent-bright);
-  font-size: 0.62rem;
+  font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -2406,40 +2517,41 @@ section[id] {
   margin: 0;
   color: var(--color-text);
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  line-height: 1.22;
+  line-height: 1.25;
 }
 
 .deck-vision-lead {
-  margin: 0.35rem 0 0;
+  margin: 0.4rem 0 0;
   color: var(--color-text-dim);
-  font-size: 0.74rem;
-  line-height: 1.42;
+  font-size: 0.78rem;
+  line-height: 1.5;
 }
 
 .deck-focus-list {
   display: flex;
   flex-direction: column;
-  gap: 0.22rem;
+  gap: 0.45rem;
+  margin-top: 0.35rem;
 }
 
 .deck-focus-item {
   display: grid;
-  grid-template-columns: 1.35rem minmax(0, 1fr);
-  gap: 0.45rem;
+  grid-template-columns: 1.5rem minmax(0, 1fr);
+  gap: 0.55rem;
   align-items: start;
-  padding: 0.25rem 0;
+  padding: 0.35rem 0;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .deck-focus-index {
   color: var(--color-accent-bright);
   font-family: var(--font-display);
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  line-height: 1.35;
+  line-height: 1.4;
 }
 
 .deck-focus-item strong,
@@ -2449,32 +2561,32 @@ section[id] {
 
 .deck-focus-item strong {
   color: var(--color-text);
-  font-size: 0.71rem;
-  line-height: 1.25;
+  font-size: 0.74rem;
+  line-height: 1.3;
 }
 
 .deck-focus-item span:not(.deck-focus-index) {
-  margin-top: 0.04rem;
+  margin-top: 0.06rem;
   color: var(--color-text-dim);
-  font-size: 0.63rem;
-  line-height: 1.3;
+  font-size: 0.66rem;
+  line-height: 1.35;
 }
 
 .deck-card-actions {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: 0.65rem;
   margin-top: auto;
-  padding-top: 0.25rem;
+  padding-top: 0.5rem;
 }
 
 .bento-status-badge-inline {
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   color: var(--color-accent-bright);
   background: rgba(76, 141, 255, 0.1);
   border: 1px solid rgba(76, 141, 255, 0.2);
-  padding: 0.25rem 0.65rem;
+  padding: 0.3rem 0.75rem;
   border-radius: 999px;
   font-weight: 600;
   white-space: nowrap;
@@ -2483,59 +2595,61 @@ section[id] {
 .deck-standards-list {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
 }
 
 .deck-standards-card .deck-standards-list {
-  margin-top: 0.1rem;
+  margin-top: 0.35rem;
 }
 
 .standard-row {
   display: flex;
   align-items: flex-start;
-  gap: 0.55rem;
+  gap: 0.65rem;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.04);
-  padding: 0.38rem 0.55rem;
-  border-radius: 10px;
+  padding: 0.5rem 0.7rem;
+  border-radius: 12px;
 }
 
 .standard-icon {
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   line-height: 1.2;
 }
 
 .standard-title {
-  font-size: 0.74rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: var(--color-text);
 }
 
 .standard-desc {
-  font-size: 0.64rem;
+  font-size: 0.68rem;
   color: var(--color-text-dim);
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
 .deck-qualifications-list {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
 }
 
 .deck-status-card .deck-qualifications-list {
-  margin-top: 0.1rem;
+  margin-top: 0.35rem;
 }
 
 .qual-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.38rem 0.55rem;
+  padding: 0.5rem 0.7rem;
   background: rgba(255, 255, 255, 0.02);
-  border-radius: 9px;
+  border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.04);
-  font-size: 0.71rem;
+  font-size: 0.75rem;
 }
 
 .qual-label {
@@ -2553,6 +2667,7 @@ section[id] {
 
 .deck-status-action {
   margin-top: auto;
+  padding-top: 0.5rem;
 }
 
 .deck-status-action .btn-bento-pill {
@@ -2571,75 +2686,76 @@ section[id] {
   margin: 0;
   color: var(--color-text);
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 .deck-skill-lead {
-  margin: 0.35rem 0 0;
+  margin: 0.4rem 0 0;
   color: var(--color-text-dim);
-  font-size: 0.73rem;
-  line-height: 1.4;
+  font-size: 0.78rem;
+  line-height: 1.5;
 }
 
 .deck-practice-list {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
 }
 
 .deck-practice-item {
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
-  padding: 0.38rem 0.55rem;
+  gap: 0.15rem;
+  padding: 0.5rem 0.7rem;
   border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 10px;
+  border-radius: 12px;
   background: rgba(255, 255, 255, 0.025);
 }
 
 .deck-practice-item span {
   color: var(--color-accent-bright);
-  font-size: 0.61rem;
+  font-size: 0.65rem;
   font-weight: 700;
 }
 
 .deck-practice-item strong {
   color: var(--color-text);
-  font-size: 0.71rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 1.35;
 }
 
 .bento-chip-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.3rem;
-  padding-top: 0.45rem;
+  gap: 0.35rem;
+  padding-top: 0.65rem;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .bento-chip {
   display: inline-flex;
   align-items: center;
-  min-height: 22px;
-  padding: 0.12rem 0.48rem;
+  min-height: 24px;
+  padding: 0.18rem 0.55rem;
   border: 1px solid rgba(76, 141, 255, 0.22);
   border-radius: 999px;
   background: rgba(76, 141, 255, 0.08);
   color: var(--color-accent-bright);
-  font-size: 0.63rem;
+  font-size: 0.66rem;
   font-weight: 600;
 }
 
 .deck-project-card .project-tag-pill {
-  font-size: 0.62rem;
+  font-size: 0.65rem;
   color: var(--color-accent-bright);
   background: rgba(76, 141, 255, 0.1);
   border: 1px solid rgba(76, 141, 255, 0.2);
-  padding: 0.12rem 0.5rem;
+  padding: 0.15rem 0.55rem;
   border-radius: 999px;
   font-weight: 600;
 }
@@ -2654,10 +2770,10 @@ section[id] {
 
 .deck-project-preview {
   position: relative;
-  height: 88px;
+  height: 120px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: 11px;
+  border-radius: 14px;
   background: linear-gradient(135deg, rgba(76, 141, 255, 0.18), rgba(14, 18, 27, 0.92));
 }
 
@@ -2683,41 +2799,41 @@ section[id] {
 
 .deck-project-preview span {
   display: grid;
-  height: 88px;
+  height: 120px;
   place-items: center;
   color: var(--color-accent-bright);
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 700;
 }
 
 .deck-project-summary {
   margin: 0;
   color: var(--color-text-dim);
-  font-size: 0.73rem;
-  line-height: 1.4;
+  font-size: 0.78rem;
+  line-height: 1.5;
 }
 
 .deck-project-meta {
   display: flex;
   flex-direction: column;
-  gap: 0.08rem;
-  padding: 0.35rem 0.55rem;
+  gap: 0.12rem;
+  padding: 0.5rem 0.7rem;
   border-left: 2px solid var(--color-accent);
-  border-radius: 0 7px 7px 0;
+  border-radius: 0 8px 8px 0;
   background: rgba(76, 141, 255, 0.06);
 }
 
 .deck-project-meta span {
   color: var(--color-text-dim);
-  font-size: 0.58rem;
+  font-size: 0.62rem;
 }
 
 .deck-project-meta strong {
   color: var(--color-text);
-  font-size: 0.67rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 1.35;
 }
 
 .deck-project-footer {
@@ -2730,18 +2846,23 @@ section[id] {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 0.55rem;
+  gap: 0.75rem;
+  height: 420px;
+  min-height: 420px;
+  max-height: 420px;
+  box-sizing: border-box;
+  padding: 1.35rem 1.5rem;
 }
 
 .deck-contact-heading {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.65rem;
 }
 
 .deck-contact-heading .deck-eyebrow,
 .deck-contact-links-card .deck-eyebrow {
-  margin-bottom: 0.15rem;
+  margin-bottom: 0.2rem;
 }
 
 .deck-contact-heading h4,
@@ -2749,19 +2870,19 @@ section[id] {
   margin: 0;
   color: var(--color-text);
   font-family: var(--font-display);
-  font-size: 0.98rem;
+  font-size: 1.05rem;
 }
 
 .deck-contact-icon {
   display: grid;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   place-items: center;
   border: 1px solid rgba(76, 141, 255, 0.28);
-  border-radius: 10px;
+  border-radius: 12px;
   background: rgba(76, 141, 255, 0.12);
   color: var(--color-accent-bright);
-  font-size: 0.88rem;
+  font-size: 1rem;
   font-weight: 700;
 }
 
@@ -2769,8 +2890,8 @@ section[id] {
 .deck-contact-links-lead {
   margin: 0;
   color: var(--color-text-dim);
-  font-size: 0.73rem;
-  line-height: 1.4;
+  font-size: 0.78rem;
+  line-height: 1.5;
 }
 
 .deck-contact-email-card {
@@ -2782,30 +2903,30 @@ section[id] {
 .deck-contact-action-area {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  gap: 0.55rem;
   margin-top: auto;
 }
 
 .deck-contact-private-note {
   display: flex;
   align-items: center;
-  min-height: 28px;
-  padding: 0.35rem 0.55rem;
+  min-height: 32px;
+  padding: 0.45rem 0.65rem;
   border: 1px solid rgba(122, 175, 255, 0.14);
-  border-radius: 8px;
+  border-radius: 9px;
   background: rgba(76, 141, 255, 0.06);
   color: var(--color-text-dim);
-  font-size: 0.64rem;
-  line-height: 1.25;
+  font-size: 0.67rem;
+  line-height: 1.35;
 }
 
 .deck-contact-pill-val {
   display: flex;
   flex-direction: column;
-  gap: 0.12rem;
+  gap: 0.15rem;
   color: var(--color-text-dim);
   background: rgba(255, 255, 255, 0.03);
-  padding: 0.42rem 0.65rem;
+  padding: 0.5rem 0.75rem;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.05);
   word-break: break-all;
@@ -2813,13 +2934,13 @@ section[id] {
 
 .deck-contact-pill-val span {
   color: var(--color-text-dim);
-  font-size: 0.58rem;
+  font-size: 0.62rem;
 }
 
 .deck-contact-pill-val strong {
   color: var(--color-text);
   font-family: monospace;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 500;
 }
 
@@ -2827,13 +2948,13 @@ section[id] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.35rem;
-  padding: 0.45rem 0.85rem;
+  gap: 0.4rem;
+  padding: 0.55rem 1rem;
   border-radius: 999px;
   background: var(--color-accent);
   color: #fff;
   text-decoration: none;
-  font-size: 0.74rem;
+  font-size: 0.78rem;
   font-weight: 600;
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
   text-align: center;
@@ -2847,27 +2968,27 @@ section[id] {
 .deck-social-links-list {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.45rem;
 }
 
 .deck-social-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.42rem 0.7rem;
-  border-radius: 10px;
+  padding: 0.5rem 0.8rem;
+  border-radius: 12px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.06);
   color: var(--color-text);
   text-decoration: none;
-  font-size: 0.73rem;
+  font-size: 0.76rem;
   font-weight: 600;
   transition: all var(--transition-fast);
 }
 
 .deck-social-row small {
   color: var(--color-text-dim);
-  font-size: 0.6rem;
+  font-size: 0.63rem;
   font-weight: 500;
 }
 
@@ -2885,10 +3006,11 @@ section[id] {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 330px;
-  max-height: 330px;
+  height: 420px;
+  min-height: 420px;
+  max-height: 420px;
   box-sizing: border-box;
-  padding: 1.1rem 1.25rem;
+  padding: 1.35rem 1.5rem;
   position: relative;
   overflow: hidden;
 }
@@ -3283,9 +3405,9 @@ section[id] {
   .bento-deck-panel .bento-card-deck,
   .bento-deck-panel .deck-gear-card,
   .bento-deck-panel .deck-contact-card {
-    height: 330px !important;
-    max-height: 330px !important;
-    min-height: 330px !important;
+    height: 420px !important;
+    max-height: 420px !important;
+    min-height: 420px !important;
     box-sizing: border-box !important;
   }
 }
