@@ -784,4 +784,337 @@ function get_visitor_stats(PDO $pdo): array {
     return $stats;
 }
 
+// =========================================================================
+// CAREER TELEMETRY, SECURITY MONITOR & ADMIN PRODUCTIVITY
+// =========================================================================
+
+/**
+ * Self-healing schema untuk tabel pendukung dashboard
+ */
+function ensure_dashboard_tables_schema(PDO $pdo): void {
+    static $checked = false;
+    if ($checked) return;
+
+    try {
+        $pdo->exec("CREATE TABLE IF NOT EXISTS `cv_downloads` (
+            `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+            `ip_address` VARCHAR(45) NOT NULL,
+            `country` VARCHAR(100) DEFAULT 'Unknown',
+            `city` VARCHAR(100) DEFAULT 'Unknown',
+            `user_agent` TEXT DEFAULT NULL,
+            `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (`id`),
+            INDEX `idx_created_at` (`created_at`),
+            INDEX `idx_ip` (`ip_address`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+
+        $pdo->exec("CREATE TABLE IF NOT EXISTS `login_logs` (
+            `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+            `username` VARCHAR(100) NOT NULL,
+            `status` ENUM('SUCCESS', 'FAILED') NOT NULL DEFAULT 'FAILED',
+            `ip_address` VARCHAR(45) NOT NULL,
+            `country` VARCHAR(100) DEFAULT 'Unknown',
+            `city` VARCHAR(100) DEFAULT 'Unknown',
+            `user_agent` TEXT DEFAULT NULL,
+            `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (`id`),
+            INDEX `idx_created_at` (`created_at`),
+            INDEX `idx_status` (`status`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+
+        $pdo->exec("CREATE TABLE IF NOT EXISTS `admin_notes` (
+            `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+            `note_content` MEDIUMTEXT DEFAULT NULL,
+            `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+
+        $checked = true;
+    } catch (\Throwable $e) {
+        // Silently ignore
+    }
+}
+
+/**
+ * Catat unduhan CV oleh recruiter/pengunjung
+ */
+function track_cv_download(PDO $pdo): void {
+    try {
+        ensure_dashboard_tables_schema($pdo);
+        $rawIp = get_client_ip();
+        $geo   = detect_geo($rawIp);
+        $ua    = $_SERVER['HTTP_USER_AGENT'] ?? null;
+
+        $stmt = $pdo->prepare("
+            INSERT INTO cv_downloads (ip_address, country, city, user_agent)
+            VALUES (:ip, :country, :city, :ua)
+        ");
+        $stmt->execute([
+            'ip'      => substr($rawIp, 0, 45),
+            'country' => substr($geo['country'], 0, 100),
+            'city'    => substr($geo['city'], 0, 100),
+            'ua'      => $ua ? substr($ua, 0, 500) : null,
+        ]);
+    } catch (\Throwable $e) {
+        // Ignore
+    }
+}
+
+/**
+ * Catat riwayat login admin (sukses/gagal)
+ */
+function log_login_attempt(PDO $pdo, string $username, string $status): void {
+    try {
+        ensure_dashboard_tables_schema($pdo);
+        $rawIp = get_client_ip();
+        $geo   = detect_geo($rawIp);
+        $ua    = $_SERVER['HTTP_USER_AGENT'] ?? null;
+
+        $stmt = $pdo->prepare("
+            INSERT INTO login_logs (username, status, ip_address, country, city, user_agent)
+            VALUES (:user, :status, :ip, :country, :city, :ua)
+        ");
+        $stmt->execute([
+            'user'    => substr($username, 0, 100),
+            'status'  => $status === 'SUCCESS' ? 'SUCCESS' : 'FAILED',
+            'ip'      => substr($rawIp, 0, 45),
+            'country' => substr($geo['country'], 0, 100),
+            'city'    => substr($geo['city'], 0, 100),
+            'ua'      => $ua ? substr($ua, 0, 500) : null,
+        ]);
+    } catch (\Throwable $e) {
+        // Ignore
+    }
+}
+
+/**
+ * Dapatkan Career & Recruiter Telemetry (CV downloads, Referrer sources, Top Projects)
+ */
+function get_career_telemetry(PDO $pdo): array {
+    ensure_dashboard_tables_schema($pdo);
+    $data = [
+        'cv_total'             => 0,
+        'cv_this_week'         => 0,
+        'recent_cv_downloads'  => [],
+        'referrer_sources'     => [],
+        'top_projects'         => [],
+    ];
+
+    try {
+        // CV Downloads
+        $data['cv_total'] = (int)$pdo->query("SELECT COUNT(*) FROM cv_downloads")->fetchColumn();
+        $data['cv_this_week'] = (int)$pdo->query("SELECT COUNT(*) FROM cv_downloads WHERE YEARWEEK(created_at, 1) = YEARWEEK(CURDATE(), 1)")->fetchColumn();
+
+        $recentCv = $pdo->query("
+            SELECT ip_address, country, city, created_at
+            FROM cv_downloads
+            ORDER BY id DESC
+            LIMIT 4
+        ")->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($recentCv as &$cv) {
+            $cv['ip_masked'] = mask_ip($cv['ip_address']);
+        }
+        $data['recent_cv_downloads'] = $recentCv;
+
+        // Referrer Breakdown
+        $referrers = $pdo->query("
+            SELECT referer, COUNT(*) as hits
+            FROM page_views
+            WHERE referer IS NOT NULL AND referer != ''
+            GROUP BY referer
+        ")->fetchAll(PDO::FETCH_ASSOC);
+
+        $categories = [
+            'LinkedIn'  => 0,
+            'GitHub'    => 0,
+            'Instagram' => 0,
+            'TikTok'    => 0,
+            'Google'    => 0,
+            'YouTube'   => 0,
+            'Direct / Lainnya' => 0,
+        ];
+
+        $totalRef = (int)$pdo->query("SELECT COUNT(*) FROM page_views")->fetchColumn() ?: 1;
+
+        foreach ($referrers as $r) {
+            $ref = strtolower($r['referer']);
+            $hits = (int)$r['hits'];
+            if (str_contains($ref, 'linkedin.com')) $categories['LinkedIn'] += $hits;
+            elseif (str_contains($ref, 'github.com')) $categories['GitHub'] += $hits;
+            elseif (str_contains($ref, 'instagram.com')) $categories['Instagram'] += $hits;
+            elseif (str_contains($ref, 'tiktok.com')) $categories['TikTok'] += $hits;
+            elseif (str_contains($ref, 'google.')) $categories['Google'] += $hits;
+            elseif (str_contains($ref, 'youtube.com')) $categories['YouTube'] += $hits;
+            else $categories['Direct / Lainnya'] += $hits;
+        }
+
+        $refList = [];
+        $icons = [
+            'LinkedIn'  => '💼',
+            'GitHub'    => '🐙',
+            'Instagram' => '📸',
+            'TikTok'    => '🎵',
+            'Google'    => '🔍',
+            'YouTube'   => '▶️',
+            'Direct / Lainnya' => '🔗',
+        ];
+        foreach ($categories as $source => $count) {
+            if ($count > 0 || in_array($source, ['LinkedIn', 'GitHub', 'Google', 'Direct / Lainnya'])) {
+                $refList[] = [
+                    'source'     => $source,
+                    'icon'       => $icons[$source] ?? '🌐',
+                    'count'      => $count,
+                    'percentage' => round(($count / $totalRef) * 100, 1),
+                ];
+            }
+        }
+        usort($refList, fn($a, $b) => $b['count'] <=> $a['count']);
+        $data['referrer_sources'] = $refList;
+
+        // Top Projects (Berdasarkan hits halaman proyek di page_views)
+        $projHits = $pdo->query("
+            SELECT page, COUNT(*) as hits
+            FROM page_views
+            WHERE page LIKE '%project%' OR page LIKE '%#project%'
+            GROUP BY page
+            ORDER BY hits DESC
+            LIMIT 5
+        ")->fetchAll(PDO::FETCH_ASSOC);
+
+        $projects = $pdo->query("SELECT id, title, category, is_published FROM projects ORDER BY sort_order ASC, id DESC LIMIT 5")->fetchAll(PDO::FETCH_ASSOC);
+        $data['top_projects'] = $projects;
+
+    } catch (\Throwable $e) {
+        // Ignore
+    }
+
+    return $data;
+}
+
+/**
+ * Dapatkan data pemantauan keamanan & login logs
+ */
+function get_security_monitor(PDO $pdo): array {
+    ensure_dashboard_tables_schema($pdo);
+    $data = [
+        'recent_logins'       => [],
+        'failed_logins_today' => 0,
+        'bot_percentage'      => 0,
+        'human_percentage'    => 100,
+    ];
+
+    try {
+        $recent = $pdo->query("
+            SELECT username, status, ip_address, country, city, created_at
+            FROM login_logs
+            ORDER BY id DESC
+            LIMIT 5
+        ")->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($recent as &$l) {
+            $l['ip_masked'] = mask_ip($l['ip_address']);
+        }
+        $data['recent_logins'] = $recent;
+
+        $data['failed_logins_today'] = (int)$pdo->query("
+            SELECT COUNT(*) FROM login_logs 
+            WHERE status = 'FAILED' AND DATE(created_at) = CURDATE()
+        ")->fetchColumn();
+
+    } catch (\Throwable $e) {
+        // Ignore
+    }
+
+    return $data;
+}
+
+/**
+ * Hitung ukuran total direktori berkas (dalam Bytes)
+ */
+function get_dir_size(string $path): int {
+    $size = 0;
+    if (!is_dir($path)) return 0;
+    foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS)) as $file) {
+        $size += $file->getSize();
+    }
+    return $size;
+}
+
+/**
+ * Dapatkan Metrik Kesehatan Server & Sistem
+ */
+function get_server_health(PDO $pdo): array {
+    $start = microtime(true);
+    $dbOk = false;
+    try {
+        $pdo->query("SELECT 1");
+        $dbOk = true;
+    } catch (\Throwable $e) {}
+    $pingMs = round((microtime(true) - $start) * 1000, 1);
+
+    $uploadBytes = get_dir_size(UPLOADS_PATH);
+    $uploadMb    = round($uploadBytes / (1024 * 1024), 2);
+
+    return [
+        'php_version'   => PHP_VERSION,
+        'db_status'     => $dbOk ? 'Connected' : 'Error',
+        'db_ping_ms'    => $pingMs,
+        'upload_size_mb'=> $uploadMb,
+        'server_os'     => PHP_OS_FAMILY,
+        'memory_limit'  => ini_get('memory_limit') ?: '128M',
+        'memory_usage'  => round(memory_get_usage(true) / (1024 * 1024), 1) . ' MB',
+    ];
+}
+
+/**
+ * Ambil catatan admin scratchpad
+ */
+function get_admin_notes(PDO $pdo): string {
+    ensure_dashboard_tables_schema($pdo);
+    try {
+        $note = $pdo->query("SELECT note_content FROM admin_notes WHERE id = 1 LIMIT 1")->fetchColumn();
+        return $note !== false ? (string)$note : "📌 To-Do List:\n- [ ] Update deskripsi proyek terbaru\n- [ ] Cek pesan buku tamu\n- [ ] Perbarui file CV PDF";
+    } catch (\Throwable $e) {
+        return "";
+    }
+}
+
+/**
+ * Simpan catatan admin scratchpad
+ */
+function save_admin_notes(PDO $pdo, string $content): void {
+    ensure_dashboard_tables_schema($pdo);
+    $stmt = $pdo->prepare("
+        INSERT INTO admin_notes (id, note_content, updated_at)
+        VALUES (1, :content, NOW())
+        ON DUPLICATE KEY UPDATE note_content = VALUES(note_content), updated_at = NOW()
+    ");
+    $stmt->execute(['content' => $content]);
+}
+
+/**
+ * Dapatkan status kesehatan SEO & Sitemap
+ */
+function get_seo_health(PDO $pdo): array {
+    $profile = get_profile($pdo);
+    
+    $checks = [
+        'sitemap'    => file_exists(ROOT_PATH . '/sitemap.php') || file_exists(ROOT_PATH . '/sitemap.xml'),
+        'robots'     => file_exists(ROOT_PATH . '/robots.php') || file_exists(ROOT_PATH . '/robots.txt'),
+        'meta_bio'   => !empty($profile['bio']) && !empty($profile['tagline']),
+        'og_photo'   => !empty($profile['photo']) && file_exists(UPLOAD_DIR_PHOTOS . '/' . basename($profile['photo'])),
+        'custom_seo' => file_exists(INCLUDES_PATH . '/seo.php'),
+    ];
+
+    $passed = count(array_filter($checks));
+    $score = round(($passed / count($checks)) * 100);
+
+    return [
+        'score'  => (int)$score,
+        'checks' => $checks,
+    ];
+}
+
+
 

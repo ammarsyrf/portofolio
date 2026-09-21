@@ -35,7 +35,7 @@ if (!empty($profile['cv_file'])) {
     $cvPath = UPLOAD_DIR_CV . '/' . basename($profile['cv_file']);
     if (file_exists($cvPath)) {
         $hasCv = true;
-        $cvUrl = upload_url('cv', $profile['cv_file']);
+        $cvUrl = BASE_URL . '/download-cv.php';
     }
 }
 

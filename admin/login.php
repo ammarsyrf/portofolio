@@ -54,6 +54,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // Reset counter percobaan gagal saat login berhasil
                     reset_login_attempts($clientIp);
 
+                    // Catat ke log login sukses
+                    log_login_attempt($pdo, $username, 'SUCCESS');
+
                     // Regenerasi session ID untuk mencegah session fixation
                     session_regenerate_id(true);
                     $_SESSION['admin_logged_in'] = true;
@@ -66,6 +69,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     set_flash('success', 'Selamat datang kembali, ' . e($admin['username']) . '!');
                     redirect(BASE_URL . '/admin/dashboard');
                 } else {
+                    // Catat ke log login gagal
+                    log_login_attempt($pdo, $username, 'FAILED');
+
                     // Catat kegagalan login dan evaluasi rate limiting
                     $record = record_failed_login($clientIp);
                     if ($record['locked']) {
