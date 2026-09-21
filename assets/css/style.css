@@ -447,9 +447,10 @@ button, input, textarea, select {
   .site-header {
     position: fixed !important;
     top: 50% !important;
-    transform: translateY(-50%) !important;
-    left: auto !important;
-    right: max(calc(100vw - 4.5rem), calc(50vw + min(40rem, 46vw) + 16px)) !important;
+    transform: translateY(-50%) translateX(-100%) !important;
+    left: max(205px, calc(50% - 40rem - 18px)) !important;
+    right: auto !important;
+    bottom: auto !important;
     width: 58px;
     margin: 0 !important;
     z-index: 1000 !important;
