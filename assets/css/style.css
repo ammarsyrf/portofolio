@@ -7121,3 +7121,333 @@ section[id] {
   margin-top: 2.5rem;
 }
 
+/* ==========================================================================
+   24. GitHub Activity & Contribution Heatmap Widget
+   ========================================================================== */
+.github-activity-card {
+  background: rgba(13, 17, 26, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 2rem;
+  margin-bottom: 2.5rem;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  position: relative;
+  overflow: hidden;
+}
+
+.github-activity-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #238636, #2ea043, #39d353, #238636);
+  opacity: 0.8;
+}
+
+.github-activity-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.github-activity-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.github-contrib-number {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.github-contrib-caption {
+  font-size: 0.82rem;
+  color: var(--color-text-dim);
+}
+
+.github-year-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.github-year-pills::-webkit-scrollbar { display: none; }
+
+.year-pill {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  color: var(--color-text-dim);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all var(--transition-fast);
+}
+
+.year-pill.active {
+  background: #2563eb;
+  border-color: #3b82f6;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(37, 99, 235, 0.4);
+}
+
+/* Heatmap Section */
+.github-heatmap-wrapper {
+  background: rgba(10, 14, 23, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.github-heatmap-grid {
+  min-width: 680px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.heatmap-months-row {
+  display: flex;
+  padding-left: 2rem;
+  font-size: 0.68rem;
+  color: var(--color-text-faint);
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+
+.heatmap-days-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.heatmap-day-labels {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: 0.65rem;
+  color: var(--color-text-faint);
+  width: 1.5rem;
+  user-select: none;
+}
+
+.heatmap-squares-grid {
+  display: grid;
+  grid-template-rows: repeat(7, 10px);
+  grid-auto-flow: column;
+  grid-auto-columns: 10px;
+  gap: 3px;
+  flex-grow: 1;
+}
+
+.heatmap-sq {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  transition: transform 0.15s ease, outline 0.15s ease;
+  cursor: pointer;
+}
+
+.heatmap-sq:hover {
+  transform: scale(1.4);
+  outline: 1.5px solid #ffffff;
+  z-index: 2;
+}
+
+.heatmap-sq.lvl-0 { background-color: #161b22; }
+.heatmap-sq.lvl-1 { background-color: #0e4429; }
+.heatmap-sq.lvl-2 { background-color: #006d32; }
+.heatmap-sq.lvl-3 { background-color: #26a641; }
+.heatmap-sq.lvl-4 { background-color: #39d353; box-shadow: 0 0 4px #39d353; }
+
+.heatmap-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+  font-size: 0.7rem;
+  color: var(--color-text-faint);
+}
+
+.heatmap-legend {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.heatmap-legend-squares {
+  display: flex;
+  gap: 2.5px;
+}
+
+.heatmap-legend-squares .heatmap-sq {
+  cursor: default;
+}
+
+/* Organizations Chips */
+.github-orgs-strip {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: 1.5rem;
+}
+
+.github-org-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  color: #e2e8f0;
+  font-size: 0.76rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.github-org-chip:hover {
+  background: rgba(76, 141, 255, 0.15);
+  border-color: rgba(76, 141, 255, 0.4);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.org-avatar-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+.org-avatar-icon.nexus { background: #84cc16; color: #000; }
+.org-avatar-icon.nexdigi { background: #6366f1; color: #fff; }
+.org-avatar-icon.zenerie { background: #a855f7; color: #fff; }
+
+/* Activity Overview & Quad Radar */
+.github-activity-overview {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+@media (min-width: 768px) {
+  .github-activity-overview {
+    grid-template-columns: 1.2fr 1fr;
+    align-items: center;
+  }
+}
+
+.activity-summary-col h4 {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.activity-repo-list {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--color-text-dim);
+}
+
+.activity-book-icon {
+  color: var(--color-accent-bright);
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.activity-repo-link {
+  color: #60a5fa;
+  text-decoration: none;
+  font-weight: 600;
+}
+.activity-repo-link:hover {
+  text-decoration: underline;
+  color: #93c5fd;
+}
+
+/* Activity Quad Chart */
+.activity-quad-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.activity-quad-chart {
+  position: relative;
+  width: 250px;
+  height: 140px;
+  margin: 0 auto;
+}
+
+.quad-axis-v {
+  position: absolute;
+  top: 18px;
+  bottom: 18px;
+  left: 50%;
+  width: 2px;
+  background: rgba(34, 197, 94, 0.7);
+  transform: translateX(-50%);
+}
+
+.quad-axis-h {
+  position: absolute;
+  left: 30px;
+  right: 30px;
+  top: 50%;
+  height: 2px;
+  background: rgba(34, 197, 94, 0.7);
+  transform: translateY(-50%);
+}
+
+.quad-label {
+  position: absolute;
+  font-size: 0.68rem;
+  color: var(--color-text-faint);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.quad-label.top { top: 0; left: 50%; transform: translateX(-50%); }
+.quad-label.bottom { bottom: 0; left: 50%; transform: translateX(-50%); }
+.quad-label.left { left: 0; top: 50%; transform: translateY(-50%); color: #4ade80; font-weight: 700; }
+.quad-label.right { right: 0; top: 50%; transform: translateY(-50%); }
+
+.quad-data-dot {
+  position: absolute;
+  left: 36%;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 12px #4ade80;
+  transform: translate(-50%, -50%);
+  border: 1.5px solid #ffffff;
+}
+
+
