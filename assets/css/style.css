@@ -445,14 +445,14 @@ button, input, textarea, select {
 /* Desktop Sidebar Rail (Fixed Left Dock as in Figma with Hover-Expand) */
 @media (min-width: 1080px) {
   .site-header {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 1.25rem;
+    position: fixed !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    left: 1.5rem !important;
     width: 60px;
-    margin: 0;
-    z-index: 1000;
-    pointer-events: none;
+    margin: 0 !important;
+    z-index: 1000 !important;
+    pointer-events: none !important;
     transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
@@ -460,14 +460,14 @@ button, input, textarea, select {
   main,
   section,
   .site-footer {
-    padding-left: 5.5rem;
+    padding-left: 13rem;
   }
 
   .site-header .site-container {
     width: 100%;
-    padding: 0;
-    margin: 0;
-    pointer-events: auto;
+    padding: 0 !important;
+    margin: 0 !important;
+    pointer-events: auto !important;
     transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
@@ -617,11 +617,7 @@ button, input, textarea, select {
   }
 }
 
-@media (min-width: 1480px) {
-  .site-header {
-    left: max(1.5rem, calc(50% - 46.5rem));
-  }
-
+@media (min-width: 1800px) {
   main,
   section,
   .site-footer {
