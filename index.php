@@ -11,9 +11,13 @@ require_once __DIR__ . '/includes/functions.php';
 require_once __DIR__ . '/includes/homepage_content.php';
 require_once __DIR__ . '/includes/seo.php';
 
+// Catat kunjungan halaman untuk statistik dashboard
+track_page_view($pdo);
+
 // Ambil data profil dari database
 $profile = get_profile($pdo);
 $homeContent = get_homepage_content($pdo);
+
 
 // Fallback profil jika database kosong
 if (!$profile) {

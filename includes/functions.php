@@ -357,3 +357,128 @@ function set_guest_user(array $user): void {
 function logout_guest(): void {
     unset($_SESSION['guest_user']);
 }
+
+// =========================================================================
+// VISITOR / PAGE-VIEW TRACKING
+// =========================================================================
+
+/**
+ * Catat page view. Panggil di index.php publik.
+ * Tabel harus sudah dibuat via migration 002_add_page_views.sql
+ */
+function track_page_view(PDO $pdo): void {
+    try {
+        // Gunakan hash session ID agar tidak menyimpan data sensitif
+        $sessionId = session_id() ?: bin2hex(random_bytes(8));
+        $ipHash    = hash('sha256', ($_SERVER['REMOTE_ADDR'] ?? '') . 'salt_porto_2025');
+        $page      = $_SERVER['REQUEST_URI'] ?? '/';
+        $referer   = $_SERVER['HTTP_REFERER'] ?? null;
+        $ua        = $_SERVER['HTTP_USER_AGENT'] ?? null;
+
+        $stmt = $pdo->prepare("
+            INSERT INTO page_views (session_id, ip_hash, user_agent, page, referer)
+            VALUES (:sid, :ip, :ua, :page, :ref)
+        ");
+        $stmt->execute([
+            'sid'  => substr($sessionId, 0, 128),
+            'ip'   => $ipHash,
+            'ua'   => $ua ? substr($ua, 0, 500) : null,
+            'page' => substr($page, 0, 512),
+            'ref'  => $referer ? substr($referer, 0, 512) : null,
+        ]);
+    } catch (\Throwable $e) {
+        // Silently fail — jangan rusak halaman publik
+    }
+}
+
+/**
+ * Ambil ringkasan statistik pengunjung untuk dashboard admin.
+ * Mengembalikan array dengan data visitor 7 hari terakhir.
+ */
+function get_visitor_stats(PDO $pdo): array {
+    $stats = [
+        'today'         => 0,
+        'yesterday'     => 0,
+        'this_week'     => 0,
+        'last_week'     => 0,
+        'total'         => 0,
+        'unique_today'  => 0,
+        'trend'         => [],   // ['label' => 'Sen', 'views' => 42, 'unique' => 10]
+        'top_pages'     => [],
+        'table_exists'  => false,
+    ];
+
+    try {
+        // Cek apakah tabel ada
+        $check = $pdo->query("SHOW TABLES LIKE 'page_views'")->fetchColumn();
+        if (!$check) return $stats;
+        $stats['table_exists'] = true;
+
+        // Total all time
+        $stats['total'] = (int)$pdo->query("SELECT COUNT(*) FROM page_views")->fetchColumn();
+
+        // Hari ini
+        $stats['today'] = (int)$pdo->query(
+            "SELECT COUNT(*) FROM page_views WHERE DATE(created_at) = CURDATE()"
+        )->fetchColumn();
+
+        // Kemarin
+        $stats['yesterday'] = (int)$pdo->query(
+            "SELECT COUNT(*) FROM page_views WHERE DATE(created_at) = DATE_SUB(CURDATE(), INTERVAL 1 DAY)"
+        )->fetchColumn();
+
+        // Minggu ini (Senin s.d. hari ini)
+        $stats['this_week'] = (int)$pdo->query(
+            "SELECT COUNT(*) FROM page_views WHERE YEARWEEK(created_at, 1) = YEARWEEK(CURDATE(), 1)"
+        )->fetchColumn();
+
+        // Unique sessions hari ini
+        $stats['unique_today'] = (int)$pdo->query(
+            "SELECT COUNT(DISTINCT session_id) FROM page_views WHERE DATE(created_at) = CURDATE()"
+        )->fetchColumn();
+
+        // Trend 7 hari: views & unique per hari
+        $trend = $pdo->query("
+            SELECT
+                DATE(created_at)                  AS day,
+                COUNT(*)                          AS views,
+                COUNT(DISTINCT session_id)        AS unique_sessions
+            FROM page_views
+            WHERE created_at >= DATE_SUB(CURDATE(), INTERVAL 6 DAY)
+            GROUP BY DATE(created_at)
+            ORDER BY day ASC
+        ")->fetchAll(PDO::FETCH_ASSOC);
+
+        // Isi gap hari yang kosong
+        $dayMap = [];
+        foreach ($trend as $row) $dayMap[$row['day']] = $row;
+
+        $days = [];
+        for ($i = 6; $i >= 0; $i--) {
+            $d   = date('Y-m-d', strtotime("-{$i} days"));
+            $lbl = date('D', strtotime($d)); // Mon, Tue, etc.
+            $days[] = [
+                'label'   => $lbl,
+                'views'   => (int)($dayMap[$d]['views'] ?? 0),
+                'unique'  => (int)($dayMap[$d]['unique_sessions'] ?? 0),
+            ];
+        }
+        $stats['trend'] = $days;
+
+        // Top 5 halaman
+        $stats['top_pages'] = $pdo->query("
+            SELECT page, COUNT(*) AS hits
+            FROM page_views
+            WHERE created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+            GROUP BY page
+            ORDER BY hits DESC
+            LIMIT 5
+        ")->fetchAll(PDO::FETCH_ASSOC);
+
+    } catch (\Throwable $e) {
+        // Silently return defaults
+    }
+
+    return $stats;
+}
+

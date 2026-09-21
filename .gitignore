@@ -7,8 +7,14 @@ config.php
 # Local render checks and temporary inspection clones
 scratch/
 
+# Logs
+*.log
+error_log
+connect_ssh.bat
+
 # OS and editor files
 .DS_Store
 Thumbs.db
 .idea/
 .vscode/
+
