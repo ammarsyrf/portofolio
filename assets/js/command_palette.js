@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { label: 'Tentang Ammar (About)', category: 'Section', url: baseUrl + '/#about', icon: '👤' },
     { label: 'Keahlian & Toolkit (Skills)', category: 'Section', url: baseUrl + '/#skills', icon: '⚡' },
     { label: 'Koleksi Proyek (Projects)', category: 'Section', url: baseUrl + '/#projects', icon: '💼' },
+    { label: 'GitHub Repository Showcase', category: 'Section', url: baseUrl + '/#github-showcase', icon: '🐙' },
     { label: 'Pencapaian & Sertifikat (Achievements)', category: 'Halaman', url: baseUrl + '/achievements', icon: '🏆' },
     { label: 'Kreasi TikTok & Instagram (Creations)', category: 'Halaman', url: baseUrl + '/creations', icon: '🎬' },
     { label: 'Buku Tamu Pengunjung (Guestbook)', category: 'Halaman', url: baseUrl + '/guestbook', icon: '📖' },
