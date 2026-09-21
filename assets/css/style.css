@@ -442,25 +442,19 @@ button, input, textarea, select {
   color: var(--color-accent-bright);
 }
 
-/* Desktop Sidebar Rail (Fixed Left Dock as in Figma with Hover-Expand) */
+/* Desktop Sidebar Rail (Docked adjacent to Bento Canvas with Leftward Expand) */
 @media (min-width: 1080px) {
   .site-header {
     position: fixed !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
-    left: 1.5rem !important;
-    width: 60px;
+    left: auto !important;
+    right: max(calc(100vw - 4.5rem), calc(50vw + min(40rem, 46vw) + 16px)) !important;
+    width: 58px;
     margin: 0 !important;
     z-index: 1000 !important;
     pointer-events: none !important;
-    transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  /* Berikan clearance di sisi kiri agar sidebar tidak pernah menimpa (niban) konten utama */
-  main,
-  section,
-  .site-footer {
-    padding-left: 13rem;
+    transition: width 0.32s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .site-header .site-container {
@@ -468,7 +462,7 @@ button, input, textarea, select {
     padding: 0 !important;
     margin: 0 !important;
     pointer-events: auto !important;
-    transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: width 0.32s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .nav-pill-bar {
@@ -482,9 +476,9 @@ button, input, textarea, select {
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
-    margin: 0 auto;
+    margin: 0 0 0 auto;
     overflow: hidden;
-    transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.3s ease;
+    transition: width 0.32s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.32s ease, border-color 0.3s ease;
   }
 
   .nav-brand-pill {
@@ -493,7 +487,7 @@ button, input, textarea, select {
     padding: 0.2rem 0.3rem 0.4rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     gap: 0.65rem;
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .nav-brand-pill .brand-name,
@@ -504,7 +498,7 @@ button, input, textarea, select {
     overflow: hidden;
     opacity: 0;
     white-space: nowrap;
-    transition: max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+    transition: max-width 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease;
   }
 
   .btn-hire-text,
@@ -538,7 +532,7 @@ button, input, textarea, select {
     position: relative;
     gap: 0.65rem;
     overflow: hidden;
-    transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1), padding 0.35s cubic-bezier(0.16, 1, 0.3, 1), background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+    transition: width 0.32s cubic-bezier(0.16, 1, 0.3, 1), padding 0.32s cubic-bezier(0.16, 1, 0.3, 1), background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
   }
 
   .nav-item-icon {
@@ -574,17 +568,17 @@ button, input, textarea, select {
     font-size: 1.1rem;
   }
 
-  /* Hover & Focus Expand States */
+  /* Hover & Focus Expand States (Expands Leftward without touching canvas) */
   .site-header:hover,
   .site-header:focus-within {
-    width: 200px;
+    width: 195px;
   }
 
   .site-header:hover .site-container,
   .site-header:focus-within .site-container,
   .site-header:hover .nav-pill-bar,
   .site-header:focus-within .nav-pill-bar {
-    width: 200px;
+    width: 195px;
   }
 
   .site-header:hover .nav-pill-bar,
@@ -612,16 +606,8 @@ button, input, textarea, select {
   .site-header:hover .nav-label,
   .site-header:focus-within .nav-label {
     width: auto;
-    max-width: 130px;
+    max-width: 125px;
     opacity: 1;
-  }
-}
-
-@media (min-width: 1800px) {
-  main,
-  section,
-  .site-footer {
-    padding-left: 0;
   }
 }
 
