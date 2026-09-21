@@ -760,7 +760,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (heatmapMonthsRow && yearKey !== 'last') {
         heatmapMonthsRow.innerHTML = monthNames.map(m => `<span>${m}</span>`).join('');
       } else if (heatmapMonthsRow) {
-        heatmapMonthsRow.innerHTML = `<span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span>`;
+        heatmapMonthsRow.innerHTML = `<span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span>`;
       }
     }
 

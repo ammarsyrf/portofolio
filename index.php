@@ -2276,8 +2276,14 @@ $hireStatus = get_hire_status($pdo);
         <div class="github-activity-card" id="githubActivityCard">
           <div class="github-activity-header">
             <div class="github-activity-stat">
-              <span class="github-contrib-number" id="githubContribNumber"><?= e($githubStats['total_contributions'] ?? '1,162') ?></span>
-              <span class="github-contrib-caption" id="githubContribCaption">contributions in the last year</span>
+              <div class="github-contrib-badge">
+                <span class="github-contrib-dot"></span>
+                <span>Live Activity</span>
+              </div>
+              <div class="github-contrib-counter">
+                <span class="github-contrib-number" id="githubContribNumber"><?= e($githubStats['total_contributions'] ?? '1,162') ?></span>
+                <span class="github-contrib-caption" id="githubContribCaption">contributions in the last year</span>
+              </div>
             </div>
             <div class="github-year-pills" id="githubYearPills" role="tablist" aria-label="Tahun Aktivitas GitHub">
               <button type="button" class="year-pill active" data-year="last" title="1 Tahun Terakhir">Last Year</button>
@@ -2295,7 +2301,7 @@ $hireStatus = get_hire_status($pdo);
           <div class="github-heatmap-wrapper">
             <div class="github-heatmap-grid">
               <div class="heatmap-months-row" id="heatmapMonthsRow">
-                <span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span>
+                <span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span>
               </div>
               <div class="heatmap-days-container">
                 <div class="heatmap-day-labels">
@@ -2322,7 +2328,7 @@ $hireStatus = get_hire_status($pdo);
                 </div>
               </div>
               <div class="heatmap-footer-row">
-                <span>Learn how we count contributions via official GitHub API</span>
+                <span>Live synchronized with official GitHub API</span>
                 <div class="heatmap-legend">
                   <span>Less</span>
                   <div class="heatmap-legend-squares">
@@ -2340,44 +2346,78 @@ $hireStatus = get_hire_status($pdo);
 
           <!-- Organizations Strip -->
           <div class="github-orgs-strip">
-            <a href="https://github.com/NexusDevWeb" target="_blank" rel="noopener noreferrer" class="github-org-chip" title="Organisasi NexusDevWeb">
-              <span class="org-avatar-icon nexus">⚡</span>
-              <span>@NexusDevWeb</span>
-            </a>
-            <a href="https://github.com/NexDigi-Dev" target="_blank" rel="noopener noreferrer" class="github-org-chip" title="Organisasi NexDigi-Dev">
-              <span class="org-avatar-icon nexdigi">⌘</span>
-              <span>@NexDigi-Dev</span>
-            </a>
-            <a href="https://github.com/zeneriedev" target="_blank" rel="noopener noreferrer" class="github-org-chip" title="Organisasi zeneriedev">
-              <span class="org-avatar-icon zenerie">✦</span>
-              <span>@zeneriedev</span>
-            </a>
+            <div class="orgs-strip-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              <span>Organizations:</span>
+            </div>
+            <div class="orgs-strip-chips">
+              <a href="https://github.com/NexusDevWeb" target="_blank" rel="noopener noreferrer" class="github-org-chip nexus" title="Organisasi NexusDevWeb">
+                <span class="org-avatar-icon nexus">⚡</span>
+                <span class="org-name">@NexusDevWeb</span>
+                <span class="org-role-badge">Core Contributor</span>
+              </a>
+              <a href="https://github.com/NexDigi-Dev" target="_blank" rel="noopener noreferrer" class="github-org-chip nexdigi" title="Organisasi NexDigi-Dev">
+                <span class="org-avatar-icon nexdigi">⌘</span>
+                <span class="org-name">@NexDigi-Dev</span>
+                <span class="org-role-badge">Lead Dev</span>
+              </a>
+              <a href="https://github.com/zeneriedev" target="_blank" rel="noopener noreferrer" class="github-org-chip zenerie" title="Organisasi zeneriedev">
+                <span class="org-avatar-icon zenerie">✦</span>
+                <span class="org-name">@zeneriedev</span>
+                <span class="org-role-badge">Owner</span>
+              </a>
+            </div>
           </div>
 
-          <!-- Activity Overview -->
+          <!-- Activity Overview & Code Distribution Panel -->
           <div class="github-activity-overview">
             <div class="activity-summary-col">
-              <h4>Activity Overview &amp; Ecosystem</h4>
-              <div class="activity-repo-list">
-                <svg class="activity-book-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <div class="activity-col-header">
+                <svg class="activity-book-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
                   <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
                 </svg>
-                <div>
-                  Akun resmi <strong>@<?= e($ghUsername) ?></strong> (<?= e($githubStats['name'] ?? 'ZenS') ?>) aktif mengelola <strong><?= (int)($githubStats['public_repos'] ?? count($githubRepos)) ?> repositori publik</strong> dengan keahlian Full-Stack Engineering, arsitektur database, dan ekosistem digital.
+                <h4>Activity Overview &amp; Production Ecosystem</h4>
+              </div>
+              <p class="activity-bio-text">
+                Kontributor aktif dalam ekosistem <strong>NexusDevWeb</strong>, <strong>NexDigi-Dev</strong>, dan proyek open-source mandiri dengan fokus pada <em>clean architecture</em>, sistem backend terstruktur, dan performa tinggi.
+              </p>
+              <div class="activity-quick-stats">
+                <div class="quick-stat-item">
+                  <span class="quick-stat-val"><?= e($githubStats['total_contributions'] ?? '1,162+') ?></span>
+                  <span class="quick-stat-lbl">Verified Commits</span>
+                </div>
+                <div class="quick-stat-item">
+                  <span class="quick-stat-val"><?= (int)($githubStats['public_repos'] ?? count($githubRepos)) ?></span>
+                  <span class="quick-stat-lbl">Public Repos</span>
+                </div>
+                <div class="quick-stat-item">
+                  <span class="quick-stat-val">nexdigicreative.com</span>
+                  <span class="quick-stat-lbl">Company / Org</span>
                 </div>
               </div>
             </div>
 
-            <div class="activity-quad-col">
-              <div class="activity-quad-chart" title="Activity Profile: 100% Commits">
-                <span class="quad-label top">Code review</span>
-                <span class="quad-label bottom">Pull requests</span>
-                <span class="quad-label left">100% Commits</span>
-                <span class="quad-label right">Issues</span>
-                <div class="quad-axis-v"></div>
-                <div class="quad-axis-h"></div>
-                <div class="quad-data-dot" title="Active Commit Profile"></div>
+            <div class="activity-metrics-col">
+              <div class="tech-dist-header">
+                <span>Top Languages &amp; Stacks</span>
+                <span class="dist-badge">100% Commits</span>
+              </div>
+              <div class="tech-dist-bar" title="Language distribution across public repositories">
+                <div class="tech-bar-seg php" style="width: 58%;" title="PHP / Laravel (58%)"></div>
+                <div class="tech-bar-seg js" style="width: 22%;" title="JavaScript / Frontend (22%)"></div>
+                <div class="tech-bar-seg python" style="width: 12%;" title="Python / Automation (12%)"></div>
+                <div class="tech-bar-seg other" style="width: 8%;" title="SQL / CSS / Dart (8%)"></div>
+              </div>
+              <div class="tech-dist-legend">
+                <div class="legend-item"><span class="leg-dot php"></span><span>PHP / Laravel <strong>58%</strong></span></div>
+                <div class="legend-item"><span class="leg-dot js"></span><span>JavaScript <strong>22%</strong></span></div>
+                <div class="legend-item"><span class="leg-dot python"></span><span>Python <strong>12%</strong></span></div>
+                <div class="legend-item"><span class="leg-dot other"></span><span>SQL &amp; Others <strong>8%</strong></span></div>
+              </div>
+              <div class="activity-badge-footer">
+                <span class="badge-dot-live"></span>
+                <span>Consistent Commit Cadence &bull; Production-Ready Architecture</span>
               </div>
             </div>
           </div>
