@@ -1638,7 +1638,16 @@ $hireStatus = get_hire_status($pdo);
                 <div class="metric-label">Database hingga deployment</div>
               </div>
               <div>
-               <hr class="section-divider" />
+                <div class="metric-number">Remote-ready</div>
+                <div class="metric-label">Kolaborasi proyek digital</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
 
     <!-- ====================================================================
          SECTION 3: SKILLS (Flat Badges & Matriks Tingkat Penguasaan)

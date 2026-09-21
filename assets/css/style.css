@@ -3698,8 +3698,8 @@ section[id] {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 575px;
-  padding: 1.65rem;
+  min-height: auto;
+  padding: 1.35rem 1.45rem;
   overflow: hidden;
   border-radius: 20px;
   background:
@@ -5671,9 +5671,8 @@ section[id] {
 
   .skills-domain-card,
   .skills-category-card {
-    /* Semua slide memakai tinggi yang sama agar carousel tidak terlihat naik-turun. */
-    min-height: 650px;
-    height: 650px;
+    min-height: auto;
+    height: auto;
   }
 
   .skills-mobile-swipe-hint {
