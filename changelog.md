@@ -25,6 +25,7 @@ Semua perubahan dicatat berdasarkan commit Git. Format tanggal mengikuti waktu c
 ### Penyempurnaan visual
 
 - Mendesain ulang art direction portfolio tanpa mengubah layout bento: setiap zona kini memiliki tone yang bermakna (indigo untuk pendidikan, teal untuk brand dan terminal, violet untuk identitas), surface lebih berlapis, hero lebih terbingkai, serta glow/hover lebih terkendali.
+- Menstabilkan ekspansi sidebar desktop: rail tidak lagi berpindah saat hover, panel melebar ke kiri dengan sisi kanan terkunci, dan label menu muncul setelah ruang animasi tersedia.
 
 ## 2026-09-20
 
