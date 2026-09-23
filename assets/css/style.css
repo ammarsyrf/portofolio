@@ -8047,9 +8047,9 @@ section[id] {
   --color-text: #f4f7f8;
   --color-text-dim: #a8b3bd;
   --color-text-faint: #73808d;
-  --color-accent: #3fd4c0;
-  --color-accent-bright: #9bf5e7;
-  --color-accent-glow: rgba(63, 212, 192, 0.16);
+  --color-accent: #4BB8FA;
+  --color-accent-bright: #B8E7FF;
+  --color-accent-glow: rgba(75, 184, 250, 0.16);
   --color-line: rgba(197, 215, 230, 0.12);
 }
 
@@ -8109,9 +8109,9 @@ body::before {
 .bento-card-stats::before { background: #7c93ff; }
 
 .bento-card-brand {
-  background: linear-gradient(135deg, #12353b, #132329 72%);
+  background: linear-gradient(135deg, #12354b, #13232d 72%);
 }
-.bento-card-brand::before { background: #3fd4c0; }
+.bento-card-brand::before { background: #4BB8FA; }
 
 .bento-card-identity {
   background: linear-gradient(135deg, #302448, #201c2d 72%);
@@ -8124,9 +8124,9 @@ body::before {
 .bento-card-about::before { background: #7b9ee6; }
 
 .bento-card-terminal {
-  background: linear-gradient(135deg, #0c2424, #10171b 72%);
+  background: linear-gradient(135deg, #0d2434, #10171d 72%);
 }
-.bento-card-terminal::before { background: #47dec6; }
+.bento-card-terminal::before { background: #68C8FF; }
 
 .bento-card-skills-widget {
   background: #1a1e2b;
@@ -8146,7 +8146,7 @@ body::before {
 }
 
 .typo-line.accent {
-  color: #78e6d5;
+  color: #8FD8FF;
   text-shadow: none;
 }
 
@@ -8154,8 +8154,8 @@ body::before {
 .btn-bento-pill.primary,
 .btn-hire {
   border-radius: 6px;
-  background: #3fd4c0;
-  color: #071212;
+  background: #4BB8FA;
+  color: #06131B;
   box-shadow: none;
 }
 
@@ -8178,8 +8178,8 @@ body::before {
 }
 
 .cat-tab-btn.active {
-  background: #3fd4c0;
-  color: #071212;
+  background: #4BB8FA;
+  color: #06131B;
   box-shadow: none;
 }
 
@@ -8190,9 +8190,9 @@ body::before {
 }
 
 .nav-pill.active {
-  background: rgba(63, 212, 192, 0.16);
-  border-color: rgba(63, 212, 192, 0.62);
-  color: #9bf5e7;
+  background: rgba(75, 184, 250, 0.16);
+  border-color: rgba(75, 184, 250, 0.62);
+  color: #B8E7FF;
   box-shadow: none;
 }
 
