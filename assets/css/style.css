@@ -8032,3 +8032,174 @@ section[id] {
   box-shadow: 0 0 6px #22c55e;
   flex-shrink: 0;
 }
+
+/* --------------------------------------------------------------------------
+   Portfolio visual system v3 — technical editorial
+   The bento placement is intentionally retained; the component language is not.
+   -------------------------------------------------------------------------- */
+:root {
+  --color-bg: #0b0d10;
+  --color-bg-alt: #11151b;
+  --color-bg-surface: #171c24;
+  --color-glass-bg: rgba(255, 255, 255, 0.025);
+  --color-glass-border: rgba(197, 215, 230, 0.14);
+  --color-glass-border-hover: rgba(65, 222, 202, 0.72);
+  --color-text: #f4f7f8;
+  --color-text-dim: #a8b3bd;
+  --color-text-faint: #73808d;
+  --color-accent: #3fd4c0;
+  --color-accent-bright: #9bf5e7;
+  --color-accent-glow: rgba(63, 212, 192, 0.16);
+  --color-line: rgba(197, 215, 230, 0.12);
+}
+
+body {
+  background-color: var(--color-bg);
+  background-image:
+    linear-gradient(rgba(152, 178, 191, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(152, 178, 191, 0.028) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+body::before {
+  width: min(82vw, 1180px);
+  height: 680px;
+  background: radial-gradient(ellipse at 56% 0%, rgba(32, 149, 159, 0.12), transparent 58%);
+}
+
+.bento-frame {
+  border-radius: 14px;
+  padding: 0.75rem;
+  background: #10141a;
+  border-color: rgba(190, 214, 226, 0.16);
+  box-shadow: 18px 18px 0 rgba(2, 4, 7, 0.32), 0 24px 64px rgba(0, 0, 0, 0.36);
+}
+
+.bento-card,
+.bento-card-terminal,
+.bento-card-about,
+.bento-card-skills-widget {
+  border-radius: 10px;
+  border-color: rgba(190, 214, 226, 0.15);
+  box-shadow: none;
+}
+
+.bento-card {
+  background: #171c24;
+}
+
+.bento-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: rgba(161, 181, 195, 0.32);
+  opacity: 0.65;
+}
+
+.bento-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(63, 212, 192, 0.65);
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.22);
+}
+
+.bento-card-stats {
+  background: linear-gradient(135deg, #202a4a, #182038 72%);
+}
+.bento-card-stats::before { background: #7c93ff; }
+
+.bento-card-brand {
+  background: linear-gradient(135deg, #12353b, #132329 72%);
+}
+.bento-card-brand::before { background: #3fd4c0; }
+
+.bento-card-identity {
+  background: linear-gradient(135deg, #302448, #201c2d 72%);
+}
+.bento-card-identity::before { background: #c598ff; }
+
+.bento-card-about {
+  background: #18212d;
+}
+.bento-card-about::before { background: #7b9ee6; }
+
+.bento-card-terminal {
+  background: linear-gradient(135deg, #0c2424, #10171b 72%);
+}
+.bento-card-terminal::before { background: #47dec6; }
+
+.bento-card-skills-widget {
+  background: #1a1e2b;
+}
+.bento-card-skills-widget::before { background: #a183ff; }
+
+.bento-hero-visual {
+  border-left: 1px solid rgba(190, 214, 226, 0.12);
+  background:
+    linear-gradient(90deg, rgba(10, 15, 20, 0.1), rgba(16, 27, 34, 0.46)),
+    repeating-linear-gradient(90deg, transparent 0 47px, rgba(163, 188, 202, 0.045) 48px);
+}
+
+.typo-line {
+  letter-spacing: -0.055em;
+  text-transform: none;
+}
+
+.typo-line.accent {
+  color: #78e6d5;
+  text-shadow: none;
+}
+
+.typo-pill-badge,
+.btn-bento-pill.primary,
+.btn-hire {
+  border-radius: 6px;
+  background: #3fd4c0;
+  color: #071212;
+  box-shadow: none;
+}
+
+.typo-pill-badge { padding: 0.48rem 1rem; }
+
+.btn-bento-pill.secondary,
+.bento-pill-tag,
+.bento-mini-status-pill,
+.skills-widget-dot,
+.skills-cat-tabs,
+.skill-icon-chip,
+.chip-svg-wrap,
+.bento-about-metrics-strip {
+  border-radius: 6px;
+}
+
+.cat-tab-btn,
+.nav-pill {
+  border-radius: 6px;
+}
+
+.cat-tab-btn.active {
+  background: #3fd4c0;
+  color: #071212;
+  box-shadow: none;
+}
+
+.site-header .nav-pill-bar {
+  background: #11161d;
+  border-color: rgba(190, 214, 226, 0.16);
+  box-shadow: 10px 10px 0 rgba(2, 4, 7, 0.28);
+}
+
+.nav-pill.active {
+  background: rgba(63, 212, 192, 0.16);
+  border-color: rgba(63, 212, 192, 0.62);
+  color: #9bf5e7;
+  box-shadow: none;
+}
+
+@media (min-width: 1520px) {
+  .nav-pill-bar { border-radius: 10px; }
+  .nav-pill,
+  .nav-avatar-mini,
+  .nav-icon-btn,
+  .btn-hire { border-radius: 6px; }
+}
