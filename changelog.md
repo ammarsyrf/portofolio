@@ -14,6 +14,10 @@ Semua perubahan dicatat berdasarkan commit Git. Format tanggal mengikuti waktu c
 - Menetapkan URL bersih untuk seluruh panel admin, termasuk `/admin/login`, serta redirect permanen dari URL lama yang memakai ekstensi `.php`.
 - Menonaktifkan directory listing dan menambahkan header anti-cache untuk halaman utama/login agar cache lama tidak menampilkan halaman indeks server.
 
+### Responsivitas tablet
+
+- Menambahkan layout khusus tablet sentuh landscape: hero lebih ringkas, kartu konteks memakai grid adaptif, dan navigasi berubah menjadi menu ringkas agar tidak terasa seperti desktop yang dipersempit.
+
 ## 2026-09-20
 
 ### SEO, URL, dan navigasi

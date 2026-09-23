@@ -3673,6 +3673,144 @@ section[id] {
 }
 
 /* --------------------------------------------------------------------------
+   Touch tablet landscape
+   Tablets can report a desktop-sized viewport in landscape. Use the input
+   capability as well as the viewport so the dashboard does not keep the
+   wide-desktop composition (large empty hero area and crowded navigation).
+   -------------------------------------------------------------------------- */
+@media (hover: none) and (pointer: coarse) and (min-width: 768px) {
+  .site-header {
+    top: 0.65rem;
+  }
+
+  .site-header .site-container {
+    padding: 0 1rem;
+  }
+
+  .nav-pill-bar {
+    max-width: none;
+    padding: 0.42rem 0.55rem 0.42rem 0.85rem;
+  }
+
+  .nav-menu {
+    display: none !important;
+    position: absolute;
+    top: calc(100% + 0.65rem);
+    left: 0;
+    right: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.3rem;
+    padding: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    background: rgba(14, 18, 27, 0.97);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.72);
+  }
+
+  .nav-menu.is-open {
+    display: flex !important;
+  }
+
+  .nav-pill {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0.68rem 0.9rem;
+    border-radius: 14px;
+    font-size: 0.88rem;
+  }
+
+  .nav-pill .nav-item-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .mobile-nav-toggle {
+    display: inline-flex !important;
+    width: 38px;
+    height: 38px;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .btn-palette-trigger,
+  .nav-avatar-mini,
+  .nav-icon-btn,
+  .kbd-shortcut {
+    display: none !important;
+  }
+
+  .bento-master-canvas {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .bento-frame {
+    padding: 1.25rem;
+    gap: 1.25rem;
+  }
+
+  .bento-top-tier {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem;
+  }
+
+  .bento-hero-visual {
+    order: -1;
+    min-height: 360px;
+    padding: 1.5rem 1.75rem 0;
+  }
+
+  .bento-hero-typography {
+    max-width: 46%;
+    padding-bottom: 2rem;
+  }
+
+  .typo-line {
+    font-size: clamp(2.5rem, 5vw, 3.7rem);
+  }
+
+  .bento-portrait-frame {
+    width: 48%;
+    max-width: 390px;
+    right: 1.5rem;
+  }
+
+  .bento-left-col {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
+    gap: 1rem;
+  }
+
+  .bento-card {
+    padding: 1.2rem 1.25rem;
+  }
+
+  .bento-bottom-tier {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .bento-mini-dock {
+    flex-direction: row !important;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0.55rem 1.25rem;
+  }
+
+  .bento-deck-panel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
    7. Buttons
    -------------------------------------------------------------------------- */
 .btn {
@@ -7839,6 +7977,5 @@ section[id] {
   box-shadow: 0 0 6px #22c55e;
   flex-shrink: 0;
 }
-
 
 
