@@ -22,6 +22,10 @@ Semua perubahan dicatat berdasarkan commit Git. Format tanggal mengikuti waktu c
 
 - Menambahkan skill UI/UX Pro Max untuk Codex sebagai referensi desain yang dapat dicari, mencakup panduan aksesibilitas, responsivitas, animasi, tipografi, dan pola antarmuka.
 
+### Penyempurnaan visual
+
+- Memperhalus tampilan portfolio tanpa mengubah layout bento: palette graphite-cobalt yang lebih matang, permukaan kartu berlapis halus, kontras teks yang lebih jelas, dan glow/hover yang lebih terkendali.
+
 ## 2026-09-20
 
 ### SEO, URL, dan navigasi
