@@ -18,3 +18,7 @@ Thumbs.db
 .idea/
 # Uploads cache
 assets/uploads/cache/
+
+# Generated Python bytecode for project-local Codex skills
+.codex/**/__pycache__/
+*.pyc

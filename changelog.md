@@ -18,6 +18,10 @@ Semua perubahan dicatat berdasarkan commit Git. Format tanggal mengikuti waktu c
 
 - Menambahkan layout khusus tablet sentuh landscape: hero lebih ringkas, kartu konteks memakai grid adaptif, dan navigasi berubah menjadi menu ringkas agar tidak terasa seperti desktop yang dipersempit.
 
+### Workflow UI/UX
+
+- Menambahkan skill UI/UX Pro Max untuk Codex sebagai referensi desain yang dapat dicari, mencakup panduan aksesibilitas, responsivitas, animasi, tipografi, dan pola antarmuka.
+
 ## 2026-09-20
 
 ### SEO, URL, dan navigasi
