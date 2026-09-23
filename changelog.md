@@ -24,7 +24,7 @@ Semua perubahan dicatat berdasarkan commit Git. Format tanggal mengikuti waktu c
 
 ### Penyempurnaan visual
 
-- Memperhalus tampilan portfolio tanpa mengubah layout bento: palette graphite-cobalt yang lebih matang, permukaan kartu berlapis halus, kontras teks yang lebih jelas, dan glow/hover yang lebih terkendali.
+- Mendesain ulang art direction portfolio tanpa mengubah layout bento: setiap zona kini memiliki tone yang bermakna (indigo untuk pendidikan, teal untuk brand dan terminal, violet untuk identitas), surface lebih berlapis, hero lebih terbingkai, serta glow/hover lebih terkendali.
 
 ## 2026-09-20
 
