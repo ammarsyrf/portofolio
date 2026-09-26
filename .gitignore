@@ -1,24 +1,57 @@
-# Local configuration and credentials
+# Local configuration & credentials
 config.php
 .env
 .env.*
 !.env.example
-
-# Local render checks and temporary inspection clones
-scratch/
-
-# Logs
-*.log
-error_log
+*.pem
+*.key
+*.ppk
+id_rsa*
 connect_ssh.bat
 
-# OS and editor files
+# Temporary, scratch & testing
+scratch/
+tmp/
+temp/
+*.tmp
+*.bak
+
+# Logs & debugging
+*.log
+error_log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS artifacts
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# IDE & editors
 .idea/
+.vscode/
+*.suo
+*.user
+*.sublime-project
+*.sublime-workspace
+.fleet/
+.zed/
+
+# Dependencies
+vendor/
+node_modules/
+
+# Python cache & tests
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+coverage/
+.codex/**/__pycache__/
+
+# Agent skills & generated tools
+.agents/skills/
+
 # Uploads cache
 assets/uploads/cache/
-
-# Generated Python bytecode for project-local Codex skills
-.codex/**/__pycache__/
-*.pyc
