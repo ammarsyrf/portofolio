@@ -6,27 +6,28 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
 
 <style>
-  /* ── Sidebar Collapse ── */
+  /* ── Sidebar & Navigation Master Design ── */
   .admin-sidebar {
     width: 260px;
-    transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     overflow: hidden;
     position: fixed;
     left: 0; top: 0; bottom: 0;
     z-index: 50;
-    background-color: var(--color-bg-alt);
-    border-right: 1px solid var(--color-line);
+    background: #090d15;
+    border-right: 1px solid var(--adm-border);
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4);
   }
   .admin-sidebar.collapsed {
-    width: 62px;
+    width: 68px;
   }
 
   /* Teks / label yang hilang saat collapsed */
   .sb-label {
-    transition: opacity 0.15s ease, max-width 0.25s ease;
+    transition: opacity 0.18s ease, max-width 0.28s ease;
     opacity: 1;
     max-width: 200px;
     overflow: hidden;
@@ -39,7 +40,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
   /* Section title */
   .nav-section-title {
-    transition: opacity 0.15s ease, height 0.25s ease, margin 0.25s ease, padding 0.25s ease;
+    transition: opacity 0.18s ease, height 0.28s ease, margin 0.28s ease, padding 0.28s ease;
     overflow: hidden;
   }
   .admin-sidebar.collapsed .nav-section-title {
@@ -49,129 +50,168 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     padding: 0 !important;
   }
 
-  /* Brand */
+  /* Brand Header */
   .sidebar-brand {
-    padding: 1.25rem 1rem;
-    border-bottom: 1px solid var(--color-line);
+    padding: 1.25rem 1.15rem;
+    border-bottom: 1px solid var(--adm-border);
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.015);
   }
   .brand-wrapper {
     display: flex;
     align-items: center;
-    gap: 0.65rem;
+    gap: 0.75rem;
     overflow: hidden;
   }
   .brand-logo {
-    width: 28px; height: 28px; font-size: 0.85rem;
-    background: var(--color-accent);
+    width: 32px; height: 32px; font-size: 0.85rem;
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
     color: #fff;
-    border-radius: 6px;
+    border-radius: 9px;
     display: flex; align-items: center; justify-content: center;
-    font-weight: 700;
+    font-weight: 800;
     flex-shrink: 0;
+    box-shadow: 0 0 16px rgba(59, 130, 246, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
-  .brand-name { font-size: var(--text-sm); font-weight: 600; color: var(--color-text); }
+  .brand-name { 
+    font-family: var(--font-display);
+    font-size: 0.92rem; 
+    font-weight: 700; 
+    color: #f8fafc; 
+    letter-spacing: -0.01em;
+  }
 
   /* Collapse toggle btn inside sidebar */
   #sbCollapseBtn {
-    background: none;
-    border: 1px solid var(--color-line);
-    color: var(--color-text-dim);
-    border-radius: 4px;
-    padding: 0.25rem 0.4rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--adm-border);
+    color: var(--adm-text-secondary);
+    border-radius: 7px;
+    padding: 0.35rem 0.45rem;
     cursor: pointer;
     flex-shrink: 0;
-    transition: background 0.15s;
+    transition: all 0.2s ease;
     display: flex;
     align-items: center;
   }
-  #sbCollapseBtn:hover { background: var(--color-bg-surface); color: var(--color-text); }
+  #sbCollapseBtn:hover { 
+    background: rgba(59, 130, 246, 0.15); 
+    border-color: rgba(59, 130, 246, 0.4);
+    color: #fff; 
+  }
   .admin-sidebar.collapsed #sbCollapseBtn svg {
     transform: rotate(180deg);
   }
-  #sbCollapseBtn svg { transition: transform 0.28s ease; }
+  #sbCollapseBtn svg { transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1); }
 
-  /* Nav */
+  /* Nav Links */
   .sidebar-nav {
-    padding: 1rem 0.65rem;
+    padding: 1.15rem 0.75rem;
     display: flex;
     flex-direction: column;
-    gap: 0.2rem;
+    gap: 0.3rem;
     flex-grow: 1;
     overflow-y: auto;
     overflow-x: hidden;
   }
   .nav-section-title {
     font-size: 0.65rem;
-    color: var(--color-accent);
+    color: #64748b;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    margin: 0.9rem 0.6rem 0.4rem;
+    margin: 1.1rem 0.75rem 0.45rem;
     font-weight: 700;
   }
   .sidebar-link {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.65rem 0.75rem;
-    color: var(--color-text-dim);
-    border-radius: 6px;
-    font-size: var(--text-sm);
+    gap: 0.8rem;
+    padding: 0.7rem 0.85rem;
+    color: #94a3b8;
+    border-radius: 8px;
+    font-size: 0.86rem;
     font-weight: 500;
     border: 1px solid transparent;
-    transition: all 0.15s ease;
+    transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
     white-space: nowrap;
     text-decoration: none;
     position: relative;
   }
-  .sidebar-link svg { flex-shrink: 0; }
+  .sidebar-link svg { 
+    flex-shrink: 0; 
+    color: #64748b;
+    transition: color 0.18s ease, transform 0.18s ease;
+  }
   .sidebar-link:hover {
-    background-color: var(--color-bg-surface);
-    color: var(--color-text);
-    border-color: var(--color-line);
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #f8fafc;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  .sidebar-link:hover svg {
+    color: var(--adm-accent-bright);
+    transform: scale(1.08);
   }
   .sidebar-link.active {
-    background-color: var(--color-bg-surface);
-    color: var(--color-accent-bright);
-    border-color: rgba(76,141,255,0.3);
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.16) 0%, rgba(99, 102, 241, 0.08) 100%);
+    color: #ffffff;
+    font-weight: 600;
+    border-color: rgba(59, 130, 246, 0.35);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+  .sidebar-link.active svg {
+    color: var(--adm-accent-bright);
+  }
+  .sidebar-link.active::before {
+    content: '';
+    position: absolute;
+    left: -0.75rem;
+    top: 20%;
+    bottom: 20%;
+    width: 3.5px;
+    background: var(--adm-accent-bright);
+    border-radius: 0 4px 4px 0;
+    box-shadow: 0 0 10px var(--adm-accent-bright);
   }
 
   /* Tooltip saat collapsed */
   .admin-sidebar.collapsed .sidebar-link[data-tip]:hover::after {
     content: attr(data-tip);
     position: absolute;
-    left: calc(100% + 8px);
+    left: calc(100% + 10px);
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(10,15,25,0.97);
-    color: #fff;
-    font-size: 0.75rem;
-    padding: 0.3rem 0.75rem;
-    border-radius: 6px;
+    background: #0f172a;
+    color: #f8fafc;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.4rem 0.85rem;
+    border-radius: 7px;
     white-space: nowrap;
     z-index: 9999;
     pointer-events: none;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
-    border: 1px solid rgba(76,141,255,0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 16px rgba(59, 130, 246, 0.2);
+    border: 1px solid rgba(59, 130, 246, 0.3);
   }
 
   /* Footer sidebar */
   .sidebar-footer {
-    padding: 0.9rem 0.75rem;
-    border-top: 1px solid var(--color-line);
+    padding: 1rem 0.85rem;
+    border-top: 1px solid var(--adm-border);
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.6rem;
     flex-shrink: 0;
     overflow: hidden;
+    background: rgba(0, 0, 0, 0.15);
   }
   .sidebar-footer-user {
-    font-size: var(--text-xs);
-    color: var(--color-text-faint);
-    transition: opacity 0.15s, max-height 0.25s;
+    font-size: 0.75rem;
+    color: var(--adm-text-muted);
+    transition: opacity 0.18s, max-height 0.28s;
     overflow: hidden;
     max-height: 30px;
     white-space: nowrap;
@@ -188,32 +228,35 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     display: flex;
     flex-direction: column;
     margin-left: 260px;
-    transition: margin-left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: margin-left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .admin-main.collapsed {
-    margin-left: 62px;
+    margin-left: 68px;
   }
 
   /* Topbar */
   .admin-topbar {
-    height: 4rem;
-    background-color: rgba(18,22,31,0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--color-line);
+    height: 4.25rem;
+    background: rgba(9, 13, 21, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--adm-border);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 1.5rem;
+    padding: 0 2rem;
     position: sticky;
     top: 0;
     z-index: 40;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   }
-  .topbar-left { display: flex; align-items: center; gap: 0.75rem; }
+  .topbar-left { display: flex; align-items: center; gap: 0.85rem; }
   .topbar-title {
     font-family: var(--font-display);
-    font-size: var(--text-lg);
-    color: var(--color-text);
-    font-weight: 600;
+    font-size: 1.15rem;
+    color: #f8fafc;
+    font-weight: 700;
+    letter-spacing: -0.015em;
   }
 
   /* Mobile */
@@ -221,14 +264,14 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     .admin-sidebar {
       left: -260px;
       width: 260px !important;
-      transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .admin-sidebar.mobile-open {
       left: 0;
     }
     .admin-sidebar.collapsed { left: -260px; }
     .admin-main { margin-left: 0 !important; }
-    #sbOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 49; }
+    #sbOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); z-index: 49; }
     #sbOverlay.show { display: block; }
     #sbDesktopToggle { display: none !important; }
     .sidebar-toggle-mobile { display: inline-flex !important; }
@@ -236,11 +279,11 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
   .sidebar-toggle-mobile {
     display: none;
-    background: none;
-    border: 1px solid var(--color-line);
-    color: var(--color-text);
-    padding: 0.35rem 0.45rem;
-    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--adm-border);
+    color: #fff;
+    padding: 0.4rem 0.5rem;
+    border-radius: 6px;
     cursor: pointer;
     align-items: center;
   }
@@ -254,7 +297,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
   <div class="sidebar-brand">
     <div class="brand-wrapper">
       <div class="brand-logo">AS</div>
-      <span class="brand-name sb-label">Portal Admin</span>
+      <span class="brand-name sb-label">Studio Admin</span>
     </div>
     <button id="sbCollapseBtn" onclick="toggleDesktopSidebar()" title="Collapse sidebar">
       <!-- Chevron left icon -->
@@ -422,76 +465,80 @@ $currentPage = basename($_SERVER['PHP_SELF']);
   .btn-cmd-trigger {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    background: var(--color-bg-surface);
-    border: 1px solid var(--color-line);
-    color: var(--color-text-dim);
-    padding: 0.4rem 0.85rem;
-    border-radius: 6px;
-    font-size: 0.78rem;
+    gap: 0.65rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--adm-border);
+    color: var(--adm-text-secondary);
+    padding: 0.45rem 0.95rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(8px);
   }
   .btn-cmd-trigger:hover {
-    border-color: rgba(76, 141, 255, 0.5);
-    color: var(--color-text);
-    background: rgba(76, 141, 255, 0.08);
+    border-color: rgba(59, 130, 246, 0.5);
+    color: #ffffff;
+    background: rgba(59, 130, 246, 0.12);
+    box-shadow: 0 0 16px rgba(59, 130, 246, 0.2);
   }
   .cmd-shortcut-badge {
-    background: var(--color-bg-alt);
-    border: 1px solid var(--color-line);
-    color: var(--color-accent-bright);
-    font-size: 0.65rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--adm-accent-bright);
+    font-size: 0.68rem;
     font-weight: 700;
-    padding: 0.15rem 0.4rem;
-    border-radius: 4px;
-    font-family: inherit;
+    padding: 0.15rem 0.45rem;
+    border-radius: 5px;
+    font-family: var(--font-mono);
   }
   @media (max-width: 680px) {
     .cmd-text-label { display: none; }
   }
 
-  /* Command Palette Modal */
+  /* Command Palette Spotlight Modal */
   .cmd-palette-backdrop {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(5, 8, 15, 0.82);
-    backdrop-filter: blur(10px);
+    background: rgba(3, 6, 12, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     z-index: 99999;
     align-items: flex-start;
     justify-content: center;
-    padding: 10vh 1rem 2rem;
+    padding: 8vh 1rem 2rem;
   }
   .cmd-palette-backdrop.is-open {
     display: flex;
   }
   .cmd-palette-box {
     width: 100%;
-    max-width: 620px;
-    background: #0d121d;
-    border: 1px solid rgba(76, 141, 255, 0.35);
-    border-radius: 12px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(76, 141, 255, 0.15);
+    max-width: 640px;
+    background: #0d131f;
+    border: 1px solid rgba(59, 130, 246, 0.35);
+    border-radius: 16px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(59, 130, 246, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    animation: cmdSlideDown 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: cmdSlideDown 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
   @keyframes cmdSlideDown {
-    from { opacity: 0; transform: translateY(-12px) scale(0.98); }
+    from { opacity: 0; transform: translateY(-16px) scale(0.97); }
     to { opacity: 1; transform: translateY(0) scale(1); }
   }
   .cmd-input-wrap {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 1rem 1.25rem;
-    border-bottom: 1px solid var(--color-line);
-    background: rgba(18, 24, 38, 0.7);
+    gap: 0.85rem;
+    padding: 1.15rem 1.45rem;
+    border-bottom: 1px solid var(--adm-border);
+    background: rgba(17, 24, 39, 0.7);
   }
   .cmd-input-wrap svg {
-    color: var(--color-accent-bright);
+    color: var(--adm-accent-bright);
     flex-shrink: 0;
   }
   .cmd-search-input {
@@ -499,82 +546,86 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     background: transparent;
     border: none;
     color: #fff;
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-family: inherit;
     outline: none;
   }
   .cmd-search-input::placeholder {
-    color: var(--color-text-faint);
+    color: var(--adm-text-muted);
   }
   .cmd-list-container {
-    max-height: 380px;
+    max-height: 400px;
     overflow-y: auto;
-    padding: 0.65rem 0.5rem;
+    padding: 0.75rem 0.6rem;
     display: flex;
     flex-direction: column;
-    gap: 0.2rem;
+    gap: 0.25rem;
   }
   .cmd-group-title {
-    font-size: 0.65rem;
+    font-size: 0.68rem;
     font-weight: 700;
-    color: var(--color-accent-bright);
+    color: var(--adm-accent-bright);
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    padding: 0.5rem 0.75rem 0.25rem;
+    padding: 0.6rem 0.85rem 0.3rem;
   }
   .cmd-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.65rem 0.85rem;
-    border-radius: 6px;
-    color: var(--color-text-dim);
+    padding: 0.75rem 0.95rem;
+    border-radius: 8px;
+    color: var(--adm-text-secondary);
     text-decoration: none;
     cursor: pointer;
-    font-size: 0.84rem;
-    transition: all 0.1s;
+    font-size: 0.875rem;
+    transition: all 0.15s ease;
     border: 1px solid transparent;
   }
   .cmd-item:hover, .cmd-item.is-selected {
-    background: rgba(76, 141, 255, 0.15);
-    color: #fff;
-    border-color: rgba(76, 141, 255, 0.4);
+    background: rgba(59, 130, 246, 0.15);
+    color: #ffffff;
+    border-color: rgba(59, 130, 246, 0.35);
+    transform: translateX(2px);
   }
   .cmd-item-left {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.85rem;
   }
   .cmd-item-icon {
-    font-size: 1.1rem;
-    width: 24px;
+    font-size: 1.15rem;
+    width: 26px;
     text-align: center;
     flex-shrink: 0;
   }
   .cmd-item-title {
-    font-weight: 500;
+    font-weight: 600;
+    color: #f8fafc;
   }
   .cmd-item-desc {
-    font-size: 0.72rem;
-    color: var(--color-text-faint);
+    font-size: 0.75rem;
+    color: var(--adm-text-muted);
+    margin-top: 0.1rem;
   }
   .cmd-item-badge {
-    font-size: 0.68rem;
-    padding: 0.15rem 0.45rem;
-    border-radius: 4px;
-    background: var(--color-bg-surface);
-    border: 1px solid var(--color-line);
-    color: var(--color-text-faint);
+    font-size: 0.7rem;
+    font-family: var(--font-mono);
+    padding: 0.18rem 0.5rem;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--adm-border);
+    color: var(--adm-text-muted);
   }
   .cmd-footer-bar {
-    padding: 0.65rem 1.25rem;
-    border-top: 1px solid var(--color-line);
-    background: rgba(13, 18, 29, 0.95);
+    padding: 0.75rem 1.45rem;
+    border-top: 1px solid var(--adm-border);
+    background: rgba(10, 14, 23, 0.95);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 0.72rem;
-    color: var(--color-text-faint);
+    font-size: 0.75rem;
+    color: var(--adm-text-muted);
   }
   .cmd-footer-hints {
     display: flex;

@@ -417,8 +417,8 @@ require_once __DIR__ . '/includes/sidebar.php';
   /* --- 2-Column Master Detail Sub-Sidebar Layout --- */
   .hp-editor-shell {
     display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 1.5rem;
+    grid-template-columns: 290px 1fr;
+    gap: 1.75rem;
     align-items: start;
     position: relative;
   }
@@ -432,61 +432,62 @@ require_once __DIR__ . '/includes/sidebar.php';
   /* Sub-Sidebar Navigation Column */
   .hp-subnav-sidebar {
     position: sticky;
-    top: 5rem;
-    background: rgba(14, 18, 27, 0.95);
-    border: 1px solid var(--color-line);
+    top: 5.5rem;
+    background: rgba(12, 16, 25, 0.85);
+    border: 1px solid var(--adm-border);
     border-radius: 16px;
-    padding: 1.1rem;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    max-height: calc(100vh - 6.5rem);
+    padding: 1.25rem;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    max-height: calc(100vh - 7rem);
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: rgba(76, 141, 255, 0.3) transparent;
+    scrollbar-color: rgba(59, 130, 246, 0.3) transparent;
   }
 
   .hp-subnav-sidebar::-webkit-scrollbar {
-    width: 5px;
+    width: 4px;
   }
   .hp-subnav-sidebar::-webkit-scrollbar-thumb {
-    background: rgba(76, 141, 255, 0.3);
-    border-radius: 4px;
+    background: rgba(59, 130, 246, 0.35);
+    border-radius: 999px;
   }
 
   .hp-search-box {
     position: relative;
-    margin-bottom: 1rem;
+    margin-bottom: 1.15rem;
   }
 
   .hp-search-input {
     width: 100%;
-    background: rgba(8, 11, 19, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    padding: 0.55rem 0.75rem 0.55rem 2.2rem;
+    background: rgba(8, 11, 19, 0.8);
+    border: 1px solid var(--adm-border);
+    border-radius: 9px;
+    padding: 0.65rem 0.85rem 0.65rem 2.3rem;
     font-size: 0.82rem;
     color: #fff;
     outline: none;
     transition: all 0.2s ease;
   }
   .hp-search-input:focus {
-    border-color: rgba(76, 141, 255, 0.6);
-    box-shadow: 0 0 12px rgba(76, 141, 255, 0.25);
+    border-color: var(--adm-accent);
+    box-shadow: 0 0 16px rgba(59, 130, 246, 0.25);
+    background: rgba(15, 22, 36, 0.9);
   }
   .hp-search-icon {
     position: absolute;
-    left: 0.75rem;
+    left: 0.85rem;
     top: 50%;
     transform: translateY(-50%);
     font-size: 0.85rem;
-    color: var(--color-text-dim);
+    color: var(--adm-text-muted);
     pointer-events: none;
   }
 
   /* Cluster Group Headers */
   .hp-cluster-group {
-    margin-bottom: 1.1rem;
+    margin-bottom: 1.25rem;
   }
   .hp-cluster-group:last-child {
     margin-bottom: 0;
@@ -496,12 +497,12 @@ require_once __DIR__ . '/includes/sidebar.php';
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--color-accent-bright);
-    margin-bottom: 0.45rem;
+    color: var(--adm-accent-bright);
+    margin-bottom: 0.5rem;
     padding-left: 0.4rem;
     display: flex;
     align-items: center;
-    gap: 0.35rem;
+    gap: 0.4rem;
   }
 
   .hp-nav-list {
@@ -518,33 +519,33 @@ require_once __DIR__ . '/includes/sidebar.php';
     text-align: left;
     background: transparent;
     border: 1px solid transparent;
-    border-radius: 10px;
-    padding: 0.5rem 0.65rem;
-    color: var(--color-text-dim);
-    font-size: 0.82rem;
+    border-radius: 9px;
+    padding: 0.55rem 0.75rem;
+    color: var(--adm-text-secondary);
+    font-size: 0.84rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .hp-nav-item-btn:hover {
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.05);
     color: #ffffff;
     border-color: rgba(255, 255, 255, 0.08);
   }
 
   .hp-nav-item-btn.is-active {
-    background: rgba(76, 141, 255, 0.18);
-    border-color: rgba(76, 141, 255, 0.45);
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.2) 0%, rgba(99, 102, 241, 0.1) 100%);
+    border-color: rgba(59, 130, 246, 0.45);
     color: #ffffff;
     font-weight: 600;
-    box-shadow: 0 4px 14px rgba(76, 141, 255, 0.15);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
   }
 
   .hp-nav-item-label {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.55rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -552,13 +553,14 @@ require_once __DIR__ . '/includes/sidebar.php';
 
   .hp-nav-count-badge {
     font-size: 0.68rem;
-    padding: 0.1rem 0.4rem;
+    font-family: var(--font-mono);
+    padding: 0.12rem 0.45rem;
     border-radius: 9999px;
-    background: rgba(255, 255, 255, 0.08);
-    color: var(--color-text-dim);
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--adm-text-muted);
   }
   .hp-nav-item-btn.is-active .hp-nav-count-badge {
-    background: rgba(76, 141, 255, 0.35);
+    background: rgba(59, 130, 246, 0.35);
     color: #fff;
   }
 
@@ -569,31 +571,31 @@ require_once __DIR__ . '/includes/sidebar.php';
 
   .hp-sticky-bar {
     position: sticky;
-    top: 5rem;
+    top: 5.5rem;
     z-index: 30;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 1rem;
-    background: rgba(14, 18, 27, 0.95);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(76, 141, 255, 0.35);
-    padding: 0.85rem 1.25rem;
+    background: rgba(12, 16, 25, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--adm-border);
+    padding: 0.95rem 1.45rem;
     border-radius: 14px;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+    margin-bottom: 1.75rem;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   }
 
   .hp-active-label {
     font-family: var(--font-display);
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: #ffffff;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.55rem;
   }
 
   .hp-section-panel {
@@ -614,93 +616,93 @@ require_once __DIR__ . '/includes/sidebar.php';
   }
 
   .hp-panel-card {
-    border: 1px solid var(--color-line);
+    border: 1px solid var(--adm-border);
     border-radius: 16px;
-    padding: 1.5rem;
-    background: rgba(15, 23, 42, 0.45);
-    margin-bottom: 1.5rem;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    padding: 1.75rem;
+    background: var(--adm-gradient-card);
+    margin-bottom: 1.75rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
   .hp-panel-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 1.25rem;
-    padding-bottom: 0.85rem;
-    border-bottom: 1px solid var(--color-line);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--adm-border);
     gap: 1rem;
   }
 
   .hp-panel-title {
     font-family: var(--font-display);
-    font-size: 1.15rem;
+    font-size: 1.2rem;
     font-weight: 700;
     color: #ffffff;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.6rem;
   }
 
   .hp-panel-desc {
-    font-size: 0.82rem;
-    color: var(--color-text-dim);
-    margin-top: 0.3rem;
-    line-height: 1.45;
+    font-size: 0.84rem;
+    color: var(--adm-text-secondary);
+    margin-top: 0.35rem;
+    line-height: 1.5;
   }
 
   /* --- Sub-Tab Bar for Multi-Card Sections (Domains, Matrix, Deck) --- */
   .hp-subtab-bar {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.45rem;
+    gap: 0.5rem;
     background: rgba(8, 11, 19, 0.7);
-    padding: 0.45rem;
+    padding: 0.5rem;
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    margin-bottom: 1.25rem;
+    border: 1px solid var(--adm-border);
+    margin-bottom: 1.5rem;
   }
 
   .hp-subtab-btn {
     background: transparent;
     border: 1px solid transparent;
-    color: var(--color-text-dim);
-    padding: 0.45rem 0.85rem;
+    color: var(--adm-text-secondary);
+    padding: 0.5rem 0.95rem;
     border-radius: 8px;
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     font-weight: 600;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    transition: all 0.15s ease;
+    gap: 0.45rem;
+    transition: all 0.18s ease;
   }
   .hp-subtab-btn:hover {
     color: #fff;
     background: rgba(255, 255, 255, 0.06);
   }
   .hp-subtab-btn.is-active {
-    background: rgba(76, 141, 255, 0.22);
-    border-color: rgba(76, 141, 255, 0.5);
+    background: rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.5);
     color: #ffffff;
-    box-shadow: 0 0 12px rgba(76, 141, 255, 0.25);
+    box-shadow: 0 0 14px rgba(59, 130, 246, 0.25);
   }
 
   .hp-subcard-box {
-    background: rgba(10, 14, 23, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: rgba(14, 20, 32, 0.65);
+    border: 1px solid var(--adm-border);
     border-radius: 12px;
-    padding: 1.25rem;
-    margin-bottom: 1rem;
+    padding: 1.45rem;
+    margin-bottom: 1.25rem;
   }
   .hp-subcard-title {
-    font-size: 0.88rem;
+    font-size: 0.92rem;
     font-weight: 700;
     color: #ffffff;
-    margin-bottom: 0.85rem;
+    margin-bottom: 1rem;
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.45rem;
   }
 
   .domain-subpanel,
@@ -719,9 +721,9 @@ require_once __DIR__ . '/includes/sidebar.php';
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 1.25rem;
-    margin-top: 1.25rem;
-    border-top: 1px solid var(--color-line);
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--adm-border);
   }
 </style>
 

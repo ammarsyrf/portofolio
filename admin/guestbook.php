@@ -74,35 +74,35 @@ require_once __DIR__ . '/includes/sidebar.php';
             <tr>
               <td>
                 <?php if (!empty($m['user_avatar'])): ?>
-                  <img src="<?= e($m['user_avatar']) ?>" alt="<?= e($m['user_name']) ?>" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1px solid var(--color-line);" referrerpolicy="no-referrer">
+                  <img src="<?= e($m['user_avatar']) ?>" alt="<?= e($m['user_name']) ?>" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid var(--adm-border); box-shadow: 0 4px 12px rgba(0,0,0,0.35);" referrerpolicy="no-referrer">
                 <?php else: ?>
-                  <div style="width: 38px; height: 38px; border-radius: 50%; background: var(--color-accent); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem;">
+                  <div style="width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);">
                     <?= e($initial) ?>
                   </div>
                 <?php endif; ?>
               </td>
 
               <td>
-                <div style="font-weight: 600; color: var(--color-cream); font-size: var(--text-sm);">
+                <div style="font-weight: 600; color: #ffffff; font-size: 0.88rem;">
                   <?= e($m['user_name']) ?>
                 </div>
                 <?php if (!empty($m['user_email'])): ?>
-                  <div style="font-size: 0.72rem; color: var(--color-cream-faint);">
+                  <div style="font-size: 0.74rem; color: #38bdf8;">
                     <?= e($m['user_email']) ?>
                   </div>
                 <?php endif; ?>
-                <div style="font-size: 0.65rem; color: var(--color-cream-faint); font-family: monospace;">
-                  ID: <?= e(substr($m['google_id'], 0, 12)) ?>...
+                <div style="font-size: 0.68rem; color: var(--adm-text-muted); font-family: var(--font-mono);">
+                  ID: <?= e(substr($m['google_id'], 0, 14)) ?>...
                 </div>
               </td>
 
               <td>
-                <div style="font-size: var(--text-sm); color: var(--color-cream); line-height: 1.5; word-break: break-word;">
+                <div style="font-size: 0.85rem; color: #f1f5f9; line-height: 1.5; word-break: break-word;">
                   <?= nl2br(e($m['message'])) ?>
                 </div>
               </td>
 
-              <td style="font-size: var(--text-xs); color: var(--color-cream-muted); white-space: nowrap;">
+              <td style="font-size: 0.78rem; color: var(--adm-text-secondary); font-family: var(--font-mono); white-space: nowrap;">
                 <?= e($timeStr) ?>
               </td>
 
@@ -111,7 +111,7 @@ require_once __DIR__ . '/includes/sidebar.php';
                   <?= csrf_field() ?>
                   <input type="hidden" name="action" value="delete">
                   <input type="hidden" name="message_id" value="<?= (int)$m['id'] ?>">
-                  <button type="submit" class="btn btn-sm" style="padding: 0.35rem 0.65rem; background-color: rgba(185, 28, 28, 0.2); border-color: rgba(239, 68, 68, 0.4); color: #FCA5A5;">
+                  <button type="submit" class="btn btn-danger btn-sm" style="padding: 0.35rem 0.65rem;">
                     Hapus
                   </button>
                 </form>

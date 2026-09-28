@@ -87,34 +87,34 @@ require_once __DIR__ . '/includes/sidebar.php';
             <tr>
               <td>
                 <?php if ($hasImg): ?>
-                  <img src="<?= upload_url('projects', $p['image']) ?>" alt="<?= e($p['title']) ?>" style="width: 44px; height: 44px; object-fit: cover; border-radius: 2px; border: 1px solid var(--color-line);">
+                  <img src="<?= upload_url('projects', $p['image']) ?>" alt="<?= e($p['title']) ?>" style="width: 48px; height: 48px; object-fit: cover; border-radius: 8px; border: 1px solid var(--adm-border); box-shadow: 0 4px 12px rgba(0,0,0,0.35);">
                 <?php else: ?>
-                  <div style="width: 44px; height: 44px; background-color: var(--color-bg-surface); border: 1px solid var(--color-line); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: var(--color-cream-faint); border-radius: 2px;">
+                  <div style="width: 48px; height: 48px; background: rgba(255,255,255,0.04); border: 1px solid var(--adm-border); display: flex; align-items: center; justify-content: center; font-size: 0.68rem; color: var(--adm-text-muted); border-radius: 8px;">
                     No Img
                   </div>
                 <?php endif; ?>
               </td>
 
-              <td style="color: var(--color-brass); font-weight: 600;">
+              <td style="color: var(--adm-accent-bright); font-family: var(--font-mono); font-weight: 700;">
                 #<?= (int)$p['sort_order'] ?>
               </td>
 
               <td>
-                <div style="font-weight: 600; color: var(--color-cream); font-size: var(--text-sm);">
+                <div style="font-weight: 600; color: #ffffff; font-size: 0.88rem;">
                   <?= e($p['title']) ?>
                 </div>
-                <div style="font-size: 0.75rem; color: var(--color-cream-faint);">
+                <div style="font-size: 0.76rem; color: var(--adm-text-muted);">
                   <?= e($p['my_role'] ?: 'Developer') ?>
                 </div>
               </td>
 
               <td>
-                <span style="font-size: var(--text-xs); color: var(--color-moss-light);">
+                <span style="font-size: 0.78rem; font-weight: 600; color: #38bdf8;">
                   <?= e($p['category'] ?: '-') ?>
                 </span>
               </td>
 
-              <td style="font-size: 0.78rem; max-width: 200px;">
+              <td style="font-size: 0.8rem; color: var(--adm-text-secondary); max-width: 200px;">
                 <?= e($p['tech_stack'] ?: '-') ?>
               </td>
 
@@ -127,7 +127,7 @@ require_once __DIR__ . '/includes/sidebar.php';
               </td>
 
               <td style="text-align: right;">
-                <div style="display: inline-flex; gap: 0.4rem;">
+                <div style="display: inline-flex; gap: 0.45rem;">
                   <a href="<?= BASE_URL ?>/admin/project-form?id=<?= (int)$p['id'] ?>" class="btn btn-secondary btn-sm" style="padding: 0.35rem 0.65rem;">
                     Edit
                   </a>
@@ -136,7 +136,7 @@ require_once __DIR__ . '/includes/sidebar.php';
                     <?= csrf_field() ?>
                     <input type="hidden" name="action" value="delete">
                     <input type="hidden" name="project_id" value="<?= (int)$p['id'] ?>">
-                    <button type="submit" class="btn btn-sm" style="padding: 0.35rem 0.65rem; background-color: rgba(185, 28, 28, 0.2); border-color: rgba(239, 68, 68, 0.4); color: #FCA5A5;">
+                    <button type="submit" class="btn btn-danger btn-sm" style="padding: 0.35rem 0.65rem;">
                       Hapus
                     </button>
                   </form>

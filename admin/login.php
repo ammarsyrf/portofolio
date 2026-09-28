@@ -93,88 +93,159 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Administrator — Portfolio Ammar Syarif</title>
+  <title>Login Administrator — Studio Portfolio Ammar Syarif</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<?= asset('css/style.css') ?>">
   <style>
+    :root {
+      --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+    }
+    body {
+      background: #07090e;
+      font-family: var(--font-body);
+      color: #f8fafc;
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.12) 0px, transparent 50%),
+        radial-gradient(at 50% 50%, rgba(15, 23, 42, 0.8) 0px, transparent 100%);
+      background-attachment: fixed;
+    }
     .auth-wrapper {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 2rem 1.5rem;
+      padding: 2.5rem 1.5rem;
+      position: relative;
     }
     .auth-card {
-      background-color: var(--color-bg-alt);
-      border: 1px solid var(--color-line);
-      border-radius: 4px;
+      background: rgba(13, 18, 28, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
       width: 100%;
       max-width: 440px;
-      padding: 2.25rem;
+      padding: 2.5rem;
       position: relative;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 35px rgba(59, 130, 246, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      animation: authCardFade 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes authCardFade {
+      from { opacity: 0; transform: translateY(12px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
     .auth-header {
       margin-bottom: 2rem;
       text-align: center;
     }
+    .auth-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: #fff;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
     .auth-header h1 {
       font-family: var(--font-display);
-      font-size: var(--text-2xl);
-      color: var(--color-cream);
-      margin-top: 0.35rem;
-      margin-bottom: 0.35rem;
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 0.35rem;
+      letter-spacing: -0.02em;
     }
     .auth-header p {
-      font-size: var(--text-sm);
-      color: var(--color-cream-muted);
+      font-size: 0.84rem;
+      color: #94a3b8;
+      margin: 0;
+      line-height: 1.45;
     }
     .form-group {
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.35rem;
     }
     .form-label {
       display: block;
-      font-size: var(--text-xs);
-      color: var(--color-brass);
-      margin-bottom: 0.4rem;
-      letter-spacing: 0.03em;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-bottom: 0.45rem;
     }
     .form-control {
       width: 100%;
-      background-color: var(--color-bg-surface);
-      border: 1px solid var(--color-line);
-      color: var(--color-cream);
-      padding: 0.75rem 0.9rem;
-      border-radius: 2px;
-      font-size: var(--text-sm);
-      transition: border-color var(--transition-fast);
+      background: rgba(17, 24, 39, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      padding: 0.8rem 1rem;
+      border-radius: 9px;
+      font-size: 0.88rem;
+      font-family: inherit;
+      transition: all 0.2s ease;
+      box-sizing: border-box;
     }
     .form-control:focus {
-      border-color: var(--color-brass);
+      border-color: #3b82f6;
+      background: rgba(22, 30, 48, 0.95);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25), 0 0 20px rgba(59, 130, 246, 0.15);
       outline: none;
     }
+    .btn-login {
+      width: 100%;
+      padding: 0.8rem 1.25rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #ffffff;
+      background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 9px;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      transition: all 0.2s ease;
+      margin-top: 0.75rem;
+    }
+    .btn-login:hover:not(:disabled) {
+      background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+      transform: translateY(-1.5px);
+      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.5);
+    }
+    .btn-login:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
     .alert-box {
-      padding: 0.85rem 1rem;
-      border-radius: 2px;
+      padding: 0.9rem 1.15rem;
+      border-radius: 9px;
       margin-bottom: 1.5rem;
-      font-size: var(--text-sm);
-      line-height: 1.5;
+      font-size: 0.84rem;
+      line-height: 1.45;
     }
     .alert-danger {
-      background-color: rgba(185, 28, 28, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.35);
-      color: #FCA5A5;
+      background: rgba(244, 63, 94, 0.15);
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      color: #fda4af;
     }
     .alert-success {
-      background-color: rgba(85, 104, 79, 0.2);
-      border: 1px solid var(--color-moss-light);
-      color: #D1E7DD;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #6ee7b7;
     }
     .alert-info {
-      background-color: rgba(176, 138, 90, 0.15);
-      border: 1px solid var(--color-brass);
-      color: var(--color-cream);
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      color: #93c5fd;
     }
   </style>
 </head>
@@ -183,7 +254,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <div class="auth-wrapper">
     <div class="auth-card">
       <div class="auth-header">
-        <span class="brand-folio">ADMINISTRATION</span>
+        <div class="auth-logo">AS</div>
         <h1>Portal Pengelola</h1>
         <p>Akses autentikasi untuk pembaruan data portofolio.</p>
       </div>
@@ -202,7 +273,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <?php if (!$hasUsers): ?>
         <div class="alert-box alert-info">
-          Belum ada akun admin terdaftar di sistem. Silakan lakukan inisialisasi akun melalui halaman <a href="setup.php" style="color: var(--color-brass-bright); text-decoration: underline;">Setup Admin Pertama Kali</a>.
+          Belum ada akun admin terdaftar di sistem. Silakan lakukan inisialisasi akun melalui halaman <a href="setup.php" style="color: #60a5fa; text-decoration: underline;">Setup Admin Pertama Kali</a>.
         </div>
       <?php endif; ?>
 
@@ -211,22 +282,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="form-group">
           <label class="form-label" for="username">Username</label>
-          <input type="text" id="username" name="username" class="form-control" required autofocus autocomplete="username" <?= $isLocked ? 'disabled' : '' ?>>
+          <input type="text" id="username" name="username" class="form-control" required autofocus autocomplete="username" placeholder="Masukkan username" <?= $isLocked ? 'disabled' : '' ?>>
         </div>
 
         <div class="form-group">
           <label class="form-label" for="password">Password</label>
-          <input type="password" id="password" name="password" class="form-control" required autocomplete="current-password" <?= $isLocked ? 'disabled' : '' ?>>
+          <input type="password" id="password" name="password" class="form-control" required autocomplete="current-password" placeholder="Masukkan password" <?= $isLocked ? 'disabled' : '' ?>>
         </div>
 
-        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.75rem;" <?= $isLocked ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : '' ?>>
+        <button type="submit" class="btn-login" <?= $isLocked ? 'disabled' : '' ?>>
           <?= $isLocked ? '🔒 Login Dikunci Sementara' : 'Masuk ke Dashboard' ?>
         </button>
       </form>
 
       <div style="margin-top: 2rem; text-align: center;">
-        <a href="<?= BASE_URL ?>" class="btn-detail-trigger" style="font-size: var(--text-xs); color: var(--color-cream-faint);">
-          Lihat Halaman Publik Portofolio
+        <a href="<?= BASE_URL ?>/" style="font-size: 0.8rem; color: #64748b; text-decoration: none; transition: color 0.15s ease;" onmouseover="this.style.color='#94a3b8'" onmouseout="this.style.color='#64748b'">
+          &larr; Lihat Website Publik Portofolio
         </a>
       </div>
     </div>

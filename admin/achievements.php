@@ -87,38 +87,38 @@ require_once __DIR__ . '/includes/sidebar.php';
             <tr>
               <td>
                 <?php if ($hasImg): ?>
-                  <img src="<?= upload_url('achievements', $ach['image']) ?>" alt="<?= e($ach['title']) ?>" style="width: 44px; height: 44px; object-fit: cover; border-radius: 4px; border: 1px solid var(--color-line);">
+                  <img src="<?= upload_url('achievements', $ach['image']) ?>" alt="<?= e($ach['title']) ?>" style="width: 48px; height: 48px; object-fit: cover; border-radius: 8px; border: 1px solid var(--adm-border); box-shadow: 0 4px 12px rgba(0,0,0,0.35);">
                 <?php else: ?>
-                  <div style="width: 44px; height: 44px; background-color: var(--color-bg-surface); border: 1px solid var(--color-line); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: var(--color-cream-faint); border-radius: 4px;">
+                  <div style="width: 48px; height: 48px; background: rgba(255,255,255,0.04); border: 1px solid var(--adm-border); display: flex; align-items: center; justify-content: center; font-size: 0.68rem; color: var(--adm-text-muted); border-radius: 8px;">
                     No Img
                   </div>
                 <?php endif; ?>
               </td>
 
-              <td style="color: var(--color-accent-hover); font-weight: 600;">
+              <td style="color: var(--adm-accent-bright); font-family: var(--font-mono); font-weight: 700;">
                 #<?= (int)$ach['sort_order'] ?>
               </td>
 
               <td>
-                <div style="font-weight: 600; color: var(--color-cream); font-size: var(--text-sm);">
+                <div style="font-weight: 600; color: #ffffff; font-size: 0.88rem;">
                   <?= e($ach['title']) ?>
                 </div>
-                <div style="font-size: 0.75rem; color: var(--color-cream-faint);">
-                  Penerbit: <strong style="color: var(--color-cream);"><?= e($ach['issuer']) ?></strong>
+                <div style="font-size: 0.76rem; color: var(--adm-text-muted);">
+                  Penerbit: <strong style="color: #cbd5e1;"><?= e($ach['issuer']) ?></strong>
                 </div>
               </td>
 
-              <td style="font-size: var(--text-xs); color: var(--color-cream-muted);">
+              <td style="font-size: 0.8rem; color: var(--adm-text-secondary); font-family: var(--font-mono);">
                 <?= e($ach['issue_date'] ?: '-') ?>
               </td>
 
               <td>
                 <?php if (!empty($ach['verify_link'])): ?>
-                  <a href="<?= e($ach['verify_link']) ?>" target="_blank" rel="noopener noreferrer" style="font-size: var(--text-xs); color: var(--color-accent); display: inline-flex; align-items: center; gap: 0.25rem;">
+                  <a href="<?= e($ach['verify_link']) ?>" target="_blank" rel="noopener noreferrer" style="font-size: 0.78rem; font-weight: 600; color: #38bdf8; display: inline-flex; align-items: center; gap: 0.25rem;">
                     Buka Kredensial &nearr;
                   </a>
                 <?php else: ?>
-                  <span style="font-size: var(--text-xs); color: var(--color-cream-faint);">-</span>
+                  <span style="font-size: 0.78rem; color: var(--adm-text-muted);">-</span>
                 <?php endif; ?>
               </td>
 
@@ -131,7 +131,7 @@ require_once __DIR__ . '/includes/sidebar.php';
               </td>
 
               <td style="text-align: right;">
-                <div style="display: inline-flex; gap: 0.4rem;">
+                <div style="display: inline-flex; gap: 0.45rem;">
                   <a href="<?= BASE_URL ?>/admin/achievement-form?id=<?= (int)$ach['id'] ?>" class="btn btn-secondary btn-sm" style="padding: 0.35rem 0.65rem;">
                     Edit
                   </a>
@@ -140,7 +140,7 @@ require_once __DIR__ . '/includes/sidebar.php';
                     <?= csrf_field() ?>
                     <input type="hidden" name="action" value="delete">
                     <input type="hidden" name="achievement_id" value="<?= (int)$ach['id'] ?>">
-                    <button type="submit" class="btn btn-sm" style="padding: 0.35rem 0.65rem; background-color: rgba(185, 28, 28, 0.2); border-color: rgba(239, 68, 68, 0.4); color: #FCA5A5;">
+                    <button type="submit" class="btn btn-danger btn-sm" style="padding: 0.35rem 0.65rem;">
                       Hapus
                     </button>
                   </form>

@@ -72,12 +72,12 @@ require_once __DIR__ . '/includes/sidebar.php';
         <?php else: ?>
           <?php foreach ($links as $l): ?>
             <tr>
-              <td style="color: var(--color-accent-hover); font-weight: 600;">
+              <td style="color: var(--adm-accent-bright); font-family: var(--font-mono); font-weight: 700;">
                 #<?= (int)$l['sort_order'] ?>
               </td>
 
               <td>
-                <span style="font-size: 1.25rem; display: inline-block;">
+                <span style="font-size: 1.35rem; display: inline-flex; width: 36px; height: 36px; align-items: center; justify-content: center; background: rgba(255,255,255,0.04); border: 1px solid var(--adm-border); border-radius: 8px;">
                   <?php
                   $iconEmojiMap = [
                       'cv'        => '📄',
@@ -96,16 +96,16 @@ require_once __DIR__ . '/includes/sidebar.php';
               </td>
 
               <td>
-                <div style="font-weight: 600; color: var(--color-cream); font-size: var(--text-sm);">
+                <div style="font-weight: 600; color: #ffffff; font-size: 0.88rem;">
                   <?= e($l['label']) ?>
                 </div>
-                <div style="font-size: 0.72rem; color: var(--color-cream-faint);">
-                  Kata kunci ikon: <code><?= e($l['icon']) ?></code>
+                <div style="font-size: 0.74rem; color: var(--adm-text-muted);">
+                  Icon: <code style="font-family: var(--font-mono); color: #38bdf8;"><?= e($l['icon']) ?></code>
                 </div>
               </td>
 
               <td style="max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                <a href="<?= e($l['url']) ?>" target="_blank" rel="noopener noreferrer" style="font-size: var(--text-xs); color: var(--color-accent);">
+                <a href="<?= e($l['url']) ?>" target="_blank" rel="noopener noreferrer" style="font-size: 0.8rem; font-weight: 500; color: #38bdf8; text-decoration: none;">
                   <?= e($l['url']) ?> &nearr;
                 </a>
               </td>
@@ -119,7 +119,7 @@ require_once __DIR__ . '/includes/sidebar.php';
               </td>
 
               <td style="text-align: right;">
-                <div style="display: inline-flex; gap: 0.4rem;">
+                <div style="display: inline-flex; gap: 0.45rem;">
                   <a href="<?= BASE_URL ?>/admin/link-form?id=<?= (int)$l['id'] ?>" class="btn btn-secondary btn-sm" style="padding: 0.35rem 0.65rem;">
                     Edit
                   </a>
@@ -128,7 +128,7 @@ require_once __DIR__ . '/includes/sidebar.php';
                     <?= csrf_field() ?>
                     <input type="hidden" name="action" value="delete">
                     <input type="hidden" name="link_id" value="<?= (int)$l['id'] ?>">
-                    <button type="submit" class="btn btn-sm" style="padding: 0.35rem 0.65rem; background-color: rgba(185, 28, 28, 0.2); border-color: rgba(239, 68, 68, 0.4); color: #FCA5A5;">
+                    <button type="submit" class="btn btn-danger btn-sm" style="padding: 0.35rem 0.65rem;">
                       Hapus
                     </button>
                   </form>
