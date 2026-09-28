@@ -321,6 +321,13 @@ function get_homepage_content(PDO $pdo): array
             $content[$key] = trim($saved[$key]);
         }
     }
+
+    // Pastikan tech_chips_json memiliki seluruh kategori lengkap (jika data lama belum lengkap / kurang dari 20 item)
+    $dbChips = json_decode($content['tech_chips_json'] ?? '[]', true);
+    if (!is_array($dbChips) || count($dbChips) < 20) {
+        $content['tech_chips_json'] = $defaults['tech_chips_json'];
+    }
+
     $content['hero_readiness'] = (string) max(0, min(100, (int) ($content['hero_readiness'] ?? 88)));
     return $content;
 }

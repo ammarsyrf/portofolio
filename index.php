@@ -18,7 +18,7 @@ track_page_view($pdo);
 $profile = get_profile($pdo);
 $homeContent = get_homepage_content($pdo);
 $techChipsRaw = json_decode($homeContent['tech_chips_json'] ?? '[]', true);
-$techChips = (is_array($techChipsRaw) && !empty($techChipsRaw)) ? $techChipsRaw : json_decode(homepage_content_defaults()['tech_chips_json'], true);
+$techChips = (is_array($techChipsRaw) && count($techChipsRaw) >= 20) ? $techChipsRaw : json_decode(homepage_content_defaults()['tech_chips_json'], true);
 
 require_once __DIR__ . '/includes/tech_icons.php';
 
