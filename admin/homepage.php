@@ -1351,11 +1351,33 @@ require_once __DIR__ . '/includes/sidebar.php';
         activeLabel.innerHTML = titleHtml;
       }
 
+      // Sync main sidebar sublinks active state
+      const sidebarSublinks = document.querySelectorAll('.sidebar-sublink');
+      sidebarSublinks.forEach(link => {
+        const targetHash = (link.getAttribute('href') || '').split('#')[1];
+        link.classList.toggle('active', 'panel-' + targetHash === targetPanelId);
+      });
+
       // Update URL hash without reload
       if (history.replaceState) {
         history.replaceState(null, null, '#' + targetPanelId.replace('panel-', ''));
       }
     }
+
+    // Connect main sidebar sublinks to tab activation
+    const sidebarSublinks = document.querySelectorAll('.sidebar-sublink');
+    sidebarSublinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        const targetHash = (this.getAttribute('href') || '').split('#')[1];
+        if (targetHash) {
+          e.preventDefault();
+          const targetBtn = document.querySelector(`.hp-nav-item-btn[data-tab-target="panel-${targetHash}"]`);
+          const title = targetBtn ? targetBtn.getAttribute('data-tab-title') : '';
+          activateTab('panel-' + targetHash, title);
+          window.scrollTo({ top: document.querySelector('.hp-sticky-bar').offsetTop - 20, behavior: 'smooth' });
+        }
+      });
+    });
 
     // Cluster Tab Clicks (Level 1)
     clusterButtons.forEach(btn => {

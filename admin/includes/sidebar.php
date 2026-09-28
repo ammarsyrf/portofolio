@@ -177,6 +177,66 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     box-shadow: 0 0 10px var(--adm-accent-bright);
   }
 
+  /* ── Main Sidebar Submenu & Accordion ── */
+  .sidebar-dropdown-group {
+    display: flex;
+    flex-direction: column;
+  }
+  .sb-dropdown-arrow {
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    color: #64748b;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .sidebar-dropdown-group.is-open .sb-dropdown-arrow {
+    transform: rotate(180deg);
+    color: var(--adm-accent-bright);
+  }
+  .sidebar-submenu {
+    display: none;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.35rem 0 0.5rem 1.15rem;
+    margin: 0.2rem 0 0.4rem 0.85rem;
+    border-left: 1.5px solid rgba(59, 130, 246, 0.25);
+  }
+  .sidebar-dropdown-group.is-open .sidebar-submenu {
+    display: flex;
+  }
+  .admin-sidebar.collapsed .sidebar-submenu {
+    display: none !important;
+  }
+  .sidebar-sublink {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.42rem 0.65rem;
+    color: #94a3b8;
+    font-size: 0.79rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sidebar-sublink:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
+    padding-left: 0.85rem;
+  }
+  .sidebar-sublink.active,
+  .sidebar-sublink.is-active {
+    color: #60a5fa;
+    background: rgba(59, 130, 246, 0.16);
+    font-weight: 600;
+  }
+  .sb-sub-icon {
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
   /* Tooltip saat collapsed */
   .admin-sidebar.collapsed .sidebar-link[data-tip]:hover::after {
     content: attr(data-tip);
@@ -328,13 +388,73 @@ $currentPage = basename($_SERVER['PHP_SELF']);
       <span class="sb-label">Profil, Foto &amp; CV</span>
     </a>
 
-    <a href="<?= BASE_URL ?>/admin/homepage" data-tip="Konten Utama"
-       class="sidebar-link <?= ($currentPage === 'homepage.php') ? 'active' : '' ?>">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="m3 11 9-8 9 8v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z"></path><path d="M9 22v-7h6v7"></path>
-      </svg>
-      <span class="sb-label">Konten Halaman Utama</span>
-    </a>
+    <div class="sidebar-dropdown-group <?= ($currentPage === 'homepage.php') ? 'is-open' : '' ?>" id="sbHomepageDropdown">
+      <a href="<?= BASE_URL ?>/admin/homepage" data-tip="Konten Utama"
+         class="sidebar-link <?= ($currentPage === 'homepage.php') ? 'active' : '' ?>">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m3 11 9-8 9 8v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z"></path><path d="M9 22v-7h6v7"></path>
+        </svg>
+        <span class="sb-label" style="flex-grow: 1;">Konten Halaman Utama</span>
+        <svg class="sb-dropdown-arrow sb-label" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" onclick="event.preventDefault(); event.stopPropagation(); document.getElementById('sbHomepageDropdown').classList.toggle('is-open');">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </a>
+
+      <div class="sidebar-submenu sb-label">
+        <a href="<?= BASE_URL ?>/admin/homepage#nav" class="sidebar-sublink" data-sub-target="panel-nav">
+          <span class="sb-sub-icon">🧭</span>
+          <span>Navigasi &amp; Brand</span>
+        </a>
+        <a href="<?= BASE_URL ?>/admin/homepage#hero" class="sidebar-sublink" data-sub-target="panel-hero">
+          <span class="sb-sub-icon">⚡</span>
+          <span>Hero &amp; Statistik</span>
+        </a>
+        <a href="<?= BASE_URL ?>/admin/homepage#terminal" class="sidebar-sublink" data-sub-target="panel-terminal">
+          <span class="sb-sub-icon">💻</span>
+          <span>Terminal Mockup</span>
+        </a>
+        <a href="<?= BASE_URL ?>/admin/homepage#brand" class="sidebar-sublink" data-sub-target="panel-brand">
+          <span class="sb-sub-icon">💎</span>
+          <span>Brand Zenerie</span>
+        </a>
+        <a href="<?= BASE_URL ?>/admin/homepage#about_bento" class="sidebar-sublink" data-sub-target="panel-about_bento">
+          <span class="sb-sub-icon">🪪</span>
+          <span>Tentang (Bento Hero)</span>
+        </a>
+        <a href="<?= BASE_URL ?>/admin/homepage#deck" class="sidebar-sublink" data-sub-target="panel-deck">
+          <span class="sb-sub-icon">🎯</span>
+          <span>Alur &amp; Standar Kerja</span>
+        </a>
+        <a href="<?= BASE_URL ?>/admin/homepage#about_section" class="sidebar-sublink" data-sub-target="panel-about_section">
+          <span class="sb-sub-icon">📖</span>
+          <span>Tentang Saya (Detail)</span>
+        </a>
+        <a href="<?= BASE_URL ?>/admin/homepage#tech_chips" class="sidebar-sublink" data-sub-target="panel-tech_chips">
+          <span class="sb-sub-icon">🧩</span>
+          <span>Tech Stack (Chips)</span>
+        </a>
+        <a href="<?= BASE_URL ?>/admin/homepage#matrix" class="sidebar-sublink" data-sub-target="panel-matrix">
+          <span class="sb-sub-icon">⚡</span>
+          <span>Matriks Keahlian</span>
+        </a>
+        <a href="<?= BASE_URL ?>/admin/homepage#domains" class="sidebar-sublink" data-sub-target="panel-domains">
+          <span class="sb-sub-icon">🗂️</span>
+          <span>Domain Keahlian (6)</span>
+        </a>
+        <a href="<?= BASE_URL ?>/admin/homepage#gear" class="sidebar-sublink" data-sub-target="panel-gear">
+          <span class="sb-sub-icon">⚙️</span>
+          <span>Gear &amp; Workspace</span>
+        </a>
+        <a href="<?= BASE_URL ?>/admin/homepage#contact" class="sidebar-sublink" data-sub-target="panel-contact">
+          <span class="sb-sub-icon">📬</span>
+          <span>Bagian Kontak</span>
+        </a>
+        <a href="<?= BASE_URL ?>/admin/homepage#oauth" class="sidebar-sublink" data-sub-target="panel-oauth">
+          <span class="sb-sub-icon">🔑</span>
+          <span>Integrasi &amp; OAuth</span>
+        </a>
+      </div>
+    </div>
 
     <div class="nav-section-title">Konten Portofolio</div>
 
