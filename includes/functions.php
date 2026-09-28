@@ -370,6 +370,29 @@ function set_hire_status(PDO $pdo, string $status): void {
     set_setting($pdo, 'hire_status', $val);
 }
 
+/**
+ * Dynamic Google OAuth Credential Helpers (Database First -> Config Constant Fallback)
+ */
+function get_google_client_id(PDO $pdo): string {
+    if (function_exists('get_homepage_content')) {
+        $content = get_homepage_content($pdo);
+        if (!empty($content['google_client_id'])) {
+            return trim($content['google_client_id']);
+        }
+    }
+    return (defined('GOOGLE_CLIENT_ID') && GOOGLE_CLIENT_ID !== 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com') ? GOOGLE_CLIENT_ID : '';
+}
+
+function get_google_client_secret(PDO $pdo): string {
+    if (function_exists('get_homepage_content')) {
+        $content = get_homepage_content($pdo);
+        if (!empty($content['google_client_secret'])) {
+            return trim($content['google_client_secret']);
+        }
+    }
+    return (defined('GOOGLE_CLIENT_SECRET') && GOOGLE_CLIENT_SECRET !== 'YOUR_GOOGLE_CLIENT_SECRET') ? GOOGLE_CLIENT_SECRET : '';
+}
+
 
 // =========================================================================
 // GUEST VISITOR (GOOGLE OAUTH) SESSION HELPERS

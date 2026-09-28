@@ -5,12 +5,15 @@
  */
 
 require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/functions.php';
 
+$googleClientId = get_google_client_id($pdo);
+
 // Cek apakah kredensial Google OAuth sudah dikonfigurasi
-if (GOOGLE_CLIENT_ID === 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com' || empty(GOOGLE_CLIENT_ID)) {
+if ($googleClientId === 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com' || empty($googleClientId)) {
     if (!empty($_SESSION['admin_logged_in'])) {
-        set_flash('danger', 'Kredensial Google OAuth belum dikonfigurasi di config.php (GOOGLE_CLIENT_ID).');
+        set_flash('danger', 'Kredensial Google OAuth belum dikonfigurasi di Pengaturan Homepage Admin atau config.php.');
     } else {
         set_flash('info', 'Layanan masuk dengan akun Google saat ini sedang dalam pemeliharaan.');
     }
@@ -23,7 +26,7 @@ $_SESSION['oauth_state'] = $oauthState;
 
 // Susun URL otorisasi Google
 $authUrl = 'https://accounts.google.com/o/oauth2/v2/auth?' . http_build_query([
-    'client_id'     => GOOGLE_CLIENT_ID,
+    'client_id'     => $googleClientId,
     'redirect_uri'  => GOOGLE_REDIRECT_URI,
     'response_type' => 'code',
     'scope'         => 'openid email profile',

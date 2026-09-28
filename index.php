@@ -344,18 +344,18 @@ $hireStatus = get_hire_status($pdo);
                           <polyline points="4 17 10 11 4 5"></polyline>
                           <line x1="12" y1="19" x2="20" y2="19"></line>
                         </svg>
-                        <span>ammar@zen:~$</span>
+                        <span><?= e($homeContent['terminal_title']) ?></span>
                       </div>
                       <div class="terminal-status-pill">
                         <span class="terminal-pulse-dot"></span>
-                        <span>ACTIVE</span>
+                        <span><?= e($homeContent['terminal_status_badge']) ?></span>
                       </div>
                     </div>
 
                     <!-- Terminal Interactive Console Screen -->
                     <div class="terminal-screen" id="terminalScreen">
                       <div class="term-line term-prompt-line">
-                        <span class="term-user">zen@dev</span><span class="term-sep">:</span><span class="term-path">~</span><span class="term-char">$</span>
+                        <span class="term-user"><?= e($homeContent['terminal_user']) ?></span><span class="term-sep">:</span><span class="term-path">~</span><span class="term-char">$</span>
                         <span class="term-cmd-text">status --live</span>
                       </div>
 
@@ -363,50 +363,50 @@ $hireStatus = get_hire_status($pdo);
                         <div class="term-row">
                           <span class="term-k">status</span>
                           <span class="term-op">:</span>
-                          <span class="term-v-status">"● Available for Hire"</span>
+                          <span class="term-v-status">"<?= e($homeContent['terminal_status_val']) ?>"</span>
                         </div>
                         <div class="term-row">
                           <span class="term-k">role</span>
                           <span class="term-op">:</span>
-                          <span class="term-v-str">"Fullstack &amp; AI-Augmented Dev"</span>
+                          <span class="term-v-str">"<?= e($homeContent['terminal_role_val']) ?>"</span>
                         </div>
                         <div class="term-row">
                           <span class="term-k">focus</span>
                           <span class="term-op">:</span>
-                          <span class="term-v-str">"Laravel 13 • MySQL • Next.js"</span>
+                          <span class="term-v-str">"<?= e($homeContent['terminal_focus_val']) ?>"</span>
                         </div>
                         <div class="term-row">
                           <span class="term-k">ai_stack</span>
                           <span class="term-op">:</span>
-                          <span class="term-v-str">"Claude • Gemini • OpenAI • Prompting"</span>
+                          <span class="term-v-str">"<?= e($homeContent['terminal_ai_val']) ?>"</span>
                         </div>
                         <div class="term-row">
                           <span class="term-k">workflow</span>
                           <span class="term-op">:</span>
-                          <span class="term-v-str">"Agentic Acceleration (3x Speed)"</span>
+                          <span class="term-v-str">"<?= e($homeContent['terminal_workflow_val']) ?>"</span>
                         </div>
                         <div class="term-row">
                           <span class="term-k">location</span>
                           <span class="term-op">:</span>
-                          <span class="term-v-str">"Jakarta, ID (GMT+7)"</span>
+                          <span class="term-v-str">"<?= e($homeContent['terminal_location_val']) ?>"</span>
                         </div>
                       </div>
 
                       <!-- Interactive Command Output Simulation -->
                       <div class="term-interactive-zone" id="termInteractiveZone">
                         <div class="term-line term-prompt-line">
-                          <span class="term-user">zen@dev</span><span class="term-sep">:</span><span class="term-path">~</span><span class="term-char">$</span>
-                          <span class="term-active-cmd" id="termActiveCmd">pest test &amp;&amp; eval-prompt</span>
+                          <span class="term-user"><?= e($homeContent['terminal_user']) ?></span><span class="term-sep">:</span><span class="term-path">~</span><span class="term-char">$</span>
+                          <span class="term-active-cmd" id="termActiveCmd"><?= e($homeContent['terminal_cmd_test']) ?></span>
                           <span class="term-cursor" id="termCursor">▋</span>
                         </div>
                         <div class="term-test-output" id="termTestOutput" style="display: none;">
                           <div class="term-test-pass">
                             <span class="term-badge-pass">PASS</span>
-                            <span>Pest v3 &bull; 18 passed (0.04s)</span>
+                            <span><?= e($homeContent['terminal_cmd_pass']) ?></span>
                           </div>
                           <div class="term-test-summary" style="display: flex; flex-direction: column; gap: 0.15rem; margin-top: 0.2rem;">
-                            <span style="color: #34d399;">✓ 100% Bebas SQLi &amp; Siap Produksi</span>
-                            <span style="color: #c084fc;">✓ Prompt Token Efficiency: 98.4% (Optimal Reasoning)</span>
+                            <span style="color: #34d399;"><?= e($homeContent['terminal_summary_line1']) ?></span>
+                            <span style="color: #c084fc;"><?= e($homeContent['terminal_summary_line2']) ?></span>
                           </div>
                         </div>
                       </div>
@@ -1332,32 +1332,32 @@ $hireStatus = get_hire_status($pdo);
                         <div class="gear-spec-icon">💻</div>
                         <div class="gear-spec-content">
                           <span class="gear-spec-label">Mesin Utama</span>
-                          <strong class="gear-spec-name">AMD Ryzen™ / Intel Core i7</strong>
-                          <span class="gear-spec-detail">32GB RAM DDR5 • 1TB NVMe PCIe 4.0</span>
+                          <strong class="gear-spec-name"><?= e($homeContent['gear_hw_laptop_name']) ?></strong>
+                          <span class="gear-spec-detail"><?= e($homeContent['gear_hw_laptop_desc']) ?></span>
                         </div>
                       </div>
                       <div class="gear-spec-item">
                         <div class="gear-spec-icon">🖥️</div>
                         <div class="gear-spec-content">
                           <span class="gear-spec-label">Dual Display Setup</span>
-                          <strong class="gear-spec-name">27&quot; QHD 165Hz IPS + 24&quot; Portrait</strong>
-                          <span class="gear-spec-detail">Optimal koding vertikal &amp; terminal preview</span>
+                          <strong class="gear-spec-name"><?= e($homeContent['gear_hw_display_name']) ?></strong>
+                          <span class="gear-spec-detail"><?= e($homeContent['gear_hw_display_desc']) ?></span>
                         </div>
                       </div>
                       <div class="gear-spec-item">
                         <div class="gear-spec-icon">⌨️</div>
                         <div class="gear-spec-content">
                           <span class="gear-spec-label">Input &amp; Periferal</span>
-                          <strong class="gear-spec-name">Custom 75% Mechanical Keyboard</strong>
-                          <span class="gear-spec-detail">Lubed Linear Switches • Wireless Precision Mouse</span>
+                          <strong class="gear-spec-name"><?= e($homeContent['gear_hw_keyboard_name']) ?></strong>
+                          <span class="gear-spec-detail"><?= e($homeContent['gear_hw_keyboard_desc']) ?></span>
                         </div>
                       </div>
                       <div class="gear-spec-item">
                         <div class="gear-spec-icon">🎧</div>
                         <div class="gear-spec-content">
                           <span class="gear-spec-label">Audio Monitor</span>
-                          <strong class="gear-spec-name">Studio Monitor Headphones / IEM</strong>
-                          <span class="gear-spec-detail">Acoustic clarity &amp; passive noise isolation</span>
+                          <strong class="gear-spec-name"><?= e($homeContent['gear_hw_audio_name']) ?></strong>
+                          <span class="gear-spec-detail"><?= e($homeContent['gear_hw_audio_desc']) ?></span>
                         </div>
                       </div>
                     </div>
@@ -1382,32 +1382,43 @@ $hireStatus = get_hire_status($pdo);
                       <div class="gear-cat-block">
                         <span class="gear-block-title">OS &amp; Shell</span>
                         <div class="gear-tag-cluster">
-                          <span class="gear-tool-tag highlighted">Windows 11 Pro</span>
-                          <span class="gear-tool-tag highlighted">WSL2 (Ubuntu 24.04)</span>
-                          <span class="gear-tool-tag">Windows Terminal</span>
-                          <span class="gear-tool-tag">PowerShell 7</span>
-                          <span class="gear-tool-tag">Starship Prompt</span>
-                          <span class="gear-tool-tag">Git CLI</span>
+                          <?php 
+                          $osList = array_filter(array_map('trim', explode(',', $homeContent['gear_sw_os_tags'] ?? '')));
+                          $oi = 0;
+                          foreach ($osList as $tag): 
+                            $isHi = ($oi < 2);
+                            $oi++;
+                          ?>
+                            <span class="gear-tool-tag <?= $isHi ? 'highlighted' : '' ?>"><?= e($tag) ?></span>
+                          <?php endforeach; ?>
                         </div>
                       </div>
                       <div class="gear-cat-block">
                         <span class="gear-block-title">IDE &amp; Editors</span>
                         <div class="gear-tag-cluster">
-                          <span class="gear-tool-tag highlighted">Antigravity IDE</span>
-                          <span class="gear-tool-tag highlighted">Cursor AI</span>
-                          <span class="gear-tool-tag">VS Code</span>
-                          <span class="gear-tool-tag">JetBrains Mono</span>
+                          <?php 
+                          $ideList = array_filter(array_map('trim', explode(',', $homeContent['gear_sw_ide_tags'] ?? '')));
+                          $ii = 0;
+                          foreach ($ideList as $tag): 
+                            $isHi = ($ii < 2);
+                            $ii++;
+                          ?>
+                            <span class="gear-tool-tag <?= $isHi ? 'highlighted' : '' ?>"><?= e($tag) ?></span>
+                          <?php endforeach; ?>
                         </div>
                       </div>
                       <div class="gear-cat-block">
                         <span class="gear-block-title">Runtime, DB &amp; API</span>
                         <div class="gear-tag-cluster">
-                          <span class="gear-tool-tag">PHP 8.2</span>
-                          <span class="gear-tool-tag highlighted">Laravel 13</span>
-                          <span class="gear-tool-tag">Node.js 20</span>
-                          <span class="gear-tool-tag">MySQL / PostgreSQL</span>
-                          <span class="gear-tool-tag">TablePlus</span>
-                          <span class="gear-tool-tag">Postman</span>
+                          <?php 
+                          $toolsList = array_filter(array_map('trim', explode(',', $homeContent['gear_sw_tools_tags'] ?? '')));
+                          $ti = 0;
+                          foreach ($toolsList as $tag): 
+                            $isHi = ($ti === 1);
+                            $ti++;
+                          ?>
+                            <span class="gear-tool-tag <?= $isHi ? 'highlighted' : '' ?>"><?= e($tag) ?></span>
+                          <?php endforeach; ?>
                         </div>
                       </div>
                     </div>
@@ -1433,28 +1444,28 @@ $hireStatus = get_hire_status($pdo);
                         <div class="gear-ai-icon">🤖</div>
                         <div>
                           <strong>Frontier AI Models</strong>
-                          <span>Claude 3.7 Sonnet (Thinking Mode), OpenAI GPT-4o, Google Gemini 2.5 Pro.</span>
+                          <span><?= e($homeContent['gear_ai_models_desc']) ?></span>
                         </div>
                       </div>
                       <div class="gear-ai-item">
                         <div class="gear-ai-icon">🎯</div>
                         <div>
                           <strong>Prompt &amp; Agent Engineering</strong>
-                          <span>System prompts, multi-agent chaining, context grounding &amp; function calling.</span>
+                          <span><?= e($homeContent['gear_ai_prompt_desc']) ?></span>
                         </div>
                       </div>
                       <div class="gear-ai-item">
                         <div class="gear-ai-icon">🎨</div>
                         <div>
                           <strong>Desain &amp; Manajemen Ide</strong>
-                          <span>Figma (Design System &amp; UI prototype), Obsidian (Markdown PKM), Notion.</span>
+                          <span><?= e($homeContent['gear_ai_design_desc']) ?></span>
                         </div>
                       </div>
                       <div class="gear-ai-item">
                         <div class="gear-ai-icon">🚀</div>
                         <div>
                           <strong>DevOps &amp; Hosting</strong>
-                          <span>SSH Key-based deployment, SCP automation, Nginx, GitKraken.</span>
+                          <span><?= e($homeContent['gear_ai_devops_desc']) ?></span>
                         </div>
                       </div>
                     </div>

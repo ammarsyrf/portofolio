@@ -16,16 +16,27 @@ $navPhoto = '';
 if (isset($profile) && !empty($profile['photo']) && file_exists(UPLOAD_DIR_PHOTOS . '/' . basename($profile['photo']))) {
     $navPhoto = upload_url('photos', $profile['photo']);
 }
+
+// Brand and Hire CTA dynamically configured
+if (!isset($homeContent) && isset($pdo)) {
+    if (!function_exists('get_homepage_content')) {
+        require_once __DIR__ . '/homepage_content.php';
+    }
+    $homeContent = get_homepage_content($pdo);
+}
+$navBrandFull = !empty($homeContent['nav_brand_full']) ? $homeContent['nav_brand_full'] : (!empty($profile['full_name']) ? $profile['full_name'] : 'Ammar Syarif');
+$navBrandShort = !empty($homeContent['nav_brand_short']) ? $homeContent['nav_brand_short'] : 'A//S';
+$navHireText = !empty($homeContent['nav_hire_text']) ? $homeContent['nav_hire_text'] : 'Rekrut Saya';
 ?>
 <header class="site-header" id="siteHeader">
   <div class="site-container">
     <div class="nav-pill-bar">
       
       <!-- Brand / Logo -->
-      <a href="<?= BASE_URL ?>/" class="nav-brand-pill" title="Ammar Syarif — Portfolio">
+      <a href="<?= BASE_URL ?>/" class="nav-brand-pill" title="<?= e($navBrandFull) ?> — Portfolio">
         <div class="brand-morph-wrap">
-          <span class="brand-short">A//S</span>
-          <span class="brand-full">Ammar Syarif</span>
+          <span class="brand-short"><?= e($navBrandShort) ?></span>
+          <span class="brand-full"><?= e($navBrandFull) ?></span>
         </div>
       </a>
 
@@ -111,12 +122,12 @@ if (isset($profile) && !empty($profile['photo']) && file_exists(UPLOAD_DIR_PHOTO
       <div class="nav-right-actions">
         
         <?php if (!empty($navPhoto)): ?>
-          <a href="<?= $homePrefix ?>#about" class="nav-avatar-mini" title="Lihat Profil Ammar Syarif">
-            <img src="<?= e($navPhoto) ?>" alt="Ammar Syarif">
+          <a href="<?= $homePrefix ?>#about" class="nav-avatar-mini" title="Lihat Profil <?= e($navBrandFull) ?>">
+            <img src="<?= e($navPhoto) ?>" alt="<?= e($navBrandFull) ?>">
           </a>
         <?php else: ?>
-          <a href="<?= $homePrefix ?>#about" class="nav-avatar-mini placeholder" title="Lihat Profil Ammar Syarif">
-            <span>AS</span>
+          <a href="<?= $homePrefix ?>#about" class="nav-avatar-mini placeholder" title="Lihat Profil <?= e($navBrandFull) ?>">
+            <span><?= e(mb_substr($navBrandFull, 0, 2)) ?></span>
           </a>
         <?php endif; ?>
 
@@ -138,9 +149,9 @@ if (isset($profile) && !empty($profile['photo']) && file_exists(UPLOAD_DIR_PHOTO
         </a>
 
         <!-- Rekrut Saya (Pill Button with "+") -->
-        <a href="<?= $homePrefix ?>#contact" class="btn-hire" title="Rekrut Ammar Syarif">
+        <a href="<?= $homePrefix ?>#contact" class="btn-hire" title="Hubungi <?= e($navBrandFull) ?>">
           <span class="btn-hire-plus">+</span>
-          <span class="btn-hire-text">Rekrut Saya</span>
+          <span class="btn-hire-text"><?= e($navHireText) ?></span>
         </a>
 
         <!-- Mobile Nav Toggle -->
@@ -220,7 +231,7 @@ if (isset($profile) && !empty($profile['photo']) && file_exists(UPLOAD_DIR_PHOTO
 
         <div class="mobile-drawer-footer">
           <a href="<?= $homePrefix ?>#contact" class="mobile-drawer-cta">
-            <span>Hubungi & Rekrut Saya</span>
+            <span>Hubungi &amp; <?= e($navHireText) ?></span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
           </a>
         </div>

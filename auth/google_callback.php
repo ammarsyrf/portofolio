@@ -5,7 +5,11 @@
  */
 
 require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/functions.php';
+
+$googleClientId = get_google_client_id($pdo);
+$googleClientSecret = get_google_client_secret($pdo);
 
 // Cek error dari Google
 if (!empty($_GET['error'])) {
@@ -35,8 +39,8 @@ if (empty($code)) {
 $tokenEndpoint = 'https://oauth2.googleapis.com/token';
 $postData = http_build_query([
     'code'          => $code,
-    'client_id'     => GOOGLE_CLIENT_ID,
-    'client_secret' => GOOGLE_CLIENT_SECRET,
+    'client_id'     => $googleClientId,
+    'client_secret' => $googleClientSecret,
     'redirect_uri'  => GOOGLE_REDIRECT_URI,
     'grant_type'    => 'authorization_code'
 ]);

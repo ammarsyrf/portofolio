@@ -69,7 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Ambil daftar pesan buku tamu terbaru
 $messages = get_guestbook_messages($pdo);
-$hasOauthConfig = (GOOGLE_CLIENT_ID !== 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com' && !empty(GOOGLE_CLIENT_ID));
+$googleClientId = get_google_client_id($pdo);
+$hasOauthConfig = ($googleClientId !== 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com' && !empty($googleClientId));
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -187,7 +188,7 @@ $hasOauthConfig = (GOOGLE_CLIENT_ID !== 'YOUR_GOOGLE_CLIENT_ID.apps.googleuserco
 
           <?php if (!$hasOauthConfig && function_exists('is_admin_logged_in') && is_admin_logged_in()): ?>
             <div style="font-size: 0.72rem; color: var(--color-text-faint); margin-top: 1.25rem; background: rgba(76,141,255,0.08); padding: 0.5rem 0.75rem; border-radius: 6px; border: 1px dashed rgba(76,141,255,0.3);">
-              ⚙️ Admin Note: Isi kredensial Google OAuth di <code>config.php</code> untuk mengaktifkan login publik.
+              ⚙️ Admin Note: Isi kredensial Google OAuth di <code>Admin Panel > Homepage > Tab Integrasi &amp; OAuth</code> untuk mengaktifkan login publik.
             </div>
           <?php endif; ?>
         </div>

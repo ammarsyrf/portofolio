@@ -29,11 +29,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $content = get_homepage_content($pdo);
 
 $groups = [
+    'nav' => [
+        'title' => 'Navigasi & Brand',
+        'icon'  => '🧭',
+        'desc'  => 'Nama brand navbar (lengkap & singkatan), serta teks tombol aksi/rekrutmen.',
+        'keys'  => ['nav_brand_full', 'nav_brand_short', 'nav_hire_text']
+    ],
     'hero' => [
         'title' => 'Hero & Statistik',
         'icon'  => '⚡',
         'desc'  => 'Teks headline, gelar, ketersediaan rekrutmen, dan badge utama pada hero section.',
         'keys'  => ['hero_education_label','hero_degree','hero_field','hero_specialty_label','hero_specialty_value','hero_availability_label','hero_availability_value','hero_readiness','hero_line_one','hero_line_two','hero_line_three','hero_badge','hero_vertical_badge']
+    ],
+    'terminal' => [
+        'title' => 'Terminal Console',
+        'icon'  => '💻',
+        'desc'  => 'Teks status live terminal mockup, fokus stack, workflow, dan simulasi pengujian.',
+        'keys'  => [
+            'terminal_title', 'terminal_status_badge', 'terminal_user', 
+            'terminal_status_val', 'terminal_role_val', 'terminal_focus_val', 
+            'terminal_ai_val', 'terminal_workflow_val', 'terminal_location_val', 
+            'terminal_cmd_test', 'terminal_cmd_pass', 'terminal_summary_line1', 'terminal_summary_line2'
+        ]
     ],
     'brand' => [
         'title' => 'Brand Zenerie',
@@ -41,11 +58,24 @@ $groups = [
         'desc'  => 'Kartu profil brand Zenerie, link website, dan tombol aksi.',
         'keys'  => ['brand_title','brand_badge','brand_description','brand_url','brand_button']
     ],
-    'dashboard' => [
-        'title' => 'Widget Dashboard',
-        'icon'  => '📊',
-        'desc'  => 'Status tech stack, tombol media, dan widget interaktif di bento dashboard.',
-        'keys'  => ['identity_button','media_title','media_button','tech_widget_title','tech_widget_status','tech_widget_footer','tech_widget_button']
+    'tech_chips' => [
+        'title' => 'Tech Stack (Chips)',
+        'icon'  => '🧩',
+        'desc'  => 'Daftar skill chips interaktif di homepage dalam format JSON terstruktur.',
+        'keys'  => ['tech_widget_title', 'tech_widget_status', 'tech_widget_footer', 'tech_widget_button', 'tech_chips_json']
+    ],
+    'gear' => [
+        'title' => 'Gear & Workspace',
+        'icon'  => '⚙️',
+        'desc'  => 'Daftar hardware, toolset software, dan suite AI di tab gear & setup.',
+        'keys'  => [
+            'gear_hw_laptop_name', 'gear_hw_laptop_desc',
+            'gear_hw_display_name', 'gear_hw_display_desc',
+            'gear_hw_keyboard_name', 'gear_hw_keyboard_desc',
+            'gear_hw_audio_name', 'gear_hw_audio_desc',
+            'gear_sw_os_tags', 'gear_sw_ide_tags', 'gear_sw_tools_tags',
+            'gear_ai_models_desc', 'gear_ai_prompt_desc', 'gear_ai_design_desc', 'gear_ai_devops_desc'
+        ]
     ],
     'about_bento' => [
         'title' => 'Tentang (Bento)',
@@ -77,17 +107,65 @@ $groups = [
         'desc'  => 'Judul kartu email, jejaring profesional, sosial media, dan teks form pesan singkat.',
         'keys'  => ['contact_caption','contact_title','contact_email_title','contact_email_description','contact_linkedin_title','contact_linkedin_description','contact_github_title','contact_github_description','contact_instagram_title','contact_instagram_description','contact_tiktok_title','contact_tiktok_description','contact_form_title','contact_form_button']
     ],
+    'oauth' => [
+        'title' => 'Integrasi & OAuth',
+        'icon'  => '🔑',
+        'desc'  => 'Kredensial Google OAuth 2.0 untuk autentikasi Buku Tamu publik.',
+        'keys'  => ['google_client_id', 'google_client_secret']
+    ],
 ];
 
 $labels = [
+    'nav_brand_full' => 'Nama Brand Lengkap (Navbar)',
+    'nav_brand_short' => 'Inisial / Brand Singkat (Navbar)',
+    'nav_hire_text' => 'Teks Tombol Rekrut (Navbar)',
+
     'hero_education_label'=>'Label pendidikan','hero_degree'=>'Gelar singkat','hero_field'=>'Bidang pendidikan','hero_specialty_label'=>'Label spesialisasi','hero_specialty_value'=>'Nilai spesialisasi','hero_availability_label'=>'Label ketersediaan','hero_availability_value'=>'Nilai ketersediaan','hero_readiness'=>'Kesiapan teknis (0–100)','hero_line_one'=>'Hero baris 1','hero_line_two'=>'Hero baris 2','hero_line_three'=>'Hero baris 3','hero_badge'=>'Badge hero','hero_vertical_badge'=>'Badge vertikal',
+
+    'terminal_title' => 'Judul Shell Terminal (contoh: ammar@zen:~$)',
+    'terminal_status_badge' => 'Badge Status Terminal (contoh: ACTIVE)',
+    'terminal_user' => 'User Prompt (contoh: zen@dev)',
+    'terminal_status_val' => 'Nilai Status (contoh: ● Available for Hire)',
+    'terminal_role_val' => 'Nilai Role (contoh: Fullstack & AI-Augmented Dev)',
+    'terminal_focus_val' => 'Nilai Focus (contoh: Laravel 13 • MySQL • Next.js)',
+    'terminal_ai_val' => 'Nilai AI Stack (contoh: Claude • Gemini • OpenAI)',
+    'terminal_workflow_val' => 'Nilai Workflow (contoh: Agentic Acceleration (3x Speed))',
+    'terminal_location_val' => 'Nilai Location (contoh: Jakarta, ID (GMT+7))',
+    'terminal_cmd_test' => 'Perintah Simulasi Tes (contoh: pest test && eval-prompt)',
+    'terminal_cmd_pass' => 'Teks Hasil Tes Lulus (contoh: Pest v3 • 18 passed (0.04s))',
+    'terminal_summary_line1' => 'Baris Ringkasan 1 (contoh: ✓ 100% Bebas SQLi & Siap Produksi)',
+    'terminal_summary_line2' => 'Baris Ringkasan 2 (contoh: ✓ Prompt Token Efficiency: 98.4%)',
+
     'brand_title'=>'Judul brand','brand_badge'=>'Badge brand','brand_description'=>'Deskripsi Zenerie','brand_url'=>'URL website Zenerie','brand_button'=>'Teks tombol',
-    'identity_button'=>'Tombol profil','media_title'=>'Judul media','media_button'=>'Tombol media','tech_widget_title'=>'Judul tech stack','tech_widget_status'=>'Status tech stack','tech_widget_footer'=>'Footer tech stack','tech_widget_button'=>'Tombol tech stack',
+    'identity_button'=>'Tombol profil','media_title'=>'Judul media','media_button'=>'Tombol media',
+    
+    'tech_widget_title'=>'Judul widget tech stack','tech_widget_status'=>'Status widget tech stack','tech_widget_footer'=>'Footer widget tech stack','tech_widget_button'=>'Tombol widget tech stack',
+    'tech_chips_json' => 'Data JSON Skill Chips (name, category, role, highlight)',
+
+    'gear_hw_laptop_name' => 'Nama Hardware: Mesin Utama (Laptop/PC)',
+    'gear_hw_laptop_desc' => 'Spesifikasi Mesin Utama',
+    'gear_hw_display_name' => 'Nama Hardware: Monitor / Layar',
+    'gear_hw_display_desc' => 'Spesifikasi Monitor / Layar',
+    'gear_hw_keyboard_name' => 'Nama Hardware: Keyboard / Input',
+    'gear_hw_keyboard_desc' => 'Spesifikasi Keyboard / Mouse',
+    'gear_hw_audio_name' => 'Nama Hardware: Audio / Monitor',
+    'gear_hw_audio_desc' => 'Spesifikasi Audio / IEM',
+    'gear_sw_os_tags' => 'Daftar Tag OS & Shell (pisahkan dengan koma)',
+    'gear_sw_ide_tags' => 'Daftar Tag IDE & Editor (pisahkan dengan koma)',
+    'gear_sw_tools_tags' => 'Daftar Tag Runtime, DB & API (pisahkan dengan koma)',
+    'gear_ai_models_desc' => 'Deskripsi: Frontier AI Models',
+    'gear_ai_prompt_desc' => 'Deskripsi: Prompt & Agent Engineering',
+    'gear_ai_design_desc' => 'Deskripsi: Desain & Manajemen Ide',
+    'gear_ai_devops_desc' => 'Deskripsi: DevOps & Hosting',
+
     'projects_caption'=>'Caption proyek','projects_title'=>'Judul proyek',
     'about_widget_title'=>'Judul kartu','about_widget_status'=>'Status','about_widget_text_one'=>'Paragraf 1','about_widget_text_two'=>'Paragraf 2','about_metric_one_value'=>'Metrik 1 nilai','about_metric_one_label'=>'Metrik 1 label','about_metric_two_value'=>'Metrik 2 nilai','about_metric_two_label'=>'Metrik 2 label',
     'about_caption'=>'Caption section','about_title'=>'Judul section','about_kicker'=>'Kicker','about_heading'=>'Judul panel','about_paragraph_one'=>'Paragraf 1','about_paragraph_two'=>'Paragraf 2','about_paragraph_three'=>'Paragraf 3',
     'skills_caption'=>'Caption section','skills_title'=>'Judul section','skills_lead'=>'Deskripsi section',
     'contact_caption'=>'Caption section','contact_title'=>'Judul section','contact_email_title'=>'Judul kartu email','contact_email_description'=>'Deskripsi kartu email','contact_linkedin_title'=>'Judul kartu LinkedIn','contact_linkedin_description'=>'Deskripsi kartu LinkedIn','contact_github_title'=>'Judul kartu GitHub','contact_github_description'=>'Deskripsi kartu GitHub','contact_instagram_title'=>'Judul kartu Instagram','contact_instagram_description'=>'Deskripsi kartu Instagram','contact_tiktok_title'=>'Judul kartu TikTok','contact_tiktok_description'=>'Deskripsi kartu TikTok','contact_form_title'=>'Judul form pesan','contact_form_button'=>'Teks tombol form',
+
+    'google_client_id' => 'Google OAuth Client ID',
+    'google_client_secret' => 'Google OAuth Client Secret',
 ];
 
 require_once __DIR__ . '/includes/header.php';
@@ -315,7 +393,9 @@ require_once __DIR__ . '/includes/sidebar.php';
 
             <div class="form-grid">
               <?php foreach ($grp['keys'] as $key): 
-                $long = str_contains($key, 'text_') || str_contains($key, 'paragraph') || str_contains($key, 'description') || str_contains($key, '_lead');
+                $isJson = ($key === 'tech_chips_json');
+                $isDesc = str_contains($key, '_desc') || str_contains($key, 'description') || str_contains($key, '_tags') || str_contains($key, 'text_') || str_contains($key, 'paragraph') || str_contains($key, '_lead');
+                $long = $isJson || $isDesc;
               ?>
                 <div class="form-group" style="<?= $long ? 'grid-column: 1 / -1;' : '' ?>">
                   <label class="form-label" for="<?= e($key) ?>">
@@ -323,11 +403,21 @@ require_once __DIR__ . '/includes/sidebar.php';
                     <code style="font-size: 0.7rem; color: var(--color-text-faint); margin-left: 0.35rem; font-weight: 400;">(<?= e($key) ?>)</code>
                   </label>
                   
-                  <?php if ($long): ?>
+                  <?php if ($isJson): ?>
+                    <div style="font-size: 0.75rem; color: var(--color-text-dim); margin-bottom: 0.5rem;">
+                      💡 Tips: Format JSON Array berisi objek dengan properti <code>name</code>, <code>category</code> (frontend, backend, database, devops, ai, testing, mobile, analytics), <code>role</code>, dan <code>highlight</code> (true/false).
+                    </div>
                     <textarea class="form-textarea" 
                               id="<?= e($key) ?>" 
                               name="<?= e($key) ?>" 
-                              rows="<?= str_contains($key, 'paragraph') ? '4' : '3' ?>" 
+                              rows="12" 
+                              style="font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace; font-size: 0.8rem; background: rgba(10,14,23,0.85); color: #38bdf8;"
+                              placeholder="[ { &quot;name&quot;: &quot;Next.js&quot;, ... } ]"><?= e($content[$key] ?? '') ?></textarea>
+                  <?php elseif ($long): ?>
+                    <textarea class="form-textarea" 
+                              id="<?= e($key) ?>" 
+                              name="<?= e($key) ?>" 
+                              rows="<?= (str_contains($key, 'paragraph') || str_contains($key, '_tags')) ? '3' : '2' ?>" 
                               placeholder="Masukkan teks..."><?= e($content[$key] ?? '') ?></textarea>
                   <?php else: ?>
                     <input class="form-input" 
@@ -336,6 +426,12 @@ require_once __DIR__ . '/includes/sidebar.php';
                            value="<?= e($content[$key] ?? '') ?>" 
                            <?= $key === 'hero_readiness' ? 'type="number" min="0" max="100"' : 'type="text"' ?>
                            placeholder="Masukkan nilai...">
+                  <?php endif; ?>
+
+                  <?php if ($key === 'google_client_id' || $key === 'google_client_secret'): ?>
+                    <div style="font-size: 0.72rem; color: var(--color-text-dim); margin-top: 0.35rem;">
+                      Diambil dari Google Cloud Console &gt; APIs &amp; Services &gt; Credentials (OAuth 2.0 Client IDs). Jika dikosongkan, tombol login Google di Buku Tamu akan otomatis disembunyikan/dinonaktifkan secara aman.
+                    </div>
                   <?php endif; ?>
                 </div>
               <?php endforeach; ?>
