@@ -28,7 +28,10 @@ if (!function_exists('render_skill_badges_from_csv')) {
         $html = '';
         foreach ($tags as $tag) {
             $svg = get_tech_svg_icon($tag, 14, 'badge-tech-svg');
-            $html .= '<span class="skill-badge"><span class="badge-icon-wrap">' . $svg . '</span><span class="badge-tag-text">' . htmlspecialchars($tag) . '</span></span>';
+            $cleanDisplay = preg_replace('/^[\x{1F300}-\x{1F9FF}\x{2600}-\x{26FF}\x{2700}-\x{27BF}\x{25A0}-\x{25FF}\x{2B50}\x{2300}-\x{23FF}\x{2190}-\x{21FF}\x{FE00}-\x{FE0F}\s▲🔴⚡🐬🔗🟡⚛️🌿🐧🎨🟢🐳🐍☁️⭐]+/u', '', $tag);
+            $cleanDisplay = trim((string)$cleanDisplay);
+            $displayTag = !empty($cleanDisplay) ? $cleanDisplay : $tag;
+            $html .= '<span class="skill-badge"><span class="badge-icon-wrap">' . $svg . '</span><span class="badge-tag-text">' . htmlspecialchars($displayTag) . '</span></span>';
         }
         return $html;
     }
@@ -40,8 +43,11 @@ if (!function_exists('render_tier_chips_from_csv')) {
         $html = '';
         foreach ($tags as $tag) {
             $hl = $highlight ? ' highlight' : '';
-            $svg = get_tech_svg_icon($tag, 13, 'tier-tech-svg');
-            $html .= '<span class="tier-chip' . $hl . '"><span class="tier-icon-wrap">' . $svg . '</span><span>' . htmlspecialchars($tag) . '</span></span>';
+            $svg = get_tech_svg_icon($tag, 14, 'tier-tech-svg');
+            $cleanDisplay = preg_replace('/^[\x{1F300}-\x{1F9FF}\x{2600}-\x{26FF}\x{2700}-\x{27BF}\x{25A0}-\x{25FF}\x{2B50}\x{2300}-\x{23FF}\x{2190}-\x{21FF}\x{FE00}-\x{FE0F}\s▲🔴⚡🐬🔗🟡⚛️🌿🐧🎨🟢🐳🐍☁️⭐]+/u', '', $tag);
+            $cleanDisplay = trim((string)$cleanDisplay);
+            $displayTag = !empty($cleanDisplay) ? $cleanDisplay : $tag;
+            $html .= '<span class="tier-chip' . $hl . '"><span class="tier-icon-wrap">' . $svg . '</span><span>' . htmlspecialchars($displayTag) . '</span></span>';
         }
         return $html;
     }
@@ -811,8 +817,9 @@ $hireStatus = get_hire_status($pdo);
                           foreach ($osList as $tag): 
                             $isHi = ($oi < 2);
                             $oi++;
+                            $tagIcon = get_tech_svg_icon($tag, 11);
                           ?>
-                            <span class="gear-tool-tag <?= $isHi ? 'highlighted' : '' ?>"><?= e($tag) ?></span>
+                            <span class="gear-tool-tag <?= $isHi ? 'highlighted' : '' ?>"><?= $tagIcon ?> <span><?= e($tag) ?></span></span>
                           <?php endforeach; ?>
                         </div>
                       </div>
@@ -825,8 +832,9 @@ $hireStatus = get_hire_status($pdo);
                           foreach ($ideList as $tag): 
                             $isHi = ($ii < 2);
                             $ii++;
+                            $tagIcon = get_tech_svg_icon($tag, 11);
                           ?>
-                            <span class="gear-tool-tag <?= $isHi ? 'highlighted' : '' ?>"><?= e($tag) ?></span>
+                            <span class="gear-tool-tag <?= $isHi ? 'highlighted' : '' ?>"><?= $tagIcon ?> <span><?= e($tag) ?></span></span>
                           <?php endforeach; ?>
                         </div>
                       </div>
@@ -839,8 +847,9 @@ $hireStatus = get_hire_status($pdo);
                           foreach ($toolsList as $tag): 
                             $isHi = ($ti === 1);
                             $ti++;
+                            $tagIcon = get_tech_svg_icon($tag, 11);
                           ?>
-                            <span class="gear-tool-tag <?= $isHi ? 'highlighted' : '' ?>"><?= e($tag) ?></span>
+                            <span class="gear-tool-tag <?= $isHi ? 'highlighted' : '' ?>"><?= $tagIcon ?> <span><?= e($tag) ?></span></span>
                           <?php endforeach; ?>
                         </div>
                       </div>
@@ -1584,8 +1593,12 @@ $hireStatus = get_hire_status($pdo);
                   <p class="project-card-summary"><?= e($proj['summary']) ?></p>
 
                   <div class="project-stack-tags">
-                    <?php foreach (array_slice($techTags, 0, 4) as $tag): ?>
-                      <span class="project-tag-micro"><?= e($tag) ?></span>
+                    <?php foreach (array_slice($techTags, 0, 4) as $tag): 
+                        $tagIcon = get_tech_svg_icon($tag, 11);
+                        $cleanTag = trim(preg_replace('/^[\x{1F300}-\x{1F9FF}\x{2600}-\x{26FF}\x{2700}-\x{27BF}\x{25A0}-\x{25FF}\x{2B50}\x{2300}-\x{23FF}\x{2190}-\x{21FF}\x{FE00}-\x{FE0F}\s▲🔴⚡🐬🔗🟡⚛️🌿🐧🎨🟢🐳🐍☁️⭐]+/u', '', $tag));
+                        $displayTag = !empty($cleanTag) ? $cleanTag : $tag;
+                    ?>
+                      <span class="project-tag-micro"><?= $tagIcon ?> <span><?= e($displayTag) ?></span></span>
                     <?php endforeach; ?>
                   </div>
 

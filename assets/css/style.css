@@ -3752,6 +3752,7 @@ section[id] {
 .gear-tool-tag {
   display: inline-flex;
   align-items: center;
+  gap: 0.32rem;
   font-size: 0.65rem;
   font-weight: 500;
   padding: 0.14rem 0.42rem;
@@ -3760,6 +3761,13 @@ section[id] {
   border: 1px solid rgba(255, 255, 255, 0.07);
   color: var(--color-text);
   transition: all var(--transition-fast);
+}
+
+.gear-tool-tag svg {
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+  display: block;
 }
 
 .gear-tool-tag:hover {
@@ -4785,12 +4793,22 @@ section[id] {
 }
 
 .project-tag-micro {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
   font-size: 0.68rem;
   background-color: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--color-line);
   color: var(--color-text-dim);
   padding: 0.15rem 0.45rem;
   border-radius: 4px;
+}
+
+.project-tag-micro svg {
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+  display: block;
 }
 
 .project-card-footer {
