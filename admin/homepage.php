@@ -1,7 +1,7 @@
 <?php
 /**
  * Pengelola Konten Halaman Utama (Homepage)
- * Desain: 2-Column Master-Detail Sub-Sidebar Editor dengan Sticky Save Bar & Search Filter
+ * Desain: 2-Column Master-Detail Sub-Sidebar Editor dengan Sub-Tabs Per Domain, Matrix & Deck
  */
 
 require_once __DIR__ . '/../includes/auth.php';
@@ -315,87 +315,97 @@ $labels = [
     'tier3_chips' => 'Tier 3: Tag Chips (pisahkan dengan koma)',
 
     // Domain 1: Frontend
-    'domain1_badge' => 'Domain 1 (Frontend): Badge Tag',
-    'domain1_title' => 'Domain 1 (Frontend): Judul',
-    'domain1_desc' => 'Domain 1 (Frontend): Deskripsi',
-    'domain1_grp1_title' => 'Domain 1: Subgroup 1 Judul',
-    'domain1_grp1_tags' => 'Domain 1: Subgroup 1 Tags (pisahkan koma)',
-    'domain1_grp2_title' => 'Domain 1: Subgroup 2 Judul',
-    'domain1_grp2_tags' => 'Domain 1: Subgroup 2 Tags (pisahkan koma)',
-    'domain1_b1' => 'Domain 1: Highlight Poin 1',
-    'domain1_b2' => 'Domain 1: Highlight Poin 2',
-    'domain1_b3' => 'Domain 1: Highlight Poin 3',
-    'domain1_eco' => 'Domain 1: Teks Footer / Ekosistem',
+    'domain1_badge' => 'Badge Tag (High-Fidelity UI)',
+    'domain1_title' => 'Judul Domain',
+    'domain1_desc' => 'Deskripsi Domain',
+    'domain1_grp1_title' => 'Subgroup 1: Judul',
+    'domain1_grp1_tags' => 'Subgroup 1: Daftar Tags (pisahkan koma)',
+    'domain1_grp2_title' => 'Subgroup 2: Judul',
+    'domain1_grp2_tags' => 'Subgroup 2: Daftar Tags (pisahkan koma)',
+    'domain1_b1' => 'Highlight Poin 1',
+    'domain1_b2' => 'Highlight Poin 2',
+    'domain1_b3' => 'Highlight Poin 3',
+    'domain1_eco' => 'Teks Footer / Ekosistem',
 
     // Domain 2: Backend
-    'domain2_badge' => 'Domain 2 (Backend): Badge Tag',
-    'domain2_title' => 'Domain 2 (Backend): Judul',
-    'domain2_desc' => 'Domain 2 (Backend): Deskripsi',
-    'domain2_grp1_title' => 'Domain 2: Subgroup 1 Judul',
-    'domain2_grp1_tags' => 'Domain 2: Subgroup 1 Tags (pisahkan koma)',
-    'domain2_grp2_title' => 'Domain 2: Subgroup 2 Judul',
-    'domain2_grp2_tags' => 'Domain 2: Subgroup 2 Tags (pisahkan koma)',
-    'domain2_b1' => 'Domain 2: Highlight Poin 1',
-    'domain2_b2' => 'Domain 2: Highlight Poin 2',
-    'domain2_b3' => 'Domain 2: Highlight Poin 3',
-    'domain2_eco' => 'Domain 2: Teks Footer / Ekosistem',
+    'domain2_badge' => 'Badge Tag (Core Architecture)',
+    'domain2_title' => 'Judul Domain',
+    'domain2_desc' => 'Deskripsi Domain',
+    'domain2_grp1_title' => 'Subgroup 1: Judul',
+    'domain2_grp1_tags' => 'Subgroup 1: Daftar Tags (pisahkan koma)',
+    'domain2_grp2_title' => 'Subgroup 2: Judul',
+    'domain2_grp2_tags' => 'Subgroup 2: Daftar Tags (pisahkan koma)',
+    'domain2_b1' => 'Highlight Poin 1',
+    'domain2_b2' => 'Highlight Poin 2',
+    'domain2_b3' => 'Highlight Poin 3',
+    'domain2_eco' => 'Teks Footer / Ekosistem',
 
     // Domain 3: Database
-    'domain3_badge' => 'Domain 3 (Database): Badge Tag',
-    'domain3_title' => 'Domain 3 (Database): Judul',
-    'domain3_desc' => 'Domain 3 (Database): Deskripsi',
-    'domain3_grp1_title' => 'Domain 3: Subgroup 1 Judul',
-    'domain3_grp1_tags' => 'Domain 3: Subgroup 1 Tags (pisahkan koma)',
-    'domain3_grp2_title' => 'Domain 3: Subgroup 2 Judul',
-    'domain3_grp2_tags' => 'Domain 3: Subgroup 2 Tags (pisahkan koma)',
-    'domain3_b1' => 'Domain 3: Highlight Poin 1',
-    'domain3_b2' => 'Domain 3: Highlight Poin 2',
-    'domain3_b3' => 'Domain 3: Highlight Poin 3',
-    'domain3_eco' => 'Domain 3: Teks Footer / Ekosistem',
+    'domain3_badge' => 'Badge Tag (Data Persistence)',
+    'domain3_title' => 'Judul Domain',
+    'domain3_desc' => 'Deskripsi Domain',
+    'domain3_grp1_title' => 'Subgroup 1: Judul',
+    'domain3_grp1_tags' => 'Subgroup 1: Daftar Tags (pisahkan koma)',
+    'domain3_grp2_title' => 'Subgroup 2: Judul',
+    'domain3_grp2_tags' => 'Subgroup 2: Daftar Tags (pisahkan koma)',
+    'domain3_b1' => 'Highlight Poin 1',
+    'domain3_b2' => 'Highlight Poin 2',
+    'domain3_b3' => 'Highlight Poin 3',
+    'domain3_eco' => 'Teks Footer / Ekosistem',
 
     // Domain 4: DevOps
-    'domain4_badge' => 'Domain 4 (DevOps): Badge Tag',
-    'domain4_title' => 'Domain 4 (DevOps): Judul',
-    'domain4_desc' => 'Domain 4 (DevOps): Deskripsi',
-    'domain4_grp1_title' => 'Domain 4: Subgroup 1 Judul',
-    'domain4_grp1_tags' => 'Domain 4: Subgroup 1 Tags (pisahkan koma)',
-    'domain4_grp2_title' => 'Domain 4: Subgroup 2 Judul',
-    'domain4_grp2_tags' => 'Domain 4: Subgroup 2 Tags (pisahkan koma)',
-    'domain4_b1' => 'Domain 4: Highlight Poin 1',
-    'domain4_b2' => 'Domain 4: Highlight Poin 2',
-    'domain4_b3' => 'Domain 4: Highlight Poin 3',
-    'domain4_eco' => 'Domain 4: Teks Footer / Ekosistem',
+    'domain4_badge' => 'Badge Tag (Deployment & Infra)',
+    'domain4_title' => 'Judul Domain',
+    'domain4_desc' => 'Deskripsi Domain',
+    'domain4_grp1_title' => 'Subgroup 1: Judul',
+    'domain4_grp1_tags' => 'Subgroup 1: Daftar Tags (pisahkan koma)',
+    'domain4_grp2_title' => 'Subgroup 2: Judul',
+    'domain4_grp2_tags' => 'Subgroup 2: Daftar Tags (pisahkan koma)',
+    'domain4_b1' => 'Highlight Poin 1',
+    'domain4_b2' => 'Highlight Poin 2',
+    'domain4_b3' => 'Highlight Poin 3',
+    'domain4_eco' => 'Teks Footer / Ekosistem',
 
     // Domain 5: Testing & Mobile
-    'domain5_badge' => 'Domain 5 (Testing & Mobile): Badge Tag',
-    'domain5_title' => 'Domain 5 (Testing & Mobile): Judul',
-    'domain5_desc' => 'Domain 5 (Testing & Mobile): Deskripsi',
-    'domain5_grp1_title' => 'Domain 5: Subgroup 1 Judul',
-    'domain5_grp1_tags' => 'Domain 5: Subgroup 1 Tags (pisahkan koma)',
-    'domain5_grp2_title' => 'Domain 5: Subgroup 2 Judul',
-    'domain5_grp2_tags' => 'Domain 5: Subgroup 2 Tags (pisahkan koma)',
-    'domain5_b1' => 'Domain 5: Highlight Poin 1',
-    'domain5_b2' => 'Domain 5: Highlight Poin 2',
-    'domain5_b3' => 'Domain 5: Highlight Poin 3',
-    'domain5_eco' => 'Domain 5: Teks Footer / Ekosistem',
+    'domain5_badge' => 'Badge Tag (Quality & Mobile)',
+    'domain5_title' => 'Judul Domain',
+    'domain5_desc' => 'Deskripsi Domain',
+    'domain5_grp1_title' => 'Subgroup 1: Judul',
+    'domain5_grp1_tags' => 'Subgroup 1: Daftar Tags (pisahkan koma)',
+    'domain5_grp2_title' => 'Subgroup 2: Judul',
+    'domain5_grp2_tags' => 'Subgroup 2: Daftar Tags (pisahkan koma)',
+    'domain5_b1' => 'Highlight Poin 1',
+    'domain5_b2' => 'Highlight Poin 2',
+    'domain5_b3' => 'Highlight Poin 3',
+    'domain5_eco' => 'Teks Footer / Ekosistem',
 
     // Domain 6: Analytics
-    'domain6_badge' => 'Domain 6 (Analitik & Data Mining): Badge Tag',
-    'domain6_title' => 'Domain 6 (Analitik & Data Mining): Judul',
-    'domain6_desc' => 'Domain 6 (Analitik & Data Mining): Deskripsi',
-    'domain6_grp1_title' => 'Domain 6: Subgroup 1 Judul',
-    'domain6_grp1_tags' => 'Domain 6: Subgroup 1 Tags (pisahkan koma)',
-    'domain6_grp2_title' => 'Domain 6: Subgroup 2 Judul',
-    'domain6_grp2_tags' => 'Domain 6: Subgroup 2 Tags (pisahkan koma)',
-    'domain6_b1' => 'Domain 6: Highlight Poin 1',
-    'domain6_b2' => 'Domain 6: Highlight Poin 2',
-    'domain6_b3' => 'Domain 6: Highlight Poin 3',
-    'domain6_eco' => 'Domain 6: Teks Footer / Ekosistem',
+    'domain6_badge' => 'Badge Tag (Applied Data Mining)',
+    'domain6_title' => 'Judul Domain',
+    'domain6_desc' => 'Deskripsi Domain',
+    'domain6_grp1_title' => 'Subgroup 1: Judul',
+    'domain6_grp1_tags' => 'Subgroup 1: Daftar Tags (pisahkan koma)',
+    'domain6_grp2_title' => 'Subgroup 2: Judul',
+    'domain6_grp2_tags' => 'Subgroup 2: Daftar Tags (pisahkan koma)',
+    'domain6_b1' => 'Highlight Poin 1',
+    'domain6_b2' => 'Highlight Poin 2',
+    'domain6_b3' => 'Highlight Poin 3',
+    'domain6_eco' => 'Teks Footer / Ekosistem',
 
     'contact_caption'=>'Caption section','contact_title'=>'Judul section','contact_email_title'=>'Judul kartu email','contact_email_description'=>'Deskripsi kartu email','contact_linkedin_title'=>'Judul kartu LinkedIn','contact_linkedin_description'=>'Deskripsi kartu LinkedIn','contact_github_title'=>'Judul kartu GitHub','contact_github_description'=>'Deskripsi kartu GitHub','contact_instagram_title'=>'Judul kartu Instagram','contact_instagram_description'=>'Deskripsi kartu Instagram','contact_tiktok_title'=>'Judul kartu TikTok','contact_tiktok_description'=>'Deskripsi kartu TikTok','contact_form_title'=>'Judul form pesan','contact_form_button'=>'Teks tombol form',
 
     'google_client_id' => 'Google OAuth Client ID',
     'google_client_secret' => 'Google OAuth Client Secret',
+];
+
+// Definisi sub-domain detail
+$domainsMeta = [
+    1 => ['name' => 'Frontend', 'icon' => '⚛️', 'default_title' => 'Frontend Engineering', 'prefix' => 'domain1_'],
+    2 => ['name' => 'Backend', 'icon' => '⚙️', 'default_title' => 'Backend & Architecture', 'prefix' => 'domain2_'],
+    3 => ['name' => 'Database', 'icon' => '🗄️', 'default_title' => 'Database & Storage', 'prefix' => 'domain3_'],
+    4 => ['name' => 'DevOps', 'icon' => '🚀', 'default_title' => 'DevOps & Server Infra', 'prefix' => 'domain4_'],
+    5 => ['name' => 'Testing & Mobile', 'icon' => '🧪', 'default_title' => 'Testing, QA & Mobile', 'prefix' => 'domain5_'],
+    6 => ['name' => 'Analitik Data', 'icon' => '📊', 'default_title' => 'Analitik Data & Sistem', 'prefix' => 'domain6_'],
 ];
 
 require_once __DIR__ . '/includes/header.php';
@@ -638,6 +648,72 @@ require_once __DIR__ . '/includes/sidebar.php';
     line-height: 1.45;
   }
 
+  /* --- Sub-Tab Bar for Multi-Card Sections (Domains, Matrix, Deck) --- */
+  .hp-subtab-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    background: rgba(8, 11, 19, 0.7);
+    padding: 0.45rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 1.25rem;
+  }
+
+  .hp-subtab-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--color-text-dim);
+    padding: 0.45rem 0.85rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.15s ease;
+  }
+  .hp-subtab-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+  }
+  .hp-subtab-btn.is-active {
+    background: rgba(76, 141, 255, 0.22);
+    border-color: rgba(76, 141, 255, 0.5);
+    color: #ffffff;
+    box-shadow: 0 0 12px rgba(76, 141, 255, 0.25);
+  }
+
+  .hp-subcard-box {
+    background: rgba(10, 14, 23, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .hp-subcard-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .domain-subpanel,
+  .matrix-subpanel,
+  .deck-subpanel {
+    display: none;
+    animation: hpFadeIn 0.2s ease-out;
+  }
+  .domain-subpanel.is-active,
+  .matrix-subpanel.is-active,
+  .deck-subpanel.is-active {
+    display: block;
+  }
+
   .hp-tab-nav-footer {
     display: flex;
     align-items: center;
@@ -764,51 +840,390 @@ require_once __DIR__ . '/includes/sidebar.php';
                 </button>
               </div>
 
-              <div class="form-grid">
-                <?php foreach ($grp['keys'] as $key): 
-                  $isJson = ($key === 'tech_chips_json');
-                  $isDesc = str_contains($key, '_desc') || str_contains($key, 'description') || str_contains($key, '_tags') || str_contains($key, 'text_') || str_contains($key, 'paragraph') || str_contains($key, '_lead') || str_contains($key, '_chips') || str_contains($key, '_b1') || str_contains($key, '_b2') || str_contains($key, '_b3');
-                  $long = $isJson || $isDesc;
-                ?>
-                  <div class="form-group" style="<?= $long ? 'grid-column: 1 / -1;' : '' ?>">
-                    <label class="form-label" for="<?= e($key) ?>">
-                      <?= e($labels[$key] ?? $key) ?>
-                      <code style="font-size: 0.7rem; color: var(--color-text-faint); margin-left: 0.35rem; font-weight: 400;">(<?= e($key) ?>)</code>
-                    </label>
-                    
-                    <?php if ($isJson): ?>
-                      <div style="font-size: 0.75rem; color: var(--color-text-dim); margin-bottom: 0.5rem;">
-                        💡 <strong>Format JSON Array Skill Chips:</strong> Berisi objek dengan properti <code>name</code>, <code>category</code> (<code>frontend</code>, <code>backend</code>, <code>ai</code>, <code>database</code>, <code>devops</code>, <code>testing</code>, <code>mobile</code>, <code>analytics</code>), <code>role</code>, <code>highlight</code> (<code>true</code>/<code>false</code>), dan <code>icon</code>.
-                      </div>
-                      <textarea class="form-textarea" 
-                                id="<?= e($key) ?>" 
-                                name="<?= e($key) ?>" 
-                                rows="14" 
-                                style="font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace; font-size: 0.8rem; background: rgba(10,14,23,0.85); color: #38bdf8;"
-                                placeholder="[ { &quot;name&quot;: &quot;Next.js&quot;, ... } ]"><?= e($content[$key] ?? '') ?></textarea>
-                    <?php elseif ($long): ?>
-                      <textarea class="form-textarea" 
-                                id="<?= e($key) ?>" 
-                                name="<?= e($key) ?>" 
-                                rows="<?= (str_contains($key, 'paragraph') || str_contains($key, '_tags') || str_contains($key, '_chips')) ? '3' : '2' ?>" 
-                                placeholder="Masukkan teks..."><?= e($content[$key] ?? '') ?></textarea>
-                    <?php else: ?>
-                      <input class="form-input" 
-                             id="<?= e($key) ?>" 
-                             name="<?= e($key) ?>" 
-                             value="<?= e($content[$key] ?? '') ?>" 
-                             <?= ($key === 'hero_readiness' || str_contains($key, '_percent')) ? 'type="number" min="0" max="100"' : 'type="text"' ?>
-                             placeholder="Masukkan nilai...">
-                    <?php endif; ?>
+              <!-- ==============================================================
+                   CUSTOM MODULAR VIEW 1: DOMAIN KEAHLIAN (6 KARTU DENGAN SUB-TABS)
+                   ============================================================== -->
+              <?php if ($id === 'domains'): ?>
+                <div class="hp-subtab-bar" role="tablist">
+                  <?php foreach ($domainsMeta as $num => $dmeta): ?>
+                    <button type="button" 
+                            class="hp-subtab-btn domain-subtab-btn <?= $num === 1 ? 'is-active' : '' ?>" 
+                            data-domain-target="domain-card-<?= $num ?>">
+                      <span><?= $dmeta['icon'] ?></span>
+                      <span><?= $num ?>. <?= e($dmeta['name']) ?></span>
+                    </button>
+                  <?php endforeach; ?>
+                </div>
 
-                    <?php if ($key === 'google_client_id' || $key === 'google_client_secret'): ?>
-                      <div style="font-size: 0.72rem; color: var(--color-text-dim); margin-top: 0.35rem;">
-                        Diambil dari Google Cloud Console &gt; APIs &amp; Services &gt; Credentials (OAuth 2.0 Client IDs). Jika dikosongkan, tombol login Google di Buku Tamu akan otomatis disembunyikan secara aman.
+                <?php foreach ($domainsMeta as $num => $dmeta): 
+                  $pfx = $dmeta['prefix'];
+                ?>
+                  <div class="domain-subpanel <?= $num === 1 ? 'is-active' : '' ?>" id="domain-card-<?= $num ?>">
+                    <div class="hp-subcard-box">
+                      <div class="hp-subcard-title">
+                        <span><?= $dmeta['icon'] ?></span> Kartu Domain <?= $num ?>: <?= e($content[$pfx . 'title'] ?? $dmeta['default_title']) ?>
                       </div>
-                    <?php endif; ?>
+
+                      <div class="form-grid">
+                        <div class="form-group">
+                          <label class="form-label" for="<?= $pfx ?>badge">Badge Tag Aksen</label>
+                          <input class="form-input" id="<?= $pfx ?>badge" name="<?= $pfx ?>badge" value="<?= e($content[$pfx . 'badge'] ?? '') ?>" placeholder="misal: High-Fidelity UI">
+                        </div>
+                        <div class="form-group">
+                          <label class="form-label" for="<?= $pfx ?>title">Judul Domain</label>
+                          <input class="form-input" id="<?= $pfx ?>title" name="<?= $pfx ?>title" value="<?= e($content[$pfx . 'title'] ?? '') ?>" placeholder="misal: Frontend Engineering">
+                        </div>
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                          <label class="form-label" for="<?= $pfx ?>desc">Deskripsi Singkat Domain</label>
+                          <textarea class="form-textarea" id="<?= $pfx ?>desc" name="<?= $pfx ?>desc" rows="2"><?= e($content[$pfx . 'desc'] ?? '') ?></textarea>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1rem;">
+                      <!-- Subgroups Box -->
+                      <div class="hp-subcard-box">
+                        <div class="hp-subcard-title">🏷️ Subgroup &amp; Daftar Tag Skill</div>
+                        
+                        <div class="form-group" style="margin-bottom: 0.85rem;">
+                          <label class="form-label" for="<?= $pfx ?>grp1_title">Judul Subgroup 1</label>
+                          <input class="form-input" id="<?= $pfx ?>grp1_title" name="<?= $pfx ?>grp1_title" value="<?= e($content[$pfx . 'grp1_title'] ?? '') ?>">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1.1rem;">
+                          <label class="form-label" for="<?= $pfx ?>grp1_tags">Daftar Tag Subgroup 1 (pisahkan koma)</label>
+                          <textarea class="form-textarea" id="<?= $pfx ?>grp1_tags" name="<?= $pfx ?>grp1_tags" rows="2"><?= e($content[$pfx . 'grp1_tags'] ?? '') ?></textarea>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 0.85rem;">
+                          <label class="form-label" for="<?= $pfx ?>grp2_title">Judul Subgroup 2</label>
+                          <input class="form-input" id="<?= $pfx ?>grp2_title" name="<?= $pfx ?>grp2_title" value="<?= e($content[$pfx . 'grp2_title'] ?? '') ?>">
+                        </div>
+                        <div class="form-group">
+                          <label class="form-label" for="<?= $pfx ?>grp2_tags">Daftar Tag Subgroup 2 (pisahkan koma)</label>
+                          <textarea class="form-textarea" id="<?= $pfx ?>grp2_tags" name="<?= $pfx ?>grp2_tags" rows="2"><?= e($content[$pfx . 'grp2_tags'] ?? '') ?></textarea>
+                        </div>
+                      </div>
+
+                      <!-- Highlights Box -->
+                      <div class="hp-subcard-box">
+                        <div class="hp-subcard-title">✨ Highlight Poin &amp; Ekosistem</div>
+                        
+                        <div class="form-group" style="margin-bottom: 0.65rem;">
+                          <label class="form-label" for="<?= $pfx ?>b1">Highlight Poin 1</label>
+                          <input class="form-input" id="<?= $pfx ?>b1" name="<?= $pfx ?>b1" value="<?= e($content[$pfx . 'b1'] ?? '') ?>">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0.65rem;">
+                          <label class="form-label" for="<?= $pfx ?>b2">Highlight Poin 2</label>
+                          <input class="form-input" id="<?= $pfx ?>b2" name="<?= $pfx ?>b2" value="<?= e($content[$pfx . 'b2'] ?? '') ?>">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0.85rem;">
+                          <label class="form-label" for="<?= $pfx ?>b3">Highlight Poin 3</label>
+                          <input class="form-input" id="<?= $pfx ?>b3" name="<?= $pfx ?>b3" value="<?= e($content[$pfx . 'b3'] ?? '') ?>">
+                        </div>
+                        <div class="form-group">
+                          <label class="form-label" for="<?= $pfx ?>eco">Teks Footer Ekosistem</label>
+                          <input class="form-input" id="<?= $pfx ?>eco" name="<?= $pfx ?>eco" value="<?= e($content[$pfx . 'eco'] ?? '') ?>">
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 <?php endforeach; ?>
-              </div>
+
+              <!-- ==============================================================
+                   CUSTOM MODULAR VIEW 2: MATRIKS KEAHLIAN TIER 1, 2, 3
+                   ============================================================== -->
+              <?php elseif ($id === 'matrix'): ?>
+                <div class="hp-subcard-box" style="margin-bottom: 1.25rem;">
+                  <div class="hp-subcard-title">⚡ Header Matriks</div>
+                  <div class="form-grid">
+                    <div class="form-group">
+                      <label class="form-label" for="matrix_kicker">Kicker Matriks</label>
+                      <input class="form-input" id="matrix_kicker" name="matrix_kicker" value="<?= e($content['matrix_kicker'] ?? '') ?>">
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="matrix_title">Judul Matriks</label>
+                      <input class="form-input" id="matrix_title" name="matrix_title" value="<?= e($content['matrix_title'] ?? '') ?>">
+                    </div>
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                      <label class="form-label" for="matrix_desc">Deskripsi Pengantar Matriks</label>
+                      <textarea class="form-textarea" id="matrix_desc" name="matrix_desc" rows="2"><?= e($content['matrix_desc'] ?? '') ?></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="hp-subtab-bar" role="tablist">
+                  <button type="button" class="hp-subtab-btn matrix-subtab-btn is-active" data-matrix-target="tier-card-1">
+                    <span>🟢</span> Tier 1: Advanced (95%)
+                  </button>
+                  <button type="button" class="hp-subtab-btn matrix-subtab-btn" data-matrix-target="tier-card-2">
+                    <span>🔵</span> Tier 2: Proficient (85%)
+                  </button>
+                  <button type="button" class="hp-subtab-btn matrix-subtab-btn" data-matrix-target="tier-card-3">
+                    <span>🟣</span> Tier 3: Familiar (75%)
+                  </button>
+                </div>
+
+                <?php 
+                $tiersMeta = [
+                    1 => ['color' => '🟢', 'name' => 'Tier 1 (Advanced / Production-Ready)', 'prefix' => 'tier1_'],
+                    2 => ['color' => '🔵', 'name' => 'Tier 2 (Proficient / Penggunaan Harian)', 'prefix' => 'tier2_'],
+                    3 => ['color' => '🟣', 'name' => 'Tier 3 (Familiar / Riset & Utility)', 'prefix' => 'tier3_'],
+                ];
+                foreach ($tiersMeta as $tnum => $tmeta): 
+                  $tpfx = $tmeta['prefix'];
+                ?>
+                  <div class="matrix-subpanel <?= $tnum === 1 ? 'is-active' : '' ?>" id="tier-card-<?= $tnum ?>">
+                    <div class="hp-subcard-box">
+                      <div class="hp-subcard-title"><?= $tmeta['color'] ?> <?= $tmeta['name'] ?></div>
+                      <div class="form-grid">
+                        <div class="form-group">
+                          <label class="form-label" for="<?= $tpfx ?>badge">Badge Label</label>
+                          <input class="form-input" id="<?= $tpfx ?>badge" name="<?= $tpfx ?>badge" value="<?= e($content[$tpfx . 'badge'] ?? '') ?>">
+                        </div>
+                        <div class="form-group">
+                          <label class="form-label" for="<?= $tpfx ?>level">Keterangan Level &amp; Persentase</label>
+                          <input class="form-input" id="<?= $tpfx ?>level" name="<?= $tpfx ?>level" value="<?= e($content[$tpfx . 'level'] ?? '') ?>">
+                        </div>
+                        <div class="form-group">
+                          <label class="form-label" for="<?= $tpfx ?>title">Judul Domain Tier</label>
+                          <input class="form-input" id="<?= $tpfx ?>title" name="<?= $tpfx ?>title" value="<?= e($content[$tpfx . 'title'] ?? '') ?>">
+                        </div>
+                        <div class="form-group">
+                          <label class="form-label" for="<?= $tpfx ?>percent">Progress Bar (%) (0-100)</label>
+                          <input class="form-input" type="number" min="0" max="100" id="<?= $tpfx ?>percent" name="<?= $tpfx ?>percent" value="<?= e($content[$tpfx . 'percent'] ?? '') ?>">
+                        </div>
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                          <label class="form-label" for="<?= $tpfx ?>desc">Deskripsi Kompetensi</label>
+                          <textarea class="form-textarea" id="<?= $tpfx ?>desc" name="<?= $tpfx ?>desc" rows="2"><?= e($content[$tpfx . 'desc'] ?? '') ?></textarea>
+                        </div>
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                          <label class="form-label" for="<?= $tpfx ?>chips">Daftar Tag Chips (pisahkan dengan koma)</label>
+                          <textarea class="form-textarea" id="<?= $tpfx ?>chips" name="<?= $tpfx ?>chips" rows="2"><?= e($content[$tpfx . 'chips'] ?? '') ?></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <?php endforeach; ?>
+
+              <!-- ==============================================================
+                   CUSTOM MODULAR VIEW 3: ALUR & STANDAR KERJA (DECK)
+                   ============================================================== -->
+              <?php elseif ($id === 'deck'): ?>
+                <div class="hp-subtab-bar" role="tablist">
+                  <button type="button" class="hp-subtab-btn deck-subtab-btn is-active" data-deck-target="deck-sub-1">
+                    <span>🎯</span> 1. Cara Saya Bekerja
+                  </button>
+                  <button type="button" class="hp-subtab-btn deck-subtab-btn" data-deck-target="deck-sub-2">
+                    <span>🛡️</span> 2. Standar Rekayasa
+                  </button>
+                  <button type="button" class="hp-subtab-btn deck-subtab-btn" data-deck-target="deck-sub-3">
+                    <span>🤝</span> 3. Siap Berkolaborasi
+                  </button>
+                </div>
+
+                <!-- Deck 1: Cara Bekerja -->
+                <div class="deck-subpanel is-active" id="deck-sub-1">
+                  <div class="hp-subcard-box">
+                    <div class="hp-subcard-title">🎯 Visi Kerja &amp; 3 Langkah</div>
+                    <div class="form-grid">
+                      <div class="form-group">
+                        <label class="form-label" for="deck_vision_eyebrow">Kicker Eyebrow</label>
+                        <input class="form-input" id="deck_vision_eyebrow" name="deck_vision_eyebrow" value="<?= e($content['deck_vision_eyebrow'] ?? '') ?>">
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label" for="deck_vision_title">Judul Visi</label>
+                        <input class="form-input" id="deck_vision_title" name="deck_vision_title" value="<?= e($content['deck_vision_title'] ?? '') ?>">
+                      </div>
+                      <div class="form-group" style="grid-column: 1 / -1;">
+                        <label class="form-label" for="deck_vision_lead">Deskripsi Visi</label>
+                        <textarea class="form-textarea" id="deck_vision_lead" name="deck_vision_lead" rows="2"><?= e($content['deck_vision_lead'] ?? '') ?></textarea>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="form-label" for="deck_s1_title">Langkah 01: Judul</label>
+                        <input class="form-input" id="deck_s1_title" name="deck_s1_title" value="<?= e($content['deck_s1_title'] ?? '') ?>">
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label" for="deck_s1_desc">Langkah 01: Deskripsi</label>
+                        <input class="form-input" id="deck_s1_desc" name="deck_s1_desc" value="<?= e($content['deck_s1_desc'] ?? '') ?>">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="form-label" for="deck_s2_title">Langkah 02: Judul</label>
+                        <input class="form-input" id="deck_s2_title" name="deck_s2_title" value="<?= e($content['deck_s2_title'] ?? '') ?>">
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label" for="deck_s2_desc">Langkah 02: Deskripsi</label>
+                        <input class="form-input" id="deck_s2_desc" name="deck_s2_desc" value="<?= e($content['deck_s2_desc'] ?? '') ?>">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="form-label" for="deck_s3_title">Langkah 03: Judul</label>
+                        <input class="form-input" id="deck_s3_title" name="deck_s3_title" value="<?= e($content['deck_s3_title'] ?? '') ?>">
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label" for="deck_s3_desc">Langkah 03: Deskripsi</label>
+                        <input class="form-input" id="deck_s3_desc" name="deck_s3_desc" value="<?= e($content['deck_s3_desc'] ?? '') ?>">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Deck 2: Standar Rekayasa -->
+                <div class="deck-subpanel" id="deck-sub-2">
+                  <div class="hp-subcard-box">
+                    <div class="hp-subcard-title">🛡️ Standar Rekayasa (3 Pilar)</div>
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                      <label class="form-label" for="deck_std_title">Judul Section Standar</label>
+                      <input class="form-input" id="deck_std_title" name="deck_std_title" value="<?= e($content['deck_std_title'] ?? '') ?>">
+                    </div>
+
+                    <div class="form-grid">
+                      <div class="form-group" style="grid-column: 1 / -1; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 0.75rem;">
+                        <strong>Pilar 1</strong>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label" for="deck_std1_icon">Pilar 1: Ikon Emoji</label>
+                        <input class="form-input" id="deck_std1_icon" name="deck_std1_icon" value="<?= e($content['deck_std1_icon'] ?? '') ?>">
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label" for="deck_std1_title">Pilar 1: Judul</label>
+                        <input class="form-input" id="deck_std1_title" name="deck_std1_title" value="<?= e($content['deck_std1_title'] ?? '') ?>">
+                      </div>
+                      <div class="form-group" style="grid-column: 1 / -1;">
+                        <label class="form-label" for="deck_std1_desc">Pilar 1: Deskripsi</label>
+                        <input class="form-input" id="deck_std1_desc" name="deck_std1_desc" value="<?= e($content['deck_std1_desc'] ?? '') ?>">
+                      </div>
+
+                      <div class="form-group" style="grid-column: 1 / -1; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 0.75rem;">
+                        <strong>Pilar 2</strong>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label" for="deck_std2_icon">Pilar 2: Ikon Emoji</label>
+                        <input class="form-input" id="deck_std2_icon" name="deck_std2_icon" value="<?= e($content['deck_std2_icon'] ?? '') ?>">
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label" for="deck_std2_title">Pilar 2: Judul</label>
+                        <input class="form-input" id="deck_std2_title" name="deck_std2_title" value="<?= e($content['deck_std2_title'] ?? '') ?>">
+                      </div>
+                      <div class="form-group" style="grid-column: 1 / -1;">
+                        <label class="form-label" for="deck_std2_desc">Pilar 2: Deskripsi</label>
+                        <input class="form-input" id="deck_std2_desc" name="deck_std2_desc" value="<?= e($content['deck_std2_desc'] ?? '') ?>">
+                      </div>
+
+                      <div class="form-group" style="grid-column: 1 / -1; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 0.75rem;">
+                        <strong>Pilar 3</strong>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label" for="deck_std3_icon">Pilar 3: Ikon Emoji</label>
+                        <input class="form-input" id="deck_std3_icon" name="deck_std3_icon" value="<?= e($content['deck_std3_icon'] ?? '') ?>">
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label" for="deck_std3_title">Pilar 3: Judul</label>
+                        <input class="form-input" id="deck_std3_title" name="deck_std3_title" value="<?= e($content['deck_std3_title'] ?? '') ?>">
+                      </div>
+                      <div class="form-group" style="grid-column: 1 / -1;">
+                        <label class="form-label" for="deck_std3_desc">Pilar 3: Deskripsi</label>
+                        <input class="form-input" id="deck_std3_desc" name="deck_std3_desc" value="<?= e($content['deck_std3_desc'] ?? '') ?>">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Deck 3: Kolaborasi -->
+                <div class="deck-subpanel" id="deck-sub-3">
+                  <div class="hp-subcard-box">
+                    <div class="hp-subcard-title">🤝 Siap Berkolaborasi</div>
+                    <div class="form-grid">
+                      <div class="form-group">
+                        <label class="form-label" for="deck_collab_title">Judul Kolaborasi</label>
+                        <input class="form-input" id="deck_collab_title" name="deck_collab_title" value="<?= e($content['deck_collab_title'] ?? '') ?>">
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label" for="deck_collab_btn_text">Teks Tombol Aksi</label>
+                        <input class="form-input" id="deck_collab_btn_text" name="deck_collab_btn_text" value="<?= e($content['deck_collab_btn_text'] ?? '') ?>">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="form-label" for="deck_collab_role_lbl">Label Fokus Peran</label>
+                        <input class="form-input" id="deck_collab_role_lbl" name="deck_collab_role_lbl" value="<?= e($content['deck_collab_role_lbl'] ?? '') ?>">
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label" for="deck_collab_role_val">Nilai Fokus Peran</label>
+                        <input class="form-input" id="deck_collab_role_val" name="deck_collab_role_val" value="<?= e($content['deck_collab_role_val'] ?? '') ?>">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="form-label" for="deck_collab_avail_lbl">Label Ketersediaan</label>
+                        <input class="form-input" id="deck_collab_avail_lbl" name="deck_collab_avail_lbl" value="<?= e($content['deck_collab_avail_lbl'] ?? '') ?>">
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label" for="deck_collab_avail_val">Nilai Ketersediaan</label>
+                        <input class="form-input" id="deck_collab_avail_val" name="deck_collab_avail_val" value="<?= e($content['deck_collab_avail_val'] ?? '') ?>">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="form-label" for="deck_collab_mode_lbl">Label Cara Kerja</label>
+                        <input class="form-input" id="deck_collab_mode_lbl" name="deck_collab_mode_lbl" value="<?= e($content['deck_collab_mode_lbl'] ?? '') ?>">
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label" for="deck_collab_mode_val">Nilai Cara Kerja</label>
+                        <input class="form-input" id="deck_collab_mode_val" name="deck_collab_mode_val" value="<?= e($content['deck_collab_mode_val'] ?? '') ?>">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              <!-- ==============================================================
+                   GENERAL VIEW FOR OTHER SECTIONS
+                   ============================================================== -->
+              <?php else: ?>
+                <div class="form-grid">
+                  <?php foreach ($grp['keys'] as $key): 
+                    $isJson = ($key === 'tech_chips_json');
+                    $isDesc = str_contains($key, '_desc') || str_contains($key, 'description') || str_contains($key, '_tags') || str_contains($key, 'text_') || str_contains($key, 'paragraph') || str_contains($key, '_lead');
+                    $long = $isJson || $isDesc;
+                  ?>
+                    <div class="form-group" style="<?= $long ? 'grid-column: 1 / -1;' : '' ?>">
+                      <label class="form-label" for="<?= e($key) ?>">
+                        <?= e($labels[$key] ?? $key) ?>
+                        <code style="font-size: 0.7rem; color: var(--color-text-faint); margin-left: 0.35rem; font-weight: 400;">(<?= e($key) ?>)</code>
+                      </label>
+                      
+                      <?php if ($isJson): ?>
+                        <div style="font-size: 0.75rem; color: var(--color-text-dim); margin-bottom: 0.5rem;">
+                          💡 <strong>Format JSON Array Skill Chips:</strong> Berisi objek dengan properti <code>name</code>, <code>category</code> (<code>frontend</code>, <code>backend</code>, <code>ai</code>, <code>database</code>, <code>devops</code>, <code>testing</code>, <code>mobile</code>, <code>analytics</code>), <code>role</code>, <code>highlight</code> (<code>true</code>/<code>false</code>), dan <code>icon</code>.
+                        </div>
+                        <textarea class="form-textarea" 
+                                  id="<?= e($key) ?>" 
+                                  name="<?= e($key) ?>" 
+                                  rows="14" 
+                                  style="font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace; font-size: 0.8rem; background: rgba(10,14,23,0.85); color: #38bdf8;"
+                                  placeholder="[ { &quot;name&quot;: &quot;Next.js&quot;, ... } ]"><?= e($content[$key] ?? '') ?></textarea>
+                      <?php elseif ($long): ?>
+                        <textarea class="form-textarea" 
+                                  id="<?= e($key) ?>" 
+                                  name="<?= e($key) ?>" 
+                                  rows="<?= (str_contains($key, 'paragraph') || str_contains($key, '_tags')) ? '3' : '2' ?>" 
+                                  placeholder="Masukkan teks..."><?= e($content[$key] ?? '') ?></textarea>
+                      <?php else: ?>
+                        <input class="form-input" 
+                               id="<?= e($key) ?>" 
+                               name="<?= e($key) ?>" 
+                               value="<?= e($content[$key] ?? '') ?>" 
+                               <?= ($key === 'hero_readiness') ? 'type="number" min="0" max="100"' : 'type="text"' ?>
+                               placeholder="Masukkan nilai...">
+                      <?php endif; ?>
+
+                      <?php if ($key === 'google_client_id' || $key === 'google_client_secret'): ?>
+                        <div style="font-size: 0.72rem; color: var(--color-text-dim); margin-top: 0.35rem;">
+                          Diambil dari Google Cloud Console &gt; APIs &amp; Services &gt; Credentials (OAuth 2.0 Client IDs). Jika dikosongkan, tombol login Google di Buku Tamu akan otomatis disembunyikan secara aman.
+                        </div>
+                      <?php endif; ?>
+                    </div>
+                  <?php endforeach; ?>
+                </div>
+              <?php endif; ?>
 
               <!-- Bottom Navigation Bar inside each Panel -->
               <div class="hp-tab-nav-footer">
@@ -896,6 +1311,45 @@ require_once __DIR__ . '/includes/sidebar.php';
       });
     });
 
+    // Domain Sub-Tabs
+    const domainSubtabBtns = document.querySelectorAll('.domain-subtab-btn');
+    const domainSubpanels = document.querySelectorAll('.domain-subpanel');
+    domainSubtabBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        domainSubtabBtns.forEach(b => b.classList.remove('is-active'));
+        domainSubpanels.forEach(p => p.classList.remove('is-active'));
+        this.classList.add('is-active');
+        const target = document.getElementById(this.getAttribute('data-domain-target'));
+        if (target) target.classList.add('is-active');
+      });
+    });
+
+    // Matrix Sub-Tabs
+    const matrixSubtabBtns = document.querySelectorAll('.matrix-subtab-btn');
+    const matrixSubpanels = document.querySelectorAll('.matrix-subpanel');
+    matrixSubtabBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        matrixSubtabBtns.forEach(b => b.classList.remove('is-active'));
+        matrixSubpanels.forEach(p => p.classList.remove('is-active'));
+        this.classList.add('is-active');
+        const target = document.getElementById(this.getAttribute('data-matrix-target'));
+        if (target) target.classList.add('is-active');
+      });
+    });
+
+    // Deck Sub-Tabs
+    const deckSubtabBtns = document.querySelectorAll('.deck-subtab-btn');
+    const deckSubpanels = document.querySelectorAll('.deck-subpanel');
+    deckSubtabBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        deckSubtabBtns.forEach(b => b.classList.remove('is-active'));
+        deckSubpanels.forEach(p => p.classList.remove('is-active'));
+        this.classList.add('is-active');
+        const target = document.getElementById(this.getAttribute('data-deck-target'));
+        if (target) target.classList.add('is-active');
+      });
+    });
+
     // Search filter in subnav
     searchInput.addEventListener('input', function() {
       const q = this.value.toLowerCase().trim();
@@ -921,12 +1375,18 @@ require_once __DIR__ . '/includes/sidebar.php';
       if (this.checked) {
         editorShell.classList.add('hp-show-all');
         if (activeLabel) activeLabel.innerHTML = '<span>📑</span> Menampilkan Semua Bagian';
+        domainSubpanels.forEach(p => p.classList.add('is-active'));
+        matrixSubpanels.forEach(p => p.classList.add('is-active'));
+        deckSubpanels.forEach(p => p.classList.add('is-active'));
       } else {
         editorShell.classList.remove('hp-show-all');
         const activeBtn = document.querySelector('.hp-nav-item-btn.is-active') || navButtons[0];
         if (activeBtn) {
           activateTab(activeBtn.getAttribute('data-tab-target'), activeBtn.getAttribute('data-tab-title'));
         }
+        domainSubpanels.forEach((p, i) => p.classList.toggle('is-active', i === 0));
+        matrixSubpanels.forEach((p, i) => p.classList.toggle('is-active', i === 0));
+        deckSubpanels.forEach((p, i) => p.classList.toggle('is-active', i === 0));
       }
     });
 
