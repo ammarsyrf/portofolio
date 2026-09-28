@@ -55,8 +55,10 @@ ServerSignature Off
     RewriteRule ^admin/link_form\.php$ %1admin/link-form [R=301,L,NE]
     RewriteCond %{THE_REQUEST} \s+(.*/)admin/project_form\.php[?\s] [NC]
     RewriteRule ^admin/project_form\.php$ %1admin/project-form [R=301,L,NE]
-    RewriteCond %{THE_REQUEST} \s+(.*/)admin/(achievements|creations|dashboard|guestbook|homepage|links|login|logout|profile|projects|setup)\.php[?\s] [NC]
-    RewriteRule ^admin/(achievements|creations|dashboard|guestbook|homepage|links|login|logout|profile|projects|setup)\.php$ %1admin/$1 [R=301,L,NE]
+    RewriteCond %{THE_REQUEST} \s+(.*/)admin/backup_db\.php[?\s] [NC]
+    RewriteRule ^admin/backup_db\.php$ %1admin/backup-db [R=301,L,NE]
+    RewriteCond %{THE_REQUEST} \s+(.*/)admin/(achievements|creations|dashboard|guestbook|homepage|links|login|logout|media|profile|projects|setup)\.php[?\s] [NC]
+    RewriteRule ^admin/(achievements|creations|dashboard|guestbook|homepage|links|login|logout|media|profile|projects|setup)\.php$ %1admin/$1 [R=301,L,NE]
 
     # Clean URL routing ke folder pages/ (internal rewrite, URL browser tetap bersih).
     RewriteRule ^(achievements|creations|guestbook|links)/?$ pages/$1.php [L]
@@ -66,7 +68,11 @@ ServerSignature Off
     RewriteRule ^admin/creation-form/?$ admin/creation_form.php [L]
     RewriteRule ^admin/link-form/?$ admin/link_form.php [L]
     RewriteRule ^admin/project-form/?$ admin/project_form.php [L]
-    RewriteRule ^admin/(achievements|creations|dashboard|guestbook|homepage|links|login|logout|profile|projects|setup)/?$ admin/$1.php [L]
+    RewriteRule ^admin/backup-db/?$ admin/backup_db.php [L]
+    RewriteRule ^admin/export-analytics/?$ admin/export_analytics.php [L]
+    RewriteRule ^admin/api-hire-status/?$ admin/api_hire_status.php [L]
+    RewriteRule ^admin/api-notes/?$ admin/api_notes.php [L]
+    RewriteRule ^admin/(achievements|creations|dashboard|guestbook|homepage|links|login|logout|media|profile|projects|setup)/?$ admin/$1.php [L]
 </IfModule>
 
 # BEGIN cPanel-generated php ini directives, do not edit
