@@ -49,7 +49,8 @@ $health    = get_server_health($pdo);
 $seoHealth = get_seo_health($pdo);
 $notes     = get_admin_notes($pdo);
 $hireStatus= get_hire_status($pdo);
-
+$activityLogs = get_admin_activity_logs($pdo, 5);
+$totalDbTables = count($pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN));
 
 // ── Proyek Terkini & Pesan Terbaru ──────────────────────────────────────────
 $recentProjects  = $pdo->query("SELECT id, title, category, is_published, sort_order FROM projects ORDER BY id DESC LIMIT 4")->fetchAll();
@@ -716,6 +717,72 @@ require_once __DIR__ . '/includes/sidebar.php';
         <?php endforeach; ?>
       </div>
     <?php endif; ?>
+  </div>
+
+  <!-- ⑯ Riwayat Aktivitas & Audit Logs -->
+  <div class="bento-card col-6">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: 0.75rem;">
+      <div class="stat-label" style="margin-bottom:0;">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg>
+        Riwayat Aktivitas &amp; Audit Logs
+      </div>
+      <span style="font-size:0.72rem; color:var(--color-text-faint);">Terakhir dicatat</span>
+    </div>
+    <?php if (empty($activityLogs)): ?>
+      <div style="padding: 1rem 0; text-align: center; color: var(--color-text-faint); font-size: 0.8rem;">
+        Belum ada log aktivitas yang tercatat.
+      </div>
+    <?php else: ?>
+      <div style="display:flex; flex-direction:column; gap:0.6rem;">
+        <?php foreach ($activityLogs as $log): 
+          $timeAgo = date('d M H:i', strtotime($log['created_at']));
+        ?>
+        <div style="display:flex; align-items:flex-start; gap:0.65rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.03);">
+          <span style="font-size: 0.9rem; flex-shrink: 0; line-height: 1.2;">⚡</span>
+          <div style="min-width:0; flex-grow: 1;">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
+              <span style="font-size:0.8rem; font-weight:600; color:var(--color-text);"><?= e($log['action']) ?></span>
+              <span style="font-size:0.68rem; color:var(--color-text-faint);"><?= $timeAgo ?></span>
+            </div>
+            <div style="font-size:0.72rem; color:var(--color-text-dim); margin-top: 0.15rem; word-break: break-word;">
+              <?= e($log['details']) ?> <span style="color: var(--color-text-faint); font-size: 0.68rem;">(oleh <?= e($log['admin_username']) ?>)</span>
+            </div>
+          </div>
+        </div>
+        <?php endforeach; ?>
+      </div>
+    <?php endif; ?>
+  </div>
+
+  <!-- ⑰ Database Snapshot & 1-Klik Backup -->
+  <div class="bento-card col-6">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: 0.75rem;">
+      <div class="stat-label" style="margin-bottom:0;">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        Database Snapshot &amp; Backup
+      </div>
+      <span style="font-size:0.72rem; color:#34D399; font-weight:600;">● Online</span>
+    </div>
+    
+    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+      <p style="font-size: 0.78rem; color: var(--color-text-dim); margin: 0; line-height: 1.45;">
+        Unduh seluruh isi struktur database MySQL dan data portofolio ke file <code style="color:var(--color-accent-bright);">.sql</code> siap pakai untuk disaster recovery.
+      </p>
+
+      <div style="display: flex; align-items: center; justify-content: space-between; background: var(--color-bg-surface); padding: 0.65rem 0.85rem; border-radius: 6px; border: 1px solid var(--color-line); font-size: 0.75rem;">
+        <span>Total Tabel Terpasang: <strong style="color:var(--color-text);"><?= $totalDbTables ?> Tabel</strong></span>
+        <span>Driver: <strong style="color:var(--color-accent-bright);">MySQL PDO</strong></span>
+      </div>
+
+      <div style="display: flex; gap: 0.6rem; margin-top: 0.25rem;">
+        <a href="<?= BASE_URL ?>/admin/backup_db.php" class="btn btn-primary btn-sm" style="flex: 1; text-align: center; justify-content: center; padding: 0.5rem 1rem;">
+          <span>💾</span> Download Snapshot SQL
+        </a>
+        <a href="<?= BASE_URL ?>/admin/media.php" class="btn btn-secondary btn-sm" style="padding: 0.5rem 0.85rem;">
+          <span>🖼️</span> Galeri Media
+        </a>
+      </div>
+    </div>
   </div>
 
 </div><!-- /.bento-grid -->

@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         try {
             save_homepage_content($pdo, $_POST);
+            log_admin_activity($pdo, 'Update Konten Beranda', 'Memperbarui konfigurasi teks & section beranda');
             set_flash('success', 'Konten halaman utama berhasil diperbarui!');
             redirect(BASE_URL . '/admin/homepage');
         } catch (JsonException $exception) {

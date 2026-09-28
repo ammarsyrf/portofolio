@@ -24,6 +24,7 @@ if (!in_array($status, ['available', 'busy'], true)) {
 try {
     set_hire_status($pdo, $status);
     $hire = get_hire_status($pdo);
+    log_admin_activity($pdo, 'Ganti Status Ketersediaan', "Status diubah menjadi: {$hire['label']}");
     echo json_encode([
         'status'      => 'success',
         'hire_status' => $hire['status'],

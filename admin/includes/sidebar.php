@@ -331,6 +331,16 @@ $currentPage = basename($_SERVER['PHP_SELF']);
       <span class="sb-label">Tautan (Links)</span>
     </a>
 
+    <a href="<?= BASE_URL ?>/admin/media" data-tip="Media & Assets"
+       class="sidebar-link <?= ($currentPage === 'media.php') ? 'active' : '' ?>">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+        <polyline points="21 15 16 10 5 21"></polyline>
+      </svg>
+      <span class="sb-label">Galeri Media &amp; Assets</span>
+    </a>
+
     <div class="nav-section-title">Interaksi Publik</div>
 
     <a href="<?= BASE_URL ?>/admin/guestbook" data-tip="Buku Tamu"
@@ -381,7 +391,16 @@ $currentPage = basename($_SERVER['PHP_SELF']);
       <h1 class="topbar-title"><?= e($pageTitle ?? 'Portal Admin') ?></h1>
     </div>
 
-    <div class="topbar-actions">
+    <!-- Quick Command Palette Trigger Button in Topbar -->
+    <div class="topbar-actions" style="display: flex; align-items: center; gap: 0.75rem;">
+      <button type="button" class="btn-cmd-trigger" onclick="openCmdPalette()" title="Buka Command Palette (Ctrl + K / ⌘K)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span class="cmd-text-label">Cari aksi atau menu...</span>
+        <kbd class="cmd-shortcut-badge">⌘K</kbd>
+      </button>
+
       <span style="font-size:0.72rem; color: var(--color-text-faint); display:none;" id="topbarDate"><?= date('D, d M Y') ?></span>
       <a href="<?= BASE_URL ?>/" target="_blank" class="btn btn-secondary btn-sm">Pratinjau &nearr;</a>
     </div>
@@ -395,6 +414,455 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         <div><?= e($flash['message']) ?></div>
       </div>
     <?php endif; ?>
+
+<!-- =========================================================================
+     ADMIN QUICK COMMAND PALETTE MODAL (Ctrl + K / ⌘K)
+     ========================================================================= -->
+<style>
+  .btn-cmd-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-line);
+    color: var(--color-text-dim);
+    padding: 0.4rem 0.85rem;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .btn-cmd-trigger:hover {
+    border-color: rgba(76, 141, 255, 0.5);
+    color: var(--color-text);
+    background: rgba(76, 141, 255, 0.08);
+  }
+  .cmd-shortcut-badge {
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-line);
+    color: var(--color-accent-bright);
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-family: inherit;
+  }
+  @media (max-width: 680px) {
+    .cmd-text-label { display: none; }
+  }
+
+  /* Command Palette Modal */
+  .cmd-palette-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 8, 15, 0.82);
+    backdrop-filter: blur(10px);
+    z-index: 99999;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 10vh 1rem 2rem;
+  }
+  .cmd-palette-backdrop.is-open {
+    display: flex;
+  }
+  .cmd-palette-box {
+    width: 100%;
+    max-width: 620px;
+    background: #0d121d;
+    border: 1px solid rgba(76, 141, 255, 0.35);
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(76, 141, 255, 0.15);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: cmdSlideDown 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes cmdSlideDown {
+    from { opacity: 0; transform: translateY(-12px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .cmd-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--color-line);
+    background: rgba(18, 24, 38, 0.7);
+  }
+  .cmd-input-wrap svg {
+    color: var(--color-accent-bright);
+    flex-shrink: 0;
+  }
+  .cmd-search-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+  }
+  .cmd-search-input::placeholder {
+    color: var(--color-text-faint);
+  }
+  .cmd-list-container {
+    max-height: 380px;
+    overflow-y: auto;
+    padding: 0.65rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .cmd-group-title {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--color-accent-bright);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.5rem 0.75rem 0.25rem;
+  }
+  .cmd-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 0.85rem;
+    border-radius: 6px;
+    color: var(--color-text-dim);
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 0.84rem;
+    transition: all 0.1s;
+    border: 1px solid transparent;
+  }
+  .cmd-item:hover, .cmd-item.is-selected {
+    background: rgba(76, 141, 255, 0.15);
+    color: #fff;
+    border-color: rgba(76, 141, 255, 0.4);
+  }
+  .cmd-item-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .cmd-item-icon {
+    font-size: 1.1rem;
+    width: 24px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .cmd-item-title {
+    font-weight: 500;
+  }
+  .cmd-item-desc {
+    font-size: 0.72rem;
+    color: var(--color-text-faint);
+  }
+  .cmd-item-badge {
+    font-size: 0.68rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-line);
+    color: var(--color-text-faint);
+  }
+  .cmd-footer-bar {
+    padding: 0.65rem 1.25rem;
+    border-top: 1px solid var(--color-line);
+    background: rgba(13, 18, 29, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.72rem;
+    color: var(--color-text-faint);
+  }
+  .cmd-footer-hints {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .cmd-footer-hints span {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .cmd-toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: #10b981;
+    color: #fff;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    z-index: 100000;
+    display: none;
+    animation: toastFadeIn 0.2s ease;
+  }
+  @keyframes toastFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<!-- Modal Elements -->
+<div class="cmd-palette-backdrop" id="adminCmdPaletteModal" onclick="closeCmdPalette()">
+  <div class="cmd-palette-box" onclick="event.stopPropagation();">
+    <div class="cmd-input-wrap">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input type="text" id="cmdPaletteSearchInput" class="cmd-search-input" placeholder="Ketik aksi atau menu (misal: tambah proyek, backup, matriks)..." autocomplete="off">
+      <kbd class="cmd-shortcut-badge" style="cursor:pointer;" onclick="closeCmdPalette()">ESC</kbd>
+    </div>
+
+    <div class="cmd-list-container" id="cmdPaletteList">
+      
+      <!-- Group: Aksi Cepat -->
+      <div class="cmd-group" data-group="quick">
+        <div class="cmd-group-title">⚡ Aksi Cepat</div>
+
+        <div class="cmd-item" data-keywords="ganti status ketersediaan kerja freelance hire available busy" onclick="toggleHireStatusQuick()">
+          <div class="cmd-item-left">
+            <span class="cmd-item-icon">🟢</span>
+            <div>
+              <div class="cmd-item-title">Ganti Status Ketersediaan Kerja</div>
+              <div class="cmd-item-desc">Toggle status ketersediaan (Siap Kerja / Sibuk) instan</div>
+            </div>
+          </div>
+          <span class="cmd-item-badge">Instant AJAX</span>
+        </div>
+
+        <a href="<?= BASE_URL ?>/admin/backup_db.php" class="cmd-item" data-keywords="backup download database sql snapshot export simpan dump">
+          <div class="cmd-item-left">
+            <span class="cmd-item-icon">💾</span>
+            <div>
+              <div class="cmd-item-title">Download Backup Database SQL</div>
+              <div class="cmd-item-desc">Unduh snapshot database lengkap (.sql) untuk backup</div>
+            </div>
+          </div>
+          <span class="cmd-item-badge">Export SQL</span>
+        </a>
+
+        <a href="<?= BASE_URL ?>/admin/project_form.php" class="cmd-item" data-keywords="tambah proyek baru add project create">
+          <div class="cmd-item-left">
+            <span class="cmd-item-icon">➕</span>
+            <div>
+              <div class="cmd-item-title">Tambah Proyek Baru</div>
+              <div class="cmd-item-desc">Buat dan publikasikan entri portofolio proyek baru</div>
+            </div>
+          </div>
+          <span class="cmd-item-badge">Formulir</span>
+        </a>
+
+        <a href="<?= BASE_URL ?>/admin/achievement_form.php" class="cmd-item" data-keywords="tambah pencapaian sertifikat piagam baru add achievement">
+          <div class="cmd-item-left">
+            <span class="cmd-item-icon">🏆</span>
+            <div>
+              <div class="cmd-item-title">Tambah Pencapaian &amp; Sertifikat</div>
+              <div class="cmd-item-desc">Unggah piagam atau sertifikasi baru</div>
+            </div>
+          </div>
+          <span class="cmd-item-badge">Formulir</span>
+        </a>
+
+        <a href="<?= BASE_URL ?>/admin/creation_form.php" class="cmd-item" data-keywords="tambah kreasi tiktok instagram video konten add creation">
+          <div class="cmd-item-left">
+            <span class="cmd-item-icon">🎬</span>
+            <div>
+              <div class="cmd-item-title">Tambah Kreasi TikTok &amp; IG</div>
+              <div class="cmd-item-desc">Tambah karya visual atau video edukasi</div>
+            </div>
+          </div>
+          <span class="cmd-item-badge">Formulir</span>
+        </a>
+
+        <a href="<?= BASE_URL ?>/admin/media.php" class="cmd-item" data-keywords="galeri media upload assets foto gambar webp drag drop">
+          <div class="cmd-item-left">
+            <span class="cmd-item-icon">🖼️</span>
+            <div>
+              <div class="cmd-item-title">Galeri Media &amp; Upload Assets</div>
+              <div class="cmd-item-desc">Kelola file media, upload drag &amp; drop, auto-WebP</div>
+            </div>
+          </div>
+          <span class="cmd-item-badge">Media Manager</span>
+        </a>
+      </div>
+
+      <!-- Group: Konten Beranda -->
+      <div class="cmd-group" data-group="homepage">
+        <div class="cmd-group-title">🧭 Editor Konten Beranda</div>
+
+        <a href="<?= BASE_URL ?>/admin/homepage.php#nav" class="cmd-item" data-keywords="konten beranda navigasi brand header logo">
+          <div class="cmd-item-left">
+            <span class="cmd-item-icon">🧭</span>
+            <div>
+              <div class="cmd-item-title">Edit Navigasi &amp; Brand</div>
+              <div class="cmd-item-desc">Nama brand, tombol rekrut, inisial</div>
+            </div>
+          </div>
+          <span class="cmd-item-badge">Beranda</span>
+        </a>
+
+        <a href="<?= BASE_URL ?>/admin/homepage.php#hero" class="cmd-item" data-keywords="konten beranda hero terminal pendidikan badge teks headline">
+          <div class="cmd-item-left">
+            <span class="cmd-item-icon">💻</span>
+            <div>
+              <div class="cmd-item-title">Edit Hero &amp; Terminal Mockup</div>
+              <div class="cmd-item-desc">Headline hero, badge, mock shell code &amp; status</div>
+            </div>
+          </div>
+          <span class="cmd-item-badge">Beranda</span>
+        </a>
+
+        <a href="<?= BASE_URL ?>/admin/homepage.php#domains" class="cmd-item" data-keywords="konten beranda domain keahlian frontend backend database devops mobile data analitik 6 kartu skills">
+          <div class="cmd-item-left">
+            <span class="cmd-item-icon">🎨</span>
+            <div>
+              <div class="cmd-item-title">Edit Domain Keahlian (6 Kartu)</div>
+              <div class="cmd-item-desc">Subgroup skill tags, highlight poin &amp; ekosistem</div>
+            </div>
+          </div>
+          <span class="cmd-item-badge">Beranda</span>
+        </a>
+
+        <a href="<?= BASE_URL ?>/admin/homepage.php#matrix" class="cmd-item" data-keywords="konten beranda matriks keahlian tier 1 2 3 progress kompetensi">
+          <div class="cmd-item-left">
+            <span class="cmd-item-icon">⚡</span>
+            <div>
+              <div class="cmd-item-title">Edit Matriks Keahlian</div>
+              <div class="cmd-item-desc">Tingkat kemahiran Tier 1 Advanced, 2 Proficient, 3 Familiar</div>
+            </div>
+          </div>
+          <span class="cmd-item-badge">Beranda</span>
+        </a>
+
+        <a href="<?= BASE_URL ?>/admin/homepage.php#deck" class="cmd-item" data-keywords="konten beranda cara kerja standar rekayasa siap kolaborasi deck panel">
+          <div class="cmd-item-left">
+            <span class="cmd-item-icon">🎯</span>
+            <div>
+              <div class="cmd-item-title">Edit Alur Kerja &amp; Standar (Deck)</div>
+              <div class="cmd-item-desc">Visi kerja 3 langkah, pilar rekayasa &amp; kolaborasi</div>
+            </div>
+          </div>
+          <span class="cmd-item-badge">Beranda</span>
+        </a>
+
+        <a href="<?= BASE_URL ?>/admin/homepage.php#contact" class="cmd-item" data-keywords="konten beranda kontak email linkedin github instagram tiktok oauth google">
+          <div class="cmd-item-left">
+            <span class="cmd-item-icon">📬</span>
+            <div>
+              <div class="cmd-item-title">Edit Kontak &amp; Integrasi OAuth</div>
+              <div class="cmd-item-desc">Sosial media, email, dan Google Client ID OAuth</div>
+            </div>
+          </div>
+          <span class="cmd-item-badge">Beranda</span>
+        </a>
+      </div>
+
+      <!-- Group: Navigasi Menu -->
+      <div class="cmd-group" data-group="pages">
+        <div class="cmd-group-title">📂 Menu Halaman Admin</div>
+
+        <a href="<?= BASE_URL ?>/admin/dashboard.php" class="cmd-item" data-keywords="dashboard beranda ringkasan telemetry statistik visitor">
+          <div class="cmd-item-left">
+            <span class="cmd-item-icon">🚀</span>
+            <div>
+              <div class="cmd-item-title">Dashboard Ringkasan</div>
+              <div class="cmd-item-desc">Analitik pengunjung, keamanan &amp; performa server</div>
+            </div>
+          </div>
+          <span class="cmd-item-badge">Halaman</span>
+        </a>
+
+        <a href="<?= BASE_URL ?>/admin/profile.php" class="cmd-item" data-keywords="profil foto cv biodata kontak resume">
+          <div class="cmd-item-left">
+            <span class="cmd-item-icon">👤</span>
+            <div>
+              <div class="cmd-item-title">Profil, Foto &amp; CV</div>
+              <div class="cmd-item-desc">Data pribadi, bio, upload foto avatar &amp; PDF resume</div>
+            </div>
+          </div>
+          <span class="cmd-item-badge">Halaman</span>
+        </a>
+
+        <a href="<?= BASE_URL ?>/admin/projects.php" class="cmd-item" data-keywords="kelola proyek daftar list karya">
+          <div class="cmd-item-left">
+            <span class="cmd-item-icon">📁</span>
+            <div>
+              <div class="cmd-item-title">Kelola Semua Proyek</div>
+              <div class="cmd-item-desc">Daftar proyek, urutan, status publikasi &amp; edit</div>
+            </div>
+          </div>
+          <span class="cmd-item-badge">Halaman</span>
+        </a>
+
+        <a href="<?= BASE_URL ?>/admin/guestbook.php" class="cmd-item" data-keywords="moderasi buku tamu pesan komentar guestbook">
+          <div class="cmd-item-left">
+            <span class="cmd-item-icon">💬</span>
+            <div>
+              <div class="cmd-item-title">Moderasi Buku Tamu</div>
+              <div class="cmd-item-desc">Setujui, sembunyikan, atau hapus ucapan dari pengunjung</div>
+            </div>
+          </div>
+          <span class="cmd-item-badge">Halaman</span>
+        </a>
+
+        <a href="<?= BASE_URL ?>/admin/links.php" class="cmd-item" data-keywords="kelola tautan links bio linktree">
+          <div class="cmd-item-left">
+            <span class="cmd-item-icon">🔗</span>
+            <div>
+              <div class="cmd-item-title">Kelola Tautan (Links)</div>
+              <div class="cmd-item-desc">Daftar tautan media sosial dan eksternal</div>
+            </div>
+          </div>
+          <span class="cmd-item-badge">Halaman</span>
+        </a>
+      </div>
+
+      <!-- Group: Eksternal & Akun -->
+      <div class="cmd-group" data-group="ext">
+        <div class="cmd-group-title">🌐 Eksternal &amp; Akun</div>
+
+        <a href="<?= BASE_URL ?>/" target="_blank" class="cmd-item" data-keywords="lihat website publik preview frontend beranda">
+          <div class="cmd-item-left">
+            <span class="cmd-item-icon">🌐</span>
+            <div>
+              <div class="cmd-item-title">Lihat Website Publik ↗</div>
+              <div class="cmd-item-desc">Buka halaman beranda publik di tab baru</div>
+            </div>
+          </div>
+          <span class="cmd-item-badge">Publik</span>
+        </a>
+
+        <a href="<?= BASE_URL ?>/admin/logout.php" class="cmd-item" data-keywords="keluar logout sign out admin">
+          <div class="cmd-item-left">
+            <span class="cmd-item-icon">🚪</span>
+            <div>
+              <div class="cmd-item-title">Keluar (Logout)</div>
+              <div class="cmd-item-desc">Akhiri sesi portal admin saat ini</div>
+            </div>
+          </div>
+          <span class="cmd-item-badge">Sesi</span>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="cmd-footer-bar">
+      <div class="cmd-footer-hints">
+        <span><kbd class="cmd-shortcut-badge">↑</kbd> <kbd class="cmd-shortcut-badge">↓</kbd> Navigasi</span>
+        <span><kbd class="cmd-shortcut-badge">ENTER</kbd> Pilih</span>
+        <span><kbd class="cmd-shortcut-badge">ESC</kbd> Tutup</span>
+      </div>
+      <div>Portal Admin Ammar Syarif</div>
+    </div>
+  </div>
+</div>
+
+<div class="cmd-toast" id="cmdToast"></div>
 
 <script>
 (function () {
@@ -429,5 +897,122 @@ $currentPage = basename($_SERVER['PHP_SELF']);
   // Show date on topbar when wide enough
   const dateEl = document.getElementById('topbarDate');
   if (window.innerWidth > 640 && dateEl) dateEl.style.display = 'block';
+
+  // ── COMMAND PALETTE LOGIC ──
+  const cmdModal = document.getElementById('adminCmdPaletteModal');
+  const cmdInput = document.getElementById('cmdPaletteSearchInput');
+  const cmdList  = document.getElementById('cmdPaletteList');
+
+  window.openCmdPalette = function() {
+    cmdModal.classList.add('is-open');
+    cmdInput.value = '';
+    filterCmdItems('');
+    setTimeout(() => cmdInput.focus(), 50);
+  };
+
+  window.closeCmdPalette = function() {
+    cmdModal.classList.remove('is-open');
+  };
+
+  // Global Keyboard Shortcut (Ctrl+K or Cmd+K, Escape)
+  window.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
+      e.preventDefault();
+      if (cmdModal.classList.contains('is-open')) {
+        closeCmdPalette();
+      } else {
+        openCmdPalette();
+      }
+    } else if (e.key === 'Escape' && cmdModal.classList.contains('is-open')) {
+      closeCmdPalette();
+    }
+  });
+
+  // Filter items
+  cmdInput.addEventListener('input', function() {
+    filterCmdItems(this.value.toLowerCase().trim());
+  });
+
+  function filterCmdItems(q) {
+    const items = cmdList.querySelectorAll('.cmd-item');
+    const groups = cmdList.querySelectorAll('.cmd-group');
+
+    items.forEach(item => {
+      const kw = (item.getAttribute('data-keywords') || '') + ' ' + item.innerText.toLowerCase();
+      if (!q || kw.includes(q)) {
+        item.style.display = 'flex';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+
+    groups.forEach(grp => {
+      const visible = grp.querySelectorAll('.cmd-item[style*="display: flex"], .cmd-item:not([style*="display: none"])');
+      grp.style.display = (visible.length > 0) ? 'block' : 'none';
+    });
+
+    // Reset selection
+    const firstVisible = cmdList.querySelector('.cmd-item:not([style*="display: none"])');
+    items.forEach(i => i.classList.remove('is-selected'));
+    if (firstVisible) firstVisible.classList.add('is-selected');
+  }
+
+  // Keyboard navigation within list
+  cmdInput.addEventListener('keydown', function(e) {
+    const visibleItems = Array.from(cmdList.querySelectorAll('.cmd-item:not([style*="display: none"])'));
+    if (visibleItems.length === 0) return;
+
+    let currentIndex = visibleItems.findIndex(i => i.classList.contains('is-selected'));
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (currentIndex < visibleItems.length - 1) {
+        if (currentIndex >= 0) visibleItems[currentIndex].classList.remove('is-selected');
+        visibleItems[currentIndex + 1].classList.add('is-selected');
+        visibleItems[currentIndex + 1].scrollIntoView({ block: 'nearest' });
+      }
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (currentIndex > 0) {
+        visibleItems[currentIndex].classList.remove('is-selected');
+        visibleItems[currentIndex - 1].classList.add('is-selected');
+        visibleItems[currentIndex - 1].scrollIntoView({ block: 'nearest' });
+      }
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (currentIndex >= 0 && visibleItems[currentIndex]) {
+        visibleItems[currentIndex].click();
+      }
+    }
+  });
+
+  // Quick Action: Toggle Hire Status via AJAX
+  window.toggleHireStatusQuick = function() {
+    closeCmdPalette();
+    showCmdToast('⏳ Memperbarui status ketersediaan kerja...');
+
+    fetch('<?= BASE_URL ?>/admin/api_hire_status.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: ''
+    })
+    .then(r => r.json())
+    .then(res => {
+      if (res.status === 'success') {
+        showCmdToast('✅ Status berhasil diubah: ' + res.label);
+      } else {
+        showCmdToast('❌ Gagal: ' + (res.message || 'Kesalahan'));
+      }
+    })
+    .catch(() => showCmdToast('❌ Koneksi gagal'));
+  };
+
+  function showCmdToast(msg) {
+    const toast = document.getElementById('cmdToast');
+    toast.innerText = msg;
+    toast.style.display = 'block';
+    setTimeout(() => { toast.style.display = 'none'; }, 3000);
+  }
+
 })();
 </script>

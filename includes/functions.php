@@ -1549,3 +1549,100 @@ function get_github_public_repos(string $username = 'ammarsyrf', int $limit = 6,
         ]
     ];
 }
+
+// =========================================================================
+// WEBP CONVERSION & ASSETS OPTIMIZATION
+// =========================================================================
+
+/**
+ * Konversi gambar (JPEG/PNG/WEBP) ke format WebP terkompresi
+ */
+function convert_image_to_webp(string $sourcePath, string $targetPath, int $quality = 85): bool {
+    if (!file_exists($sourcePath) || !function_exists('imagewebp')) {
+        return false;
+    }
+    
+    $info = @getimagesize($sourcePath);
+    if (!$info) return false;
+    
+    $mime = $info['mime'] ?? '';
+    $image = null;
+    
+    if ($mime === 'image/jpeg' && function_exists('imagecreatefromjpeg')) {
+        $image = @imagecreatefromjpeg($sourcePath);
+    } elseif ($mime === 'image/png' && function_exists('imagecreatefrompng')) {
+        $image = @imagecreatefrompng($sourcePath);
+        if ($image) {
+            imagepalettetotruecolor($image);
+            imagealphablending($image, true);
+            imagesavealpha($image, true);
+        }
+    } elseif ($mime === 'image/webp' && function_exists('imagecreatefromwebp')) {
+        $image = @imagecreatefromwebp($sourcePath);
+    }
+    
+    if (!$image) return false;
+    
+    $res = @imagewebp($image, $targetPath, $quality);
+    imagedestroy($image);
+    return $res;
+}
+
+// =========================================================================
+// ADMIN ACTIVITY AUDIT LOGS
+// =========================================================================
+
+/**
+ * Catat log aktivitas admin untuk audit trail
+ */
+function log_admin_activity(PDO $pdo, string $action, string $details = '', ?string $username = null): bool {
+    try {
+        $pdo->exec("CREATE TABLE IF NOT EXISTS `admin_activity_logs` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `admin_username` VARCHAR(100) NOT NULL,
+            `action` VARCHAR(100) NOT NULL,
+            `details` TEXT NULL,
+            `ip_address` VARCHAR(45) NULL,
+            `user_agent` VARCHAR(255) NULL,
+            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            INDEX (`created_at`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+
+        $user = $username ?? ($_SESSION['admin_username'] ?? 'Admin');
+        $ip = $_SERVER['HTTP_CF_CONNECTING_IP'] ?? $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+        $ip = trim(explode(',', $ip)[0]);
+        $ua = substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 250);
+
+        $stmt = $pdo->prepare("INSERT INTO admin_activity_logs (admin_username, action, details, ip_address, user_agent) VALUES (?, ?, ?, ?, ?)");
+        return $stmt->execute([$user, $action, $details, $ip, $ua]);
+    } catch (\Throwable $e) {
+        error_log("Activity log error: " . $e->getMessage());
+        return false;
+    }
+}
+
+/**
+ * Ambil daftar log aktivitas admin
+ */
+function get_admin_activity_logs(PDO $pdo, int $limit = 10): array {
+    try {
+        $pdo->exec("CREATE TABLE IF NOT EXISTS `admin_activity_logs` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `admin_username` VARCHAR(100) NOT NULL,
+            `action` VARCHAR(100) NOT NULL,
+            `details` TEXT NULL,
+            `ip_address` VARCHAR(45) NULL,
+            `user_agent` VARCHAR(255) NULL,
+            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            INDEX (`created_at`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+
+        $stmt = $pdo->prepare("SELECT * FROM admin_activity_logs ORDER BY id DESC LIMIT ?");
+        $stmt->bindValue(1, $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (\Throwable $e) {
+        return [];
+    }
+}
+

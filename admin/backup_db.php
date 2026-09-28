@@ -72,6 +72,7 @@ try {
 
     fputs($output, "SET FOREIGN_KEY_CHECKS=1;\n");
     fputs($output, "-- Backup completed successfully.\n");
+    log_admin_activity($pdo, 'Backup Database', "Unduh snapshot SQL: {$filename}");
 
 } catch (\Throwable $e) {
     fputs($output, "\n-- ERROR DURING BACKUP: " . $e->getMessage() . "\n");
