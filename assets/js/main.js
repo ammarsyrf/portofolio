@@ -654,7 +654,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let shouldShow = false;
 
         if (cat === 'all') {
-          shouldShow = chip.getAttribute('data-highlight') === 'true';
+          shouldShow = true;
         } else {
           shouldShow = (chipCat === cat);
         }
