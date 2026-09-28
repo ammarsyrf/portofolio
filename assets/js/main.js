@@ -89,34 +89,100 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ------------------------------------------------------------------------
-  // 1. Mobile Navigation Toggle
+  // 1. Navigation: Mobile Drawer & Eksplor Dropdown
   // ------------------------------------------------------------------------
   const navToggle = document.getElementById('mobileNavToggle');
-  const navMenu = document.getElementById('navMenu');
+  const mobileDrawer = document.getElementById('mobileNavDrawer');
+  const navDropdownWrap = document.getElementById('navDropdownWrap');
+  const navDropdownBtn = document.getElementById('navDropdownBtn');
+  const navDropdownMenu = document.getElementById('navDropdownMenu');
 
-  if (navToggle && navMenu) {
+  // Mobile Drawer Toggle
+  if (navToggle && mobileDrawer) {
+    const toggleMobileMenu = (forceState) => {
+      const isCurrentlyOpen = mobileDrawer.classList.contains('is-open');
+      const shouldOpen = (typeof forceState === 'boolean') ? forceState : !isCurrentlyOpen;
+
+      if (shouldOpen) {
+        mobileDrawer.classList.add('is-open');
+        mobileDrawer.setAttribute('aria-hidden', 'false');
+        navToggle.classList.add('is-active');
+        navToggle.setAttribute('aria-expanded', 'true');
+      } else {
+        mobileDrawer.classList.remove('is-open');
+        mobileDrawer.setAttribute('aria-hidden', 'true');
+        navToggle.classList.remove('is-active');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
+    };
+
     navToggle.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
-      const isOpen = navMenu.classList.toggle('is-open');
-      navToggle.setAttribute('aria-expanded', String(isOpen));
+      toggleMobileMenu();
     });
 
-    // Tutup menu saat link diklik di mobile
-    navMenu.querySelectorAll('.nav-pill, .nav-link').forEach(link => {
+    // Tutup drawer saat link di dalamnya diklik
+    mobileDrawer.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
-        navMenu.classList.remove('is-open');
-        navToggle.setAttribute('aria-expanded', 'false');
+        toggleMobileMenu(false);
       });
     });
 
-    // Tutup menu saat klik di luar area menu
+    // Tutup drawer saat klik di luar area
     document.addEventListener('click', (e) => {
-      if (!navMenu.contains(e.target) && !navToggle.contains(e.target) && navMenu.classList.contains('is-open')) {
-        navMenu.classList.remove('is-open');
-        navToggle.setAttribute('aria-expanded', 'false');
+      if (mobileDrawer.classList.contains('is-open') && !mobileDrawer.contains(e.target) && !navToggle.contains(e.target)) {
+        toggleMobileMenu(false);
       }
     });
+
+    // Tutup dengan tombol Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (mobileDrawer.classList.contains('is-open')) {
+          toggleMobileMenu(false);
+        }
+        if (navDropdownWrap && navDropdownWrap.classList.contains('is-open')) {
+          navDropdownWrap.classList.remove('is-open');
+          if (navDropdownBtn) navDropdownBtn.setAttribute('aria-expanded', 'false');
+        }
+      }
+    });
+
+    // Reset drawer state on desktop resize
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 992 && mobileDrawer.classList.contains('is-open')) {
+        toggleMobileMenu(false);
+      }
+    });
+  }
+
+  // Desktop Dropdown Toggle on Click / Keyboard
+  if (navDropdownWrap && navDropdownBtn) {
+    navDropdownBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const isOpen = navDropdownWrap.classList.toggle('is-open');
+      navDropdownBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Tutup dropdown saat klik di luar
+    document.addEventListener('click', (e) => {
+      if (!navDropdownWrap.contains(e.target) && navDropdownWrap.classList.contains('is-open')) {
+        navDropdownWrap.classList.remove('is-open');
+        navDropdownBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Tutup saat dropdown item diklik
+    if (navDropdownMenu) {
+      navDropdownMenu.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', () => {
+          navDropdownWrap.classList.remove('is-open');
+          navDropdownBtn.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
   }
 
   // ------------------------------------------------------------------------
