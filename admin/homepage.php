@@ -1,7 +1,7 @@
 <?php
 /**
  * Pengelola Konten Halaman Utama (Homepage)
- * Desain: Tabbed Modular Editor dengan Sticky Save Bar
+ * Desain: 2-Column Master-Detail Sub-Sidebar Editor dengan Sticky Save Bar & Search Filter
  */
 
 require_once __DIR__ . '/../includes/auth.php';
@@ -28,158 +28,191 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $content = get_homepage_content($pdo);
 
-$groups = [
-    'nav' => [
-        'title' => 'Navigasi & Brand',
-        'icon'  => '🧭',
-        'desc'  => 'Nama brand navbar (lengkap & singkatan), serta teks tombol aksi/rekrutmen.',
-        'keys'  => ['nav_brand_full', 'nav_brand_short', 'nav_hire_text']
-    ],
-    'hero' => [
-        'title' => 'Hero & Statistik',
-        'icon'  => '⚡',
-        'desc'  => 'Teks headline, gelar, ketersediaan rekrutmen, dan badge utama pada hero section.',
-        'keys'  => ['hero_education_label','hero_degree','hero_field','hero_specialty_label','hero_specialty_value','hero_availability_label','hero_availability_value','hero_readiness','hero_line_one','hero_line_two','hero_line_three','hero_badge','hero_vertical_badge']
-    ],
-    'terminal' => [
-        'title' => 'Terminal Console',
-        'icon'  => '💻',
-        'desc'  => 'Teks status live terminal mockup, fokus stack, workflow, dan simulasi pengujian.',
-        'keys'  => [
-            'terminal_title', 'terminal_status_badge', 'terminal_user', 
-            'terminal_status_val', 'terminal_role_val', 'terminal_focus_val', 
-            'terminal_ai_val', 'terminal_workflow_val', 'terminal_location_val', 
-            'terminal_cmd_test', 'terminal_cmd_pass', 'terminal_summary_line1', 'terminal_summary_line2'
+// Kategori Terstruktur (Hierarchical Clusters)
+$categories = [
+    'hero_cluster' => [
+        'name' => 'Header & Hero Section',
+        'icon' => '🌟',
+        'items' => [
+            'nav' => [
+                'title' => 'Navigasi & Brand',
+                'icon'  => '🧭',
+                'desc'  => 'Nama brand navbar (lengkap & singkatan), serta teks tombol aksi/rekrutmen.',
+                'keys'  => ['nav_brand_full', 'nav_brand_short', 'nav_hire_text']
+            ],
+            'hero' => [
+                'title' => 'Hero & Statistik',
+                'icon'  => '⚡',
+                'desc'  => 'Teks headline, gelar, ketersediaan rekrutmen, dan badge utama pada hero section.',
+                'keys'  => ['hero_education_label','hero_degree','hero_field','hero_specialty_label','hero_specialty_value','hero_availability_label','hero_availability_value','hero_readiness','hero_line_one','hero_line_two','hero_line_three','hero_badge','hero_vertical_badge']
+            ],
+            'terminal' => [
+                'title' => 'Terminal Console',
+                'icon'  => '💻',
+                'desc'  => 'Teks status live terminal mockup, fokus stack, workflow, dan simulasi pengujian.',
+                'keys'  => [
+                    'terminal_title', 'terminal_status_badge', 'terminal_user', 
+                    'terminal_status_val', 'terminal_role_val', 'terminal_focus_val', 
+                    'terminal_ai_val', 'terminal_workflow_val', 'terminal_location_val', 
+                    'terminal_cmd_test', 'terminal_cmd_pass', 'terminal_summary_line1', 'terminal_summary_line2'
+                ]
+            ],
+            'brand' => [
+                'title' => 'Brand Zenerie',
+                'icon'  => '💎',
+                'desc'  => 'Kartu profil brand Zenerie, link website, dan tombol aksi.',
+                'keys'  => ['brand_title','brand_badge','brand_description','brand_url','brand_button','identity_button','media_title','media_button']
+            ],
         ]
     ],
-    'brand' => [
-        'title' => 'Brand Zenerie',
-        'icon'  => '💎',
-        'desc'  => 'Kartu profil brand Zenerie, link website, dan tombol aksi.',
-        'keys'  => ['brand_title','brand_badge','brand_description','brand_url','brand_button','identity_button','media_title','media_button']
-    ],
-    'deck' => [
-        'title' => 'Alur & Standar Kerja',
-        'icon'  => '🎯',
-        'desc'  => 'Teks bento deck panel: Cara Saya Bekerja, 3 Langkah Alur, Standar Rekayasa, dan Kolaborasi.',
-        'keys'  => [
-            'deck_vision_eyebrow', 'deck_vision_title', 'deck_vision_lead',
-            'deck_s1_title', 'deck_s1_desc',
-            'deck_s2_title', 'deck_s2_desc',
-            'deck_s3_title', 'deck_s3_desc',
-            'deck_std_title',
-            'deck_std1_icon', 'deck_std1_title', 'deck_std1_desc',
-            'deck_std2_icon', 'deck_std2_title', 'deck_std2_desc',
-            'deck_std3_icon', 'deck_std3_title', 'deck_std3_desc',
-            'deck_collab_title', 'deck_collab_role_lbl', 'deck_collab_role_val',
-            'deck_collab_avail_lbl', 'deck_collab_avail_val',
-            'deck_collab_mode_lbl', 'deck_collab_mode_val', 'deck_collab_btn_text'
+    'profile_cluster' => [
+        'name' => 'Profil & Alur Kerja',
+        'icon' => '🪪',
+        'items' => [
+            'about_bento' => [
+                'title' => 'Tentang (Bento Hero)',
+                'icon'  => '🪪',
+                'desc'  => 'Teks ringkasan dan metrik statistik pada kartu bento profil hero.',
+                'keys'  => ['about_widget_title','about_widget_status','about_widget_text_one','about_widget_text_two','about_metric_one_value','about_metric_one_label','about_metric_two_value','about_metric_two_label','about_metric_three_value','about_metric_three_label']
+            ],
+            'deck' => [
+                'title' => 'Alur & Standar Kerja',
+                'icon'  => '🎯',
+                'desc'  => 'Teks bento deck panel: Cara Saya Bekerja, 3 Langkah Alur, Standar Rekayasa, dan Kolaborasi.',
+                'keys'  => [
+                    'deck_vision_eyebrow', 'deck_vision_title', 'deck_vision_lead',
+                    'deck_s1_title', 'deck_s1_desc',
+                    'deck_s2_title', 'deck_s2_desc',
+                    'deck_s3_title', 'deck_s3_desc',
+                    'deck_std_title',
+                    'deck_std1_icon', 'deck_std1_title', 'deck_std1_desc',
+                    'deck_std2_icon', 'deck_std2_title', 'deck_std2_desc',
+                    'deck_std3_icon', 'deck_std3_title', 'deck_std3_desc',
+                    'deck_collab_title', 'deck_collab_role_lbl', 'deck_collab_role_val',
+                    'deck_collab_avail_lbl', 'deck_collab_avail_val',
+                    'deck_collab_mode_lbl', 'deck_collab_mode_val', 'deck_collab_btn_text'
+                ]
+            ],
+            'about_section' => [
+                'title' => 'Tentang Saya (Detail)',
+                'icon'  => '📖',
+                'desc'  => 'Seluruh paragraf narasi profil, rekayasa sistem, dan latar belakang profesional.',
+                'keys'  => ['about_caption','about_title','about_kicker','about_heading','about_paragraph_one','about_paragraph_two','about_paragraph_three']
+            ],
         ]
     ],
-    'about_bento' => [
-        'title' => 'Tentang (Bento)',
-        'icon'  => '🪪',
-        'desc'  => 'Teks dan metrik statistik pada kartu bento profil hero.',
-        'keys'  => ['about_widget_title','about_widget_status','about_widget_text_one','about_widget_text_two','about_metric_one_value','about_metric_one_label','about_metric_two_value','about_metric_two_label','about_metric_three_value','about_metric_three_label']
-    ],
-    'about_section' => [
-        'title' => 'Tentang Saya',
-        'icon'  => '📖',
-        'desc'  => 'Seluruh paragraf narasi profil, rekayasa sistem, dan latar belakang profesional.',
-        'keys'  => ['about_caption','about_title','about_kicker','about_heading','about_paragraph_one','about_paragraph_two','about_paragraph_three']
-    ],
-    'tech_chips' => [
-        'title' => 'Tech Stack (Chips Bento)',
-        'icon'  => '🧩',
-        'desc'  => 'Daftar skill chips interaktif di widget Hero Bento dalam format JSON terstruktur.',
-        'keys'  => ['tech_widget_title', 'tech_widget_status', 'tech_widget_footer', 'tech_widget_button', 'tech_chips_json']
-    ],
-    'skills' => [
-        'title' => 'Keahlian Header',
-        'icon'  => '🛠️',
-        'desc'  => 'Caption, judul, dan lead paragraf pengantar section keahlian & toolkit.',
-        'keys'  => ['skills_caption','skills_title','skills_lead']
-    ],
-    'matrix' => [
-        'title' => 'Matriks Keahlian (Tier)',
-        'icon'  => '⚡',
-        'desc'  => 'Matriks Tingkat Penguasaan Teknologi: Tier 1 (Advanced), Tier 2 (Proficient), Tier 3 (Familiar).',
-        'keys'  => [
-            'matrix_kicker', 'matrix_title', 'matrix_desc',
-            'tier1_badge', 'tier1_level', 'tier1_title', 'tier1_desc', 'tier1_percent', 'tier1_chips',
-            'tier2_badge', 'tier2_level', 'tier2_title', 'tier2_desc', 'tier2_percent', 'tier2_chips',
-            'tier3_badge', 'tier3_level', 'tier3_title', 'tier3_desc', 'tier3_percent', 'tier3_chips'
+    'skills_cluster' => [
+        'name' => 'Keahlian & Teknologi',
+        'icon' => '🛠️',
+        'items' => [
+            'tech_chips' => [
+                'title' => 'Tech Stack (Chips Bento)',
+                'icon'  => '🧩',
+                'desc'  => 'Daftar skill chips interaktif di widget Hero Bento dalam format JSON terstruktur.',
+                'keys'  => ['tech_widget_title', 'tech_widget_status', 'tech_widget_footer', 'tech_widget_button', 'tech_chips_json']
+            ],
+            'skills' => [
+                'title' => 'Keahlian Header',
+                'icon'  => '🛠️',
+                'desc'  => 'Caption, judul, dan lead paragraf pengantar section keahlian & toolkit.',
+                'keys'  => ['skills_caption','skills_title','skills_lead']
+            ],
+            'matrix' => [
+                'title' => 'Matriks Keahlian (Tier)',
+                'icon'  => '⚡',
+                'desc'  => 'Matriks Tingkat Penguasaan Teknologi: Tier 1 (Advanced), Tier 2 (Proficient), Tier 3 (Familiar).',
+                'keys'  => [
+                    'matrix_kicker', 'matrix_title', 'matrix_desc',
+                    'tier1_badge', 'tier1_level', 'tier1_title', 'tier1_desc', 'tier1_percent', 'tier1_chips',
+                    'tier2_badge', 'tier2_level', 'tier2_title', 'tier2_desc', 'tier2_percent', 'tier2_chips',
+                    'tier3_badge', 'tier3_level', 'tier3_title', 'tier3_desc', 'tier3_percent', 'tier3_chips'
+                ]
+            ],
+            'domains' => [
+                'title' => 'Domain Keahlian (6 Kartu)',
+                'icon'  => '🗂️',
+                'desc'  => '6 Kartu domain spesialisasi: Frontend, Backend, Database, DevOps, Testing & Mobile, Analitik Data.',
+                'keys'  => [
+                    // Domain 1: Frontend
+                    'domain1_badge', 'domain1_title', 'domain1_desc',
+                    'domain1_grp1_title', 'domain1_grp1_tags',
+                    'domain1_grp2_title', 'domain1_grp2_tags',
+                    'domain1_b1', 'domain1_b2', 'domain1_b3', 'domain1_eco',
+                    // Domain 2: Backend
+                    'domain2_badge', 'domain2_title', 'domain2_desc',
+                    'domain2_grp1_title', 'domain2_grp1_tags',
+                    'domain2_grp2_title', 'domain2_grp2_tags',
+                    'domain2_b1', 'domain2_b2', 'domain2_b3', 'domain2_eco',
+                    // Domain 3: Database
+                    'domain3_badge', 'domain3_title', 'domain3_desc',
+                    'domain3_grp1_title', 'domain3_grp1_tags',
+                    'domain3_grp2_title', 'domain3_grp2_tags',
+                    'domain3_b1', 'domain3_b2', 'domain3_b3', 'domain3_eco',
+                    // Domain 4: DevOps
+                    'domain4_badge', 'domain4_title', 'domain4_desc',
+                    'domain4_grp1_title', 'domain4_grp1_tags',
+                    'domain4_grp2_title', 'domain4_grp2_tags',
+                    'domain4_b1', 'domain4_b2', 'domain4_b3', 'domain4_eco',
+                    // Domain 5: Testing & Mobile
+                    'domain5_badge', 'domain5_title', 'domain5_desc',
+                    'domain5_grp1_title', 'domain5_grp1_tags',
+                    'domain5_grp2_title', 'domain5_grp2_tags',
+                    'domain5_b1', 'domain5_b2', 'domain5_b3', 'domain5_eco',
+                    // Domain 6: Analytics
+                    'domain6_badge', 'domain6_title', 'domain6_desc',
+                    'domain6_grp1_title', 'domain6_grp1_tags',
+                    'domain6_grp2_title', 'domain6_grp2_tags',
+                    'domain6_b1', 'domain6_b2', 'domain6_b3', 'domain6_eco'
+                ]
+            ],
         ]
     ],
-    'domains' => [
-        'title' => 'Domain Keahlian (6 Kartu)',
-        'icon'  => '🗂️',
-        'desc'  => '6 Kartu domain spesialisasi: Frontend, Backend, Database, DevOps, Testing & Mobile, Analitik Data.',
-        'keys'  => [
-            // Domain 1: Frontend
-            'domain1_badge', 'domain1_title', 'domain1_desc',
-            'domain1_grp1_title', 'domain1_grp1_tags',
-            'domain1_grp2_title', 'domain1_grp2_tags',
-            'domain1_b1', 'domain1_b2', 'domain1_b3', 'domain1_eco',
-            // Domain 2: Backend
-            'domain2_badge', 'domain2_title', 'domain2_desc',
-            'domain2_grp1_title', 'domain2_grp1_tags',
-            'domain2_grp2_title', 'domain2_grp2_tags',
-            'domain2_b1', 'domain2_b2', 'domain2_b3', 'domain2_eco',
-            // Domain 3: Database
-            'domain3_badge', 'domain3_title', 'domain3_desc',
-            'domain3_grp1_title', 'domain3_grp1_tags',
-            'domain3_grp2_title', 'domain3_grp2_tags',
-            'domain3_b1', 'domain3_b2', 'domain3_b3', 'domain3_eco',
-            // Domain 4: DevOps
-            'domain4_badge', 'domain4_title', 'domain4_desc',
-            'domain4_grp1_title', 'domain4_grp1_tags',
-            'domain4_grp2_title', 'domain4_grp2_tags',
-            'domain4_b1', 'domain4_b2', 'domain4_b3', 'domain4_eco',
-            // Domain 5: Testing & Mobile
-            'domain5_badge', 'domain5_title', 'domain5_desc',
-            'domain5_grp1_title', 'domain5_grp1_tags',
-            'domain5_grp2_title', 'domain5_grp2_tags',
-            'domain5_b1', 'domain5_b2', 'domain5_b3', 'domain5_eco',
-            // Domain 6: Analytics
-            'domain6_badge', 'domain6_title', 'domain6_desc',
-            'domain6_grp1_title', 'domain6_grp1_tags',
-            'domain6_grp2_title', 'domain6_grp2_tags',
-            'domain6_b1', 'domain6_b2', 'domain6_b3', 'domain6_eco'
+    'content_cluster' => [
+        'name' => 'Portofolio, Setup & Kontak',
+        'icon' => '💼',
+        'items' => [
+            'projects' => [
+                'title' => 'Proyek Section',
+                'icon'  => '💼',
+                'desc'  => 'Caption dan judul pengantar section karya & proyek.',
+                'keys'  => ['projects_caption','projects_title']
+            ],
+            'gear' => [
+                'title' => 'Gear & Workspace',
+                'icon'  => '⚙️',
+                'desc'  => 'Daftar hardware, toolset software, dan suite AI di tab gear & setup.',
+                'keys'  => [
+                    'gear_hw_laptop_name', 'gear_hw_laptop_desc',
+                    'gear_hw_display_name', 'gear_hw_display_desc',
+                    'gear_hw_keyboard_name', 'gear_hw_keyboard_desc',
+                    'gear_hw_audio_name', 'gear_hw_audio_desc',
+                    'gear_sw_os_tags', 'gear_sw_ide_tags', 'gear_sw_tools_tags',
+                    'gear_ai_models_desc', 'gear_ai_prompt_desc', 'gear_ai_design_desc', 'gear_ai_devops_desc'
+                ]
+            ],
+            'contact' => [
+                'title' => 'Bagian Kontak',
+                'icon'  => '📬',
+                'desc'  => 'Judul kartu email, jejaring profesional, sosial media, dan teks form pesan singkat.',
+                'keys'  => ['contact_caption','contact_title','contact_email_title','contact_email_description','contact_linkedin_title','contact_linkedin_description','contact_github_title','contact_github_description','contact_instagram_title','contact_instagram_description','contact_tiktok_title','contact_tiktok_description','contact_form_title','contact_form_button']
+            ],
+            'oauth' => [
+                'title' => 'Integrasi & OAuth',
+                'icon'  => '🔑',
+                'desc'  => 'Kredensial Google OAuth 2.0 untuk autentikasi Buku Tamu publik.',
+                'keys'  => ['google_client_id', 'google_client_secret']
+            ],
         ]
-    ],
-    'projects' => [
-        'title' => 'Proyek Section',
-        'icon'  => '💼',
-        'desc'  => 'Caption dan judul pengantar section karya & proyek.',
-        'keys'  => ['projects_caption','projects_title']
-    ],
-    'gear' => [
-        'title' => 'Gear & Workspace',
-        'icon'  => '⚙️',
-        'desc'  => 'Daftar hardware, toolset software, dan suite AI di tab gear & setup.',
-        'keys'  => [
-            'gear_hw_laptop_name', 'gear_hw_laptop_desc',
-            'gear_hw_display_name', 'gear_hw_display_desc',
-            'gear_hw_keyboard_name', 'gear_hw_keyboard_desc',
-            'gear_hw_audio_name', 'gear_hw_audio_desc',
-            'gear_sw_os_tags', 'gear_sw_ide_tags', 'gear_sw_tools_tags',
-            'gear_ai_models_desc', 'gear_ai_prompt_desc', 'gear_ai_design_desc', 'gear_ai_devops_desc'
-        ]
-    ],
-    'contact' => [
-        'title' => 'Bagian Kontak',
-        'icon'  => '📬',
-        'desc'  => 'Judul kartu email, jejaring profesional, sosial media, dan teks form pesan singkat.',
-        'keys'  => ['contact_caption','contact_title','contact_email_title','contact_email_description','contact_linkedin_title','contact_linkedin_description','contact_github_title','contact_github_description','contact_instagram_title','contact_instagram_description','contact_tiktok_title','contact_tiktok_description','contact_form_title','contact_form_button']
-    ],
-    'oauth' => [
-        'title' => 'Integrasi & OAuth',
-        'icon'  => '🔑',
-        'desc'  => 'Kredensial Google OAuth 2.0 untuk autentikasi Buku Tamu publik.',
-        'keys'  => ['google_client_id', 'google_client_secret']
-    ],
+    ]
 ];
+
+// Flattened groups for processing
+$groups = [];
+foreach ($categories as $cat) {
+    foreach ($cat['items'] as $id => $item) {
+        $groups[$id] = $item;
+    }
+}
 
 $labels = [
     'nav_brand_full' => 'Nama Brand Lengkap (Navbar)',
@@ -370,79 +403,191 @@ require_once __DIR__ . '/includes/sidebar.php';
 ?>
 
 <style>
-  .hp-editor-wrap {
-    max-width: 1080px;
+  /* --- 2-Column Master Detail Sub-Sidebar Layout --- */
+  .hp-editor-shell {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    position: relative;
   }
-  .hp-tabs-bar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-bottom: 1.25rem;
-    background: rgba(15, 23, 42, 0.7);
-    padding: 0.45rem;
-    border-radius: 14px;
+
+  @media (max-width: 1024px) {
+    .hp-editor-shell {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Sub-Sidebar Navigation Column */
+  .hp-subnav-sidebar {
+    position: sticky;
+    top: 5rem;
+    background: rgba(14, 18, 27, 0.95);
     border: 1px solid var(--color-line);
+    border-radius: 16px;
+    padding: 1.1rem;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    max-height: calc(100vh - 6.5rem);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(76, 141, 255, 0.3) transparent;
   }
-  .hp-tab-btn {
+
+  .hp-subnav-sidebar::-webkit-scrollbar {
+    width: 5px;
+  }
+  .hp-subnav-sidebar::-webkit-scrollbar-thumb {
+    background: rgba(76, 141, 255, 0.3);
+    border-radius: 4px;
+  }
+
+  .hp-search-box {
+    position: relative;
+    margin-bottom: 1rem;
+  }
+
+  .hp-search-input {
+    width: 100%;
+    background: rgba(8, 11, 19, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 0.55rem 0.75rem 0.55rem 2.2rem;
+    font-size: 0.82rem;
+    color: #fff;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+  .hp-search-input:focus {
+    border-color: rgba(76, 141, 255, 0.6);
+    box-shadow: 0 0 12px rgba(76, 141, 255, 0.25);
+  }
+  .hp-search-icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.85rem;
+    color: var(--color-text-dim);
+    pointer-events: none;
+  }
+
+  /* Cluster Group Headers */
+  .hp-cluster-group {
+    margin-bottom: 1.1rem;
+  }
+  .hp-cluster-group:last-child {
+    margin-bottom: 0;
+  }
+  .hp-cluster-title {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent-bright);
+    margin-bottom: 0.45rem;
+    padding-left: 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .hp-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .hp-nav-item-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    text-align: left;
     background: transparent;
     border: 1px solid transparent;
-    color: var(--color-text-dim);
-    padding: 0.55rem 0.95rem;
     border-radius: 10px;
+    padding: 0.5rem 0.65rem;
+    color: var(--color-text-dim);
     font-size: 0.82rem;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
-    display: inline-flex;
+    transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .hp-nav-item-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .hp-nav-item-btn.is-active {
+    background: rgba(76, 141, 255, 0.18);
+    border-color: rgba(76, 141, 255, 0.45);
+    color: #ffffff;
+    font-weight: 600;
+    box-shadow: 0 4px 14px rgba(76, 141, 255, 0.15);
+  }
+
+  .hp-nav-item-label {
+    display: flex;
     align-items: center;
-    gap: 0.45rem;
-    transition: all 0.2s ease;
+    gap: 0.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .hp-tab-btn:hover {
+
+  .hp-nav-count-badge {
+    font-size: 0.68rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-text-dim);
+  }
+  .hp-nav-item-btn.is-active .hp-nav-count-badge {
+    background: rgba(76, 141, 255, 0.35);
     color: #fff;
-    background: rgba(255, 255, 255, 0.05);
   }
-  .hp-tab-btn.is-active {
-    background: rgba(76, 141, 255, 0.22);
-    border-color: rgba(76, 141, 255, 0.5);
-    color: #ffffff;
-    box-shadow: 0 0 14px rgba(76, 141, 255, 0.3);
+
+  /* Right Editor Column */
+  .hp-editor-main {
+    min-width: 0;
   }
+
   .hp-sticky-bar {
     position: sticky;
-    top: 0;
+    top: 5rem;
     z-index: 30;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 1rem;
-    background: rgba(11, 15, 25, 0.95);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(76, 141, 255, 0.3);
+    background: rgba(14, 18, 27, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(76, 141, 255, 0.35);
     padding: 0.85rem 1.25rem;
     border-radius: 14px;
     margin-bottom: 1.5rem;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
   }
-  .hp-sticky-info {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
+
   .hp-active-label {
     font-family: var(--font-display);
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 700;
     color: #ffffff;
     display: flex;
     align-items: center;
-    gap: 0.45rem;
+    gap: 0.5rem;
   }
+
   .hp-section-panel {
     display: none;
-    animation: hpFadeIn 0.25s ease-out;
+    animation: hpFadeIn 0.22s ease-out;
   }
   .hp-section-panel.is-active {
     display: block;
@@ -451,39 +596,48 @@ require_once __DIR__ . '/includes/sidebar.php';
     display: block !important;
     margin-bottom: 2rem;
   }
+
   @keyframes hpFadeIn {
     from { opacity: 0; transform: translateY(6px); }
     to { opacity: 1; transform: translateY(0); }
   }
+
   .hp-panel-card {
     border: 1px solid var(--color-line);
     border-radius: 16px;
     padding: 1.5rem;
-    background: rgba(15, 23, 42, 0.4);
+    background: rgba(15, 23, 42, 0.45);
     margin-bottom: 1.5rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   }
+
   .hp-panel-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 1.25rem;
-    padding-bottom: 0.75rem;
+    padding-bottom: 0.85rem;
     border-bottom: 1px solid var(--color-line);
+    gap: 1rem;
   }
+
   .hp-panel-title {
     font-family: var(--font-display);
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 700;
     color: #ffffff;
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
+
   .hp-panel-desc {
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     color: var(--color-text-dim);
-    margin-top: 0.25rem;
+    margin-top: 0.3rem;
+    line-height: 1.45;
   }
+
   .hp-tab-nav-footer {
     display: flex;
     align-items: center;
@@ -494,195 +648,219 @@ require_once __DIR__ . '/includes/sidebar.php';
   }
 </style>
 
-<div class="hp-editor-wrap">
-  
-  <div class="admin-card" style="margin-bottom: 1.25rem;">
-    <div class="admin-card-header" style="margin-bottom: 0;">
-      <div>
-        <div class="admin-card-title">Konten Halaman Utama (Index Editor)</div>
-        <p style="font-size: var(--text-xs); color: var(--color-cream-muted); margin-top: 0.25rem;">
-          Pilih kategori di bawah untuk mengedit bagian tertentu tanpa harus scroll panjang. Tombol simpan tersedia langsung di atas!
-        </p>
-      </div>
-      <div>
-        <label style="display: inline-flex; align-items: center; gap: 0.5rem; font-size: var(--text-xs); color: var(--color-text-dim); cursor: pointer;">
-          <input type="checkbox" id="toggleShowAll">
-          <span>Tampilkan Semua Section Sekaligus</span>
-        </label>
-      </div>
+<div class="admin-card" style="margin-bottom: 1.25rem;">
+  <div class="admin-card-header" style="margin-bottom: 0;">
+    <div>
+      <div class="admin-card-title">Pengelola Konten Halaman Utama</div>
+      <p style="font-size: var(--text-xs); color: var(--color-cream-muted); margin-top: 0.25rem;">
+        Pilih bagian halaman dari <strong>Sidebar Sub-Menu</strong> di sebelah kiri untuk mengedit teks &amp; komponen visual secara spesifik.
+      </p>
+    </div>
+    <div>
+      <label style="display: inline-flex; align-items: center; gap: 0.5rem; font-size: var(--text-xs); color: var(--color-text-dim); cursor: pointer;">
+        <input type="checkbox" id="toggleShowAll">
+        <span>Tampilkan Semua Bagian Sekaligus</span>
+      </label>
     </div>
   </div>
+</div>
 
-  <?php if ($errorMessage): ?>
-    <div class="flash-alert flash-danger" style="margin-bottom: 1.25rem;">
-      <div><?= e($errorMessage) ?></div>
-    </div>
-  <?php endif; ?>
+<?php if ($errorMessage): ?>
+  <div class="flash-alert flash-danger" style="margin-bottom: 1.25rem;">
+    <div><?= e($errorMessage) ?></div>
+  </div>
+<?php endif; ?>
 
-  <form method="post" id="homepageForm">
-    <?= csrf_field() ?>
+<form method="post" id="homepageForm">
+  <?= csrf_field() ?>
 
-    <!-- Sticky Action Bar -->
-    <div class="hp-sticky-bar">
-      <div class="hp-sticky-info">
-        <span class="hp-active-label" id="currentSectionTitle">
-          <span>🧭</span> Navigasi &amp; Brand
-        </span>
-        <span style="font-size: 0.72rem; color: #34d399; font-weight: 600; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); padding: 0.15rem 0.5rem; border-radius: 9999px;">
-          Siap Diedit
-        </span>
+  <!-- 2-Column Shell -->
+  <div class="hp-editor-shell">
+    
+    <!-- LEFT: Sub-Sidebar Category Menu -->
+    <aside class="hp-subnav-sidebar">
+      <div class="hp-search-box">
+        <span class="hp-search-icon">🔍</span>
+        <input type="text" id="hpMenuSearch" class="hp-search-input" placeholder="Cari bagian / keyword...">
       </div>
-      <div style="display: flex; align-items: center; gap: 0.75rem;">
-        <button class="btn btn-primary" type="submit" style="padding: 0.55rem 1.25rem; font-size: 0.85rem; font-weight: 700; box-shadow: 0 0 16px rgba(76, 141, 255, 0.4);">
-          💾 Simpan Semua Konten
-        </button>
-        <a class="btn btn-secondary" target="_blank" href="<?= BASE_URL ?>/" style="padding: 0.55rem 1rem; font-size: 0.85rem;">
-          Pratinjau Web ↗
-        </a>
-      </div>
-    </div>
 
-    <!-- Category Tabs Navigation -->
-    <div class="hp-tabs-bar" id="homepageTabsBar" role="tablist">
       <?php 
       $groupKeys = array_keys($groups);
-      foreach ($groups as $id => $grp): 
-        $isFirst = ($id === $groupKeys[0]);
+      $firstKey = $groupKeys[0];
+      foreach ($categories as $catKey => $cat): 
       ?>
-        <button type="button" 
-                class="hp-tab-btn <?= $isFirst ? 'is-active' : '' ?>" 
-                data-tab-target="panel-<?= e($id) ?>"
-                data-tab-title="<?= e($grp['icon'] . ' ' . $grp['title']) ?>"
-                role="tab" 
-                aria-selected="<?= $isFirst ? 'true' : 'false' ?>">
-          <span><?= $grp['icon'] ?></span>
-          <span><?= e($grp['title']) ?></span>
-          <span style="font-size: 0.7rem; opacity: 0.6;">(<?= count($grp['keys']) ?>)</span>
-        </button>
-      <?php endforeach; ?>
-    </div>
-
-    <!-- Form Panels -->
-    <div id="homepagePanelsContainer">
-      <?php 
-      $totalGroups = count($groups);
-      $groupIndex = 0;
-      foreach ($groups as $id => $grp): 
-        $isFirst = ($id === $groupKeys[0]);
-        $prevId = $groupIndex > 0 ? $groupKeys[$groupIndex - 1] : null;
-        $nextId = $groupIndex < ($totalGroups - 1) ? $groupKeys[$groupIndex + 1] : null;
-      ?>
-        <div class="hp-section-panel <?= $isFirst ? 'is-active' : '' ?>" id="panel-<?= e($id) ?>">
-          <div class="hp-panel-card">
-            
-            <div class="hp-panel-header">
-              <div>
-                <div class="hp-panel-title">
+        <div class="hp-cluster-group">
+          <div class="hp-cluster-title">
+            <span><?= $cat['icon'] ?></span>
+            <span><?= e($cat['name']) ?></span>
+          </div>
+          <div class="hp-nav-list">
+            <?php foreach ($cat['items'] as $id => $grp): 
+              $isFirst = ($id === $firstKey);
+            ?>
+              <button type="button" 
+                      class="hp-nav-item-btn <?= $isFirst ? 'is-active' : '' ?>" 
+                      data-tab-target="panel-<?= e($id) ?>"
+                      data-tab-title="<?= e($grp['icon'] . ' ' . $grp['title']) ?>"
+                      data-keywords="<?= strtolower(e($grp['title'] . ' ' . $grp['desc'] . ' ' . implode(' ', $grp['keys']))) ?>">
+                <span class="hp-nav-item-label">
                   <span><?= $grp['icon'] ?></span>
                   <span><?= e($grp['title']) ?></span>
-                </div>
-                <div class="hp-panel-desc"><?= e($grp['desc']) ?></div>
-              </div>
-              <button class="btn btn-primary btn-sm" type="submit">
-                💾 Simpan Bagian Ini
+                </span>
+                <span class="hp-nav-count-badge"><?= count($grp['keys']) ?></span>
               </button>
-            </div>
-
-            <div class="form-grid">
-              <?php foreach ($grp['keys'] as $key): 
-                $isJson = ($key === 'tech_chips_json');
-                $isDesc = str_contains($key, '_desc') || str_contains($key, 'description') || str_contains($key, '_tags') || str_contains($key, 'text_') || str_contains($key, 'paragraph') || str_contains($key, '_lead') || str_contains($key, '_chips') || str_contains($key, '_b1') || str_contains($key, '_b2') || str_contains($key, '_b3');
-                $long = $isJson || $isDesc;
-              ?>
-                <div class="form-group" style="<?= $long ? 'grid-column: 1 / -1;' : '' ?>">
-                  <label class="form-label" for="<?= e($key) ?>">
-                    <?= e($labels[$key] ?? $key) ?>
-                    <code style="font-size: 0.7rem; color: var(--color-text-faint); margin-left: 0.35rem; font-weight: 400;">(<?= e($key) ?>)</code>
-                  </label>
-                  
-                  <?php if ($isJson): ?>
-                    <div style="font-size: 0.75rem; color: var(--color-text-dim); margin-bottom: 0.5rem;">
-                      💡 <strong>Format JSON Array Skill Chips:</strong> Berisi objek dengan parameter <code>name</code> (Nama skill), <code>category</code> (<code>frontend</code>, <code>backend</code>, <code>ai</code>, <code>database</code>, <code>devops</code>, <code>testing</code>, <code>mobile</code>, <code>analytics</code>), <code>role</code> (Subtitle badge), <code>highlight</code> (<code>true</code>/<code>false</code>), dan <code>icon</code> (nama ikon SVG seperti <code>nextjs</code>, <code>react</code>, <code>laravel</code>, <code>mysql</code>, dll).
-                    </div>
-                    <textarea class="form-textarea" 
-                              id="<?= e($key) ?>" 
-                              name="<?= e($key) ?>" 
-                              rows="14" 
-                              style="font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace; font-size: 0.8rem; background: rgba(10,14,23,0.85); color: #38bdf8;"
-                              placeholder="[ { &quot;name&quot;: &quot;Next.js&quot;, ... } ]"><?= e($content[$key] ?? '') ?></textarea>
-                  <?php elseif ($long): ?>
-                    <textarea class="form-textarea" 
-                              id="<?= e($key) ?>" 
-                              name="<?= e($key) ?>" 
-                              rows="<?= (str_contains($key, 'paragraph') || str_contains($key, '_tags') || str_contains($key, '_chips')) ? '3' : '2' ?>" 
-                              placeholder="Masukkan teks..."><?= e($content[$key] ?? '') ?></textarea>
-                  <?php else: ?>
-                    <input class="form-input" 
-                           id="<?= e($key) ?>" 
-                           name="<?= e($key) ?>" 
-                           value="<?= e($content[$key] ?? '') ?>" 
-                           <?= ($key === 'hero_readiness' || str_contains($key, '_percent')) ? 'type="number" min="0" max="100"' : 'type="text"' ?>
-                           placeholder="Masukkan nilai...">
-                  <?php endif; ?>
-
-                  <?php if ($key === 'google_client_id' || $key === 'google_client_secret'): ?>
-                    <div style="font-size: 0.72rem; color: var(--color-text-dim); margin-top: 0.35rem;">
-                      Diambil dari Google Cloud Console &gt; APIs &amp; Services &gt; Credentials (OAuth 2.0 Client IDs). Jika dikosongkan, tombol login Google di Buku Tamu akan otomatis disembunyikan/dinonaktifkan secara aman.
-                    </div>
-                  <?php endif; ?>
-                </div>
-              <?php endforeach; ?>
-            </div>
-
-            <!-- Bottom Navigation Bar inside each Panel -->
-            <div class="hp-tab-nav-footer">
-              <div>
-                <?php if ($prevId): ?>
-                  <button type="button" class="btn btn-secondary btn-sm btn-nav-jump" data-jump-target="panel-<?= e($prevId) ?>">
-                    &larr; <?= e($groups[$prevId]['title']) ?>
-                  </button>
-                <?php endif; ?>
-              </div>
-              
-              <div style="display: flex; gap: 0.75rem;">
-                <button class="btn btn-primary btn-sm" type="submit">
-                  💾 Simpan Perubahan
-                </button>
-                <?php if ($nextId): ?>
-                  <button type="button" class="btn btn-secondary btn-sm btn-nav-jump" data-jump-target="panel-<?= e($nextId) ?>">
-                    <?= e($groups[$nextId]['title']) ?> &rarr;
-                  </button>
-                <?php endif; ?>
-              </div>
-            </div>
-
+            <?php endforeach; ?>
           </div>
         </div>
-      <?php 
-        $groupIndex++;
-      endforeach; 
-      ?>
-    </div>
+      <?php endforeach; ?>
+    </aside>
 
-  </form>
-</div>
+    <!-- RIGHT: Active Editor Panels -->
+    <main class="hp-editor-main">
+      
+      <!-- Sticky Action Bar -->
+      <div class="hp-sticky-bar">
+        <div class="hp-sticky-info">
+          <span class="hp-active-label" id="currentSectionTitle">
+            <span>🧭</span> Navigasi &amp; Brand
+          </span>
+          <span style="font-size: 0.72rem; color: #34d399; font-weight: 600; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); padding: 0.15rem 0.5rem; border-radius: 9999px;">
+            Aktif
+          </span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <button class="btn btn-primary" type="submit" style="padding: 0.55rem 1.25rem; font-size: 0.85rem; font-weight: 700; box-shadow: 0 0 16px rgba(76, 141, 255, 0.4);">
+            💾 Simpan Semua Konten
+          </button>
+          <a class="btn btn-secondary" target="_blank" href="<?= BASE_URL ?>/" style="padding: 0.55rem 1rem; font-size: 0.85rem;">
+            Pratinjau Web ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- Panels Container -->
+      <div id="homepagePanelsContainer">
+        <?php 
+        $totalGroups = count($groups);
+        $groupIndex = 0;
+        foreach ($groups as $id => $grp): 
+          $isFirst = ($id === $firstKey);
+          $prevId = $groupIndex > 0 ? $groupKeys[$groupIndex - 1] : null;
+          $nextId = $groupIndex < ($totalGroups - 1) ? $groupKeys[$groupIndex + 1] : null;
+        ?>
+          <div class="hp-section-panel <?= $isFirst ? 'is-active' : '' ?>" id="panel-<?= e($id) ?>">
+            <div class="hp-panel-card">
+              
+              <div class="hp-panel-header">
+                <div>
+                  <div class="hp-panel-title">
+                    <span><?= $grp['icon'] ?></span>
+                    <span><?= e($grp['title']) ?></span>
+                  </div>
+                  <div class="hp-panel-desc"><?= e($grp['desc']) ?></div>
+                </div>
+                <button class="btn btn-primary btn-sm" type="submit">
+                  💾 Simpan Bagian Ini
+                </button>
+              </div>
+
+              <div class="form-grid">
+                <?php foreach ($grp['keys'] as $key): 
+                  $isJson = ($key === 'tech_chips_json');
+                  $isDesc = str_contains($key, '_desc') || str_contains($key, 'description') || str_contains($key, '_tags') || str_contains($key, 'text_') || str_contains($key, 'paragraph') || str_contains($key, '_lead') || str_contains($key, '_chips') || str_contains($key, '_b1') || str_contains($key, '_b2') || str_contains($key, '_b3');
+                  $long = $isJson || $isDesc;
+                ?>
+                  <div class="form-group" style="<?= $long ? 'grid-column: 1 / -1;' : '' ?>">
+                    <label class="form-label" for="<?= e($key) ?>">
+                      <?= e($labels[$key] ?? $key) ?>
+                      <code style="font-size: 0.7rem; color: var(--color-text-faint); margin-left: 0.35rem; font-weight: 400;">(<?= e($key) ?>)</code>
+                    </label>
+                    
+                    <?php if ($isJson): ?>
+                      <div style="font-size: 0.75rem; color: var(--color-text-dim); margin-bottom: 0.5rem;">
+                        💡 <strong>Format JSON Array Skill Chips:</strong> Berisi objek dengan properti <code>name</code>, <code>category</code> (<code>frontend</code>, <code>backend</code>, <code>ai</code>, <code>database</code>, <code>devops</code>, <code>testing</code>, <code>mobile</code>, <code>analytics</code>), <code>role</code>, <code>highlight</code> (<code>true</code>/<code>false</code>), dan <code>icon</code>.
+                      </div>
+                      <textarea class="form-textarea" 
+                                id="<?= e($key) ?>" 
+                                name="<?= e($key) ?>" 
+                                rows="14" 
+                                style="font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace; font-size: 0.8rem; background: rgba(10,14,23,0.85); color: #38bdf8;"
+                                placeholder="[ { &quot;name&quot;: &quot;Next.js&quot;, ... } ]"><?= e($content[$key] ?? '') ?></textarea>
+                    <?php elseif ($long): ?>
+                      <textarea class="form-textarea" 
+                                id="<?= e($key) ?>" 
+                                name="<?= e($key) ?>" 
+                                rows="<?= (str_contains($key, 'paragraph') || str_contains($key, '_tags') || str_contains($key, '_chips')) ? '3' : '2' ?>" 
+                                placeholder="Masukkan teks..."><?= e($content[$key] ?? '') ?></textarea>
+                    <?php else: ?>
+                      <input class="form-input" 
+                             id="<?= e($key) ?>" 
+                             name="<?= e($key) ?>" 
+                             value="<?= e($content[$key] ?? '') ?>" 
+                             <?= ($key === 'hero_readiness' || str_contains($key, '_percent')) ? 'type="number" min="0" max="100"' : 'type="text"' ?>
+                             placeholder="Masukkan nilai...">
+                    <?php endif; ?>
+
+                    <?php if ($key === 'google_client_id' || $key === 'google_client_secret'): ?>
+                      <div style="font-size: 0.72rem; color: var(--color-text-dim); margin-top: 0.35rem;">
+                        Diambil dari Google Cloud Console &gt; APIs &amp; Services &gt; Credentials (OAuth 2.0 Client IDs). Jika dikosongkan, tombol login Google di Buku Tamu akan otomatis disembunyikan secara aman.
+                      </div>
+                    <?php endif; ?>
+                  </div>
+                <?php endforeach; ?>
+              </div>
+
+              <!-- Bottom Navigation Bar inside each Panel -->
+              <div class="hp-tab-nav-footer">
+                <div>
+                  <?php if ($prevId): ?>
+                    <button type="button" class="btn btn-secondary btn-sm btn-nav-jump" data-jump-target="panel-<?= e($prevId) ?>">
+                      &larr; <?= e($groups[$prevId]['title']) ?>
+                    </button>
+                  <?php endif; ?>
+                </div>
+                
+                <div style="display: flex; gap: 0.75rem;">
+                  <button class="btn btn-primary btn-sm" type="submit">
+                    💾 Simpan Perubahan
+                  </button>
+                  <?php if ($nextId): ?>
+                    <button type="button" class="btn btn-secondary btn-sm btn-nav-jump" data-jump-target="panel-<?= e($nextId) ?>">
+                      <?= e($groups[$nextId]['title']) ?> &rarr;
+                    </button>
+                  <?php endif; ?>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        <?php 
+          $groupIndex++;
+        endforeach; 
+        ?>
+      </div>
+
+    </main>
+  </div>
+
+</form>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const tabButtons = document.querySelectorAll('.hp-tab-btn');
+    const navButtons = document.querySelectorAll('.hp-nav-item-btn');
     const panels = document.querySelectorAll('.hp-section-panel');
     const activeLabel = document.getElementById('currentSectionTitle');
     const toggleShowAll = document.getElementById('toggleShowAll');
-    const editorWrap = document.querySelector('.hp-editor-wrap');
+    const editorShell = document.querySelector('.hp-editor-shell');
     const jumpButtons = document.querySelectorAll('.btn-nav-jump');
+    const searchInput = document.getElementById('hpMenuSearch');
 
     function activateTab(targetPanelId, titleHtml) {
       if (toggleShowAll.checked) return;
 
-      tabButtons.forEach(btn => {
+      navButtons.forEach(btn => {
         const isTarget = btn.getAttribute('data-tab-target') === targetPanelId;
         btn.classList.toggle('is-active', isTarget);
-        btn.setAttribute('aria-selected', isTarget ? 'true' : 'false');
       });
 
       panels.forEach(p => {
@@ -692,38 +870,74 @@ require_once __DIR__ . '/includes/sidebar.php';
       if (titleHtml && activeLabel) {
         activeLabel.innerHTML = titleHtml;
       }
+
+      // Update URL hash without reload
+      if (history.replaceState) {
+        history.replaceState(null, null, '#' + targetPanelId.replace('panel-', ''));
+      }
     }
 
-    tabButtons.forEach(btn => {
+    navButtons.forEach(btn => {
       btn.addEventListener('click', function() {
         const target = this.getAttribute('data-tab-target');
         const title = this.getAttribute('data-tab-title');
         activateTab(target, title);
+        window.scrollTo({ top: document.querySelector('.hp-sticky-bar').offsetTop - 20, behavior: 'smooth' });
       });
     });
 
     jumpButtons.forEach(btn => {
       btn.addEventListener('click', function() {
         const target = this.getAttribute('data-jump-target');
-        const matchingTab = document.querySelector(`.hp-tab-btn[data-tab-target="${target}"]`);
-        const title = matchingTab ? matchingTab.getAttribute('data-tab-title') : '';
+        const matchingBtn = document.querySelector(`.hp-nav-item-btn[data-tab-target="${target}"]`);
+        const title = matchingBtn ? matchingBtn.getAttribute('data-tab-title') : '';
         activateTab(target, title);
         window.scrollTo({ top: document.querySelector('.hp-sticky-bar').offsetTop - 20, behavior: 'smooth' });
       });
     });
 
+    // Search filter in subnav
+    searchInput.addEventListener('input', function() {
+      const q = this.value.toLowerCase().trim();
+      const groups = document.querySelectorAll('.hp-cluster-group');
+
+      groups.forEach(grp => {
+        let visibleInGroup = 0;
+        const items = grp.querySelectorAll('.hp-nav-item-btn');
+        items.forEach(item => {
+          const kw = item.getAttribute('data-keywords') || '';
+          if (!q || kw.includes(q)) {
+            item.style.display = 'flex';
+            visibleInGroup++;
+          } else {
+            item.style.display = 'none';
+          }
+        });
+        grp.style.display = visibleInGroup > 0 ? 'block' : 'none';
+      });
+    });
+
     toggleShowAll.addEventListener('change', function() {
       if (this.checked) {
-        editorWrap.classList.add('hp-show-all');
-        if (activeLabel) activeLabel.innerHTML = '<span>📑</span> Menampilkan Semua Section';
+        editorShell.classList.add('hp-show-all');
+        if (activeLabel) activeLabel.innerHTML = '<span>📑</span> Menampilkan Semua Bagian';
       } else {
-        editorWrap.classList.remove('hp-show-all');
-        const activeTab = document.querySelector('.hp-tab-btn.is-active') || tabButtons[0];
-        if (activeTab) {
-          activateTab(activeTab.getAttribute('data-tab-target'), activeTab.getAttribute('data-tab-title'));
+        editorShell.classList.remove('hp-show-all');
+        const activeBtn = document.querySelector('.hp-nav-item-btn.is-active') || navButtons[0];
+        if (activeBtn) {
+          activateTab(activeBtn.getAttribute('data-tab-target'), activeBtn.getAttribute('data-tab-title'));
         }
       }
     });
+
+    // Check URL hash on initial load
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+      const targetBtn = document.querySelector(`.hp-nav-item-btn[data-tab-target="panel-${hash}"]`);
+      if (targetBtn) {
+        activateTab('panel-' + hash, targetBtn.getAttribute('data-tab-title'));
+      }
+    }
   });
 </script>
 
