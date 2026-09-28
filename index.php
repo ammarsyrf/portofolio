@@ -17,6 +17,31 @@ track_page_view($pdo);
 // Ambil data profil dari database
 $profile = get_profile($pdo);
 $homeContent = get_homepage_content($pdo);
+$techChipsRaw = json_decode($homeContent['tech_chips_json'] ?? '[]', true);
+$techChips = (is_array($techChipsRaw) && !empty($techChipsRaw)) ? $techChipsRaw : json_decode(homepage_content_defaults()['tech_chips_json'], true);
+
+if (!function_exists('render_skill_badges_from_csv')) {
+    function render_skill_badges_from_csv(string $csv): string {
+        $tags = array_filter(array_map('trim', explode(',', $csv)));
+        $html = '';
+        foreach ($tags as $tag) {
+            $html .= '<span class="skill-badge"><i class="badge-dot"></i>' . htmlspecialchars($tag) . '</span>';
+        }
+        return $html;
+    }
+}
+
+if (!function_exists('render_tier_chips_from_csv')) {
+    function render_tier_chips_from_csv(string $csv, bool $highlight = false): string {
+        $tags = array_filter(array_map('trim', explode(',', $csv)));
+        $html = '';
+        foreach ($tags as $tag) {
+            $hl = $highlight ? ' highlight' : '';
+            $html .= '<span class="tier-chip' . $hl . '">' . htmlspecialchars($tag) . '</span>';
+        }
+        return $html;
+    }
+}
 
 
 // Fallback profil jika database kosong
@@ -457,628 +482,25 @@ $hireStatus = get_hire_status($pdo);
                     </div>
 
                     <div class="skills-icon-grid" id="skillsIconGrid">
-                      <!-- ==================== FRONTEND ==================== -->
-                      <div class="skill-icon-chip" data-cat="frontend" data-highlight="true" title="Next.js — Fullstack React & App Router">
-                        <div class="chip-svg-wrap nextjs">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="9"></circle>
-                            <path d="M9 15V9l7.5 9"></path>
-                            <path d="M15 9v3.5"></path>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Next.js</span>
-                          <span class="chip-sub">React SSR</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="frontend" data-highlight="true" title="React — Component-Driven Architecture">
-                        <div class="chip-svg-wrap react">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="2.5"></circle>
-                            <ellipse cx="12" cy="12" rx="9" ry="3.8" transform="rotate(30 12 12)"></ellipse>
-                            <ellipse cx="12" cy="12" rx="9" ry="3.8" transform="rotate(90 12 12)"></ellipse>
-                            <ellipse cx="12" cy="12" rx="9" ry="3.8" transform="rotate(150 12 12)"></ellipse>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">React</span>
-                          <span class="chip-sub">UI Library</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="frontend" title="TypeScript — Typed JavaScript">
-                        <div class="chip-svg-wrap ts">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
-                            <path d="M7 8h6m-3 0v8"></path>
-                            <path d="M15 11c1-1 2-1 2.5 0s0 2-1 2.5 2 1.5 1.5 2.5-2 1-3 0"></path>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">TypeScript</span>
-                          <span class="chip-sub">Type-Safe JS</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="frontend" title="Tailwind CSS — Utility-First CSS">
-                        <div class="chip-svg-wrap tailwind">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M6 12c.5-2.5 2.5-4 5-4 3.5 0 4.5 2.5 6 3 1.5.5 2.5 0 3-1-1 3-3 4-5 4-3.5 0-4.5-2.5-6-3-1.5-.5-2.5 0-3 1z"></path>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Tailwind CSS</span>
-                          <span class="chip-sub">Utility CSS</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="frontend" title="shadcn/ui — Re-usable UI Primitives">
-                        <div class="chip-svg-wrap shadcn">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="9"></circle>
-                            <path d="M8 12h8"></path>
-                            <path d="M12 8v8"></path>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">shadcn/ui</span>
-                          <span class="chip-sub">UI Component</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="frontend" title="Bootstrap — Responsive Framework">
-                        <div class="chip-svg-wrap bootstrap">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="18" height="18" rx="4"></rect>
-                            <path d="M9 8h4a2 2 0 0 1 0 4H9zm0 4h4.5a2 2 0 0 1 0 4H9z"></path>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Bootstrap</span>
-                          <span class="chip-sub">Grid &amp; UI</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="frontend" title="JavaScript (ES6+) — Dynamic DOM Logic">
-                        <div class="chip-svg-wrap js">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 4h16v16H4z"></path>
-                            <path d="M10 15v-5"></path>
-                            <path d="M14 15c0-1.5 2-1.5 2-3s-2-1.5-2-3"></path>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">JavaScript</span>
-                          <span class="chip-sub">ES6+ Logic</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="frontend" title="HTML5 — Semantic Web Markup">
-                        <div class="chip-svg-wrap html">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="16 18 22 12 16 6"></polyline>
-                            <polyline points="8 6 2 12 8 18"></polyline>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">HTML5</span>
-                          <span class="chip-sub">Semantic</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="frontend" title="CSS3 — Modern Styling & Glassmorphism">
-                        <div class="chip-svg-wrap css">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                            <polyline points="2 17 12 22 22 17"></polyline>
-                            <polyline points="2 12 12 17 22 12"></polyline>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">CSS3</span>
-                          <span class="chip-sub">Modern Style</span>
-                        </div>
-                      </div>
-
-                      <!-- ==================== BACKEND ==================== -->
-                      <div class="skill-icon-chip" data-cat="backend" data-highlight="true" title="Laravel 13 — Modern PHP Framework">
-                        <div class="chip-svg-wrap laravel">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon>
-                            <line x1="12" y1="22" x2="12" y2="12"></line>
-                            <polyline points="22 8.5 12 12 2 8.5"></polyline>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Laravel 13</span>
-                          <span class="chip-sub">Framework</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="backend" title="PHP 8.x — Core Server Engineering">
-                        <div class="chip-svg-wrap php">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="16 18 22 12 16 6"></polyline>
-                            <polyline points="8 6 2 12 8 18"></polyline>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">PHP 8.x</span>
-                          <span class="chip-sub">Backend Core</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="backend" title="Blade — Template Engine">
-                        <div class="chip-svg-wrap laravel">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="12 2 19 21 12 17 5 21 12 2"></polygon>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Blade</span>
-                          <span class="chip-sub">Templating</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="backend" title="Inertia.js — Modern Monolith Bridge">
-                        <div class="chip-svg-wrap react">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Inertia.js</span>
-                          <span class="chip-sub">Monolith SPA</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="backend" title="REST API — Modular Endpoints">
-                        <div class="chip-svg-wrap api">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="18" cy="5" r="3"></circle>
-                            <circle cx="6" cy="12" r="3"></circle>
-                            <circle cx="18" cy="19" r="3"></circle>
-                            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">REST API</span>
-                          <span class="chip-sub">JSON Endpoints</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="backend" title="Webhook — Event-Driven Integration">
-                        <div class="chip-svg-wrap api">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Webhook</span>
-                          <span class="chip-sub">Event Listeners</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="backend" title="Queue / Jobs — Asynchronous Processing">
-                        <div class="chip-svg-wrap php">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="7" height="7"></rect>
-                            <rect x="14" y="3" width="7" height="7"></rect>
-                            <rect x="14" y="14" width="7" height="7"></rect>
-                            <rect x="3" y="14" width="7" height="7"></rect>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Queue / Jobs</span>
-                          <span class="chip-sub">Async Workers</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="backend" title="Scheduler — Cron Automation">
-                        <div class="chip-svg-wrap php">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polyline points="12 6 12 12 16 14"></polyline>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Scheduler</span>
-                          <span class="chip-sub">Cron Tasks</span>
-                        </div>
-                      </div>
-
-                      <!-- ==================== AI & PROMPTING ==================== -->
-                      <div class="skill-icon-chip" data-cat="ai" data-highlight="true" title="Prompt Engineering — Context Priming, Few-Shot &amp; System Directives">
-                        <div class="chip-svg-wrap ai">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"></path>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Prompt Eng.</span>
-                          <span class="chip-sub">Context &amp; Logic</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="ai" title="Claude 3.7 &amp; Sonnet — Complex Logic &amp; Architectural Synthesis">
-                        <div class="chip-svg-wrap claude">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Claude &amp; Gemini</span>
-                          <span class="chip-sub">Architecture AI</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="ai" title="OpenAI / ChatGPT — Reasoning Models &amp; Workflow Automation">
-                        <div class="chip-svg-wrap openai">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
-                            <circle cx="9" cy="9" r="2"></circle>
-                            <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">OpenAI / LLMs</span>
-                          <span class="chip-sub">Reasoning &amp; APIs</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="ai" title="Cursor &amp; Agentic AI — Autonomous Multi-File Development">
-                        <div class="chip-svg-wrap cursor">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="4 17 10 11 4 5"></polyline>
-                            <line x1="12" y1="19" x2="20" y2="19"></line>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Agentic Dev</span>
-                          <span class="chip-sub">Cursor &amp; Tools</span>
-                        </div>
-                      </div>
-
-                      <!-- ==================== DATABASE ==================== -->
-                      <div class="skill-icon-chip" data-cat="database" data-highlight="true" title="MySQL — Database Utama">
-                        <div class="chip-svg-wrap mysql">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-                            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
-                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">MySQL ⭐</span>
-                          <span class="chip-sub">Utama / RDBMS</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="database" title="MariaDB — Open-Source RDBMS">
-                        <div class="chip-svg-wrap mariadb">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-                            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
-                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">MariaDB</span>
-                          <span class="chip-sub">Relasional</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="database" title="PostgreSQL — Advanced Relational Database">
-                        <div class="chip-svg-wrap postgres">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">PostgreSQL</span>
-                          <span class="chip-sub">Advanced SQL</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="database" title="Redis — In-Memory Data Store & Cache">
-                        <div class="chip-svg-wrap redis">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                            <polyline points="2 17 12 22 22 17"></polyline>
-                            <polyline points="2 12 12 17 22 12"></polyline>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Redis</span>
-                          <span class="chip-sub">In-Memory Cache</span>
-                        </div>
-                      </div>
-
-                      <!-- ==================== DEVOPS ==================== -->
-                      <div class="skill-icon-chip" data-cat="devops" data-highlight="true" title="Docker — Application Containerization">
-                        <div class="chip-svg-wrap docker">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="14" width="18" height="7" rx="2"></rect>
-                            <path d="M7 14v-3h3v3"></path>
-                            <path d="M11 14v-3h3v3"></path>
-                            <path d="M15 14v-3h3v3"></path>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Docker</span>
-                          <span class="chip-sub">Containers</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="devops" title="Git &amp; GitHub — Version Control">
-                        <div class="chip-svg-wrap git">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="18" cy="18" r="3"></circle>
-                            <circle cx="6" cy="6" r="3"></circle>
-                            <path d="M18 9a9 9 0 0 1-9 9"></path>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Git / GitHub</span>
-                          <span class="chip-sub">Version Control</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="devops" title="Linux / Ubuntu Server — CLI & Administration">
-                        <div class="chip-svg-wrap linux">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="2" y1="12" x2="22" y2="12"></line>
-                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Linux / Ubuntu</span>
-                          <span class="chip-sub">Server OS</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="devops" title="Apache &amp; Nginx — Web Servers & Reverse Proxy">
-                        <div class="chip-svg-wrap nginx">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="2" width="20" height="8" rx="2"></rect>
-                            <rect x="2" y="14" width="20" height="8" rx="2"></rect>
-                            <line x1="6" y1="6" x2="6.01" y2="6"></line>
-                            <line x1="6" y1="18" x2="6.01" y2="18"></line>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Apache / Nginx</span>
-                          <span class="chip-sub">Web Server</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="devops" title="Cloudflare — CDN, SSL & DNS Shield">
-                        <div class="chip-svg-wrap cloudflare">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Cloudflare</span>
-                          <span class="chip-sub">CDN &amp; Shield</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="devops" title="Composer — PHP Dependency Management">
-                        <div class="chip-svg-wrap php">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Composer</span>
-                          <span class="chip-sub">Package Manager</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="devops" title="SSH — Secure Shell Access">
-                        <div class="chip-svg-wrap linux">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="4" y="4" width="16" height="16" rx="2"></rect>
-                            <polyline points="8 9 11 12 8 15"></polyline>
-                            <line x1="13" y1="15" x2="16" y2="15"></line>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">SSH</span>
-                          <span class="chip-sub">Remote Shell</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="devops" title="Supervisor — Process Control Daemon">
-                        <div class="chip-svg-wrap linux">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="3"></circle>
-                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Supervisor</span>
-                          <span class="chip-sub">Daemon Monitor</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="devops" title="VPS / Shared Hosting — Production Deployment">
-                        <div class="chip-svg-wrap linux">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="2" width="20" height="8" rx="2"></rect>
-                            <rect x="2" y="14" width="20" height="8" rx="2"></rect>
-                            <line x1="6" y1="6" x2="6.01" y2="6"></line>
-                            <line x1="6" y1="18" x2="6.01" y2="18"></line>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">VPS / Hosting</span>
-                          <span class="chip-sub">Cloud Infra</span>
-                        </div>
-                      </div>
-
-                      <!-- ==================== TESTING ==================== -->
-                      <div class="skill-icon-chip" data-cat="testing" data-highlight="true" title="Pest — Elegant PHP Testing Framework">
-                        <div class="chip-svg-wrap test">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Pest</span>
-                          <span class="chip-sub">Modern Testing</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="testing" title="PHPUnit — Automated Unit &amp; Feature Testing">
-                        <div class="chip-svg-wrap test">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" y1="13" x2="8" y2="13"></line>
-                            <line x1="16" y1="17" x2="8" y2="17"></line>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">PHPUnit</span>
-                          <span class="chip-sub">Unit Tests</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="testing" title="PHPStan / Larastan — Strict Static Analysis">
-                        <div class="chip-svg-wrap test">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Larastan</span>
-                          <span class="chip-sub">Static Analysis</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="testing" title="Laravel Pint — Code Style Standardizer">
-                        <div class="chip-svg-wrap test">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="4 7 4 4 20 4 20 7"></polyline>
-                            <line x1="9" y1="20" x2="15" y2="20"></line>
-                            <line x1="12" y1="4" x2="12" y2="20"></line>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Laravel Pint</span>
-                          <span class="chip-sub">Code Style</span>
-                        </div>
-                      </div>
-
-                      <!-- ==================== MOBILE & DESIGN ==================== -->
-                      <div class="skill-icon-chip" data-cat="mobile" data-highlight="true" title="Flutter — Cross-Platform Mobile SDK">
-                        <div class="chip-svg-wrap flutter">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="14 2 2 14 6 18 18 6 14 2"></polygon>
-                            <polygon points="14 14 10 18 14 22 18 18 14 14"></polygon>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Flutter</span>
-                          <span class="chip-sub">Mobile SDK</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="mobile" title="Dart — Client-Optimized Language">
-                        <div class="chip-svg-wrap flutter">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="12 2 2 22 12 17 22 22 12 2"></polygon>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Dart</span>
-                          <span class="chip-sub">Core Language</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="mobile" title="Firebase — Mobile &amp; Web Backend Services">
-                        <div class="chip-svg-wrap firebase">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 18l4-15 4 8 4-4 4 11H4z"></path>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Firebase</span>
-                          <span class="chip-sub">Cloud Platform</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="mobile" title="Figma — UI/UX Prototyping &amp; Design Systems">
-                        <div class="chip-svg-wrap figma">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="3"></circle>
-                            <path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"></path>
-                            <path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"></path>
-                            <path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 1 1-7 0z"></path>
-                            <path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z"></path>
-                            <path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"></path>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Figma</span>
-                          <span class="chip-sub">UI/UX Design</span>
-                        </div>
-                      </div>
-
-                      <!-- ==================== ANALITIK DATA & SISTEM ==================== -->
-                      <div class="skill-icon-chip" data-cat="analytics" data-highlight="true" title="Algoritma C4.5 — Decision Tree Classification">
-                        <div class="chip-svg-wrap c45">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="5" r="3"></circle>
-                            <circle cx="6" cy="19" r="3"></circle>
-                            <circle cx="18" cy="19" r="3"></circle>
-                            <line x1="12" y1="8" x2="6" y2="16"></line>
-                            <line x1="12" y1="8" x2="18" y2="16"></line>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">Algoritma C4.5</span>
-                          <span class="chip-sub">Decision Tree</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="analytics" title="RapidMiner Studio — Data Mining Suite">
-                        <div class="chip-svg-wrap rm">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
-                            <rect x="9" y="9" width="6" height="6"></rect>
-                            <line x1="9" y1="1" x2="9" y2="4"></line>
-                            <line x1="15" y1="1" x2="15" y2="4"></line>
-                            <line x1="9" y1="20" x2="9" y2="23"></line>
-                            <line x1="15" y1="20" x2="15" y2="23"></line>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">RapidMiner</span>
-                          <span class="chip-sub">Data Mining</span>
-                        </div>
-                      </div>
-
-                      <div class="skill-icon-chip" data-cat="analytics" title="S1 Sistem Informasi — SDLC &amp; Business Process">
-                        <div class="chip-svg-wrap dm">
-                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                          </svg>
-                        </div>
-                        <div class="chip-detail">
-                          <span class="chip-name">S1 Sistem Info</span>
-                          <span class="chip-sub">Riset &amp; SDLC</span>
-                        </div>
-                      </div>
-
+                      <?php foreach ($techChips as $chip): 
+                        $chipCat = htmlspecialchars($chip['category'] ?? 'frontend');
+                        $chipHighlight = !empty($chip['highlight']) ? 'true' : 'false';
+                        $chipName = htmlspecialchars($chip['name'] ?? '');
+                        $chipRole = htmlspecialchars($chip['role'] ?? '');
+                        $chipIcon = $chip['icon'] ?? $chipName;
+                        $chipIconSvg = render_skill_chip_icon($chipIcon, $chipName);
+                        $iconClass = strtolower(preg_replace('/[^a-z0-9]/', '', $chipIcon));
+                      ?>
+                        <div class="skill-icon-chip" data-cat="<?= $chipCat ?>" data-highlight="<?= $chipHighlight ?>" title="<?= $chipName ?> — <?= $chipRole ?>">
+                          <div class="chip-svg-wrap <?= $iconClass ?>">
+                            <?= $chipIconSvg ?>
+                          </div>
+                          <div class="chip-detail">
+                            <span class="chip-name"><?= $chipName ?></span>
+                            <span class="chip-sub"><?= $chipRole ?></span>
+                          </div>
+                        </div>
+                      <?php endforeach; ?>
                     </div>
 
                     <div class="skills-widget-footer">
@@ -1096,24 +518,24 @@ $hireStatus = get_hire_status($pdo);
                   
                   <div class="bento-card bento-card-deck deck-vision-card">
                     <div>
-                      <span class="deck-eyebrow">Cara saya bekerja</span>
-                      <h4 class="deck-vision-title">Sistem yang siap dipakai, bukan sekadar selesai.</h4>
+                      <span class="deck-eyebrow"><?= e($homeContent['deck_vision_eyebrow']) ?></span>
+                      <h4 class="deck-vision-title"><?= e($homeContent['deck_vision_title']) ?></h4>
                       <p class="deck-vision-lead">
-                        Saya menerjemahkan kebutuhan bisnis menjadi alur yang jelas, data yang rapi, dan antarmuka yang nyaman digunakan.
+                        <?= e($homeContent['deck_vision_lead']) ?>
                       </p>
                     </div>
                     <div class="deck-focus-list">
                       <div class="deck-focus-item">
                         <span class="deck-focus-index">01</span>
-                        <div><strong>Pahami alur bisnis</strong><span>Mulai dari masalah pengguna dan proses yang ingin dipermudah.</span></div>
+                        <div><strong><?= e($homeContent['deck_s1_title']) ?></strong><span><?= e($homeContent['deck_s1_desc']) ?></span></div>
                       </div>
                       <div class="deck-focus-item">
                         <span class="deck-focus-index">02</span>
-                        <div><strong>Bangun fondasi yang rapi</strong><span>Struktur data, backend, dan UI dirancang agar mudah dikembangkan.</span></div>
+                        <div><strong><?= e($homeContent['deck_s2_title']) ?></strong><span><?= e($homeContent['deck_s2_desc']) ?></span></div>
                       </div>
                       <div class="deck-focus-item">
                         <span class="deck-focus-index">03</span>
-                        <div><strong>Validasi sampai siap pakai</strong><span>Fokus pada detail yang membuat sistem stabil untuk operasional harian.</span></div>
+                        <div><strong><?= e($homeContent['deck_s3_title']) ?></strong><span><?= e($homeContent['deck_s3_desc']) ?></span></div>
                       </div>
                     </div>
                     <div class="deck-card-actions">
@@ -1122,34 +544,34 @@ $hireStatus = get_hire_status($pdo);
                       <?php else: ?>
                         <a href="#about" class="btn-bento-pill primary">Detail Profil</a>
                       <?php endif; ?>
-                      <span class="bento-status-badge-inline">● S1 Sistem Informasi</span>
+                      <span class="bento-status-badge-inline">● <?= e($homeContent['about_widget_status']) ?></span>
                     </div>
                   </div>
 
                   <div class="bento-card bento-card-deck deck-standards-card">
                     <div class="bento-card-heading">
-                      <h4>Standar Rekayasa</h4>
+                      <h4><?= e($homeContent['deck_std_title']) ?></h4>
                     </div>
                     <div class="deck-standards-list">
                       <div class="standard-row">
-                        <span class="standard-icon">🛡️</span>
+                        <span class="standard-icon"><?= e($homeContent['deck_std1_icon']) ?></span>
                         <div>
-                          <div class="standard-title">Aman dari Fondasi</div>
-                          <div class="standard-desc">Validasi input, prepared statement, dan akses data yang terjaga.</div>
+                          <div class="standard-title"><?= e($homeContent['deck_std1_title']) ?></div>
+                          <div class="standard-desc"><?= e($homeContent['deck_std1_desc']) ?></div>
                         </div>
                       </div>
                       <div class="standard-row">
-                        <span class="standard-icon">⚡</span>
+                        <span class="standard-icon"><?= e($homeContent['deck_std2_icon']) ?></span>
                         <div>
-                          <div class="standard-title">Terstruktur &amp; Ringan</div>
-                          <div class="standard-desc">Struktur data jelas dan antarmuka yang fokus pada kebutuhan pengguna.</div>
+                          <div class="standard-title"><?= e($homeContent['deck_std2_title']) ?></div>
+                          <div class="standard-desc"><?= e($homeContent['deck_std2_desc']) ?></div>
                         </div>
                       </div>
                       <div class="standard-row">
-                        <span class="standard-icon">🎯</span>
+                        <span class="standard-icon"><?= e($homeContent['deck_std3_icon']) ?></span>
                         <div>
-                          <div class="standard-title">Berorientasi Dampak</div>
-                          <div class="standard-desc">Data dan metrik dipakai untuk membantu keputusan yang lebih tepat.</div>
+                          <div class="standard-title"><?= e($homeContent['deck_std3_title']) ?></div>
+                          <div class="standard-desc"><?= e($homeContent['deck_std3_desc']) ?></div>
                         </div>
                       </div>
                     </div>
@@ -1157,32 +579,29 @@ $hireStatus = get_hire_status($pdo);
 
                   <div class="bento-card bento-card-deck deck-status-card">
                     <div class="bento-card-heading">
-                      <h4>Siap Berkolaborasi</h4>
+                      <h4><?= e($homeContent['deck_collab_title']) ?></h4>
                     </div>
                     <div class="deck-qualifications-list">
                       <div class="qual-item">
-                        <span class="qual-label">Fokus peran</span>
-                        <span class="qual-val">Web Developer &amp; Data Analyst</span>
+                        <span class="qual-label"><?= e($homeContent['deck_collab_role_lbl']) ?></span>
+                        <span class="qual-val"><?= e($homeContent['deck_collab_role_val']) ?></span>
                       </div>
                       <div class="qual-item">
-                        <span class="qual-label">Ketersediaan</span>
-                        <span class="qual-val highlight">● Terbuka untuk peluang kerja</span>
+                        <span class="qual-label"><?= e($homeContent['deck_collab_avail_lbl']) ?></span>
+                        <span class="qual-val highlight"><?= e($homeContent['deck_collab_avail_val']) ?></span>
                       </div>
                       <div class="qual-item">
-                        <span class="qual-label">Cara kerja</span>
-                        <span class="qual-val">Onsite atau remote (Indonesia)</span>
+                        <span class="qual-label"><?= e($homeContent['deck_collab_mode_lbl']) ?></span>
+                        <span class="qual-val"><?= e($homeContent['deck_collab_mode_val']) ?></span>
                       </div>
                     </div>
                     <div class="deck-status-action">
-                      <a href="#contact" class="btn-bento-pill primary">Hubungi Ammar</a>
+                      <a href="#contact" class="btn-bento-pill primary"><?= e($homeContent['deck_collab_btn_text']) ?></a>
                     </div>
                   </div>
 
                 </div>
 
-                <!-- ==============================================
-                     PANEL 2: KEAHLIAN (Arsitektur & Domain Teknis)
-                     ============================================== -->
                 <div class="bento-deck-panel" id="deck-panel-2" role="tabpanel" data-panel="2">
                   
                   <div class="bento-card bento-card-deck deck-skill-card">
@@ -1678,9 +1097,9 @@ $hireStatus = get_hire_status($pdo);
              ================================================================ -->
         <div class="skill-hierarchy-section">
           <div class="hierarchy-header">
-            <span class="hierarchy-kicker">⚡ Tingkat Kenyamanan &amp; Kesiapan Produksi</span>
-            <h3 class="hierarchy-title">Matriks Penguasaan Teknologi</h3>
-            <p class="hierarchy-desc">Pemetaan keahlian teknis berdasarkan intensitas penggunaan riil dalam membangun aplikasi siap produksi.</p>
+            <span class="hierarchy-kicker"><?= e($homeContent['matrix_kicker']) ?></span>
+            <h3 class="hierarchy-title"><?= e($homeContent['matrix_title']) ?></h3>
+            <p class="hierarchy-desc"><?= e($homeContent['matrix_desc']) ?></p>
           </div>
 
           <div class="skill-hierarchy-grid">
@@ -1689,23 +1108,19 @@ $hireStatus = get_hire_status($pdo);
               <div class="tier-top">
                 <div class="tier-badge-pill">
                   <span class="tier-dot-pulse green"></span>
-                  <span>Advanced / Production-Ready</span>
+                  <span><?= e($homeContent['tier1_badge']) ?></span>
                 </div>
-                <span class="tier-level-caption">Kenyamanan Penuh &bull; 95%</span>
+                <span class="tier-level-caption"><?= e($homeContent['tier1_level']) ?></span>
               </div>
-              <h4 class="tier-title">Fondasi Inti &amp; Arsitektur Sistem</h4>
-              <p class="tier-desc">Sangat nyaman merancang sistem dari nol: database relasional 3NF, backend MVC terstruktur, API aman bebas SQLi, dan logic kompleks.</p>
+              <h4 class="tier-title"><?= e($homeContent['tier1_title']) ?></h4>
+              <p class="tier-desc"><?= e($homeContent['tier1_desc']) ?></p>
               
               <div class="tier-progress-track">
-                <div class="tier-progress-fill advanced" style="width: 95%;"></div>
+                <div class="tier-progress-fill advanced" style="width: <?= (int)$homeContent['tier1_percent'] ?>%;"></div>
               </div>
 
               <div class="tier-chips-wrap">
-                <span class="tier-chip highlight"><i class="tier-chip-icon">⚡</i> PHP Native</span>
-                <span class="tier-chip highlight"><i class="tier-chip-icon">🔴</i> Laravel</span>
-                <span class="tier-chip highlight"><i class="tier-chip-icon">🐬</i> MySQL</span>
-                <span class="tier-chip highlight"><i class="tier-chip-icon">🔗</i> REST API</span>
-                <span class="tier-chip highlight"><i class="tier-chip-icon">🟡</i> JavaScript</span>
+                <?= render_tier_chips_from_csv($homeContent['tier1_chips'], true) ?>
               </div>
             </div>
 
@@ -1714,24 +1129,19 @@ $hireStatus = get_hire_status($pdo);
               <div class="tier-top">
                 <div class="tier-badge-pill blue">
                   <span class="tier-dot-pulse blue"></span>
-                  <span>Proficient</span>
+                  <span><?= e($homeContent['tier2_badge']) ?></span>
                 </div>
-                <span class="tier-level-caption">Penggunaan Harian &bull; 85%</span>
+                <span class="tier-level-caption"><?= e($homeContent['tier2_level']) ?></span>
               </div>
-              <h4 class="tier-title">Web Modern &amp; Infrastruktur Harian</h4>
-              <p class="tier-desc">Terbiasa digunakan dalam alur kerja harian untuk membuat antarmuka responsif cepat, version control, dan konfigurasi web server VPS.</p>
+              <h4 class="tier-title"><?= e($homeContent['tier2_title']) ?></h4>
+              <p class="tier-desc"><?= e($homeContent['tier2_desc']) ?></p>
 
               <div class="tier-progress-track">
-                <div class="tier-progress-fill proficient" style="width: 85%;"></div>
+                <div class="tier-progress-fill proficient" style="width: <?= (int)$homeContent['tier2_percent'] ?>%;"></div>
               </div>
 
               <div class="tier-chips-wrap">
-                <span class="tier-chip"><i class="tier-chip-icon">⚛️</i> React</span>
-                <span class="tier-chip"><i class="tier-chip-icon">▲</i> Next.js</span>
-                <span class="tier-chip"><i class="tier-chip-icon">🌿</i> Git / GitHub</span>
-                <span class="tier-chip"><i class="tier-chip-icon">🐧</i> Linux VPS</span>
-                <span class="tier-chip"><i class="tier-chip-icon">🎨</i> Tailwind CSS</span>
-                <span class="tier-chip"><i class="tier-chip-icon">🟢</i> Nginx</span>
+                <?= render_tier_chips_from_csv($homeContent['tier2_chips'], false) ?>
               </div>
             </div>
 
@@ -1740,22 +1150,19 @@ $hireStatus = get_hire_status($pdo);
               <div class="tier-top">
                 <div class="tier-badge-pill purple">
                   <span class="tier-dot-pulse purple"></span>
-                  <span>Familiar / Exploring</span>
+                  <span><?= e($homeContent['tier3_badge']) ?></span>
                 </div>
-                <span class="tier-level-caption">Riset &amp; Utility &bull; 75%</span>
+                <span class="tier-level-caption"><?= e($homeContent['tier3_level']) ?></span>
               </div>
-              <h4 class="tier-title">Container, Skrip &amp; Lapisan Caching</h4>
-              <p class="tier-desc">Pemahaman arsitektur solid untuk isolasi container, skrip data mining C4.5 Python, akselerasi caching in-memory, dan perlindungan CDN.</p>
+              <h4 class="tier-title"><?= e($homeContent['tier3_title']) ?></h4>
+              <p class="tier-desc"><?= e($homeContent['tier3_desc']) ?></p>
 
               <div class="tier-progress-track">
-                <div class="tier-progress-fill familiar" style="width: 75%;"></div>
+                <div class="tier-progress-fill familiar" style="width: <?= (int)$homeContent['tier3_percent'] ?>%;"></div>
               </div>
 
               <div class="tier-chips-wrap">
-                <span class="tier-chip"><i class="tier-chip-icon">🐳</i> Docker</span>
-                <span class="tier-chip"><i class="tier-chip-icon">🐍</i> Python</span>
-                <span class="tier-chip"><i class="tier-chip-icon">⚡</i> Redis</span>
-                <span class="tier-chip"><i class="tier-chip-icon">☁️</i> Cloudflare</span>
+                <?= render_tier_chips_from_csv($homeContent['tier3_chips'], false) ?>
               </div>
             </div>
           </div>
@@ -1775,33 +1182,24 @@ $hireStatus = get_hire_status($pdo);
                   <line x1="13" y1="12" x2="17" y2="12"></line>
                 </svg>
               </div>
-              <span class="skills-badge-tag">High-Fidelity UI</span>
+              <span class="skills-badge-tag"><?= e($homeContent['domain1_badge']) ?></span>
             </div>
 
-            <h3 class="skills-domain-title">Frontend Engineering</h3>
-            <p class="skills-domain-desc">
-              Antarmuka modern, interaktif, dan ultra-responsif dengan performa rendering tinggi, arsitektur komponen re-usable, dan desain sistem presisi.
-            </p>
+            <h3 class="skills-domain-title"><?= e($homeContent['domain1_title']) ?></h3>
+            <p class="skills-domain-desc"><?= e($homeContent['domain1_desc']) ?></p>
 
             <div class="skills-subgroups">
               <div class="skills-subgroup">
-                <span class="skills-subgroup-label">Frameworks &amp; Modern UI</span>
+                <span class="skills-subgroup-label"><?= e($homeContent['domain1_grp1_title']) ?></span>
                 <div class="skills-chips-wrapper">
-                  <span class="skill-badge"><i class="badge-dot"></i>React</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>Next.js (App Router)</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>shadcn/ui</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>Tailwind CSS</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>Bootstrap</span>
+                  <?= render_skill_badges_from_csv($homeContent['domain1_grp1_tags']) ?>
                 </div>
               </div>
 
               <div class="skills-subgroup">
-                <span class="skills-subgroup-label">Core Scripting &amp; Standards</span>
+                <span class="skills-subgroup-label"><?= e($homeContent['domain1_grp2_title']) ?></span>
                 <div class="skills-chips-wrapper">
-                  <span class="skill-badge"><i class="badge-dot"></i>TypeScript</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>JavaScript (ES6+)</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>HTML5 Semantik</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>CSS3 Glassmorphism</span>
+                  <?= render_skill_badges_from_csv($homeContent['domain1_grp2_tags']) ?>
                 </div>
               </div>
             </div>
@@ -1809,21 +1207,21 @@ $hireStatus = get_hire_status($pdo);
             <div class="skills-highlights">
               <div class="skills-highlight-item">
                 <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>SSR, SSG, dan Client-Side Rendering teroptimasi untuk kecepatan First Contentful Paint</span>
+                <span><?= e($homeContent['domain1_b1']) ?></span>
               </div>
               <div class="skills-highlight-item">
                 <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Desain sistem berbasis utility class Tailwind CSS &amp; atomic primitive shadcn/ui</span>
+                <span><?= e($homeContent['domain1_b2']) ?></span>
               </div>
               <div class="skills-highlight-item">
                 <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Interaktivitas 60 FPS dengan micro-interactions, responsive grid, dan transisi fluid</span>
+                <span><?= e($homeContent['domain1_b3']) ?></span>
               </div>
             </div>
 
             <div class="skills-card-footer">
               <span class="footer-indicator-dot"></span>
-              <span class="footer-meta-text">Eksosistem: Next.js, React, TypeScript, Tailwind, shadcn/ui</span>
+              <span class="footer-meta-text"><?= e($homeContent['domain1_eco']) ?></span>
             </div>
           </div>
 
@@ -1838,32 +1236,24 @@ $hireStatus = get_hire_status($pdo);
                   <line x1="6" y1="18" x2="6.01" y2="18"></line>
                 </svg>
               </div>
-              <span class="skills-badge-tag">Core Architecture</span>
+              <span class="skills-badge-tag"><?= e($homeContent['domain2_badge']) ?></span>
             </div>
 
-            <h3 class="skills-domain-title">Backend &amp; Architecture</h3>
-            <p class="skills-domain-desc">
-              Logika bisnis server-side yang tangguh, modular, dan scalable dengan fokus mutlak pada integritas transaksi, asynchronous processing, dan keamanan API.
-            </p>
+            <h3 class="skills-domain-title"><?= e($homeContent['domain2_title']) ?></h3>
+            <p class="skills-domain-desc"><?= e($homeContent['domain2_desc']) ?></p>
 
             <div class="skills-subgroups">
               <div class="skills-subgroup">
-                <span class="skills-subgroup-label">Framework &amp; Server Logic</span>
+                <span class="skills-subgroup-label"><?= e($homeContent['domain2_grp1_title']) ?></span>
                 <div class="skills-chips-wrapper">
-                  <span class="skill-badge"><i class="badge-dot"></i>Laravel Framework</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>PHP 8.x Core</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>Blade Engine</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>Inertia.js (SPA)</span>
+                  <?= render_skill_badges_from_csv($homeContent['domain2_grp1_tags']) ?>
                 </div>
               </div>
 
               <div class="skills-subgroup">
-                <span class="skills-subgroup-label">Asynchronous, API &amp; Services</span>
+                <span class="skills-subgroup-label"><?= e($homeContent['domain2_grp2_title']) ?></span>
                 <div class="skills-chips-wrapper">
-                  <span class="skill-badge"><i class="badge-dot"></i>RESTful API (JSON)</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>Webhook Listeners</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>Queue / Jobs Worker</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>Scheduler (Cron)</span>
+                  <?= render_skill_badges_from_csv($homeContent['domain2_grp2_tags']) ?>
                 </div>
               </div>
             </div>
@@ -1871,21 +1261,21 @@ $hireStatus = get_hire_status($pdo);
             <div class="skills-highlights">
               <div class="skills-highlight-item">
                 <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Arsitektur MVC &amp; Service Repository pattern untuk clean code dan kemudahan perawatan</span>
+                <span><?= e($homeContent['domain2_b1']) ?></span>
               </div>
               <div class="skills-highlight-item">
                 <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Pemrosesan antrean background via Queue/Jobs dan otomasi cron job berkala</span>
+                <span><?= e($homeContent['domain2_b2']) ?></span>
               </div>
               <div class="skills-highlight-item">
                 <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Integrasi webhook aman, autentikasi multi-tier (RBAC), dan session management</span>
+                <span><?= e($homeContent['domain2_b3']) ?></span>
               </div>
             </div>
 
             <div class="skills-card-footer">
               <span class="footer-indicator-dot"></span>
-              <span class="footer-meta-text">Eksosistem: Laravel, PHP 8.x, Queue/Jobs, Webhook, REST API</span>
+              <span class="footer-meta-text"><?= e($homeContent['domain2_eco']) ?></span>
             </div>
           </div>
 
@@ -1899,31 +1289,24 @@ $hireStatus = get_hire_status($pdo);
                   <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
                 </svg>
               </div>
-              <span class="skills-badge-tag">Data Persistence</span>
+              <span class="skills-badge-tag"><?= e($homeContent['domain3_badge']) ?></span>
             </div>
 
-            <h3 class="skills-domain-title">Database &amp; Storage</h3>
-            <p class="skills-domain-desc">
-              Pengelolaan penyimpanan data relasional dan in-memory yang teroptimasi, menjamin kehandalan transaksi (ACID), integritas referensial, dan caching latency rendah.
-            </p>
+            <h3 class="skills-domain-title"><?= e($homeContent['domain3_title']) ?></h3>
+            <p class="skills-domain-desc"><?= e($homeContent['domain3_desc']) ?></p>
 
             <div class="skills-subgroups">
               <div class="skills-subgroup">
-                <span class="skills-subgroup-label">Relational Database Engines</span>
+                <span class="skills-subgroup-label"><?= e($homeContent['domain3_grp1_title']) ?></span>
                 <div class="skills-chips-wrapper">
-                  <span class="skill-badge"><i class="badge-dot"></i>MySQL ⭐ (Utama)</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>MariaDB</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>PostgreSQL</span>
+                  <?= render_skill_badges_from_csv($homeContent['domain3_grp1_tags']) ?>
                 </div>
               </div>
 
               <div class="skills-subgroup">
-                <span class="skills-subgroup-label">In-Memory &amp; Data Integrity</span>
+                <span class="skills-subgroup-label"><?= e($homeContent['domain3_grp2_title']) ?></span>
                 <div class="skills-chips-wrapper">
-                  <span class="skill-badge"><i class="badge-dot"></i>Redis (In-Memory Cache)</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>PDO Prepared Stmt</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>Query Indexing &amp; ACID</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>Relational ERD (3NF)</span>
+                  <?= render_skill_badges_from_csv($homeContent['domain3_grp2_tags']) ?>
                 </div>
               </div>
             </div>
@@ -1931,21 +1314,21 @@ $hireStatus = get_hire_status($pdo);
             <div class="skills-highlights">
               <div class="skills-highlight-item">
                 <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Perancangan skema relasional 3NF terstruktur dengan composite indexing untuk query cepat</span>
+                <span><?= e($homeContent['domain3_b1']) ?></span>
               </div>
               <div class="skills-highlight-item">
                 <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Proteksi penuh injeksi SQL via PDO parameter binding &amp; sanitasi input ketat</span>
+                <span><?= e($homeContent['domain3_b2']) ?></span>
               </div>
               <div class="skills-highlight-item">
                 <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Redis in-memory key-value caching untuk throttling, session, dan akselerasi data realtime</span>
+                <span><?= e($homeContent['domain3_b3']) ?></span>
               </div>
             </div>
 
             <div class="skills-card-footer">
               <span class="footer-indicator-dot"></span>
-              <span class="footer-meta-text">Engine Utama: MySQL ⭐, PostgreSQL, MariaDB, Redis</span>
+              <span class="footer-meta-text"><?= e($homeContent['domain3_eco']) ?></span>
             </div>
           </div>
 
@@ -1960,32 +1343,24 @@ $hireStatus = get_hire_status($pdo);
                   <path d="M15 14v-3h3v3"></path>
                 </svg>
               </div>
-              <span class="skills-badge-tag">Deployment &amp; Infra</span>
+              <span class="skills-badge-tag"><?= e($homeContent['domain4_badge']) ?></span>
             </div>
 
-            <h3 class="skills-domain-title">DevOps &amp; Server Infra</h3>
-            <p class="skills-domain-desc">
-              Infrastruktur deployment handal dari isolasi container hingga konfigurasi web server produksi, keamanan jaringan CDN, dan otomatisasi process daemon.
-            </p>
+            <h3 class="skills-domain-title"><?= e($homeContent['domain4_title']) ?></h3>
+            <p class="skills-domain-desc"><?= e($homeContent['domain4_desc']) ?></p>
 
             <div class="skills-subgroups">
               <div class="skills-subgroup">
-                <span class="skills-subgroup-label">Container &amp; Version Control</span>
+                <span class="skills-subgroup-label"><?= e($homeContent['domain4_grp1_title']) ?></span>
                 <div class="skills-chips-wrapper">
-                  <span class="skill-badge"><i class="badge-dot"></i>Docker Containers</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>Git / GitHub Flow</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>Composer Package Mgr</span>
+                  <?= render_skill_badges_from_csv($homeContent['domain4_grp1_tags']) ?>
                 </div>
               </div>
 
               <div class="skills-subgroup">
-                <span class="skills-subgroup-label">Server OS, Web Server &amp; Cloud</span>
+                <span class="skills-subgroup-label"><?= e($homeContent['domain4_grp2_title']) ?></span>
                 <div class="skills-chips-wrapper">
-                  <span class="skill-badge"><i class="badge-dot"></i>Linux / Ubuntu Server</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>Apache &amp; Nginx</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>Cloudflare CDN / SSL</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>Supervisor Daemon</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>SSH &amp; VPS / Hosting</span>
+                  <?= render_skill_badges_from_csv($homeContent['domain4_grp2_tags']) ?>
                 </div>
               </div>
             </div>
@@ -1993,21 +1368,21 @@ $hireStatus = get_hire_status($pdo);
             <div class="skills-highlights">
               <div class="skills-highlight-item">
                 <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Environment isolasi via Docker container dan konfigurasi VPS Linux mandiri</span>
+                <span><?= e($homeContent['domain4_b1']) ?></span>
               </div>
               <div class="skills-highlight-item">
                 <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Reverse proxy Nginx/Apache, SSL otomatis, dan proteksi DNS CDN Cloudflare</span>
+                <span><?= e($homeContent['domain4_b2']) ?></span>
               </div>
               <div class="skills-highlight-item">
                 <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Supervisor process manager untuk monitoring berkelanjutan Queue Workers &amp; Scheduler</span>
+                <span><?= e($homeContent['domain4_b3']) ?></span>
               </div>
             </div>
 
             <div class="skills-card-footer">
               <span class="footer-indicator-dot"></span>
-              <span class="footer-meta-text">Infrastruktur: Docker, Linux VPS, Nginx, Cloudflare, Git</span>
+              <span class="footer-meta-text"><?= e($homeContent['domain4_eco']) ?></span>
             </div>
           </div>
 
@@ -2019,32 +1394,24 @@ $hireStatus = get_hire_status($pdo);
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                 </svg>
               </div>
-              <span class="skills-badge-tag">Quality &amp; Mobile</span>
+              <span class="skills-badge-tag"><?= e($homeContent['domain5_badge']) ?></span>
             </div>
 
-            <h3 class="skills-domain-title">Testing, QA &amp; Mobile</h3>
-            <p class="skills-domain-desc">
-              Penjaminan mutu kode dengan automated testing ketat, standardisasi kode modern, serta pengembangan aplikasi mobile multiplatform yang terintegrasi cloud.
-            </p>
+            <h3 class="skills-domain-title"><?= e($homeContent['domain5_title']) ?></h3>
+            <p class="skills-domain-desc"><?= e($homeContent['domain5_desc']) ?></p>
 
             <div class="skills-subgroups">
               <div class="skills-subgroup">
-                <span class="skills-subgroup-label">Automated Testing &amp; Standards</span>
+                <span class="skills-subgroup-label"><?= e($homeContent['domain5_grp1_title']) ?></span>
                 <div class="skills-chips-wrapper">
-                  <span class="skill-badge"><i class="badge-dot"></i>Pest PHP Testing</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>PHPUnit Suite</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>PHPStan / Larastan</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>Laravel Pint</span>
+                  <?= render_skill_badges_from_csv($homeContent['domain5_grp1_tags']) ?>
                 </div>
               </div>
 
               <div class="skills-subgroup">
-                <span class="skills-subgroup-label">Mobile SDK &amp; UI Design</span>
+                <span class="skills-subgroup-label"><?= e($homeContent['domain5_grp2_title']) ?></span>
                 <div class="skills-chips-wrapper">
-                  <span class="skill-badge"><i class="badge-dot"></i>Flutter SDK</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>Dart Language</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>Firebase Backend</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>Figma Prototyping</span>
+                  <?= render_skill_badges_from_csv($homeContent['domain5_grp2_tags']) ?>
                 </div>
               </div>
             </div>
@@ -2052,21 +1419,21 @@ $hireStatus = get_hire_status($pdo);
             <div class="skills-highlights">
               <div class="skills-highlight-item">
                 <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Pengujian unit dan fitur terotomasi via Pest &amp; PHPUnit untuk zero-regression</span>
+                <span><?= e($homeContent['domain5_b1']) ?></span>
               </div>
               <div class="skills-highlight-item">
                 <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Analisis statis level ketat Larastan dan format styling konsisten Laravel Pint</span>
+                <span><?= e($homeContent['domain5_b2']) ?></span>
               </div>
               <div class="skills-highlight-item">
                 <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Aplikasi mobile multiplatform Flutter dengan backend Firebase &amp; desain sistem Figma</span>
+                <span><?= e($homeContent['domain5_b3']) ?></span>
               </div>
             </div>
 
             <div class="skills-card-footer">
               <span class="footer-indicator-dot"></span>
-              <span class="footer-meta-text">Kualitas &amp; Mobile: Pest, Larastan, Flutter, Firebase, Figma</span>
+              <span class="footer-meta-text"><?= e($homeContent['domain5_eco']) ?></span>
             </div>
           </div>
 
@@ -2081,32 +1448,24 @@ $hireStatus = get_hire_status($pdo);
                   <path d="M12 8v4m0 0l-5 4m5-4l5 4"></path>
                 </svg>
               </div>
-              <span class="skills-badge-tag">Applied Data Mining</span>
+              <span class="skills-badge-tag"><?= e($homeContent['domain6_badge']) ?></span>
             </div>
 
-            <h3 class="skills-domain-title">Analitik Data &amp; Sistem</h3>
-            <p class="skills-domain-desc">
-              Penerapan data mining klasifikasi dan rekayasa proses bisnis Sistem Informasi untuk mentransformasikan data operasional menjadi keputusan strategis terukur.
-            </p>
+            <h3 class="skills-domain-title"><?= e($homeContent['domain6_title']) ?></h3>
+            <p class="skills-domain-desc"><?= e($homeContent['domain6_desc']) ?></p>
 
             <div class="skills-subgroups">
               <div class="skills-subgroup">
-                <span class="skills-subgroup-label">Data Mining &amp; Pemodelan</span>
+                <span class="skills-subgroup-label"><?= e($homeContent['domain6_grp1_title']) ?></span>
                 <div class="skills-chips-wrapper">
-                  <span class="skill-badge"><i class="badge-dot"></i>Algoritma C4.5</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>RapidMiner Studio</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>Entropy &amp; Gain Ratio</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>Confusion Matrix</span>
+                  <?= render_skill_badges_from_csv($homeContent['domain6_grp1_tags']) ?>
                 </div>
               </div>
 
               <div class="skills-subgroup">
-                <span class="skills-subgroup-label">Rekayasa Sistem Informasi (S1)</span>
+                <span class="skills-subgroup-label"><?= e($homeContent['domain6_grp2_title']) ?></span>
                 <div class="skills-chips-wrapper">
-                  <span class="skill-badge"><i class="badge-dot"></i>S1 Sistem Informasi</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>DFD Level 0 &amp; 1 / ERD</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>Data Cleansing Pipeline</span>
-                  <span class="skill-badge"><i class="badge-dot"></i>Evaluasi Akurasi &amp; Presisi</span>
+                  <?= render_skill_badges_from_csv($homeContent['domain6_grp2_tags']) ?>
                 </div>
               </div>
             </div>
@@ -2114,24 +1473,23 @@ $hireStatus = get_hire_status($pdo);
             <div class="skills-highlights">
               <div class="skills-highlight-item">
                 <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Pemodelan prediksi ketepatan waktu kargo logistik (Studi kasus Big Cargo)</span>
+                <span><?= e($homeContent['domain6_b1']) ?></span>
               </div>
               <div class="skills-highlight-item">
                 <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Pembersihan dataset riil: eliminasi missing value, reduksi atribut, &amp; diskretisasi</span>
+                <span><?= e($homeContent['domain6_b2']) ?></span>
               </div>
               <div class="skills-highlight-item">
                 <svg class="skill-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Dokumentasi siklus SDLC komprehensif dari analisis kebutuhan bisnis hingga testing</span>
+                <span><?= e($homeContent['domain6_b3']) ?></span>
               </div>
             </div>
 
             <div class="skills-card-footer">
               <span class="footer-indicator-dot"></span>
-              <span class="footer-meta-text">Riset &amp; Akademik: S1 Sistem Informasi, C4.5, RapidMiner</span>
+              <span class="footer-meta-text"><?= e($homeContent['domain6_eco']) ?></span>
             </div>
-          </div>
-        </div>
+          </div></div>
       </div>
     </section>
 
