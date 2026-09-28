@@ -20,12 +20,15 @@ $homeContent = get_homepage_content($pdo);
 $techChipsRaw = json_decode($homeContent['tech_chips_json'] ?? '[]', true);
 $techChips = (is_array($techChipsRaw) && !empty($techChipsRaw)) ? $techChipsRaw : json_decode(homepage_content_defaults()['tech_chips_json'], true);
 
+require_once __DIR__ . '/includes/tech_icons.php';
+
 if (!function_exists('render_skill_badges_from_csv')) {
     function render_skill_badges_from_csv(string $csv): string {
         $tags = array_filter(array_map('trim', explode(',', $csv)));
         $html = '';
         foreach ($tags as $tag) {
-            $html .= '<span class="skill-badge"><i class="badge-dot"></i>' . htmlspecialchars($tag) . '</span>';
+            $svg = get_tech_svg_icon($tag, 14, 'badge-tech-svg');
+            $html .= '<span class="skill-badge"><span class="badge-icon-wrap">' . $svg . '</span><span class="badge-tag-text">' . htmlspecialchars($tag) . '</span></span>';
         }
         return $html;
     }
@@ -37,7 +40,8 @@ if (!function_exists('render_tier_chips_from_csv')) {
         $html = '';
         foreach ($tags as $tag) {
             $hl = $highlight ? ' highlight' : '';
-            $html .= '<span class="tier-chip' . $hl . '">' . htmlspecialchars($tag) . '</span>';
+            $svg = get_tech_svg_icon($tag, 13, 'tier-tech-svg');
+            $html .= '<span class="tier-chip' . $hl . '"><span class="tier-icon-wrap">' . $svg . '</span><span>' . htmlspecialchars($tag) . '</span></span>';
         }
         return $html;
     }
