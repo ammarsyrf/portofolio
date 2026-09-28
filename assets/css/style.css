@@ -4572,34 +4572,6 @@ section[id] {
   display: block;
 }
 
-.badge-dot {
-  display: inline-grid;
-  width: 16px;
-  height: 16px;
-  place-items: center;
-  border: 1px solid color-mix(in srgb, var(--domain-accent) 36%, transparent);
-  border-radius: 5px;
-  background: color-mix(in srgb, var(--domain-accent) 14%, transparent);
-  color: var(--domain-accent-bright);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 0.48rem;
-  font-style: normal;
-  font-weight: 800;
-  line-height: 1;
-  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-}
-
-.badge-dot::before {
-  content: '•';
-}
-
-.domain-frontend .badge-dot::before { content: '</>'; }
-.domain-backend .badge-dot::before { content: '{}'; }
-.domain-database .badge-dot::before { content: '▤'; font-size: 0.62rem; }
-.domain-devops .badge-dot::before { content: '>_'; }
-.domain-quality .badge-dot::before { content: '✓'; font-family: var(--font-display); font-size: 0.65rem; }
-.domain-data .badge-dot::before { content: '⌁'; font-family: var(--font-display); font-size: 0.75rem; }
-
 .skill-badge:hover {
   border-color: color-mix(in srgb, var(--domain-accent) 48%, transparent);
   color: #FFFFFF;
@@ -4608,10 +4580,9 @@ section[id] {
   box-shadow: 0 4px 12px color-mix(in srgb, var(--domain-accent) 18%, transparent);
 }
 
-.skill-badge:hover .badge-dot {
+.skill-badge:hover .badge-icon-wrap {
+  transform: scale(1.18);
   background: color-mix(in srgb, var(--domain-accent) 28%, transparent);
-  border-color: var(--domain-accent-bright);
-  transform: scale(1.12);
 }
 
 .skills-highlights {
