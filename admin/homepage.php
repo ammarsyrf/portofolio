@@ -414,38 +414,76 @@ require_once __DIR__ . '/includes/sidebar.php';
 ?>
 
 <style>
-  /* --- Horizontal Stepper & Tab Navigation (No Duplicate Sidebar) --- */
+  /* --- 2-Column Master-Detail Sub-Sidebar Layout with Crisp Visual Separation --- */
   .hp-editor-shell {
-    display: block;
-    width: 100%;
+    display: grid;
+    grid-template-columns: 290px minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
     position: relative;
   }
 
-  .hp-top-nav-card {
-    background: rgba(12, 16, 25, 0.9);
-    border: 1px solid var(--adm-border);
-    border-radius: 16px;
-    padding: 1.25rem 1.5rem;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    margin-bottom: 1.75rem;
+  @media (max-width: 1060px) {
+    .hp-editor-shell {
+      grid-template-columns: 1fr;
+    }
   }
 
-  .hp-top-nav-header {
+  /* Distinct Left Sub-Sidebar Card (Cleanly Separated from Main Admin Sidebar) */
+  .hp-subnav-sidebar {
+    position: sticky;
+    top: 5.5rem;
+    background: linear-gradient(180deg, rgba(16, 23, 36, 0.95) 0%, rgba(10, 14, 22, 0.98) 100%);
+    border: 1px solid rgba(59, 130, 246, 0.28);
+    border-radius: 18px;
+    padding: 1.35rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 30px rgba(59, 130, 246, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    max-height: calc(100vh - 7rem);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(59, 130, 246, 0.35) transparent;
+  }
+
+  .hp-subnav-sidebar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .hp-subnav-sidebar::-webkit-scrollbar-thumb {
+    background: rgba(59, 130, 246, 0.4);
+    border-radius: 999px;
+  }
+
+  .hp-subnav-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
     margin-bottom: 1.15rem;
-    padding-bottom: 1rem;
+    padding-bottom: 0.85rem;
     border-bottom: 1px solid var(--adm-border);
+  }
+  .hp-subnav-header-title {
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .hp-subnav-count-total {
+    font-size: 0.68rem;
+    font-family: var(--font-mono);
+    color: var(--adm-accent-bright);
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
   }
 
   .hp-search-box {
     position: relative;
-    min-width: 280px;
+    margin-bottom: 1.25rem;
   }
 
   .hp-search-input {
@@ -453,15 +491,15 @@ require_once __DIR__ . '/includes/sidebar.php';
     background: rgba(8, 11, 19, 0.85);
     border: 1px solid var(--adm-border);
     border-radius: 10px;
-    padding: 0.6rem 0.85rem 0.6rem 2.3rem;
-    font-size: 0.84rem;
+    padding: 0.65rem 0.85rem 0.65rem 2.3rem;
+    font-size: 0.82rem;
     color: #fff;
     outline: none;
     transition: all 0.2s ease;
   }
   .hp-search-input:focus {
     border-color: var(--adm-accent);
-    box-shadow: 0 0 16px rgba(59, 130, 246, 0.25);
+    box-shadow: 0 0 16px rgba(59, 130, 246, 0.3);
     background: rgba(15, 22, 36, 0.95);
   }
   .hp-search-icon {
@@ -474,110 +512,89 @@ require_once __DIR__ . '/includes/sidebar.php';
     pointer-events: none;
   }
 
-  /* Level 1: Category Cluster Tabs */
-  .hp-cluster-tabs-bar {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 0.6rem;
-    background: rgba(8, 11, 19, 0.65);
-    padding: 0.45rem;
-    border-radius: 14px;
-    border: 1px solid var(--adm-border);
-    margin-bottom: 1rem;
+  /* Cluster Group Headers */
+  .hp-cluster-group {
+    margin-bottom: 1.35rem;
   }
-
-  .hp-cluster-tab-btn {
+  .hp-cluster-group:last-child {
+    margin-bottom: 0;
+  }
+  .hp-cluster-title {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--adm-accent-bright);
+    margin-bottom: 0.45rem;
+    padding-left: 0.4rem;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 0.55rem;
-    background: transparent;
-    border: 1px solid transparent;
-    border-radius: 10px;
-    padding: 0.7rem 1.1rem;
-    color: var(--adm-text-secondary);
-    font-size: 0.86rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    white-space: nowrap;
+    gap: 0.4rem;
   }
 
-  .hp-cluster-tab-btn:hover {
-    background: rgba(255, 255, 255, 0.06);
-    color: #ffffff;
-    border-color: rgba(255, 255, 255, 0.08);
-  }
-
-  .hp-cluster-tab-btn.is-active {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.25) 0%, rgba(99, 102, 241, 0.2) 100%);
-    border-color: rgba(59, 130, 246, 0.55);
-    color: #ffffff;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35), 0 0 14px rgba(59, 130, 246, 0.25);
-  }
-
-  /* Level 2: Section Sub-Pills */
-  .hp-cluster-pills-wrap {
-    position: relative;
-    padding-top: 0.25rem;
-  }
-
-  .hp-section-pills-bar {
-    display: none;
-    flex-wrap: wrap;
-    gap: 0.55rem;
-    animation: hpFadeIn 0.2s ease-out;
-  }
-  .hp-section-pills-bar.is-active {
+  .hp-nav-list {
     display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
   }
 
   .hp-nav-item-btn {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 0.55rem;
-    background: rgba(15, 23, 42, 0.75);
-    border: 1px solid var(--adm-border);
-    border-radius: 9999px;
-    padding: 0.5rem 1.05rem;
+    justify-content: space-between;
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 0.58rem 0.85rem;
     color: var(--adm-text-secondary);
-    font-size: 0.83rem;
+    font-size: 0.84rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .hp-nav-item-btn:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.05);
     color: #ffffff;
-    border-color: rgba(255, 255, 255, 0.18);
-    transform: translateY(-1px);
+    border-color: rgba(255, 255, 255, 0.08);
+    transform: translateX(2px);
   }
 
   .hp-nav-item-btn.is-active {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.35) 0%, rgba(14, 165, 233, 0.3) 100%);
-    border-color: rgba(59, 130, 246, 0.65);
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.22) 0%, rgba(99, 102, 241, 0.12) 100%);
+    border-color: rgba(59, 130, 246, 0.5);
     color: #ffffff;
     font-weight: 600;
-    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25), 0 0 12px rgba(59, 130, 246, 0.15);
+  }
+
+  .hp-nav-item-label {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .hp-nav-count-badge {
     font-size: 0.68rem;
     font-family: var(--font-mono);
-    padding: 0.1rem 0.45rem;
+    padding: 0.12rem 0.45rem;
     border-radius: 9999px;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.06);
     color: var(--adm-text-muted);
   }
   .hp-nav-item-btn.is-active .hp-nav-count-badge {
-    background: rgba(59, 130, 246, 0.45);
+    background: rgba(59, 130, 246, 0.4);
     color: #fff;
   }
 
-  /* Full Width Editor Canvas */
+  /* Right Editor Column */
   .hp-editor-main {
-    width: 100%;
+    min-width: 0;
   }
 
   .hp-sticky-bar {
@@ -738,12 +755,12 @@ require_once __DIR__ . '/includes/sidebar.php';
   }
 </style>
 
-<div class="admin-card" style="margin-bottom: 1.25rem;">
+<div class="admin-card" style="margin-bottom: 1.5rem;">
   <div class="admin-card-header" style="margin-bottom: 0;">
     <div>
       <div class="admin-card-title">Pengelola Konten Halaman Utama</div>
       <p style="font-size: var(--text-xs); color: var(--color-cream-muted); margin-top: 0.25rem;">
-        Pilih kategori dan bagian dari navigasi horizontal di bawah untuk mengedit teks &amp; komponen visual secara spesifik.
+        Pilih bagian halaman dari <strong>Sidebar Navigasi Bagian</strong> di sebelah kiri untuk mengedit teks &amp; komponen visual secara spesifik.
       </p>
     </div>
     <div>
@@ -764,57 +781,34 @@ require_once __DIR__ . '/includes/sidebar.php';
 <form method="post" id="homepageForm">
   <?= csrf_field() ?>
 
-  <!-- Full-Width Shell with Horizontal Stepper Navigation -->
+  <!-- 2-Column Master-Detail Shell -->
   <div class="hp-editor-shell">
     
-    <!-- TOP: Horizontal Categorized Nav Stepper Card -->
-    <div class="hp-top-nav-card">
-      <div class="hp-top-nav-header">
-        <div>
-          <div style="font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 0.5rem;">
-            <span>⚡</span> Navigasi Bagian Beranda
-          </div>
-          <div style="font-size: 0.78rem; color: var(--adm-text-secondary); margin-top: 0.15rem;">
-            Pilih cluster kategori di baris 1, lalu klik pill bagian di baris 2 untuk membuka form editor.
-          </div>
+    <!-- LEFT: Distinct Floating Sub-Sidebar Category Menu -->
+    <aside class="hp-subnav-sidebar">
+      <div class="hp-subnav-header">
+        <div class="hp-subnav-header-title">
+          <span>🧭</span> Navigasi Bagian
         </div>
-        
-        <div class="hp-search-box">
-          <span class="hp-search-icon">🔍</span>
-          <input type="text" id="hpMenuSearch" class="hp-search-input" placeholder="Cari bagian / keyword...">
-        </div>
+        <span class="hp-subnav-count-total"><?= count($groups) ?> Bagian</span>
       </div>
 
-      <!-- Level 1: Category Cluster Tabs -->
-      <div class="hp-cluster-tabs-bar" role="tablist">
-        <?php 
-        $catIndex = 0;
-        foreach ($categories as $catKey => $cat): 
-          $isFirstCat = ($catIndex === 0);
-        ?>
-          <button type="button" 
-                  class="hp-cluster-tab-btn <?= $isFirstCat ? 'is-active' : '' ?>" 
-                  data-cluster-target="cluster-<?= e($catKey) ?>">
+      <div class="hp-search-box">
+        <span class="hp-search-icon">🔍</span>
+        <input type="text" id="hpMenuSearch" class="hp-search-input" placeholder="Cari bagian / keyword...">
+      </div>
+
+      <?php 
+      $groupKeys = array_keys($groups);
+      $firstKey = $groupKeys[0];
+      foreach ($categories as $catKey => $cat): 
+      ?>
+        <div class="hp-cluster-group">
+          <div class="hp-cluster-title">
             <span><?= $cat['icon'] ?></span>
             <span><?= e($cat['name']) ?></span>
-            <span style="font-size: 0.72rem; opacity: 0.65; font-family: var(--font-mono);">(<?= count($cat['items']) ?>)</span>
-          </button>
-        <?php 
-          $catIndex++;
-        endforeach; 
-        ?>
-      </div>
-
-      <!-- Level 2: Section Sub-Pills per Cluster -->
-      <div class="hp-cluster-pills-wrap">
-        <?php 
-        $catIndex = 0;
-        $groupKeys = array_keys($groups);
-        $firstKey = $groupKeys[0];
-        foreach ($categories as $catKey => $cat): 
-          $isFirstCat = ($catIndex === 0);
-        ?>
-          <div class="hp-section-pills-bar <?= $isFirstCat ? 'is-active' : '' ?>" id="cluster-<?= e($catKey) ?>">
+          </div>
+          <div class="hp-nav-list">
             <?php foreach ($cat['items'] as $id => $grp): 
               $isFirst = ($id === $firstKey);
             ?>
@@ -822,22 +816,20 @@ require_once __DIR__ . '/includes/sidebar.php';
                       class="hp-nav-item-btn <?= $isFirst ? 'is-active' : '' ?>" 
                       data-tab-target="panel-<?= e($id) ?>"
                       data-tab-title="<?= e($grp['icon'] . ' ' . $grp['title']) ?>"
-                      data-cluster-parent="cluster-<?= e($catKey) ?>"
                       data-keywords="<?= strtolower(e($grp['title'] . ' ' . $grp['desc'] . ' ' . implode(' ', $grp['keys']))) ?>">
-                <span><?= $grp['icon'] ?></span>
-                <span><?= e($grp['title']) ?></span>
+                <span class="hp-nav-item-label">
+                  <span><?= $grp['icon'] ?></span>
+                  <span><?= e($grp['title']) ?></span>
+                </span>
                 <span class="hp-nav-count-badge"><?= count($grp['keys']) ?></span>
               </button>
             <?php endforeach; ?>
           </div>
-        <?php 
-          $catIndex++;
-        endforeach; 
-        ?>
-      </div>
-    </div>
+        </div>
+      <?php endforeach; ?>
+    </aside>
 
-    <!-- MAIN: Active Editor Panels -->
+    <!-- RIGHT: Active Editor Panels -->
     <main class="hp-editor-main">
       
       <!-- Sticky Action Bar -->
@@ -1308,8 +1300,6 @@ require_once __DIR__ . '/includes/sidebar.php';
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const clusterButtons = document.querySelectorAll('.hp-cluster-tab-btn');
-    const clusterPillBars = document.querySelectorAll('.hp-section-pills-bar');
     const navButtons = document.querySelectorAll('.hp-nav-item-btn');
     const panels = document.querySelectorAll('.hp-section-panel');
     const activeLabel = document.getElementById('currentSectionTitle');
@@ -1318,25 +1308,8 @@ require_once __DIR__ . '/includes/sidebar.php';
     const jumpButtons = document.querySelectorAll('.btn-nav-jump');
     const searchInput = document.getElementById('hpMenuSearch');
 
-    function activateCluster(clusterId) {
-      clusterButtons.forEach(btn => {
-        btn.classList.toggle('is-active', btn.getAttribute('data-cluster-target') === clusterId);
-      });
-      clusterPillBars.forEach(bar => {
-        bar.classList.toggle('is-active', bar.id === clusterId);
-      });
-    }
-
     function activateTab(targetPanelId, titleHtml) {
       if (toggleShowAll && toggleShowAll.checked) return;
-
-      const matchingBtn = document.querySelector(`.hp-nav-item-btn[data-tab-target="${targetPanelId}"]`);
-      if (matchingBtn) {
-        const parentCluster = matchingBtn.getAttribute('data-cluster-parent');
-        if (parentCluster) {
-          activateCluster(parentCluster);
-        }
-      }
 
       navButtons.forEach(btn => {
         const isTarget = btn.getAttribute('data-tab-target') === targetPanelId;
@@ -1351,57 +1324,13 @@ require_once __DIR__ . '/includes/sidebar.php';
         activeLabel.innerHTML = titleHtml;
       }
 
-      // Sync main sidebar sublinks active state
-      const sidebarSublinks = document.querySelectorAll('.sidebar-sublink');
-      sidebarSublinks.forEach(link => {
-        const targetHash = (link.getAttribute('href') || '').split('#')[1];
-        link.classList.toggle('active', 'panel-' + targetHash === targetPanelId);
-      });
-
       // Update URL hash without reload
       if (history.replaceState) {
         history.replaceState(null, null, '#' + targetPanelId.replace('panel-', ''));
       }
     }
 
-    // Connect main sidebar sublinks to tab activation
-    const sidebarSublinks = document.querySelectorAll('.sidebar-sublink');
-    sidebarSublinks.forEach(link => {
-      link.addEventListener('click', function(e) {
-        const targetHash = (this.getAttribute('href') || '').split('#')[1];
-        if (targetHash) {
-          e.preventDefault();
-          const targetBtn = document.querySelector(`.hp-nav-item-btn[data-tab-target="panel-${targetHash}"]`);
-          const title = targetBtn ? targetBtn.getAttribute('data-tab-title') : '';
-          activateTab('panel-' + targetHash, title);
-          window.scrollTo({ top: document.querySelector('.hp-sticky-bar').offsetTop - 20, behavior: 'smooth' });
-        }
-      });
-    });
-
-    // Cluster Tab Clicks (Level 1)
-    clusterButtons.forEach(btn => {
-      btn.addEventListener('click', function() {
-        const clusterTarget = this.getAttribute('data-cluster-target');
-        activateCluster(clusterTarget);
-
-        // Auto select first pill in that cluster if none in it is active
-        const targetBar = document.getElementById(clusterTarget);
-        if (targetBar) {
-          const activePill = targetBar.querySelector('.hp-nav-item-btn.is-active');
-          if (activePill) {
-            activateTab(activePill.getAttribute('data-tab-target'), activePill.getAttribute('data-tab-title'));
-          } else {
-            const firstPill = targetBar.querySelector('.hp-nav-item-btn');
-            if (firstPill) {
-              activateTab(firstPill.getAttribute('data-tab-target'), firstPill.getAttribute('data-tab-title'));
-            }
-          }
-        }
-      });
-    });
-
-    // Section Pill Clicks (Level 2)
+    // Left Subnav Item Clicks
     navButtons.forEach(btn => {
       btn.addEventListener('click', function() {
         const target = this.getAttribute('data-tab-target');
@@ -1461,37 +1390,26 @@ require_once __DIR__ . '/includes/sidebar.php';
       });
     });
 
-    // Search filter across section pills
+    // Search filter in left subnav sidebar
     if (searchInput) {
       searchInput.addEventListener('input', function() {
         const q = this.value.toLowerCase().trim();
+        const groups = document.querySelectorAll('.hp-cluster-group');
 
-        if (!q) {
-          // Restore regular cluster pill bar visibility
-          const activeClusterBtn = document.querySelector('.hp-cluster-tab-btn.is-active');
-          const activeClusterTarget = activeClusterBtn ? activeClusterBtn.getAttribute('data-cluster-target') : 'cluster-hero_cluster';
-          activateCluster(activeClusterTarget);
-          navButtons.forEach(btn => {
-            btn.style.display = 'inline-flex';
-          });
-          return;
-        }
-
-        // Show matching pills across all clusters
-        clusterPillBars.forEach(bar => {
-          let hasMatchInBar = false;
-          const items = bar.querySelectorAll('.hp-nav-item-btn');
+        groups.forEach(grp => {
+          let visibleInGroup = 0;
+          const items = grp.querySelectorAll('.hp-nav-item-btn');
           items.forEach(item => {
             const kw = item.getAttribute('data-keywords') || '';
             const title = item.getAttribute('data-tab-title') || '';
-            if (kw.includes(q) || title.toLowerCase().includes(q)) {
-              item.style.display = 'inline-flex';
-              hasMatchInBar = true;
+            if (!q || kw.includes(q) || title.toLowerCase().includes(q)) {
+              item.style.display = 'flex';
+              visibleInGroup++;
             } else {
               item.style.display = 'none';
             }
           });
-          bar.classList.toggle('is-active', hasMatchInBar);
+          grp.style.display = visibleInGroup > 0 ? 'block' : 'none';
         });
       });
     }

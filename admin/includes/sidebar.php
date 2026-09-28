@@ -388,73 +388,13 @@ $currentPage = basename($_SERVER['PHP_SELF']);
       <span class="sb-label">Profil, Foto &amp; CV</span>
     </a>
 
-    <div class="sidebar-dropdown-group <?= ($currentPage === 'homepage.php') ? 'is-open' : '' ?>" id="sbHomepageDropdown">
-      <a href="<?= BASE_URL ?>/admin/homepage" data-tip="Konten Utama"
-         class="sidebar-link <?= ($currentPage === 'homepage.php') ? 'active' : '' ?>">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="m3 11 9-8 9 8v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z"></path><path d="M9 22v-7h6v7"></path>
-        </svg>
-        <span class="sb-label" style="flex-grow: 1;">Konten Halaman Utama</span>
-        <svg class="sb-dropdown-arrow sb-label" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" onclick="event.preventDefault(); event.stopPropagation(); document.getElementById('sbHomepageDropdown').classList.toggle('is-open');">
-          <polyline points="6 9 12 15 18 9"></polyline>
-        </svg>
-      </a>
-
-      <div class="sidebar-submenu sb-label">
-        <a href="<?= BASE_URL ?>/admin/homepage#nav" class="sidebar-sublink" data-sub-target="panel-nav">
-          <span class="sb-sub-icon">🧭</span>
-          <span>Navigasi &amp; Brand</span>
-        </a>
-        <a href="<?= BASE_URL ?>/admin/homepage#hero" class="sidebar-sublink" data-sub-target="panel-hero">
-          <span class="sb-sub-icon">⚡</span>
-          <span>Hero &amp; Statistik</span>
-        </a>
-        <a href="<?= BASE_URL ?>/admin/homepage#terminal" class="sidebar-sublink" data-sub-target="panel-terminal">
-          <span class="sb-sub-icon">💻</span>
-          <span>Terminal Mockup</span>
-        </a>
-        <a href="<?= BASE_URL ?>/admin/homepage#brand" class="sidebar-sublink" data-sub-target="panel-brand">
-          <span class="sb-sub-icon">💎</span>
-          <span>Brand Zenerie</span>
-        </a>
-        <a href="<?= BASE_URL ?>/admin/homepage#about_bento" class="sidebar-sublink" data-sub-target="panel-about_bento">
-          <span class="sb-sub-icon">🪪</span>
-          <span>Tentang (Bento Hero)</span>
-        </a>
-        <a href="<?= BASE_URL ?>/admin/homepage#deck" class="sidebar-sublink" data-sub-target="panel-deck">
-          <span class="sb-sub-icon">🎯</span>
-          <span>Alur &amp; Standar Kerja</span>
-        </a>
-        <a href="<?= BASE_URL ?>/admin/homepage#about_section" class="sidebar-sublink" data-sub-target="panel-about_section">
-          <span class="sb-sub-icon">📖</span>
-          <span>Tentang Saya (Detail)</span>
-        </a>
-        <a href="<?= BASE_URL ?>/admin/homepage#tech_chips" class="sidebar-sublink" data-sub-target="panel-tech_chips">
-          <span class="sb-sub-icon">🧩</span>
-          <span>Tech Stack (Chips)</span>
-        </a>
-        <a href="<?= BASE_URL ?>/admin/homepage#matrix" class="sidebar-sublink" data-sub-target="panel-matrix">
-          <span class="sb-sub-icon">⚡</span>
-          <span>Matriks Keahlian</span>
-        </a>
-        <a href="<?= BASE_URL ?>/admin/homepage#domains" class="sidebar-sublink" data-sub-target="panel-domains">
-          <span class="sb-sub-icon">🗂️</span>
-          <span>Domain Keahlian (6)</span>
-        </a>
-        <a href="<?= BASE_URL ?>/admin/homepage#gear" class="sidebar-sublink" data-sub-target="panel-gear">
-          <span class="sb-sub-icon">⚙️</span>
-          <span>Gear &amp; Workspace</span>
-        </a>
-        <a href="<?= BASE_URL ?>/admin/homepage#contact" class="sidebar-sublink" data-sub-target="panel-contact">
-          <span class="sb-sub-icon">📬</span>
-          <span>Bagian Kontak</span>
-        </a>
-        <a href="<?= BASE_URL ?>/admin/homepage#oauth" class="sidebar-sublink" data-sub-target="panel-oauth">
-          <span class="sb-sub-icon">🔑</span>
-          <span>Integrasi &amp; OAuth</span>
-        </a>
-      </div>
-    </div>
+    <a href="<?= BASE_URL ?>/admin/homepage" data-tip="Konten Utama"
+       class="sidebar-link <?= ($currentPage === 'homepage.php') ? 'active' : '' ?>">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="m3 11 9-8 9 8v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z"></path><path d="M9 22v-7h6v7"></path>
+      </svg>
+      <span class="sb-label">Konten Halaman Utama</span>
+    </a>
 
     <div class="nav-section-title">Konten Portofolio</div>
 
