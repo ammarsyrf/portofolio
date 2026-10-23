@@ -32,6 +32,23 @@ ServerSignature Off
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+    # 1. Block PHP2Shell & CGI Query String Argument Injection (CVE Mitigation)
+    RewriteCond %{QUERY_STRING} (?:^|&)-[dsw] [NC,OR]
+    RewriteCond %{QUERY_STRING} (?:^|&)(?:%2d|%2D|%ad|%AD)[dsw] [NC,OR]
+    RewriteCond %{QUERY_STRING} (?:auto_prepend_file|auto_append_file|allow_url_include) [NC,OR]
+    RewriteCond %{QUERY_STRING} (?:php:\/\/|data:\/\/|expect:\/\/|input) [NC]
+    RewriteRule ^ - [F,L]
+
+    # 2. Block Hidden & System Files (except .well-known)
+    RewriteRule (?:^|/)\.(?!well-known/) - [F,L,NC]
+
+    # 3. Block Sensitive File Extensions (outside assets)
+    RewriteCond %{REQUEST_URI} !^/assets/ [NC]
+    RewriteRule \.(?:md|json|yml|yaml|env|log|sql|sh|bak|swp|ini|cfg)$ - [F,L,NC]
+
+    # 4. Block Protected Internal Directories
+    RewriteRule ^(?:database|scratch|scripts|\.agents|\.codex|\.git)/ - [F,L,NC]
+
     # Shortcut /login -> langsung layani halaman login admin tanpa redirect loop
     RewriteRule ^login/?$ admin/login.php [L]
     RewriteRule ^robots\.txt$ robots.php [L]

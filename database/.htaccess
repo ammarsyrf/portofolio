@@ -1,0 +1,3 @@
+# Proteksi Direktori Database & Migrasi
+# Berkas database, migrasi, dan skema SQL hanya boleh diakses internal oleh sistem backend.
+Require all denied

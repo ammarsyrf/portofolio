@@ -1,12 +1,24 @@
 # Keamanan Direktori Uploads
-# Mencegah eksekusi file script berbahaya di folder uploads
+# Mencegah eksekusi file script berbahaya di folder uploads (PHP2Shell & RCE Hardening)
 
 Options -Indexes -ExecCGI
 
-<FilesMatch "(?i)\.(php|phtml|php3|php4|php5|php7|php8|phps|pht|pl|py|cgi|sh|bash)$">
-    Require all denied
+# Hapus seluruh script handler
+RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .php8 .phps .phar .inc .pl .py .cgi
+RemoveType .php .phtml .php3 .php4 .php5 .php7 .php8 .phps .phar .inc .pl .py .cgi
+
+# Blokir akses langsung ke ekstensi script yang dapat dieksekusi
+<FilesMatch "(?i)\.(php|phtml|php[0-9]*|phps|phar|inc|pl|py|cgi|sh|bash|exe|bat|cmd|pht)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order Deny,Allow
+        Deny from all
+    </IfModule>
 </FilesMatch>
 
+# Matikan engine PHP jika modul terpasang
 <IfModule mod_php.c>
     php_flag engine off
 </IfModule>
@@ -15,4 +27,16 @@ Options -Indexes -ExecCGI
 </IfModule>
 <IfModule mod_php8.c>
     php_flag engine off
+</IfModule>
+
+# Paksa default-handler untuk semua file statis yang diizinkan
+<IfModule mod_mime.c>
+    SetHandler default-handler
+    AddType image/webp .webp
+    AddType image/jpeg .jpg .jpeg
+    AddType image/png .png
+    AddType image/gif .gif
+    AddType image/svg+xml .svg
+    AddType application/pdf .pdf
+    AddType application/json .json
 </IfModule>
